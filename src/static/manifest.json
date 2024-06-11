@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "xHealth",
+  "version": "1.0.0",
+  "description": "This extension will help you to track your health",
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "permissions": ["activeTab", "scripting"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "host_permissions": [
+    "https://*/*",
+    "http://*/*"
+  ]
+}
