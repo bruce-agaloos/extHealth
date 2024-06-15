@@ -6,7 +6,7 @@ module.exports = {
     entry: {
         popup: path.resolve("./src/popup/popup.html"),
         background: path.resolve("./src/background/backgroundScript.ts"),
-        contentScript: path.resolve("./src/content/contentScript.ts"),
+        content: path.resolve("./src/content/contentScript.ts"),
     },
     output: {
         path: path.resolve(__dirname, "dist"),
@@ -43,6 +43,6 @@ module.exports = {
         ],
     },
     resolve: {
-        extensions: ['.ts', '.js','.html'], // Add '.js' to support JavaScript files
+        extensions: ['.ts', '.js','.html'], 
     },
 };
