@@ -6,36 +6,19 @@ const popupHTML = `
     </div>
 </div>`;
 
-function showPopup(): void {
-    document.body.insertAdjacentHTML('beforeend', popupHTML);
-    const popup = document.getElementById('customPopup');
-    if (popup) {
-        popup.style.display = 'flex';
+function togglePopup(show: boolean): void {
+    let popup = document.getElementById('customPopup');
+    if (!popup && show) {
+        document.body.insertAdjacentHTML('beforeend', popupHTML);
+        popup = document.getElementById('customPopup');
+        document.getElementById('closePopupButton')?.addEventListener('click', () => togglePopup(false));
     }
-
-    const closeButton = document.getElementById('closePopupButton');
-    if (closeButton) {
-        closeButton.addEventListener('click', () => {
-            if (popup) {
-                popup.style.display = 'none';
-            }
-        });
+    if (popup) {
+        popup.style.display = show ? 'flex' : 'none';
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const closePopup = (): void => {
-        const popup = document.getElementById('customPopup');
-        if (popup) {
-            popup.style.display = 'none';
-        } else {
-            console.error('Element with ID "customPopup" not found.');
-        }
-    };
-
-    // Assuming you want to close the popup as soon as the DOM is ready
-    closePopup();
-});
+document.addEventListener('DOMContentLoaded', () => togglePopup(false));
 
 export const startTimer = (duration: number): void => {
     let remainingTime = duration;
@@ -48,9 +31,9 @@ export const startTimer = (duration: number): void => {
         if (remainingTime <= 0) {
             clearInterval(countdownInterval);
             console.log("Countdown finished");
-            // This will show a popup when the countdown finishes
-            showPopup();
+            togglePopup(true); 
             startTimer(duration);  // Reset the countdown
         }
-    }, 1000); // 1000 milliseconds = 1 second
+    }, 1000);
 };
+
