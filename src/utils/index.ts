@@ -1,1 +1,3 @@
-export { startTimer } from './schedule';
+export { startTimer } from "./schedule";
+export { Smmry } from "./api";
+
