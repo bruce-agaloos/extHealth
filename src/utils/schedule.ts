@@ -1,4 +1,5 @@
 import { togglePopup } from "./togglePopup";
+import { contentString } from "./api";
 
 document.addEventListener("DOMContentLoaded", () => togglePopup(false));
 
@@ -24,7 +25,7 @@ const startTimer = (
       clearInterval(timerIntervalId as NodeJS.Timeout);
       console.log("Countdown finished");
 
-      togglePopup(true, "hatdog para sayo");
+      togglePopup(true, contentString);
       if (repeat && timerActive) {
         startTimer(duration, true);
       } else {
