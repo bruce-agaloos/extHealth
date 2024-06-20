@@ -1,9 +1,10 @@
 import { startTimer } from '../utils';
 import { stopTimer } from '../utils/schedule';
+import { fetchAndScrapeData } from '../utils/api';
 
 
 console.log("contentScript loaded");
-
+fetchAndScrapeData();
 let isTrue = false;
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.toggleState !== undefined) {
