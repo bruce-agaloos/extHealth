@@ -1,60 +1,57 @@
 export let contentString;
 
-// const BASE_URL = "http://localhost:3000";
-
-// // Use the base URL to construct the URL for the news fetch
-// const newsBaseURL = new URL("/news", BASE_URL);
-
-// fetch(newsBaseURL.toString())
-//   .then((response) => response.json())
-//   .then((articles) => {
-//     if (articles.length > 0) {
-//       // Collect all article URLs
-//       const articleUrls = articles.map(article => article.url);
-
-//       // Use the base URL to construct the URL for the scrape request
-//       const scrapeBaseURL = new URL("/scrape", BASE_URL);
-
-//       // Send all URLs to the `/scrape` endpoint in a single request
-//       return fetch(scrapeBaseURL.toString(), {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({ articleUrls }), // Send the array of URLs
-//       });
-//     }
-//     throw new Error("No articles found");
-//   })
-//   .then((response) => response.json())
-//   .then((data) => {
-//     // Process the scraped content for all URLs
-//     console.log(data); // Assuming `data` contains the results for all URLs
-//   })
-//   .catch((error) => console.error("Error:", error));
-
-export function fetchAndScrapeData() {
-  // Construct the URL for the `/fetchAndScrape` endpoint
-  const url = 'http://localhost:3000/fetchAndScrape';
-
-  // Make a GET request to the endpoint
+function fetchCondition() {
+  const url = 'http://localhost:5000/get_condition';
   fetch(url)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
+    .then(response => response.json())
     .then(data => {
-      // Process the fetched data
-      console.log('Fetched data:', data);
-      // Here you can update your UI with the fetched data
+      console.log(data); 
+      const method = 'lex-rank'; 
+      const language = 'english'; 
+      const sentenceCount = 3; 
+      const inputType = 'URL'; 
+      const inputText = data.url; 
+      summarizeText(method, language, sentenceCount, inputType, inputText)
+        .then(summary => {
+          data.summary = summary; 
+          console.log('Data with Summary:', data); 
+        })
+        .catch(error => console.error('Error summarizing text:', error));
     })
-    .catch(error => {
-      console.error('There was a problem with your fetch operation:', error);
-    });
+    .catch(error => console.error('Error fetching data:', error));
 }
 
-// Call the function to fetch data
-
+function summarizeText(
+  method: string, 
+  language: string, 
+  sentenceCount: number, 
+  inputType: string, 
+  inputText: string
+): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const apiUrl = 'http://localhost:5000/summarize';
+    const data = {
+      data: [method, language, sentenceCount, inputType, inputText]
+    };
+    
+    fetch(apiUrl, {
+      method: 'POST', 
+      headers: {
+        'Content-Type': 'application/json' 
+      },
+      body: JSON.stringify(data) 
+    })
+      .then(response => response.text()) 
+      .then(summary => {
+        console.log('Summary:', summary);
+        contentString = summary;
+        resolve(summary); 
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        reject(error);
+      });
+  });
+}
+fetchCondition();
 
