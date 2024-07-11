@@ -1,32 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React from "react";
+import { setExtensionState } from "../../utils/storage";
+import { ToggleProps } from "./../../utils/types";
 
-const ToggleComponent = ({ onToggle }) => {
-    const [isToggled, setIsToggled] = useState(false);
+const Toggle: React.FC<ToggleProps> = ({ isOn, onChange }) => {
+  const handleToggleChange = () => {
+    onChange(!isOn);
+    setExtensionState(!isOn);
+  };
 
-    useEffect(() => {
-        const storedState = localStorage.getItem('isToggled');
-        if (storedState !== null) {
-            setIsToggled(JSON.parse(storedState));
-        }
-    }, []);
-
-    const handleToggle = (event) => {
-        const newState = event.target.checked;
-        setIsToggled(newState);
-        localStorage.setItem('isToggled', JSON.stringify(newState));
-        onToggle(newState);
-    };
-
-    return (
-        <label className="toggle-container">
-            <input
-                type="checkbox"
-                checked={isToggled}
-                onChange={handleToggle}
-            />
-            <span className="toggle-circle"></span>
-        </label>
-    );
+  return (
+    <label className="switch">
+      <input
+        type="checkbox"
+        id="toggle-switch"
+        checked={isOn}
+        onChange={handleToggleChange}
+      />
+      <span className="slider round"></span>
+    </label>
+  );
 };
 
-export default ToggleComponent;
+export default Toggle;
