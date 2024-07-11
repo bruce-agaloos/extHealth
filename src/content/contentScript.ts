@@ -1,27 +1,34 @@
-import { startTimer } from '../utils';
-import { stopTimer } from '../utils/schedule';
+import { startTimer } from "../utils";
+import { stopTimer } from "../utils/schedule";
+import { getExtensionState } from "../utils";
 
+const TIMER_DURATION = 5; 
 
-console.log("contentScript loaded");
+const setInitialExtensionState = async (): Promise<void> => {
+  const isExtensionEnabled = await getExtensionState();
+  if (isExtensionEnabled) {
+    enableExtension();
+  } else {
+    disableExtension();
+  }
+};
+setInitialExtensionState();
 
-
-let isTrue = false;
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    if (request.toggleState !== undefined) {
-        console.log("Toggle state is now:", request.toggleState);
-        if (request.toggleState === true) {
-       
-            startTimer(5, true);
-        }
-        if (request.toggleState === false) {
-            console.log("Timer stopped");
-            stopTimer();
-        }
+chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+  if (message.state !== undefined) {
+    const state = message.state;
+    if (state) {
+      enableExtension();
+    } else {
+      disableExtension();
     }
+  }
 });
 
+const enableExtension = (): void => {
+    startTimer(TIMER_DURATION);
+};
 
-
-
-
-
+const disableExtension = (): void => {
+    stopTimer();
+};
