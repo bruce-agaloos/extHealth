@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "./popup.css";
 
-import { getExtensionState } from "../utils/storage";
+import { getExtensionState } from "./../utils/storage";
 import { sendExtensionStateToContentScript, } from "../utils/general";
 import { Toggle } from "./components";
 

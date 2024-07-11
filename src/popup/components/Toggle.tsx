@@ -1,5 +1,5 @@
 import React from "react";
-import { setExtensionState } from "../../utils/storage";
+import { setExtensionState } from "./../../utils/storage";
 import { ToggleProps } from "./../../utils/types";
 
 const Toggle: React.FC<ToggleProps> = ({ isOn, onChange }) => {
