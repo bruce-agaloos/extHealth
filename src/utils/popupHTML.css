@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap');
+
+.customPopup {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 300px;
+    background-color: transparent;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    font-family: "Roboto Slab";
+}
+
+.closePopupButton {
+    position: fixed;
+    top: 10px; /* Adjust as needed */
+    right: 10px; /* Adjust as needed */
+    background: none;
+    border: none;
+    font-size: 24px; /* Adjust size as needed */
+    cursor: pointer;
+}
+
+.popupContent {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    color: black;
+    border: 1px solid #ccc;
+}
+
+.moin {
+    display: flex;
+    justify-content: space-between;
+}
+
+.popupTitle {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.popupSummary {
+    font-size: 14px;
+    color: #333;
+}
+
+.popupUrl {
+    color: blue;
+}
+
+.closePopupButton {
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.popupHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* margin-bottom: 10px; */
+}
