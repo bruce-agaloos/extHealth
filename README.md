@@ -3,13 +3,12 @@
 - extension state
 - local storage
 - toggle button backend
+- popup timer
 
 # In progress
-- popup timer
-- timed/seasonal health tips 
+- health tips ui format
+    - custom css for X & Facebook
 
 # To Do
-- health tips ui format (NHS attributions)  
+- timed/seasonal health tips
 - configure local storage extenstion state
-
-  
