@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>extHealth header</title>
+    <link rel="stylesheet" href="design.css" />
+  </head>
+
+  <body>
+    <header class="board">
+      <div class="TitleLogo">
+        <img src="icon.png" alt="Logo" class="logo" />
+        <h2 id="popupTitle" class="popupTitle">
+          eXtHealth <span class="forc">for Chrome</span>
+        </h2>
+      </div>
+    </header>
+    <section id="options">
+      <ul>
+        <li ref="factChecking">
+          <img src="" alt="factLogp" />
+          Fact Checking
+        </li>
+        <li ref="healthReminders">
+          <img src="" alt="reminderLogo" />
+          Health Reminders
+        </li>
+        <li ref="settings">
+          <img src="" alt="settingsLogo" />
+          Settings
+        </li>
+      </ul>
+    </section>
+    <section id="factChecking"></section>
+    <section id="healthReminders"></section>
+    <section id="settings"></section>
+
+    <script>
+      window.addEventListener("DOMContentLoaded", (event) => {
+        document.querySelectorAll("#options ul li").forEach((li) => {
+          li.addEventListener("click", (event) => {
+            document.querySelectorAll("#options ul li").forEach((li) => {
+              li.classList.remove("activeOption");
+            });
+
+            let clickedElement = event.target;
+            // If the clicked element is not the li itself, find the closest li parent
+            if (clickedElement.tagName !== "LI") {
+              clickedElement = clickedElement.closest("li");
+            }
+
+            clickedElement.classList.add("activeOption");
+
+            // Get the ref attribute of the clicked li element
+            const refValue = clickedElement.getAttribute("ref");
+            // Log the ref value
+            toggleOption(refValue);
+          });
+        });
+      });
+
+      function toggleOption(refValue) {
+        console.log(refValue);
+      }
+    </script>
+  </body>
+</html>
