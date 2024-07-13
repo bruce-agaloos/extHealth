@@ -1,0 +1,12 @@
+@import url("bodyId.css");
+@import url("header.css");
+@import url("options.css");
+
+body {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto 1fr; 
+  height: 100vh; 
+  gap: 10px; 
+  padding: 1rem;
+}

@@ -1,7 +1,14 @@
+/* header */
+header {
+  grid-column: 1 / 4;
+  grid-row: 1 / 2;
+}
+
 .board {
   padding: 10px;
   position: relative;
 }
+
 .board::before,
 .board::after {
   content: "";
@@ -54,50 +61,7 @@
   color: #7e7e7e;
 }
 
-#options ul {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  list-style-type: none;
-  padding: 0;
-  transform-origin: center;
-  animation: expandFromMiddle 1s ease-out forwards;
-}
-
-#options ul li {
-  text-align: center;
-  cursor: pointer;
-  padding: 10px;
-  flex: 1;
-  position: relative; /* Needed for absolute positioning of the pseudo-element */
-}
-#options ul li::before {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 0; /* Start with 0 width */
-  height: 1px; /* Height of the border */
-  background-color: blue; /* Color of the border */
-  transition: all 0.5s ease; /* Smooth transition for the border */
-  transform: translateX(-50%); /* Center the element */
-}
-
-#options ul li.activeOption::before {
-  width: 100%; /* Expand the border to full width */
-}
-
-@keyframes expandFromMiddle {
-  from {
-    opacity: 0;
-    transform: scale(0.5);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
+/* title logo */
 @keyframes appearLeftToCenter {
   from {
     opacity: 0;
@@ -109,23 +73,33 @@
   }
 }
 
+/* title logo */
 @keyframes appearRightToCenter {
-    from {
-      opacity: 0;
-      transform: translateX(100%);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateX(100%);
   }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
 
+/* for title logo border */
 @keyframes growFromLeft {
-    from { width: 0; }
-    to { width: 50%; } /* Grow to the middle */
+  from {
+    width: 0;
   }
-  
-  @keyframes growFromRight {
-    from { width: 0; }
-    to { width: 50%; } /* Grow to the middle */
+  to {
+    width: 50%;
+  } /* Grow to the middle */
+}
+
+@keyframes growFromRight {
+  from {
+    width: 0;
   }
+  to {
+    width: 50%;
+  } /* Grow to the middle */
+}

@@ -1,0 +1,73 @@
+/* body section */
+#body {
+  grid-column: 1 / 4;
+  grid-row: 3 / 4;
+}
+
+#body div {
+  opacity: 0;
+  text-align: center;
+  height: 0;
+}
+#body .selectedOption {
+  opacity: 1;
+}
+
+#body .appearRight {
+  animation: appearRight 1s forwards;
+}
+
+#body .appearLeft {
+  animation: appearLeft 1s forwards;
+}
+
+#body .disappearRight {
+  animation: disappearRight 1s forwards;
+}
+
+#body .disappearLeft {
+  animation: disappearLeft 1s forwards;
+}
+@keyframes appearRight {
+    from {
+      opacity: 0;
+      transform: translateX(100%) scaleY(0);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0) scaleY(1);
+    }
+  }
+  
+  @keyframes appearLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-100%) scaleY(0);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0) scaleY(1);
+    }
+  }
+  
+  @keyframes disappearLeft {
+    from {
+      opacity: 1;
+      transform: translateX(0) scaleY(1);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(-100%) scaleY(0);
+    }
+  }
+  
+  @keyframes disappearRight {
+    from {
+      opacity: 1;
+      transform: translateX(0) scaleY(1);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(100%) scaleY(0);
+    }
+  }

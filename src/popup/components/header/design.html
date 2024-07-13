@@ -4,10 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>extHealth header</title>
-    <link rel="stylesheet" href="design.css" />
+    <link rel="stylesheet" href="default.css" />
   </head>
 
-  <body>
+  <body style="width:800px; height:600px; margin: auto; border: 1px solid black;">
+    <!-- note we are following the max height and width of a browser extension -->
+     <!-- just remove the border -->
+
     <header class="board">
       <div class="TitleLogo">
         <img src="icon.png" alt="Logo" class="logo" />
@@ -18,11 +21,11 @@
     </header>
     <section id="options">
       <ul>
-        <li ref="factChecking">
-          <img src="" alt="factLogp" />
+        <li ref="factChecking" >
+          <img src="" alt="factLogo" />
           Fact Checking
         </li>
-        <li ref="healthReminders">
+        <li ref="healthReminders" class="activeOption">
           <img src="" alt="reminderLogo" />
           Health Reminders
         </li>
@@ -32,9 +35,17 @@
         </li>
       </ul>
     </section>
-    <section id="factChecking"></section>
-    <section id="healthReminders"></section>
-    <section id="settings"></section>
+    <section id ="body">
+        <div id="factChecking">
+            sample fact
+        </div>
+        <div id="healthReminders" class="selectedOption">
+            sample reminder
+        </div>
+        <div id="settings">
+            sample settings
+        </div>
+    </section>
 
     <script>
       window.addEventListener("DOMContentLoaded", (event) => {
@@ -43,25 +54,47 @@
             document.querySelectorAll("#options ul li").forEach((li) => {
               li.classList.remove("activeOption");
             });
-
+    
             let clickedElement = event.target;
             // If the clicked element is not the li itself, find the closest li parent
             if (clickedElement.tagName !== "LI") {
               clickedElement = clickedElement.closest("li");
             }
-
+    
             clickedElement.classList.add("activeOption");
-
+    
             // Get the ref attribute of the clicked li element
             const refValue = clickedElement.getAttribute("ref");
             // Log the ref value
             toggleOption(refValue);
           });
         });
-      });
 
+        const element = document.querySelector('#body .selectedOption');
+        element.classList.add('appearRight');
+      });
+    
       function toggleOption(refValue) {
-        console.log(refValue);
+        const appearClasses = ['appearRight', 'appearLeft'];
+        const disappearClasses = ['disappearRight', 'disappearLeft'];
+
+        const currentlySelected = document.querySelector("#body div.selectedOption");
+        const selectedOption = document.getElementById(refValue);
+        
+
+        // if the next selected is on the right. make the next one appear from the right. and the current one disappear to the left
+        // vise versa
+        if (currentlySelected) {
+          const disappearClass = currentlySelected.nextElementSibling === selectedOption ? disappearClasses[0] : disappearClasses[1];
+          currentlySelected.classList.remove("selectedOption");
+          currentlySelected.classList.add(disappearClass);
+        }
+    
+        [...appearClasses, ...disappearClasses].forEach(cls => selectedOption.classList.remove(cls));
+    
+        const appearClass = currentlySelected && currentlySelected.nextElementSibling === selectedOption ? appearClasses[0] : appearClasses[1];
+        
+        selectedOption.classList.add("selectedOption", appearClass);
       }
     </script>
   </body>
