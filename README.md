@@ -6,9 +6,10 @@
 - popup timer
 
 # In progress
+- separate extension state specifics
 - health tips ui format
-    - custom css for X & Facebook
+    - separate custom css 
 
 # To Do
 - timed/seasonal health tips
-- configure local storage extenstion state
+
