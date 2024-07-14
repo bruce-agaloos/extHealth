@@ -20,6 +20,11 @@ const sampleFact = {
             relationship: 'neutral',
             url: 'https://example.com',
           },
+          {
+            premise: '4',
+            relationship: 'neutral',
+            url: 'https://example.com',
+          },
         ],
       },
       {
