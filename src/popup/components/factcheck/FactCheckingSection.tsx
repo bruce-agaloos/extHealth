@@ -34,7 +34,7 @@ const FactCheckingSection: React.FC = () => {
           onChange={handleChange(index)}
         >
           {fact.premises.map((premise, idx) => (
-            <Evidence premise={premise} />
+            <Evidence idx={idx} premise={premise} />
           ))}
         </CustomAccordion>
       ))}

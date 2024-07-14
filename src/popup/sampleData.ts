@@ -43,7 +43,7 @@ const sampleFact = {
         ],
       },
       {
-        hypothesis: '3',
+        hypothesis: '32',
         premises: [
           {
             premise: '1',
@@ -64,3 +64,5 @@ const sampleFact = {
       },
     ],
   };
+
+  export default sampleFact;

@@ -7,6 +7,8 @@ npm run build
 
 Done:
 Redesign header for popup
+- local storage access for fact checking
+
 
 Todo:
 Do the design of the header in react
@@ -15,5 +17,6 @@ fact check section
 - evidence (link and everytihng)
 - accordion (claim evidence pair)
 
-- local storage for fact checking
+
 - button of check this health out
+- actual locale setting storage(when calling the function refer to rosgen)

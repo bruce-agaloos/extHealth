@@ -13,3 +13,18 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         return true;  // Indicate that response will be sent asynchronously
     }
 });
+
+// sample notification
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.message === 'playNotification') {
+        chrome.notifications.create({
+            type: 'basic',
+            iconUrl: 'icon.png',
+            title: 'New Email',
+            message: 'You have a new email.',
+            priority: 2
+          });
+        
+          
+    }
+});

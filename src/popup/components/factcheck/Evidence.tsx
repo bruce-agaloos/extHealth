@@ -2,6 +2,7 @@ import React from 'react';
 import Typography from '@mui/material/Typography';
 
 interface EvidenceProps {
+  idx : number;
   premise: {
     premise: string;
     relationship: string;
@@ -9,9 +10,9 @@ interface EvidenceProps {
   };
 }
 
-const Evidence: React.FC<EvidenceProps> = ({ premise }) => {
+const Evidence: React.FC<EvidenceProps> = ({idx, premise }) => {
   return (
-    <div>
+    <div key={idx}>
       <Typography variant="body2">
         <strong>Premise:</strong> {premise.premise}
       </Typography>
