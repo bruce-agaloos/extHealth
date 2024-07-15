@@ -5,8 +5,6 @@ import sampleFact from "./sampleData"; // simulated data removed after
 
 import { Toggle } from "./components";
 
-import FactCheckingSection from "./components/factcheck/FactCheckingSection"
-
 import Layout from "./layout/layout";
 
 const Popup = () => {

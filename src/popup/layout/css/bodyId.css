@@ -4,11 +4,17 @@
   grid-row: 3 / 4;
 }
 
-#body div {
+#body > div {
   opacity: 0;
   text-align: center;
-  height: 0;
+  position: relative;
 }
+#body > div > div {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
 #body .selectedOption {
   opacity: 1;
 }
@@ -31,43 +37,43 @@
 @keyframes appearRight {
     from {
       opacity: 0;
-      transform: translateX(100%) scaleY(0);
+      transform: translateX(100%);
     }
     to {
       opacity: 1;
-      transform: translateX(0) scaleY(1);
+      transform: translateX(0);
     }
   }
   
   @keyframes appearLeft {
     from {
       opacity: 0;
-      transform: translateX(-100%) scaleY(0);
+      transform: translateX(-100%);
     }
     to {
       opacity: 1;
-      transform: translateX(0) scaleY(1);
+      transform: translateX(0);
     }
   }
   
   @keyframes disappearLeft {
     from {
       opacity: 1;
-      transform: translateX(0) scaleY(1);
+      transform: translateX(0);
     }
     to {
       opacity: 0;
-      transform: translateX(-100%) scaleY(0);
+      transform: translateX(-100%);
     }
   }
   
   @keyframes disappearRight {
     from {
       opacity: 1;
-      transform: translateX(0) scaleY(1);
+      transform: translateX(0);
     }
     to {
       opacity: 0;
-      transform: translateX(100%) scaleY(0);
+      transform: translateX(100%);
     }
   }
