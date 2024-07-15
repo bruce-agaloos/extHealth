@@ -7,6 +7,7 @@ import { Toggle } from "./components";
 
 import FactCheckingSection from "./components/factcheck/FactCheckingSection"
 
+import Layout from "./layout/layout";
 
 const Popup = () => {
     
@@ -16,14 +17,7 @@ const Popup = () => {
 
     return (
         <>
-            {/* <Toggle onToggle={(isOn) => {
-                chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-                    chrome.tabs.sendMessage(tabs[0].id, { toggleState: isOn });
-                });
-            }} /> */}
-
-            <FactCheckingSection />
-
+            <Layout />
         </>
     );
 };
