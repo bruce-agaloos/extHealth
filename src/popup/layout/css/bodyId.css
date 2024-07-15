@@ -6,7 +6,6 @@
 
 #body > div {
   opacity: 0;
-  text-align: center;
   position: relative;
 }
 #body > div > div {
