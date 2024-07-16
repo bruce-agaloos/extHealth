@@ -5,10 +5,7 @@ import { stopTimer } from '../utils/schedule';
 
 
 // Fact Checking
-import { sendTextToServer } from "../utils/api_fight_misinfo";
-import {
-    fight_misinfo_inject
-} from "../utils/fight_misinfo_inject";
+
 
 
 // detecting tweets
@@ -16,7 +13,7 @@ import { sampleDomKeywordExtractor, sampleHello, sampleOCR, sampleTranslation } 
 import { TweetBodyWrapper, TwitterTheme } from '../utils/dom-extractor/types';
 import { getXTheme } from '../utils/dom-extractor/dom';
 
-chrome.runtime.sendMessage({ message: "playNotification" });
+
 
 let isTrue = false;
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
@@ -38,8 +35,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
 // fact check function
 const factCheck = async (text: string): Promise<void> => {
-    let response = await sendTextToServer(text);
-    fight_misinfo_inject(response);
+    chrome.runtime.sendMessage({ message: "factCheck", text: text });
 }
 
 
@@ -116,7 +112,7 @@ import { allKeywords } from './health_keywords';
 import { nanoid } from 'nanoid';
 
 
-const createBtnElement = (): HTMLButtonElement => {
+const createBtnElement = (tweetBody): HTMLButtonElement => {
     const viewBtn = document.createElement("button");
     viewBtn.style.backgroundColor = "#F11729";
     viewBtn.style.color = "#FFFFFF";
@@ -134,6 +130,7 @@ const createBtnElement = (): HTMLButtonElement => {
     viewBtn.style.fontSize = "14px";
     viewBtn.style.fontWeight = "bold";
     viewBtn.textContent = "Check This OUT!";
+    viewBtn.setAttribute('data-value', tweetBody);
 
     return viewBtn;
 };
@@ -163,10 +160,6 @@ const detectNewTweets = async (): Promise<void> => {
             tweet.setAttribute("data-tweet-processed", "true");
 
             const tweetBodyWrapper = tweet.querySelectorAll('div.css-175oi2r > div[data-testid="tweetText"]');
-            // const tweetBodyWrapper = tweet.querySelectorAll('div.css-146c3p1');
-            
-            // console.log('TweetBodyWrapper');
-            // console.log(tweetBodyWrapper);
             const combinedWrappers = document.createElement('div');
             
             tweetBodyWrapper.forEach(element => {
@@ -174,7 +167,7 @@ const detectNewTweets = async (): Promise<void> => {
             });
             
             const tweetBody = extractTweetBody(combinedWrappers);
-            console.log(tweetBody); 
+            
 
             if (tweetBody) {
                 const keyword_extraction_result = extractKeywords(tweetBody)
@@ -201,12 +194,13 @@ const detectNewTweets = async (): Promise<void> => {
                     
                         const overlayId = nanoid();
                         console.log('Overlay ID', overlayId);
-                        const viewBtn = createBtnElement();
+                        const viewBtn = createBtnElement(tweetBody);
 
                         viewBtn.setAttribute("data-overlay-id", overlayId);
-                        // viewBtn.addEventListener("click", () => {
-                            
-                        // });
+                        viewBtn.addEventListener("click", () => {
+                            console.log(viewBtn.getAttribute("data-value"));
+                            // factCheck(viewBtn.getAttribute("data-value"));
+                        });
 
                         overlayElement.appendChild(viewBtn);
                         tweet.append(overlayElement);
