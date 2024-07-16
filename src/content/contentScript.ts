@@ -16,6 +16,7 @@ import { sampleDomKeywordExtractor, sampleHello, sampleOCR, sampleTranslation } 
 import { TweetBodyWrapper, TwitterTheme } from '../utils/dom-extractor/types';
 import { getXTheme } from '../utils/dom-extractor/dom';
 
+chrome.runtime.sendMessage({ message: "playNotification" });
 
 let isTrue = false;
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
@@ -31,6 +32,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         }
     }
 });
+
+
 
 
 // fact check function

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fact Check</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="default.css">
+</head>
+<body style="width: 800px; border: 1px solid black; margin: auto;">
+    <section id = "factChecking">
+        <section id="factChecking-option">
+            <div class="flex-container">
+                <div class="clickable-div" data-target="all" onclick="toggleBorder(this)">
+                    <span class="status-indicator all-indicator">1</span>
+                    <p class="status-text">All</p>
+                </div>
+                <div class="clickable-div" data-target="entailment" onclick="toggleBorder(this)">
+                    <span class="status-indicator entailment-indicator">1</span>
+                    <p class="status-text">Supported</p>
+                </div>
+    
+                <div class="clickable-div" data-target="neutral" onclick="toggleBorder(this)">
+                    <span class="status-indicator neutral-indicator">1</span>
+                    <p class="status-text">Mixed</p>
+                </div>
+    
+                <div class="clickable-div" data-target="contra" onclick="toggleBorder(this)">
+                    <span class="status-indicator contra-indicator">1</span>
+                    <p class="status-text">Disputed</p>
+                </div>
+            </div>
+        </section>
+        <section id="factChecking-evidences">
+            <div id="all">
+                <div class="claimEvidencePair">
+                    <div class="claim">
+                        <h4 style="font-family: 'Roboto Slab', serif;">Query 1</h4>
+                    </div>
+                    <div class="evidence">
+                        <div class="evidence-dropdown supported">
+                            <span>1</span>
+                            supported
+                        </div>
+                        <div class = "evidence-dropdown disputed">
+                            <span>1</span>
+                            disputed
+                        </div>
+                        <div class = "evidence-dropdown mixed">
+                            <span>1</span>
+                            mixed
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="entailment" style="overflow-y: auto;  display: none;">
+                <div style="margin: 1.5rem; border-bottom: 1px solid #00000033">
+                    <h4 style="font-family: 'Roboto Slab', serif;">Premise 1</h4>
+                    <p style="color: #524A3E;">View full article at <a href="#" style="text-decoration: none; color: inherit;">www.</a></p>
+                </div>
+                <div style="margin: 1.5rem; border-bottom: 1px solid #00000033">
+                    <h4 style="font-family: 'Roboto Slab', serif;">Premise 1</h4>
+                    <p style="color: #524A3E;">View full article at <a href="#" style="text-decoration: none; color: inherit;">www.</a></p>
+                </div>
+                <div style="margin: 1.5rem; border-bottom: 1px solid #00000033">
+                    <h4 style="font-family: 'Roboto Slab', serif;">Premise 1</h4>
+                    <p style="color: #524A3E;">View full article at <a href="#" style="text-decoration: none; color: inherit;">www.</a></p>
+                </div>
+                <div style="margin: 1.5rem; border-bottom: 1px solid #00000033">
+                    <h4 style="font-family: 'Roboto Slab', serif;">Premise 1</h4>
+                    <p style="color: #524A3E;">View full article at <a href="#" style="text-decoration: none; color: inherit;">www.</a></p>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <script>
+        function toggleBorder(clickedDiv) {
+            // Reset bottom border for all divs
+            document.querySelectorAll('.clickable-div').forEach(div => {
+                div.style.borderBottom = '1px solid #DFDCD8';
+            });
+            // Remove bottom border for the clicked div
+            clickedDiv.style.borderBottom = 'none';
+    
+            // Hide all target divs
+            document.querySelectorAll('#all, #entailment, #contra, #neutral').forEach(div => {
+                div.style.display = 'none';
+            });
+    
+            // Show the target div related to the clicked div
+            const targetId = clickedDiv.getAttribute('data-target');
+            document.getElementById(targetId).style.display = 'block';
+        }
+    </script>
+</body>
+</html>
