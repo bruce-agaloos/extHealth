@@ -28,3 +28,29 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
           
     }
 });
+
+
+// For Browser Window Right Click Context Menu
+chrome.contextMenus.create({
+    id: "extHealth",
+    title: "Check Health Information",
+    contexts: ["selection", "image"]
+}, function() {
+    if (chrome.runtime.lastError) {
+        console.error(chrome.runtime.lastError.message);
+    } else {
+        console.log("Context Menu item created successfully!");
+    }
+}
+);
+
+chrome.contextMenus.onClicked.addListener((info, tab) => {
+    if (info.menuItemId === "extHealth") {
+        // const query = info.selectionText;
+        // sendTextToServer(query);
+        console.log("Clicked on context menu item");
+        console.log(info);
+        console.log("The selected text:", info.selectionText);
+        console.log("The URL of selected image:", info.srcUrl)
+    }
+});
