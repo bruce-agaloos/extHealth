@@ -34,7 +34,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 chrome.contextMenus.create({
     id: "extHealth",
     title: "Check Health Information",
-    contexts: ["selection"]
+    contexts: ["selection", "image"]
 }, function() {
     if (chrome.runtime.lastError) {
         console.error(chrome.runtime.lastError.message);
@@ -51,5 +51,6 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
         console.log("Clicked on context menu item");
         console.log(info);
         console.log("The selected text:", info.selectionText);
+        console.log("The URL of selected image:", info.srcUrl)
     }
 });
