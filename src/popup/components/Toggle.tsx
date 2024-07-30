@@ -1,11 +1,11 @@
 import React from "react";
-import { setExtensionState } from "./../../utils/storage";
+import { setPopupState } from "./../../utils/storage";
 import { ToggleProps } from "./../../utils/types";
 
 const Toggle: React.FC<ToggleProps> = ({ isOn, onChange }) => {
   const handleToggleChange = () => {
     onChange(!isOn);
-    setExtensionState(!isOn);
+    setPopupState(!isOn);
   };
 
   return (
