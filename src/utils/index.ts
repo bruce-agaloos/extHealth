@@ -2,17 +2,20 @@ import { startTimer } from "./schedule";
 
 import {
     getCurrentTab,
-    sendExtensionStateToContentScript,
+    sendMessageToContentScript,
     initialScroll,
 } from "./general";
-import { setExtensionState, getExtensionState } from "./storage";
+import { setPopupState, getPopupState, setCategoryState, getCategoryState } from "./storage";
 
 export {
-    sendExtensionStateToContentScript,
+    sendMessageToContentScript,
     initialScroll,
-    getExtensionState,
-    setExtensionState,
+    getPopupState,
+    setPopupState,
     getCurrentTab,
     startTimer,
+
+    getCategoryState,
+    setCategoryState
 };
 
