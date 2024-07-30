@@ -4,9 +4,10 @@
 - local storage
 - toggle button backend
 - popup timer
+- Categories
 
 # In progress
-- separate extension state specifics
+- New api Integration
 - health tips ui format
     - separate custom css 
 
