@@ -2,16 +2,19 @@
  * Sends the extension state to configure the browser extension accordingly
  * @param state - true if extension is enabled, otherwise false
  */
-const sendExtensionStateToContentScript = (state: boolean): void => {
+const sendMessageToContentScript = (message: object, callback?: (response: any) => void): void => {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
         const activeTab = tabs[0];
         if (activeTab) {
-            chrome.tabs.sendMessage(activeTab.id, {
-                state: state,
+            chrome.tabs.sendMessage(activeTab.id, message, function (response) {
+                if (callback) {
+                    callback(response);
+                }
             });
         }
     });
 };
+
 
 /**
  * Retrieves the currently active tab in the user's browser
@@ -32,4 +35,4 @@ const initialScroll = (): void => {
     }, 3500);
 };
 
-export { getCurrentTab, sendExtensionStateToContentScript, initialScroll };
+export { getCurrentTab, initialScroll, sendMessageToContentScript };
