@@ -1,12 +1,7 @@
-
 // summarizing/giving news
-import { startTimer } from '../utils';
-import { stopTimer } from '../utils/schedule';
-
-
-// Fact Checking
-
-
+import { startTimer } from "../utils";
+import { stopTimer } from "../utils/schedule";
+import { getPopupState, getCategoryState } from "../utils";
 
 // detecting tweets
 import { sampleDomKeywordExtractor, sampleHello, sampleOCR, sampleTranslation } from './sampleScript';
@@ -14,20 +9,64 @@ import { TweetBodyWrapper, TwitterTheme } from '../utils/dom-extractor/types';
 import { getXTheme } from '../utils/dom-extractor/dom';
 
 
+const TIMER_DURATION = 1 ; 
 
-let isTrue = false;
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    if (request.toggleState !== undefined) {
-        if (request.toggleState === true) {
-       
-            startTimer(5, true);
-        }
-        if (request.toggleState === false) {
-            stopTimer();
-        }
+const setInitialExtensionState = async (): Promise<void> => {
+  const isExtensionEnabled = await getPopupState();
+  if (isExtensionEnabled) {
+    enablePopup();
+  } else {
+    disablePopup();
+  }
+};
+setInitialExtensionState();
+
+// const setInitialCategoryState = async (): Promise<void> => {
+//   const isCategoryEnabled = await getCategoryState(15);
+//   if (isCategoryEnabled) {
+//     console.log("Category is enabled");
+//   } else {
+//     console.log("Category is disabled");
+//   }
+// }
+// setInitialCategoryState();
+
+chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+  if (message.state !== undefined) {
+    const state = message.state;
+    if (typeof state === 'boolean') {
+      if (state) {
+        enablePopup();
+      } else {
+        disablePopup();
+      }
+    } else {
+      console.warn("State is not a boolean:", state);
     }
+  }
+
+  if (message.category !== undefined && message.id !== undefined) {
+      const category = message.category;
+      const id = message.id;
+      if (typeof category === 'boolean') {
+          if (category) {
+              console.log(`Category ${id} is enabled`);
+          } else {
+              console.log(`Category ${id} is disabled`);
+          }
+      } else {
+          console.warn(`Category ${id} is not a boolean:`, category);
+      }
+  }
 });
 
+const enablePopup = (): void => {
+    startTimer(TIMER_DURATION);
+};
+
+const disablePopup = (): void => {
+    stopTimer();
+};
 
 
 
