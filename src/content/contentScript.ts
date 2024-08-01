@@ -18,13 +18,11 @@ import { getXTheme } from '../utils/dom-extractor/dom';
 let isTrue = false;
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.toggleState !== undefined) {
-        console.log("Toggle state is now:", request.toggleState);
         if (request.toggleState === true) {
        
             startTimer(5, true);
         }
         if (request.toggleState === false) {
-            console.log("Timer stopped");
             stopTimer();
         }
     }
@@ -138,12 +136,10 @@ const createBtnElement = (tweetBody): HTMLButtonElement => {
 
 const detectNewTweets = async (): Promise<void> => {
     
-    // console.log('Keywords:', health_keywords);
 
     const theme: TwitterTheme = getXTheme();
     
     const elements = document.getElementsByClassName(theme);
-    // console.log('Length of elements:', elements);
 
 
     for (let index = 0; index < elements.length; index++) {
@@ -167,11 +163,9 @@ const detectNewTweets = async (): Promise<void> => {
             });
             
             const tweetBody = extractTweetBody(combinedWrappers);
-            
 
             if (tweetBody) {
                 const keyword_extraction_result = extractKeywords(tweetBody)
-                console.log(keyword_extraction_result);
 
                 // Search And Match
                 keyword_extraction_result.forEach(extracted_keyword => {
@@ -193,27 +187,21 @@ const detectNewTweets = async (): Promise<void> => {
                         overlayElement.style.justifyContent = "center";
                     
                         const overlayId = nanoid();
-                        console.log('Overlay ID', overlayId);
                         const viewBtn = createBtnElement(tweetBody);
 
                         viewBtn.setAttribute("data-overlay-id", overlayId);
                         viewBtn.addEventListener("click", () => {
-                            console.log(viewBtn.getAttribute("data-value"));
-                            // factCheck(viewBtn.getAttribute("data-value"));
+                            factCheck(viewBtn.getAttribute("data-value"));
                         });
 
                         overlayElement.appendChild(viewBtn);
                         tweet.append(overlayElement);
-
-                        console.log(`Found: ${extracted_keyword}`);
                     }
                 });
 
             }
-            // console.log('Combined Wrappers');
-            // console.log(combinedWrappers);
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
     }
     // domExtractor();
@@ -221,7 +209,6 @@ const detectNewTweets = async (): Promise<void> => {
 
 const detectNewFb = async (): Promise<void> => {
     
-    // console.log('Keywords:', health_keywords);
 
     // const theme: TwitterTheme = getXTheme();
     const theme = 'div.x1lliihq';
@@ -229,16 +216,12 @@ const detectNewFb = async (): Promise<void> => {
     // const elements = document.querySelectorAll(theme);
     // const filtered_elements = Array.from(elements).filter(element => element.className === 'x1lliihq');
 
-    // console.log('Length of elements:', filtered_elements);
-    console.log("length of element:", elements);
     for (let index = 0; index < elements.length; index++) {
         const post = elements[index] as HTMLDivElement;
 //  Law & Order Special Victims Unit Season 21 Ep 1
         try {
 
             const postBodyWrapper = post.querySelectorAll('div[dir="auto"]');
-
-            console.log(postBodyWrapper);
 
         } catch (error) {
             console.error('Error:', error);
@@ -306,12 +289,10 @@ const disableDetectNewTweets = (): void => {
     window.removeEventListener('scroll', detectNewTweets);
 }
 
-
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     
    
     if (request.scene1 !== undefined) {
-        console.log("Scene 1 is now:", request.scene1);
         if (request.scene1 === true) {
             detectNewTweets();
             detectNewFb();
@@ -328,25 +309,21 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         if (request.isDomExtractorChecked) {
             sampleDomKeywordExtractor();
         } else {
-            console.log('isToggleON: ', request.isDomExtractorChecked)
         }
     }
 
     if (request.transFeat !== undefined) {
-        console.log('Trans feat:', request.transFeat);
         if (request.transFeat) {
             sampleTranslation();
         }
     }
 
     if (request.ocrFeat !== undefined) {
-        console.log('OCR FEAT:', request.ocrFeat);
         sampleOCR();
         
     }
 
     if (request.toggleState !== undefined) {
-        console.log('Toggle state is now:', request.toggleState);
 
         if (request.toggleState) {
             sampleHello();

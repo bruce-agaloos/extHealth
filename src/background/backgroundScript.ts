@@ -11,7 +11,7 @@ import {
 chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
     if (request.message === 'factCheck') {
         let response = await sendTextToServer(request.text);
-        fight_misinfo_inject(response);  // Indicate that response will be sent asynchronously
+        // fight_misinfo_inject(response);  // Indicate that response will be sent asynchronously
     }
 });
 
