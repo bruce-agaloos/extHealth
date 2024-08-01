@@ -62,7 +62,7 @@ const FactCheckingSection: React.FC = () => {
   const stateMappings = {
     entailment: "Supported",
     contradiction: "Disputed",
-    neutral: "Unsure but related"
+    neutral: "Neutral"
   };
 
   return (
@@ -76,15 +76,18 @@ const FactCheckingSection: React.FC = () => {
             </form>
             {accordionStates.map((state) => {
               const relatedPremises = fact.premises.filter(premise => premise.relationship.toLowerCase() === state.toLowerCase());
-              return relatedPremises.length > 0 && (
+              const count = relatedPremises.length;
+            
+              return count > 0 && (
                 <CustomAccordion
                   key={`${index}-${state}`}
-                  title={`${stateMappings[state]}`} // Capitalize the state
+                  title={`${stateMappings[state]}`} 
+                  count={`${count}`}
                   expanded={expanded === `${index}-${state}`}
                   onChange={handleChange(`${index}-${state}`)}
                 >
-                  {relatedPremises.map((premise, idx) => (  
-                    <Evidence key={`${index}-${state}-${idx}`} idx={idx} premise={premise}/>
+                  {relatedPremises.map((premise, idx) => (
+                    <Evidence key={`${index}-${state}-${idx}`} idx={idx} premise={premise} />
                   ))}
                 </CustomAccordion>
               );
