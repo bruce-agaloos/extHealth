@@ -18,7 +18,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["*://*.twitter.com/*", "*://*.x.com/*", "*://*.example.com/*"],
+      "matches": ["<all_urls>"],
       "js": ["content.js"]
     }
   ],

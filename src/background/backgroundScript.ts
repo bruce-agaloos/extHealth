@@ -10,23 +10,7 @@ import {
 // Listen for messages from the content script
 chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
     if (request.message === 'factCheck') {
-        let response = await sendTextToServer(request.text);
-        // fight_misinfo_inject(response);  // Indicate that response will be sent asynchronously
-    }
-});
-
-// sample notification
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if (request.message === 'playNotification') {
-        chrome.notifications.create({
-            type: 'basic',
-            iconUrl: 'icon.png',
-            title: 'New Email',
-            message: 'You have a new email.',
-            priority: 2
-          });
-        
-          
+        factCheck(request.text);
     }
 });
 
@@ -35,7 +19,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 chrome.contextMenus.create({
     id: "extHealth",
     title: "Check Health Information",
-    contexts: ["selection", "image"]
+    contexts: ["selection"]
 }, function() {
     if (chrome.runtime.lastError) {
         console.error(chrome.runtime.lastError.message);
@@ -47,11 +31,21 @@ chrome.contextMenus.create({
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
     if (info.menuItemId === "extHealth") {
-        // const query = info.selectionText;
-        // sendTextToServer(query);
-        console.log("Clicked on context menu item");
-        console.log(info);
-        console.log("The selected text:", info.selectionText);
-        console.log("The URL of selected image:", info.srcUrl)
+        factCheck(info.selectionText);
     }
 });
+
+
+async function factCheck(text) {
+    console.log("Fact Checking: ", text);
+    
+    let response = await sendTextToServer(text);
+    chrome.storage.local.set({ extHealthFacts: response });
+    chrome.notifications.create({
+        type: 'basic',
+        iconUrl: 'icon.png',
+        title: 'Fact Check Ready!!',
+        message: "Your request has been processed. Please check out the results in the extension popup.",
+        priority: 2
+        });
+}

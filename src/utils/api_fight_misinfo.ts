@@ -7,10 +7,81 @@ const API_ENDPOINT = "http://127.0.0.1:8000/api/v1/factCheck";
  */
 const sendTextToServer = async (content: string) => {
     // Encode the content to ensure it's safe to include in a URL
-    const encodedContent = encodeURIComponent(content);
-    const response = await fetch(`${API_ENDPOINT}?content=${encodedContent}`);
-    const data = await response.json();
-    return data;
+    // const encodedContent = encodeURIComponent(content);
+    // const response = await fetch(`${API_ENDPOINT}?content=${encodedContent}`);
+    // const data = await response.json();
+    // return data;
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    const sampleFact = {
+        result: [
+          {
+            hypothesis: 'sample',
+            premises: [
+              {
+                premise: '1',
+                relationship: 'contradiction',
+                url: 'https://example.com',
+              },
+              {
+                premise: '2',
+                relationship: 'entailment',
+                url: 'https://example.com',
+              },
+              {
+                premise: '3',
+                relationship: 'neutral',
+                url: 'https://example.com',
+              },
+              {
+                premise: '4',
+                relationship: 'neutral',
+                url: 'https://example.com',
+              },
+            ],
+          },
+          {
+            hypothesis: 'sample ',
+            premises: [
+              {
+                premise: '1',
+                relationship: 'contradiction',
+                url: 'https://example.com',
+              },
+              {
+                premise: '2',
+                relationship: 'entailment',
+                url: 'https://example.com',
+              },
+              {
+                premise: '3',
+                relationship: 'neutral',
+                url: 'https://example.com',
+              },
+            ],
+          },
+          {
+            hypothesis: '100000',
+            premises: [
+              {
+                premise: '1',
+                relationship: 'contradiction',
+                url: 'https://example.com',
+              },
+              {
+                premise: '2',
+                relationship: 'entailment',
+                url: 'https://example.com',
+              },
+              {
+                premise: '3',
+                relationship: 'neutral',
+                url: 'https://example.com',
+              },
+            ],
+          },
+        ],
+      };
+    return sampleFact;
 };
 
 export { sendTextToServer };
