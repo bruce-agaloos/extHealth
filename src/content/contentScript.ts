@@ -121,11 +121,11 @@ const extractor = require('keyword-extractor');
 
 const options = {
     language: "english",
-    // remove_digits: true,
+    remove_digits: false,
     return_changed_case: false,
     return_chained_words: true,
     remove_duplicates: false,
-    // return_max_ngrams: 2,
+    return_max_ngrams: 3,
 };
 
 const extractKeywords = (text : string): string[] => {
@@ -166,7 +166,12 @@ const createBtnElement = (tweetBody): HTMLButtonElement => {
     button.style.top = "-30px";
     button.style.right = "-30px";
     button.style.transformOrigin = "left";
+    // button.st
+    // button.style.transform = "scale(0)";
+    // button.style.transition = "transform 0.3s ease-in-out";
     button.style.width = "2rem";
+
+    button.style.pointerEvents = "auto";
 
     const img = document.createElement("img");
     // replace with the real image of our extension
@@ -195,6 +200,7 @@ const createBtnElement = (tweetBody): HTMLButtonElement => {
         // button.style.animation = 'expandButtonXHealth 0.5s forwards';
         button.style.width = "10rem";
         span.style.opacity = "1";
+        // button.style.transform = "scale(1)";
         
     });
 
@@ -202,6 +208,7 @@ const createBtnElement = (tweetBody): HTMLButtonElement => {
         // button.style.animation = 'shrinkButtonXHealth 0.5s forwards';
         button.style.width = "2rem";
         span.style.opacity = "0";
+        // button.style.transform = "scale(0)";
     });
 
     button.setAttribute('data-value', tweetBody);
@@ -241,21 +248,25 @@ const detectNewTweets = async (): Promise<void> => {
             const tweetBody = extractTweetBody(combinedWrappers);
 
             if (tweetBody) {
-                let overlayCreated = false;
+                let isOverlayCreated = false;
                 const keyword_extraction_result = extractKeywords(tweetBody)
-
+            
                 // Search And Match
+
                 keyword_extraction_result.forEach(extracted_keyword => {
                     const matches = allKeywords.some(keyword => extracted_keyword.toLocaleLowerCase().includes(keyword.toLowerCase()));
-                    if (matches && !overlayCreated) {
-                        console.log("the matches:", matches);
+                  
+                    if (matches && !isOverlayCreated) {
                         const overlayElement = document.createElement("div");
                         overlayElement.style.position = "absolute";
                         overlayElement.style.top = "0";
                         overlayElement.style.left = "0";
-                        overlayElement.style.width = "100%";
+                        overlayElement.style.width = "150%";
+                        // overlayElement.style.width = "auto";
                         overlayElement.style.height = "100%";
-                        overlayElement.style.backgroundColor = "#1D9BF0";
+                        // overlayElement.style.backgroundColor = "#1D9BF0";
+                        // overlayElement.style.opacity = ".5";
+                        overlayElement.style.pointerEvents = "none";
                     
                         overlayElement.style.display = "flex";
                         overlayElement.style.flexDirection = "column";
@@ -265,14 +276,27 @@ const detectNewTweets = async (): Promise<void> => {
                         const overlayId = nanoid();
                         const viewBtn = createBtnElement(tweetBody);
 
+                        // viewBtn.style.pointerEvents = "auto";
+                        // viewBtn.style.transformOrigin = "left";
+                        // viewBtn.style.transform = "scaleX(0)";
+                        // viewBtn.style.transition = "transform 0.3s ease-in-out";
                         viewBtn.setAttribute("data-overlay-id", overlayId);
                         viewBtn.addEventListener("click", () => {
                             factCheck(viewBtn.getAttribute("data-value"));
                         });
 
+                        // viewBtn.addEventListener('mouseover', () => {
+                        //     viewBtn.style.transform = "scaleX(1)";
+                        // });
+
+                        // viewBtn.addEventListener('mouseout', () => {
+                        //     viewBtn.style.transform = "scaleX(0)";
+                        // });
+
+
                         overlayElement.appendChild(viewBtn);
                         tweet.append(overlayElement);
-                        overlayCreated = true;
+                        isOverlayCreated = true;
                     }
 
                 });
