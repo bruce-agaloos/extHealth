@@ -195,6 +195,7 @@ const createBtnElement = (tweetBody): HTMLButtonElement => {
         // button.style.animation = 'expandButtonXHealth 0.5s forwards';
         button.style.width = "10rem";
         span.style.opacity = "1";
+        
     });
 
     button.addEventListener('mouseout', () => {
@@ -240,23 +241,26 @@ const detectNewTweets = async (): Promise<void> => {
             const tweetBody = extractTweetBody(combinedWrappers);
 
             if (tweetBody) {
+                let overlayCreated = false;
                 const keyword_extraction_result = extractKeywords(tweetBody)
 
                 // Search And Match
                 keyword_extraction_result.forEach(extracted_keyword => {
                     const matches = allKeywords.some(keyword => extracted_keyword.toLocaleLowerCase().includes(keyword.toLowerCase()));
-                    if (matches) {
+                    if (matches && !overlayCreated) {
+                        console.log("the matches:", matches);
                         const overlayElement = document.createElement("div");
                         overlayElement.style.position = "absolute";
                         overlayElement.style.top = "0";
                         overlayElement.style.left = "0";
                         overlayElement.style.width = "100%";
                         overlayElement.style.height = "100%";
+                        overlayElement.style.backgroundColor = "#1D9BF0";
                     
-                        // overlayElement.style.display = "flex";
-                        // overlayElement.style.flexDirection = "column";
-                        // overlayElement.style.alignItems = "center";
-                        // overlayElement.style.justifyContent = "center";
+                        overlayElement.style.display = "flex";
+                        overlayElement.style.flexDirection = "column";
+                        overlayElement.style.alignItems = "center";
+                        overlayElement.style.justifyContent = "center";
                     
                         const overlayId = nanoid();
                         const viewBtn = createBtnElement(tweetBody);
@@ -268,7 +272,9 @@ const detectNewTweets = async (): Promise<void> => {
 
                         overlayElement.appendChild(viewBtn);
                         tweet.append(overlayElement);
+                        overlayCreated = true;
                     }
+
                 });
 
             }
