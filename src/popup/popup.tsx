@@ -3,7 +3,9 @@ import { createRoot } from "react-dom/client";
 import "./popup.css";
 import sampleFact from "./sampleData"; // simulated data removed after
 
-import { Toggle } from "./components";
+import { getCategoryState, getPopupState } from "./../utils/storage";
+import { sendMessageToContentScript, } from "../utils/general";
+import { Toggle, Category } from "./components";
 
 import Layout from "./layout/layout";
 

@@ -1,11 +1,11 @@
 import React from "react";
-import { setPopupState } from "./../../utils/storage";
-import { ToggleProps } from "./../../utils/types";
+import { setCategoryState } from "../../utils/storage";
+import { CatProps } from "../../utils/types";
 
-const Toggle: React.FC<ToggleProps> = ({ isOn, onChange }) => {
+const Category: React.FC<CatProps> = ({ isOn, onChange, id }) => {
   const handleToggleChange = () => {
     onChange(!isOn);
-    setPopupState(!isOn);
+    setCategoryState(id, !isOn);
   };
 
   return (
@@ -21,4 +21,4 @@ const Toggle: React.FC<ToggleProps> = ({ isOn, onChange }) => {
   );
 };
 
-export default Toggle;
+export default Category;

@@ -1,14 +1,24 @@
+import "./popupHTML.css";
 const popupHTML = `
-<div id="customPopup" style="position: fixed; right: 0; top: 0; width: 300px; background-color: transparent; display: none; justify-content: center; align-items: center; z-index: 1000;">
-    <div id="popupContent" style="background-color: white; padding: 20px; border-radius: 5px; color: black;">
-        <h2 id="popupTitle" style="font-weight: bold; font-size: 18px; margin-bottom: 10px;" class="css-1jxf684 r-bcqeeo r-1ttztb7 r-qvutc0 r-poiln3"></h2>
-        <p id="popupSummary" style="font-size: 14px; color: #333;" class="css-1jxf684 r-bcqeeo r-1ttztb7 r-qvutc0 r-poiln3"></p>
-        <a id="popupUrl" href="" target="_blank" style="color: blue;"></a>
-        <button id="closePopupButton" style="color: black; background-color: #007bff; color: #fff; border: none; border-radius: 5px; padding: 5px 10px; cursor: pointer;"></button>
+<div id="customPopup" class="customPopup">
+    <div id="popupContent" class="popupContent">
+        <div class="popupHeader">
+          <h3>Health Reminder</h3>
+          <label>by extHeatlh</label>
+        </div>
+        
+        <h2 id="popupTitle" class="popupTitle"></h2>
+      
+        <p id="popupSummary" class="popupSummary"></p>
+        <div class="moin">
+          <a id="popupUrl" href="" target="_blank" class="popupUrl"></a>
+          <label>From www.nhs.uk</label>
+        </div> 
     </div>
 </div>
 `;
 
+//<button id="closePopupButton" class="closePopupButton" aria-label="Close">×</button>
 export function togglePopup(
   show: boolean,
   content: { headline?: string; summary?: string; url?: string } = {}
