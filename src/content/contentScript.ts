@@ -5,10 +5,7 @@ import { stopTimer } from '../utils/schedule';
 
 
 // Fact Checking
-import { sendTextToServer } from "../utils/api_fight_misinfo";
-import {
-    fight_misinfo_inject
-} from "../utils/fight_misinfo_inject";
+
 
 
 // detecting tweets
@@ -16,18 +13,16 @@ import { sampleDomKeywordExtractor, sampleHello, sampleOCR, sampleTranslation } 
 import { TweetBodyWrapper, TwitterTheme } from '../utils/dom-extractor/types';
 import { getXTheme } from '../utils/dom-extractor/dom';
 
-chrome.runtime.sendMessage({ message: "playNotification" });
+
 
 let isTrue = false;
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.toggleState !== undefined) {
-        console.log("Toggle state is now:", request.toggleState);
         if (request.toggleState === true) {
        
             startTimer(5, true);
         }
         if (request.toggleState === false) {
-            console.log("Timer stopped");
             stopTimer();
         }
     }
@@ -38,8 +33,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
 // fact check function
 const factCheck = async (text: string): Promise<void> => {
-    let response = await sendTextToServer(text);
-    fight_misinfo_inject(response);
+    chrome.runtime.sendMessage({ message: "factCheck", text: text });
 }
 
 
@@ -116,7 +110,7 @@ import { allKeywords } from './health_keywords';
 import { nanoid } from 'nanoid';
 
 
-const createBtnElement = (): HTMLButtonElement => {
+const createBtnElement = (tweetBody): HTMLButtonElement => {
     const viewBtn = document.createElement("button");
     viewBtn.style.backgroundColor = "#F11729";
     viewBtn.style.color = "#FFFFFF";
@@ -134,6 +128,7 @@ const createBtnElement = (): HTMLButtonElement => {
     viewBtn.style.fontSize = "14px";
     viewBtn.style.fontWeight = "bold";
     viewBtn.textContent = "Check This OUT!";
+    viewBtn.setAttribute('data-value', tweetBody);
 
     return viewBtn;
 };
@@ -141,12 +136,10 @@ const createBtnElement = (): HTMLButtonElement => {
 
 const detectNewTweets = async (): Promise<void> => {
     
-    // console.log('Keywords:', health_keywords);
 
     const theme: TwitterTheme = getXTheme();
     
     const elements = document.getElementsByClassName(theme);
-    // console.log('Length of elements:', elements);
 
 
     for (let index = 0; index < elements.length; index++) {
@@ -163,10 +156,6 @@ const detectNewTweets = async (): Promise<void> => {
             tweet.setAttribute("data-tweet-processed", "true");
 
             const tweetBodyWrapper = tweet.querySelectorAll('div.css-175oi2r > div[data-testid="tweetText"]');
-            // const tweetBodyWrapper = tweet.querySelectorAll('div.css-146c3p1');
-            
-            // console.log('TweetBodyWrapper');
-            // console.log(tweetBodyWrapper);
             const combinedWrappers = document.createElement('div');
             
             tweetBodyWrapper.forEach(element => {
@@ -174,11 +163,9 @@ const detectNewTweets = async (): Promise<void> => {
             });
             
             const tweetBody = extractTweetBody(combinedWrappers);
-            console.log(tweetBody); 
 
             if (tweetBody) {
                 const keyword_extraction_result = extractKeywords(tweetBody)
-                console.log(keyword_extraction_result);
 
                 // Search And Match
                 keyword_extraction_result.forEach(extracted_keyword => {
@@ -200,26 +187,21 @@ const detectNewTweets = async (): Promise<void> => {
                         overlayElement.style.justifyContent = "center";
                     
                         const overlayId = nanoid();
-                        console.log('Overlay ID', overlayId);
-                        const viewBtn = createBtnElement();
+                        const viewBtn = createBtnElement(tweetBody);
 
                         viewBtn.setAttribute("data-overlay-id", overlayId);
-                        // viewBtn.addEventListener("click", () => {
-                            
-                        // });
+                        viewBtn.addEventListener("click", () => {
+                            factCheck(viewBtn.getAttribute("data-value"));
+                        });
 
                         overlayElement.appendChild(viewBtn);
                         tweet.append(overlayElement);
-
-                        console.log(`Found: ${extracted_keyword}`);
                     }
                 });
 
             }
-            // console.log('Combined Wrappers');
-            // console.log(combinedWrappers);
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
     }
     // domExtractor();
@@ -227,7 +209,6 @@ const detectNewTweets = async (): Promise<void> => {
 
 const detectNewFb = async (): Promise<void> => {
     
-    // console.log('Keywords:', health_keywords);
 
     // const theme: TwitterTheme = getXTheme();
     const theme = 'div.x1lliihq';
@@ -235,16 +216,12 @@ const detectNewFb = async (): Promise<void> => {
     // const elements = document.querySelectorAll(theme);
     // const filtered_elements = Array.from(elements).filter(element => element.className === 'x1lliihq');
 
-    // console.log('Length of elements:', filtered_elements);
-    console.log("length of element:", elements);
     for (let index = 0; index < elements.length; index++) {
         const post = elements[index] as HTMLDivElement;
 //  Law & Order Special Victims Unit Season 21 Ep 1
         try {
 
             const postBodyWrapper = post.querySelectorAll('div[dir="auto"]');
-
-            console.log(postBodyWrapper);
 
         } catch (error) {
             console.error('Error:', error);
@@ -312,12 +289,10 @@ const disableDetectNewTweets = (): void => {
     window.removeEventListener('scroll', detectNewTweets);
 }
 
-
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     
    
     if (request.scene1 !== undefined) {
-        console.log("Scene 1 is now:", request.scene1);
         if (request.scene1 === true) {
             detectNewTweets();
             detectNewFb();
@@ -334,25 +309,21 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         if (request.isDomExtractorChecked) {
             sampleDomKeywordExtractor();
         } else {
-            console.log('isToggleON: ', request.isDomExtractorChecked)
         }
     }
 
     if (request.transFeat !== undefined) {
-        console.log('Trans feat:', request.transFeat);
         if (request.transFeat) {
             sampleTranslation();
         }
     }
 
     if (request.ocrFeat !== undefined) {
-        console.log('OCR FEAT:', request.ocrFeat);
         sampleOCR();
         
     }
 
     if (request.toggleState !== undefined) {
-        console.log('Toggle state is now:', request.toggleState);
 
         if (request.toggleState) {
             sampleHello();
