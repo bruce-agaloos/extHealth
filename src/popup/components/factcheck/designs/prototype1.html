@@ -1,0 +1,137 @@
+<!-- Design template for fact checking -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id = "exthealth-fact-check" style="position: absolute;
+     right: 10%; 
+     top: 50%; transform: 
+     translateY(-50%); 
+     box-shadow: 0 2px 4px rgba(30, 25, 25, 0.08); 
+     height: 60%; 
+     width: 25%;
+     display: flex;
+     flex-direction: column;">
+     <!-- header -->
+        <div style="display: flex; 
+        justify-content: space-between; 
+        align-items: center;
+        padding:1rem">
+            <div>
+                <h3 style="font-family: 'Roboto Slab', serif;">extHealth</h3>
+            </div>
+            <span style="display: inline-block;
+                 padding: 0.5rem; 
+                 cursor: pointer; 
+                 font-size: 2rem; 
+                 user-select: none;" 
+                 onclick=closeModal()>
+                &times;
+            </span>
+        </div>
+        <!-- claim/hypothesis -->
+        <div style="border-top: 1px solid #DFDCD8;
+                 padding: 0.5rem 1.5rem;">
+            <h3 style="font-family: 'Roboto Slab', serif;">Claim:</h3>
+            <p style="font-family: 'Roboto Slab', serif;">The earth is flat.</p>
+        </div>
+        <!-- types of premise -->
+        <div style="display: flex; justify-content: space-evenly; align-items: center;">
+            <div class="clickable-div" data-target="entailment" style="display: flex; align-items: center; flex-grow: 1; justify-content: center; border-style: solid; border-color: #DFDCD8; border-width: 1px; border-bottom: none;" onclick="toggleBorder(this)">
+                <span style="height: 5px; width: 5px; background-color:blue; border-radius: 50%; display: inline-block; margin-right: 0.5rem;"></span>
+                <p style="font-family: 'Roboto Slab', serif;">Entailment</p>
+            </div>
+            <div class="clickable-div" data-target="contra" style="display: flex; align-items: center; flex-grow: 1; justify-content: center; border-style: solid; border-color: #DFDCD8; border-width: 1px;" onclick="toggleBorder(this)">
+                <span style="height: 5px; width: 5px; background-color:red; border-radius: 50%; display: inline-block; margin-right: 0.5rem;"></span>
+                <p style="font-family: 'Roboto Slab', serif;">Contra</p>
+            </div>
+            <div class="clickable-div" data-target="neutral" style="display: flex; align-items: center; flex-grow: 1; justify-content: center; border-style: solid; border-color: #DFDCD8; border-width: 1px;" onclick="toggleBorder(this)">
+                <span style="height: 5px; width: 5px; background-color:#545454; border-radius: 50%; display: inline-block; margin-right: 0.5rem;"></span>
+                <p style="font-family: 'Roboto Slab', serif;">Neutral</p>
+            </div>
+        </div>
+        <!-- premise -->
+        <div id="entailment" style="overflow-y: auto;">
+            <div style="margin: 1.5rem; border-bottom: 1px solid #00000033">
+                <h4 style="font-family: 'Roboto Slab', serif;">Premise 1</h4>
+                <p style="color: #524A3E;">View full article at <a href="#" style="text-decoration: none; color: inherit;">www.</a></p>
+            </div>
+            <div style="margin: 1.5rem; border-bottom: 1px solid #00000033">
+                <h4 style="font-family: 'Roboto Slab', serif;">Premise 1</h4>
+                <p style="color: #524A3E;">View full article at <a href="#" style="text-decoration: none; color: inherit;">www.</a></p>
+            </div>
+            <div style="margin: 1.5rem; border-bottom: 1px solid #00000033">
+                <h4 style="font-family: 'Roboto Slab', serif;">Premise 1</h4>
+                <p style="color: #524A3E;">View full article at <a href="#" style="text-decoration: none; color: inherit;">www.</a></p>
+            </div>
+            <div style="margin: 1.5rem; border-bottom: 1px solid #00000033">
+                <h4 style="font-family: 'Roboto Slab', serif;">Premise 1</h4>
+                <p style="color: #524A3E;">View full article at <a href="#" style="text-decoration: none; color: inherit;">www.</a></p>
+            </div>
+        </div>
+        <div id="contra" style="overflow-y: auto; display: none;">
+            <div style="margin: 1.5rem; border-bottom: 1px solid #00000033">
+                <h4 style="font-family: 'Roboto Slab', serif;">Premise 2</h4>
+                <p style="color: #524A3E;">View full article at <a href="#" style="text-decoration: none; color: inherit;">www.</a></p>
+            </div>
+            <div style="margin: 1.5rem; border-bottom: 1px solid #00000033">
+                <h4 style="font-family: 'Roboto Slab', serif;">Premise 2</h4>
+                <p style="color: #524A3E;">View full article at <a href="#" style="text-decoration: none; color: inherit;">www.</a></p>
+            </div>
+            <div style="margin: 1.5rem; border-bottom: 1px solid #00000033">
+                <h4 style="font-family: 'Roboto Slab', serif;">Premise 2</h4>
+                <p style="color: #524A3E;">View full article at <a href="#" style="text-decoration: none; color: inherit;">www.</a></p>
+            </div>
+            <div style="margin: 1.5rem; border-bottom: 1px solid #00000033">
+                <h4 style="font-family: 'Roboto Slab', serif;">Premise 2</h4>
+                <p style="color: #524A3E;">View full article at <a href="#" style="text-decoration: none; color: inherit;">www.</a></p>
+            </div>
+        </div>
+        <div id="neutral" style="overflow-y: auto; display: none;">
+            <div style="margin: 1.5rem; border-bottom: 1px solid #00000033">
+                <h4 style="font-family: 'Roboto Slab', serif;">Premise 3</h4>
+                <p style="color: #524A3E;">View full article at <a href="#" style="text-decoration: none; color: inherit;">www.</a></p>
+            </div>
+            <div style="margin: 1.5rem; border-bottom: 1px solid #00000033">
+                <h4 style="font-family: 'Roboto Slab', serif;">Premise 3</h4>
+                <p style="color: #524A3E;">View full article at <a href="#" style="text-decoration: none; color: inherit;">www.</a></p>
+            </div>
+            <div style="margin: 1.5rem; border-bottom: 1px solid #00000033">
+                <h4 style="font-family: 'Roboto Slab', serif;">Premise 3</h4>
+                <p style="color: #524A3E;">View full article at <a href="#" style="text-decoration: none; color: inherit;">www.</a></p>
+            </div>
+            <div style="margin: 1.5rem; border-bottom: 1px solid #00000033">
+                <h4 style="font-family: 'Roboto Slab', serif;">Premise 3</h4>
+                <p style="color: #524A3E;">View full article at <a href="#" style="text-decoration: none; color: inherit;">www.</a></p>
+            </div>
+        </div>
+    </div>
+    <script>
+        function toggleBorder(clickedDiv) {
+            // Reset bottom border for all divs
+            document.querySelectorAll('.clickable-div').forEach(div => {
+                div.style.borderBottom = '1px solid #DFDCD8';
+            });
+            // Remove bottom border for the clicked div
+            clickedDiv.style.borderBottom = 'none';
+    
+            // Hide all target divs
+            document.querySelectorAll('#entailment, #contra, #neutral').forEach(div => {
+                div.style.display = 'none';
+            });
+    
+            // Show the target div related to the clicked div
+            const targetId = clickedDiv.getAttribute('data-target');
+            document.getElementById(targetId).style.display = 'block';
+        }
+        function closeModal() {
+            document.getElementById('exthealth-fact-check').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

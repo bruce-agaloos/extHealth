@@ -8,9 +8,11 @@
   font-family: "Roboto Slab";
 }
 
-/* Container */
-.popupContainer {
-  width: 350px;
+body {
+    height: 600px;
+    width: 800px;
+    background-color: #f1f1f1;
+    font-family: Tahoma, Geneva, sans-serif;
 }
 /* Popup Content */
 .popupContent {
