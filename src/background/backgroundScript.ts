@@ -51,7 +51,11 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
         // sendTextToServer(query);
         console.log("Clicked on context menu item");
         console.log(info);
-        console.log("The selected text:", info.selectionText);
-        console.log("The URL of selected image:", info.srcUrl)
+
+        if (info.selectionText) {
+            console.log("The selected text:", info.selectionText);
+        } else if (info.srcUrl) {
+            console.log("The URL of selected image:", info.srcUrl)
+        }
     }
 });
