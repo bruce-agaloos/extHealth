@@ -1,16 +1,25 @@
 // Api Stuffs here
 import {
-    sendTextToServer
+    factCheckWithGenerateQueries, factCheckWithoutGenerateQueries
 } from "../utils/api_fight_misinfo";
 
-import {
-    fight_misinfo_inject
-} from "../utils/fight_misinfo_inject";
 
 // Listen for messages from the content script
-chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.message === 'factCheck') {
         factCheck(request.text);
+    }
+});
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.type === 'UPDATE_FACT') {
+        updateFactCheck(request.hypothesis).then(response => {
+            sendResponse(response);
+        }).catch(error => {
+            console.error('Error:', error);
+            sendResponse({ error: error.message });
+        });
+        return true;
     }
 });
 
@@ -35,11 +44,21 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
     }
 });
 
+async function updateFactCheck(text){    
+    let response = await factCheckWithoutGenerateQueries(text);
+    chrome.notifications.create({
+        type: 'basic',
+        iconUrl: 'icon.png',
+        title: 'Fact Check Ready!!',
+        message: "Your request has been processed. Please check out the results in the extension popup.",
+        priority: 2
+        });
+    return response;
+}
+
 
 async function factCheck(text) {
-    console.log("Fact Checking: ", text);
-    
-    let response = await sendTextToServer(text);
+    let response = await factCheckWithGenerateQueries(text);
     chrome.storage.local.set({ extHealthFacts: response });
     chrome.notifications.create({
         type: 'basic',
