@@ -22,21 +22,29 @@ const factCheckWithGenerateQueries = async (content: string) => {
                 premise: '1',
                 relationship: 'contradiction',
                 url: 'https://example.com',
+                title: 'Some title',
+                date: ""
               },
               {
                 premise: '2',
                 relationship: 'entailment',
                 url: 'https://example.com',
+                title: 'Some other title',
+                date: ""
               },
               {
                 premise: '3',
                 relationship: 'neutral',
                 url: 'https://example.com',
+                title: 'Some 123 title',
+                date: ""
               },
               {
                 premise: '4',
                 relationship: 'neutral',
                 url: 'https://example.com',
+                title: 'Some 333 title',
+                date: ""
               },
             ],
           },
@@ -47,16 +55,22 @@ const factCheckWithGenerateQueries = async (content: string) => {
                 premise: '1',
                 relationship: 'contradiction',
                 url: 'https://example.com',
+                title: 'Some title',
+                date: "3/4/2021"
               },
               {
                 premise: '2',
                 relationship: 'entailment',
                 url: 'https://example.com',
+                title: 'Some title',
+                date: "3/4/2121"
               },
               {
                 premise: '3',
                 relationship: 'neutral',
                 url: 'https://example.com',
+                title: 'Some title',
+                date: "33/3/333"
               },
             ],
           },
@@ -67,16 +81,22 @@ const factCheckWithGenerateQueries = async (content: string) => {
                 premise: '1',
                 relationship: 'contradiction',
                 url: 'https://example.com',
+                title: 'Some title',
+                date: ""
               },
               {
                 premise: '2',
                 relationship: 'entailment',
                 url: 'https://example.com',
+                title: 'Some title',
+                date: ""
               },
               {
                 premise: '3',
                 relationship: 'neutral',
                 url: 'https://example.com',
+                title: 'Some title',
+                date: ""
               },
             ],
           },
@@ -98,21 +118,29 @@ const factCheckWithoutGenerateQueries = async (query: string) => {
             premise: '1',
             relationship: 'contradiction',
             url: 'https://example.com',
+            title: 'Some title',
+            date: ""
         },
         {
             premise: '2',
             relationship: 'entailment',
             url: 'https://example.com',
+            title: 'Some title',
+            date: ""
         },
         {
             premise: '3',
             relationship: 'neutral',
             url: 'https://example.com',
+            title: 'Some title',
+            date: "3232"
         },
         {
             premise: '4',
             relationship: 'neutral',
             url: 'https://example.com',
+            title: 'Some title',
+            date: ""
         },
     ];
 

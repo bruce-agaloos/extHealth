@@ -1,0 +1,21 @@
+#factChecking{
+    .evidence{
+        img{
+            height: 1rem;
+            width: 1rem;
+        }
+        a{
+            text-decoration: none;
+            color: var(--url-color);
+
+        }
+        h2{
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--claim-color)
+        }
+        p{
+           color: var(--snippets-color); 
+        }
+    }
+}
