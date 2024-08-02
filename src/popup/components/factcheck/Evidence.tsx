@@ -25,16 +25,18 @@ const Evidence: React.FC<EvidenceProps> = ({idx, premise }) => {
   return (
     <div key={idx} className="evidence">
       <img src={getIcon(premise.url)} alt="icon of image" />
-      <a href={premise.url} target="_blank" rel="noopener noreferrer">
-        {getBasedUrl(premise.url)}
-      </a>
+      <div>
+        <a href={premise.url} target="_blank" rel="noopener noreferrer">
+          {getBasedUrl(premise.url)}
+        </a>
+      </div>
       <h2>
         {premise.title}
       </h2>
       <p>
         {premise.premise}
       </p>
-      <p>
+      <p className="date">
         {premise.date ? `Published ${premise.date}` : ''}
       </p>
     </div>

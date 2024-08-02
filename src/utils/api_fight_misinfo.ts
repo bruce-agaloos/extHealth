@@ -19,10 +19,10 @@ const factCheckWithGenerateQueries = async (content: string) => {
             hypothesis: 'sample',
             premises: [
               {
-                premise: '1',
+                premise: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio.',
                 relationship: 'contradiction',
                 url: 'https://example.com',
-                title: 'Some title',
+                title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio.',
                 date: ""
               },
               {
