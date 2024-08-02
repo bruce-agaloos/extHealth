@@ -5,8 +5,8 @@ import { getPopupState, getCategoryState } from "../utils";
 
 // detecting tweets
 import { sampleDomKeywordExtractor, sampleHello, sampleOCR, sampleTranslation } from './sampleScript';
-import { TweetBodyWrapper, TwitterTheme } from '../utils/dom-extractor/types';
-import { getXTheme, createBtnElement, createOverlayElement } from '../utils/dom-extractor/dom';
+import { TwitterTheme } from '../utils/dom-extractor/types';
+import { getXTheme, extractTweetBody,createBtnElement, createOverlayElement } from '../utils/dom-extractor/dom';
 import { allKeywords } from './health_keywords';
 import { nanoid } from 'nanoid';
 
@@ -85,38 +85,7 @@ const initialScroll = (): void => {
     }, 3500);
 };
 
-const extractTweetBody = (tweetBodyWrapper: TweetBodyWrapper): string => {
-    try {
-        let text = "";
-        const chileNodes = tweetBodyWrapper.childNodes;
 
-        chileNodes.forEach((child) => {
-            if (child.nodeType === Node.TEXT_NODE) {
-                text += child.textContent.replace(/\n/g, "");
-            } else if (child.nodeType === Node.ELEMENT_NODE) {
-                text += extractTweetBody(child);
-            }
-        });
-
-        const extractedHashtags = text.replace(/(^|\s)(#)+/g, "$1 ");
-        let maskedUsernames = extractedHashtags.replace(
-            /@\w+\b/g,
-            "[USERNAME]"
-        )
-
-        const urlRegex = /https?:\/\/\S+/g;
-        const urls = maskedUsernames.match(urlRegex);
-        if (urls) {
-            urls.forEach((url) => {
-                maskedUsernames = maskedUsernames.replace(url, "[URL]");
-            });
-        }
-
-        return maskedUsernames;
-    } catch (error) {
-        return " ";
-    }
-};
 
 
 

@@ -1,6 +1,10 @@
 
-import { TwitterTheme } from "./types";
+import { TweetBodyWrapper, TwitterTheme } from "./types";
 
+/**
+ * 
+ * @returns - The current theme of the twitter page
+ */
 const getXTheme = (): TwitterTheme => {
     const bodyBackgroundColor = getComputedStyle(document.body).backgroundColor;
     if (bodyBackgroundColor === "rbg(21, 32, 43)") {
@@ -113,8 +117,42 @@ const createBtnElement = (tweetBody): HTMLButtonElement => {
 };
 
 
+const extractTweetBody = (tweetBodyWrapper: TweetBodyWrapper): string => {
+    try {
+        let text = "";
+        const chileNodes = tweetBodyWrapper.childNodes;
+
+        chileNodes.forEach((child) => {
+            if (child.nodeType === Node.TEXT_NODE) {
+                text += child.textContent.replace(/\n/g, "");
+            } else if (child.nodeType === Node.ELEMENT_NODE) {
+                text += extractTweetBody(child);
+            }
+        });
+
+        const extractedHashtags = text.replace(/(^|\s)(#)+/g, "$1 ");
+        let maskedUsernames = extractedHashtags.replace(
+            /@\w+\b/g,
+            "[USERNAME]"
+        )
+
+        const urlRegex = /https?:\/\/\S+/g;
+        const urls = maskedUsernames.match(urlRegex);
+        if (urls) {
+            urls.forEach((url) => {
+                maskedUsernames = maskedUsernames.replace(url, "[URL]");
+            });
+        }
+
+        return maskedUsernames;
+    } catch (error) {
+        return " ";
+    }
+};
+
 export {
     getXTheme,
+    extractTweetBody,
     createBtnElement,
     createOverlayElement
 }
