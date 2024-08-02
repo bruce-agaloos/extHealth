@@ -6,7 +6,7 @@ import { getPopupState, getCategoryState } from "../utils";
 // detecting tweets
 import { sampleDomKeywordExtractor, sampleHello, sampleOCR, sampleTranslation } from './sampleScript';
 import { TwitterTheme } from '../utils/dom-extractor/types';
-import { getXTheme, extractTweetBody,createBtnElement, createOverlayElement } from '../utils/dom-extractor/dom';
+import { getXTheme, extractTweetBody, createBtnElement, createOverlayElement } from '../utils/dom-extractor/dom';
 import { allKeywords } from './health_keywords';
 import { nanoid } from 'nanoid';
 
@@ -160,10 +160,14 @@ const detectNewTweets = async (): Promise<void> => {
                 console.log("Matched Keywords:", match);
                 console.log("Is there a match?", isMatch);
                 
+                /**
+                 * If isMatch is true and the overlay is not yet created
+                 * create an overlay element and append it to the tweet
+                 */
                 let isOverlayCreated = false;
                 if (isMatch && !isOverlayCreated) {
                   
-                    const overlayElement = createOverlayElement(tweet);
+                    const overlayElement = createOverlayElement();
                     const overlayId = nanoid();
                     
                     const viewBtn = createBtnElement(tweetBody);
@@ -173,6 +177,9 @@ const detectNewTweets = async (): Promise<void> => {
                     });
 
                     overlayElement.appendChild(viewBtn);
+                    // tweet.style.position = "relative";
+                    // tweet.style.paddingTop = "20px";
+                    // tweet.style.paddingBottom = "24px";
                     tweet.append(overlayElement);
                     isOverlayCreated = true;
                 }

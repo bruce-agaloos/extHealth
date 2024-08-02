@@ -22,7 +22,7 @@ const getXTheme = (): TwitterTheme => {
  * @param tweet - The HTML of the tweet
  * @returns - The overlay element
  */
-const createOverlayElement = (tweet: HTMLDivElement): HTMLDivElement => {
+const createOverlayElement = (): HTMLDivElement => {
     const overlayElement = document.createElement("div");
 
     overlayElement.style.position = "absolute";
