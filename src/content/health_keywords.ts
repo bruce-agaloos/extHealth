@@ -1,4 +1,7 @@
-const allKeywords = [
+import allTagalogHealthKeywords from './health_keywords_tagalog';
+
+const allKeywords = [ 
+  ...allTagalogHealthKeywords,
     "Abdominal aortic aneurysm",
     "Acne",
     "Acute cholecystitis",
@@ -458,7 +461,7 @@ const allKeywords = [
     "Hepatitis G",
     "Hepatitis F"
   ];
-
+  
   export {
     allKeywords
   }

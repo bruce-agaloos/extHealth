@@ -2,6 +2,8 @@ import React, { useState,  useEffect, useRef  } from 'react';
 import './css/default.css'; // Assuming styles are defined here
 
 import FactCheckingSection from "../components/factcheck/FactCheckingSection"
+import Settings from "../components/settings/section"
+
 
 const Layout = () => {
     const [activeOption, setActiveOption] = useState('factChecking');
@@ -68,7 +70,7 @@ const Layout = () => {
             <div>sample reminder</div>
           </div>
           <div id="settings" className={`${activeOption === 'settings' ? 'selectedOption' : ''} ${activeOption !== 'settings' ? 'disappearLeft' : ''}`}>
-            <div>sample settings</div>
+            <Settings/>
           </div>
         </section>
       </div>

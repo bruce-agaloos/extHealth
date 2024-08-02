@@ -10,7 +10,6 @@ import { getXTheme } from '../utils/dom-extractor/dom';
 
 
 const TIMER_DURATION = 1 ; 
-console.log("content injected")
 
 
 const setInitialExtensionState = async (): Promise<void> => {
@@ -78,7 +77,7 @@ const factCheck = async (text: string): Promise<void> => {
 }
 
 
-
+// extracting
 const initialScroll = (): void => {
     setTimeout(() => {
         window.scrollBy(0, 1);
@@ -252,11 +251,13 @@ const detectNewTweets = async (): Promise<void> => {
             if (tweetBody) {
                 let isOverlayCreated = false;
                 const keyword_extraction_result = extractKeywords(tweetBody)
-            
                 // Search And Match
-
+                console.log(keyword_extraction_result);
                 keyword_extraction_result.forEach(extracted_keyword => {
-                    const matches = allKeywords.some(keyword => extracted_keyword.toLocaleLowerCase().includes(keyword.toLowerCase()));
+                    const matches = allKeywords.some(keyword => {
+                        const isMatch = extracted_keyword.toLocaleLowerCase().includes(keyword.toLowerCase());
+                        return isMatch;
+                    });
                   
                     if (matches && !isOverlayCreated) {
                         const overlayElement = document.createElement("div");
@@ -277,7 +278,6 @@ const detectNewTweets = async (): Promise<void> => {
                     
                         const overlayId = nanoid();
                         const viewBtn = createBtnElement(tweetBody);
-
                         // viewBtn.style.pointerEvents = "auto";
                         // viewBtn.style.transformOrigin = "left";
                         // viewBtn.style.transform = "scaleX(0)";
@@ -385,21 +385,20 @@ const enableDetectNewTweets = (): void => {
     document.addEventListener('DOMContentLoaded', detectNewTweets);
     window.addEventListener('scroll', detectNewTweets);
     initialScroll();
-    
 }
 
 const disableDetectNewTweets = (): void => {
     document.removeEventListener('DOMContentLoaded', detectNewTweets);
     window.removeEventListener('scroll', detectNewTweets);
 }
+
 enableDetectNewTweets();
+
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-    
-   
     if (request.scene1 !== undefined) {
         if (request.scene1 === true) {
             detectNewTweets();
-            detectNewFb();
+            // detectNewFb();
             enableDetectNewTweets();
         } else {
             // disableDetectNewTweets();
@@ -407,7 +406,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         
 
     }
-
 
     if (request.isDomExtractorChecked !== undefined) {
         if (request.isDomExtractorChecked) {
