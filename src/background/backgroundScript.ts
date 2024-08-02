@@ -25,18 +25,27 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
 
 // For Browser Window Right Click Context Menu
-chrome.contextMenus.create({
-    id: "extHealth",
-    title: "Check Health Information",
-    contexts: ["selection"]
-}, function() {
-    if (chrome.runtime.lastError) {
-        console.error(chrome.runtime.lastError.message);
-    } else {
-        console.log("Context Menu item created successfully!");
+// Add Remove to avoid duplicates creation of context menu
+chrome.contextMenus.remove("extHealth", () => {
+  
+     // Ignore if there's an error when removing the context menu item
+     if (chrome.runtime.lastError) {
+        console.log(chrome.runtime.lastError.message);
     }
-}
-);
+
+    chrome.contextMenus.create({
+        id: "extHealth",
+        title: "Check Health Information",
+        contexts: ["selection"]
+    }, function() {
+        if (chrome.runtime.lastError) {
+            console.error(chrome.runtime.lastError.message);
+        } else {
+            console.log("Context Menu item created successfully!");
+        }
+    });
+});
+
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
     if (info.menuItemId === "extHealth") {
