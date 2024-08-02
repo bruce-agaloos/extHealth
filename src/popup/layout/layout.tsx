@@ -64,10 +64,10 @@ const Layout = () => {
           <div id="factChecking" className={`${activeOption === 'factChecking' ? 'selectedOption' : ''} appearLeft`}>
             <FactCheckingSection/>
           </div>
-          <div id="healthReminders" className={activeOption === 'healthReminders' ? 'selectedOption' : ''}>
+          <div id="healthReminders" className={`${activeOption === 'healthReminders' ? 'selectedOption' : ''} ${activeOption !== 'healthReminders' ? 'disappearLeft' : ''}`}>
             <div>sample reminder</div>
           </div>
-          <div id="settings" className={activeOption === 'settings' ? 'selectedOption' : ''}>
+          <div id="settings" className={`${activeOption === 'settings' ? 'selectedOption' : ''} ${activeOption !== 'settings' ? 'disappearLeft' : ''}`}>
             <div>sample settings</div>
           </div>
         </section>

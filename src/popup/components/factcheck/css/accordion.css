@@ -11,8 +11,8 @@
             border: none;
             height: 100%;
             width: 100%;
-            padding: 12px 20px;
-            margin: 8px 0;
+            padding: 5px 0;
+            margin-bottom: 10px;
             display: inline-block;
             box-sizing: border-box;
         }
@@ -26,7 +26,7 @@
         border: none;
         box-shadow: none;
         margin-bottom: 1.5rem;
-        margin-left: 24px;
+        /* margin-left: 24px; */
         .MuiAccordionSummary-root{
             align-items: start;
             min-height: 0;
