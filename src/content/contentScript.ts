@@ -193,42 +193,15 @@ const detectNewTweets = async (): Promise<void> => {
                 
                 let isOverlayCreated = false;
                 if (isMatch && !isOverlayCreated) {
-                    // const overlayElement = document.createElement("div");
-                    // overlayElement.style.position = "absolute";
-                    // overlayElement.style.top = "0";
-                    // overlayElement.style.left = "0";
-                    // overlayElement.style.width = "100%";
-                    // // overlayElement.style.width = "auto";
-                    // overlayElement.style.height = "100%";
-                    // // overlayElement.style.backgroundColor = "#1D9BF0";
-                    // // overlayElement.style.opacity = ".5";
-                    // overlayElement.style.pointerEvents = "none";
-
-                    // overlayElement.style.display = "flex";
-                    // overlayElement.style.flexDirection = "column";
-                    // overlayElement.style.alignItems = "center";
-                    // overlayElement.style.justifyContent = "center";
+                  
                     const overlayElement = createOverlayElement(tweet);
                     const overlayId = nanoid();
+                    
                     const viewBtn = createBtnElement(tweetBody);
-
-                    // viewBtn.style.pointerEvents = "auto";
-                    // viewBtn.style.transformOrigin = "left";
-                    // viewBtn.style.transform = "scaleX(0)";
-                    // viewBtn.style.transition = "transform 0.3s ease-in-out";
                     viewBtn.setAttribute("data-overlay-id", overlayId);
                     viewBtn.addEventListener("click", () => {
                         factCheck(viewBtn.getAttribute("data-value"));
                     });
-
-                    // viewBtn.addEventListener('mouseover', () => {
-                    //     viewBtn.style.transform = "scaleX(1)";
-                    // });
-
-                    // viewBtn.addEventListener('mouseout', () => {
-                    //     viewBtn.style.transform = "scaleX(0)";
-                    // });
-
 
                     overlayElement.appendChild(viewBtn);
                     tweet.append(overlayElement);
