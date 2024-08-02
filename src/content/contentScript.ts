@@ -10,6 +10,8 @@ import { getXTheme } from '../utils/dom-extractor/dom';
 
 
 const TIMER_DURATION = 1 ; 
+console.log("content injected")
+
 
 const setInitialExtensionState = async (): Promise<void> => {
   const isExtensionEnabled = await getPopupState();

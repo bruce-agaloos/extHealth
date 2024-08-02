@@ -23,6 +23,22 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
 });
 
+// notification for health reminders
+// Set an alarm to trigger every hour
+chrome.runtime.onInstalled.addListener(() => {
+    chrome.alarms.create('healthReminder', { periodInMinutes: 60 * 2 });
+});
+
+chrome.alarms.onAlarm.addListener((alarm) => {
+    if (alarm.name === 'healthReminder') {
+        checkAndNotify();
+    }
+});
+
+chrome.runtime.onStartup.addListener(() => {
+    checkAndNotify();
+});
+
 
 // For Browser Window Right Click Context Menu
 // Add Remove to avoid duplicates creation of context menu
@@ -53,6 +69,7 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
     }
 });
 
+// fact checking function
 async function updateFactCheck(text){    
     let response = await factCheckWithoutGenerateQueries(text);
     chrome.notifications.create({
@@ -76,4 +93,33 @@ async function factCheck(text) {
         message: "Your request has been processed. Please check out the results in the extension popup.",
         priority: 2
         });
+}
+
+
+
+// For health reminders
+function checkAndNotify() {
+    const now = Date.now();
+    chrome.storage.local.get(['lastNotificationTime'], (result) => {
+        const lastNotificationTime = result.lastNotificationTime || 0;
+        const time = 60 * 60 * 1000 * 2;
+        // const tenSeconds = 10 * 1000;
+
+        if (now - lastNotificationTime >= time) {
+            showNotification();
+            chrome.storage.local.set({ lastNotificationTime: now });
+        }
+    });
+}
+
+// Show the notification
+async function showNotification() {
+    
+    chrome.notifications.create({
+        type: 'basic',
+        iconUrl: 'icon.png',
+        title: 'Health Reminder',
+        message: 'Here is your health reminder for this hour!',
+        priority: 2
+    });
 }

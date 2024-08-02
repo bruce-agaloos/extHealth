@@ -6,9 +6,10 @@
   "action": {
     "default_popup": "popup.html"
   },
-  "permissions": ["activeTab", "scripting", "storage", "notifications", "contextMenus"],
+  "permissions": ["activeTab", "scripting", "storage", "notifications", "contextMenus", "alarms"],
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "background.js",
+    "persistent": true
   },
   "icons": {
     "16": "icon.png",
@@ -18,7 +19,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
+      "matches": ["https://*.twitter.com/*", "https://*.x.com/*"],
       "js": ["content.js"]
     }
   ],
