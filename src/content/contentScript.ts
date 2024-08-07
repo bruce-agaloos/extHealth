@@ -1,5 +1,5 @@
 // summarizing/giving news
-import { startTimer } from "../utils";
+import { initialScroll, startTimer } from "../utils";
 import { stopTimer } from "../utils/schedule";
 import { getPopupState, getCategoryState } from "../utils";
 
@@ -9,6 +9,7 @@ import { TwitterTheme } from '../utils/dom-extractor/types';
 import { getXTheme, extractTweetBody, createBtnElement, createOverlayElement } from '../utils/dom-extractor/dom';
 import { allKeywords } from './health_keywords';
 import { nanoid } from 'nanoid';
+import { getXAutoDetectState } from "../utils/storage";
 
 
 const TIMER_DURATION = 1;
@@ -20,7 +21,21 @@ const setInitialExtensionState = async (): Promise<void> => {
     } else {
         disablePopup();
     }
+
+    /**
+     * Check if X Auto Detect is enabled
+     * If enabled, start detecting new tweets
+     * If disabled, stop detecting new tweets
+     * @author -0-
+     */
+    const isXAutoDetectEnabled = await getXAutoDetectState();
+    if (isXAutoDetectEnabled) {
+        enableDetectNewTweets();
+    } else {
+        disableDetectNewTweets();
+    }
 };
+
 setInitialExtensionState();
 
 // const setInitialCategoryState = async (): Promise<void> => {
@@ -45,7 +60,23 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
         } else {
             console.warn("State is not a boolean:", state);
         }
+    }   
+
+    if (message.xAutoDetect !== undefined) {
+        const xAutoDetect = message.xAutoDetect;
+        if (typeof xAutoDetect === 'boolean') {
+            if (xAutoDetect) {
+                console.log("X Auto Detect is enabled");
+                enableDetectNewTweets();
+            } else {
+                console.log("X Auto Detect is disabled");
+                disableDetectNewTweets();
+            }
+        } else {
+            console.warn("X Auto Detect is not a boolean:", xAutoDetect);
+        }
     }
+
 
     if (message.category !== undefined && message.id !== undefined) {
         const category = message.category;
@@ -76,17 +107,6 @@ const disablePopup = (): void => {
 const factCheck = async (text: string): Promise<void> => {
     chrome.runtime.sendMessage({ message: "factCheck", text: text });
 }
-
-
-// extracting
-const initialScroll = (): void => {
-    setTimeout(() => {
-        window.scrollBy(0, 1);
-    }, 3500);
-};
-
-
-
 
 
 
@@ -189,78 +209,8 @@ const detectNewTweets = async (): Promise<void> => {
             console.error(error);
         }
     }
-    // domExtractor();
 }
 
-const detectNewFb = async (): Promise<void> => {
-
-
-    // const theme: TwitterTheme = getXTheme();
-    const theme = 'div.x1lliihq';
-    const elements = document.getElementsByClassName(theme);
-    // const elements = document.querySelectorAll(theme);
-    // const filtered_elements = Array.from(elements).filter(element => element.className === 'x1lliihq');
-
-    for (let index = 0; index < elements.length; index++) {
-        const post = elements[index] as HTMLDivElement;
-    
-        try {
-
-            const postBodyWrapper = post.querySelectorAll('div[dir="auto"]');
-
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    }
-
-    // for (let index = 0; index < elements.length; index++) {
-    //     const tweet = elements[index] as HTMLDivElement;
-
-    //     if (tweet.hasAttribute("data-tweet-processed")) {
-    //         continue;
-    //     }
-
-
-    //     // const  elements = document.getElementsByClassName('css-175oi2r r-1wbh5a2 r-1habvwh r-16xksha');
-
-    //     try {
-    //         tweet.setAttribute("data-tweet-processed", "true");
-
-    //         const tweetBodyWrapper = tweet.querySelectorAll('div[dir="auto"]');
-    //         // const tweetBodyWrapper = tweet.querySelectorAll('div.css-146c3p1');
-
-    //         // console.log('TweetBodyWrapper');
-    //         // console.log(tweetBodyWrapper);
-    //         const combinedWrappers = document.createElement('div');
-
-    //         tweetBodyWrapper.forEach(element => {
-    //             combinedWrappers.appendChild(element.cloneNode(true));
-    //         });
-
-    //         const tweetBody = extractTweetBody(combinedWrappers);
-    //         console.log(tweetBody); 
-
-    //         if (tweetBody) {
-    //             const keyword_extraction_result = extractKeywords(tweetBody)
-    //             console.log(keyword_extraction_result);
-
-    //             // Search And Match
-    //             keyword_extraction_result.forEach(extracted_keyword => {
-    //                 const matches = allKeywords.some(keyword => extracted_keyword.toLocaleLowerCase().includes(keyword.toLowerCase()));
-    //                 if (matches) {
-    //                     console.log(`Found: ${extracted_keyword}}`);
-    //                 }
-    //             });
-
-    //         }
-    //         // console.log('Combined Wrappers');
-    //         // console.log(combinedWrappers);
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }
-    // domExtractor();
-}
 
 const enableDetectNewTweets = (): void => {
     document.addEventListener('DOMContentLoaded', detectNewTweets);
@@ -272,50 +222,5 @@ const enableDetectNewTweets = (): void => {
 const disableDetectNewTweets = (): void => {
     document.removeEventListener('DOMContentLoaded', detectNewTweets);
     window.removeEventListener('scroll', detectNewTweets);
+    console.log("X Auto Detect is currently disabled");
 }
-
-enableDetectNewTweets();
-
-chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-
-
-    if (request.scene1 !== undefined) {
-        if (request.scene1 === true) {
-            detectNewTweets();
-            // detectNewFb();
-            enableDetectNewTweets();
-        } else {
-            // disableDetectNewTweets();
-        }
-
-
-    }
-
-    if (request.isDomExtractorChecked !== undefined) {
-        if (request.isDomExtractorChecked) {
-            sampleDomKeywordExtractor();
-        } else {
-        }
-    }
-
-    if (request.transFeat !== undefined) {
-        if (request.transFeat) {
-            sampleTranslation();
-        }
-    }
-
-    if (request.ocrFeat !== undefined) {
-        sampleOCR();
-
-    }
-
-    if (request.toggleState !== undefined) {
-
-        if (request.toggleState) {
-            sampleHello();
-        }
-    }
-
-
-});
-
