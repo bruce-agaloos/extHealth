@@ -11,6 +11,17 @@ const setPopupState = (extensionEnabled: boolean): Promise<void> => {
   });
 };
 
+const setXAutoDetectState = (xAutoDetectEnabled: boolean): Promise<void> => {
+  return new Promise<void>((resolve) => {
+    const vals: LocalStorage = {
+      xAutoDetectEnabled,
+    };
+    chrome.storage.local.set(vals, () => {
+      resolve();
+    });
+  });
+};
+
 const setCategoryState = (id: number, enabled: boolean): Promise<void> => {
   return new Promise<void>((resolve) => {
     const key = `id${id}Enabled`;
@@ -41,6 +52,16 @@ const getCategoryState = (id: number): Promise<boolean> => {
     });
   });
 };
+
+const getXAutoDetectState = (): Promise<boolean> => {
+    return new Promise((resolve) => {
+      chrome.storage.local.get("xAutoDetectEnabled", (result) => {
+        const state = result.xAutoDetectEnabled;
+        resolve(state);
+      });
+    });
+};
+
 
 let Carr=[];
 
@@ -74,4 +95,12 @@ function logLocalStorageValues() {
 }
 
 
-export { setPopupState, getPopupState, setCategoryState, getCategoryState, logLocalStorageValues, Carr };
+export { 
+  setXAutoDetectState,
+  getXAutoDetectState,
+  setPopupState, 
+  getPopupState, 
+  setCategoryState, 
+  getCategoryState, 
+  logLocalStorageValues, 
+  Carr };
