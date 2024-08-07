@@ -1,5 +1,6 @@
 interface LocalStorage {
     extensionEnabled?: boolean;
+    xAutoDetectEnabled?: boolean;
     id15Enabled?: boolean;
     id16Enabled?: boolean;
     id18Enabled?: boolean;
@@ -24,8 +25,14 @@ interface CatProps {
     id: number;
 }
 
+interface xAutoDetectProps {
+    isOn: boolean;
+    onChange: (newState: boolean) => void;
+}
+
 export {
     LocalStorage,
     ToggleProps,
-    CatProps
+    CatProps,
+    xAutoDetectProps
 }
