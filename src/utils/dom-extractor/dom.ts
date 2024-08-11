@@ -28,7 +28,7 @@ const createOverlayElement = (): HTMLDivElement => {
     overlayElement.style.position = "absolute";
     overlayElement.style.top = "0";
     overlayElement.style.left = "0";
-    overlayElement.style.width = "100%";
+    overlayElement.style.width = "150%";
     // overlayElement.style.width = "auto";
     overlayElement.style.height = "100%";
     // overlayElement.style.backgroundColor = "#1D9BF0";
@@ -39,8 +39,15 @@ const createOverlayElement = (): HTMLDivElement => {
     overlayElement.style.flexDirection = "column";
     overlayElement.style.alignItems = "center";
     overlayElement.style.justifyContent = "center";
+    // const button = createBtnElement("tweetBody");
+    // const buttonContainer = document.createElement('div');
+    // buttonContainer.style.width = "50%";
+    // buttonContainer.style.position = "absolute";
+    // buttonContainer.style.right = "0";
+    // buttonContainer.style.backgroundColor = "red";
 
-
+    // buttonContainer.append(button);
+    // overlayElement.appendChild(buttonContainer);
 
     return overlayElement;
 };
