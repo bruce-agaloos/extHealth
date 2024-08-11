@@ -43,9 +43,9 @@ chrome.runtime.onStartup.addListener(() => {
 // For Browser Window Right Click Context Menu
 // Add Remove to avoid duplicates creation of context menu
 chrome.contextMenus.remove("extHealth", () => {
-  
-     // Ignore if there's an error when removing the context menu item
-     if (chrome.runtime.lastError) {
+
+    // Ignore if there's an error when removing the context menu item
+    if (chrome.runtime.lastError) {
         console.log(chrome.runtime.lastError.message);
     }
 
@@ -53,7 +53,7 @@ chrome.contextMenus.remove("extHealth", () => {
         id: "extHealth",
         title: "Check Health Information",
         contexts: ["selection"]
-    }, function() {
+    }, function () {
         if (chrome.runtime.lastError) {
             console.error(chrome.runtime.lastError.message);
         } else {
@@ -63,14 +63,21 @@ chrome.contextMenus.remove("extHealth", () => {
 });
 
 
-chrome.contextMenus.onClicked.addListener((info, tab) => {
+ // Add a listener for the context menu click event
+ chrome.contextMenus.onClicked.addListener((info, tab) => {
     if (info.menuItemId === "extHealth") {
-        factCheck(info.selectionText);
+        console.log(info.selectionText);
+        // Call the factCheck function with the selected text
+        factCheck(info.selectionText).then(data => {
+            console.log(data);
+        }).catch(error => {
+            console.error(error);
+        });
     }
 });
 
 // fact checking function
-async function updateFactCheck(text){    
+async function updateFactCheck(text) {
     let response = await factCheckWithoutGenerateQueries(text);
     chrome.notifications.create({
         type: 'basic',
@@ -78,7 +85,7 @@ async function updateFactCheck(text){
         title: 'Fact Check Ready!!',
         message: "Your request has been processed. Please check out the results in the extension popup.",
         priority: 2
-        });
+    });
     return response;
 }
 
@@ -92,7 +99,7 @@ async function factCheck(text) {
         title: 'Fact Check Ready!!',
         message: "Your request has been processed. Please check out the results in the extension popup.",
         priority: 2
-        });
+    });
 }
 
 
@@ -114,7 +121,7 @@ function checkAndNotify() {
 
 // Show the notification
 async function showNotification() {
-    
+
     chrome.notifications.create({
         type: 'basic',
         iconUrl: 'icon.png',

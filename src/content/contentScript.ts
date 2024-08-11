@@ -60,7 +60,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
         } else {
             console.warn("State is not a boolean:", state);
         }
-    }   
+    }
 
     if (message.xAutoDetect !== undefined) {
         const xAutoDetect = message.xAutoDetect;
@@ -108,6 +108,61 @@ const factCheck = async (text: string): Promise<void> => {
     chrome.runtime.sendMessage({ message: "factCheck", text: text });
 }
 
+const searchKeywordAndCreateOverlay = (tweetBody: String, tweet: HTMLDivElement) => {
+    /** 
+     * This will return an array of matched keywords
+     * if the keyword is found in the tweet body
+     * 
+    */
+    const match = allKeywords
+        .map(keyword => tweetBody.toLowerCase().includes(keyword.toLowerCase()) ? keyword : null)
+        .filter(keyword => keyword !== null);
+
+    /**
+     * This will return a boolean value
+     * if match length is greater than 0
+     */
+    const isMatch = match.length > 0;
+
+    console.log("Matched Keywords:", match);
+    console.log("Is there a match?", isMatch);
+
+    /**
+     * If isMatch is true and the overlay is not yet created
+     * create an overlay element and append it to the tweet
+     */
+    let isOverlayCreated = false;
+    if (isMatch && !isOverlayCreated) {
+
+        const overlayElement = createOverlayElement();
+        const overlayId = nanoid();
+
+        const buttonContainer = document.createElement('div');
+        buttonContainer.style.width = "35%";
+        buttonContainer.style.height = "100%";
+        buttonContainer.style.position = "absolute";
+        buttonContainer.style.right = "0";
+        // buttonContainer.style.backgroundColor = "red";
+
+        const viewBtn = createBtnElement(tweetBody);
+        // viewBtn.style.width = "100%";
+        viewBtn.style.position = "absolute";
+        viewBtn.style.left = "0";
+
+        viewBtn.setAttribute("data-overlay-id", overlayId);
+        viewBtn.addEventListener("click", () => {
+            factCheck(viewBtn.getAttribute("data-value"));
+        });
+        buttonContainer.append(viewBtn);
+        overlayElement.appendChild(buttonContainer);
+        // overlayElement.appendChild(viewBtn);
+        // tweet.style.position = "relative";
+        // tweet.style.paddingTop = "20px";
+        // tweet.style.paddingBottom = "24px";
+        tweet.append(overlayElement);
+        isOverlayCreated = true;
+    }
+};
 
 
 const detectNewTweets = async (): Promise<void> => {
@@ -159,51 +214,8 @@ const detectNewTweets = async (): Promise<void> => {
             */
 
             if (tweetBody) {
-     
                 console.log("Tweet:", tweetBody);
-               
-                /** 
-                 * This will return an array of matched keywords
-                 * if the keyword is found in the tweet body
-                 * 
-                */
-                const match = allKeywords
-                    .map(keyword => tweetBody.toLowerCase().includes(keyword.toLowerCase()) ? keyword : null)
-                    .filter(keyword => keyword !== null);
-                
-                /**
-                 * This will return a boolean value
-                 * if match length is greater than 0
-                 */
-                const isMatch = match.length > 0;
-
-                console.log("Matched Keywords:", match);
-                console.log("Is there a match?", isMatch);
-                
-                /**
-                 * If isMatch is true and the overlay is not yet created
-                 * create an overlay element and append it to the tweet
-                 */
-                let isOverlayCreated = false;
-                if (isMatch && !isOverlayCreated) {
-                  
-                    const overlayElement = createOverlayElement();
-                    const overlayId = nanoid();
-                    
-                    const viewBtn = createBtnElement(tweetBody);
-                    viewBtn.setAttribute("data-overlay-id", overlayId);
-                    viewBtn.addEventListener("click", () => {
-                        factCheck(viewBtn.getAttribute("data-value"));
-                    });
-
-                    overlayElement.appendChild(viewBtn);
-                    // tweet.style.position = "relative";
-                    // tweet.style.paddingTop = "20px";
-                    // tweet.style.paddingBottom = "24px";
-                    tweet.append(overlayElement);
-                    isOverlayCreated = true;
-                }
-
+                searchKeywordAndCreateOverlay(tweetBody, tweet);
             }
         } catch (error) {
             console.error(error);
