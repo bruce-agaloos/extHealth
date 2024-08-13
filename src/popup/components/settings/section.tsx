@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 
-import { getCategoryState, getPopupState } from "./../../../utils/storage";
+import { getCategoryState, getPopupState, getXAutoDetectState } from "./../../../utils/storage";
 import { sendMessageToContentScript, } from "../../../utils/general";
-import { Toggle, Category } from "../index";
+import { Toggle, Category, XAutoDetectToggle} from "../index";
 
 const Settings: React.FC<{}> = () => {
     const [extensionState, setExtensionState] = useState<boolean | null>(false);
+    const [xAutoDetectState, setXAutoDetectState] = useState<boolean | null>(false);
     const [categoryState, setCategoryState] = useState<{ [key: number]: boolean }>({});
     const ids = [15, 16, 18, 19, 20, 21, 23, 24, 28, 29];
 
@@ -13,6 +14,11 @@ const Settings: React.FC<{}> = () => {
         getPopupState().then((state) => {
             setExtensionState(state);
         });
+
+        getXAutoDetectState().then((state) => {
+            setXAutoDetectState(state);
+        });
+
         const newState: { [key: number]: boolean } = {};
 
         ids.forEach((id) => {
@@ -34,6 +40,13 @@ const Settings: React.FC<{}> = () => {
             console.log('Received response for extension state:', response);
         });
     };
+
+    const handleXAutoDetectState = (newState: boolean): void => { 
+        setXAutoDetectState(newState);
+        sendMessageToContentScript({ xAutoDetect: newState }, (response) => {
+            console.log('Received response for xAutoDetect state:', response);
+        });
+    }
 
     const handleCategoryState = (id: number, newCategoryState: boolean): void => {
         setCategoryState((prevState) => ({
@@ -58,6 +71,20 @@ const Settings: React.FC<{}> = () => {
                         onChange={handleExtensionState}
                     />
                 </div>
+
+                <div className="containerSummary">
+                    <p id="popupSummary" className="popupSummary">
+                        Auto Detect Health Related Content in X
+                    </p>
+                    <XAutoDetectToggle
+                        isOn={xAutoDetectState}
+                        onChange={handleXAutoDetectState}
+                    />
+
+                </div>
+
+                
+
                 <div className="containerSummary">
                     <p id="popupSummary" className="popupSummary">
                         Cancer
