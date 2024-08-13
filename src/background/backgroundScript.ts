@@ -35,9 +35,9 @@ chrome.alarms.onAlarm.addListener((alarm) => {
     }
 });
 
-chrome.runtime.onStartup.addListener(() => {
-    checkAndNotify();
-});
+// chrome.runtime.onStartup.addListener(() => {
+//     checkAndNotify();
+// });
 
 
 // For Browser Window Right Click Context Menu
