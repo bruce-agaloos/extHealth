@@ -108,24 +108,15 @@ const factCheck = async (text: string): Promise<void> => {
     chrome.runtime.sendMessage({ message: "factCheck", text: text });
 }
 
-const searchKeywordAndCreateOverlay = (tweetBody: String, tweet: HTMLDivElement) => {
+const searchKeywordAndCreateOverlay = (tweetBody: string, tweet: HTMLDivElement) => {
     /** 
      * This will return an array of matched keywords
      * if the keyword is found in the tweet body
      * 
     */
-    const match = allKeywords
-        .map(keyword => tweetBody.toLowerCase().includes(keyword.toLowerCase()) ? keyword : null)
-        .filter(keyword => keyword !== null);
+    const isMatch = allKeywords
+        .some(keyword => new RegExp(`\\b${keyword}\\b`, 'i').test(tweetBody));
 
-    /**
-     * This will return a boolean value
-     * if match length is greater than 0
-     */
-    const isMatch = match.length > 0;
-
-    console.log("Matched Keywords:", match);
-    console.log("Is there a match?", isMatch);
 
     /**
      * If isMatch is true and the overlay is not yet created
@@ -194,24 +185,6 @@ const detectNewTweets = async (): Promise<void> => {
             });
 
             const tweetBody = extractTweetBody(combinedWrappers);
-
-
-            /*
-            
-            
-            example:
-            keyword to get = "ako si aries"
-            text to analyze = ["ako", "si", "aries"]
-            
-            combine all the text to analyze
-            text to analyze = "ako si aries"
-            
-            for loop
-            - keyword to get first word match any word on the text to analyze?(literall na ==, though case insensitive)
-            - if true, check ung pangalawang keyword to get compare sa kasunod na word ng text to analyze; and so on, and so forth
-            - tapos tuloy tuloy na yon
-            
-            */
 
             if (tweetBody) {
                 console.log("Tweet:", tweetBody);
