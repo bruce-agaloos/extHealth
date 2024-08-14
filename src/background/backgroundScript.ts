@@ -3,6 +3,7 @@ import {
     factCheckWithGenerateQueries, factCheckWithoutGenerateQueries
 } from "../utils/api_fight_misinfo";
 
+import {healthClaimDetection} from '../utils/claim_detection';
 
 // Listen for messages from the content script
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -64,11 +65,21 @@ chrome.contextMenus.remove("extHealth", () => {
 
 
  // Add a listener for the context menu click event
- chrome.contextMenus.onClicked.addListener((info, tab) => {
+chrome.contextMenus.onClicked.addListener((info, tab) => {
     if (info.menuItemId === "extHealth") {
-        console.log(info.selectionText);
-        // Call the factCheck function with the selected text
-        factCheck(info.selectionText).then(data => {
+        const text = info.selectionText;
+        const isHealthClaim = healthClaimDetection(text) ;
+        if (!isHealthClaim) {
+            chrome.notifications.create({
+                type: 'basic',
+                iconUrl: 'error.png',
+                title: 'Error',
+                message: 'The text selected is not a health claim. Please select a health claim text to fact check.',
+                priority: 2
+            });
+            return;
+        }
+        factCheck(text).then(data => {
             console.log(data);
         }).catch(error => {
             console.error(error);
@@ -128,5 +139,12 @@ async function showNotification() {
         title: 'Health Reminder',
         message: 'Here is your health reminder for this hour!',
         priority: 2
+    }, (notificationId) => {
+        // Add a click event listener for the notification
+        chrome.notifications.onClicked.addListener((id) => {
+            if (id === notificationId) {
+                chrome.action.openPopup();
+            }
+        });
     });
 }
