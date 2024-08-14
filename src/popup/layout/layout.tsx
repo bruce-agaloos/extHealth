@@ -2,6 +2,7 @@ import React, { useState,  useEffect, useRef  } from 'react';
 import './css/default.css'; // Assuming styles are defined here
 
 import FactCheckingSection from "../components/factcheck/FactCheckingSection"
+import HealthTipsSection from "../components/healthTips/section"
 import Settings from "../components/settings/section"
 
 
@@ -67,7 +68,7 @@ const Layout = () => {
             <FactCheckingSection/>
           </div>
           <div id="healthReminders" className={`${activeOption === 'healthReminders' ? 'selectedOption' : ''} ${activeOption !== 'healthReminders' ? 'disappearLeft' : ''}`}>
-            <div>sample reminder</div>
+            <HealthTipsSection/>
           </div>
           <div id="settings" className={`${activeOption === 'settings' ? 'selectedOption' : ''} ${activeOption !== 'settings' ? 'disappearLeft' : ''}`}>
             <Settings/>

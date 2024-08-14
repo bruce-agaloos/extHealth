@@ -1,0 +1,43 @@
+#healthReminders{
+    --tips-background-color: #F7F9FA;
+    --font-family: "Public Sans";
+    --summary-subtext-color: #5B7083;
+    --divider-color: #EBEEF0;
+    --link-color: #1DA1F2;
+}
+
+#healthReminders{
+    .tips{
+        background-color: var(--tips-background-color);
+        font-family: var(--font-family);
+        .title{
+            font-size: 1.5rem;
+            font-weight: 700;
+            border-bottom: 1px solid var(--divider-color);
+        }
+        .summary{
+            border-bottom: 3px solid var(--divider-color);
+            .summary-title{
+                font-size: 1.25rem;
+                font-weight: 700;
+            }
+            .summary-subtext{
+                font-size: 1rem;
+                font-weight: 500;
+                color: var(--summary-subtext-color);
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                width: 100%;
+            }
+        }
+        .link{
+            a{
+                font-size: 1.25rem;
+                color: var(--link-color);
+                text-decoration: none;
+                font-weight: 500;
+            }
+        }
+    }
+}
