@@ -3,8 +3,6 @@ import { initialScroll, startTimer } from "../utils";
 import { stopTimer } from "../utils/schedule";
 import { getPopupState, getCategoryState } from "../utils";
 
-// detecting tweets
-import { sampleDomKeywordExtractor, sampleHello, sampleOCR, sampleTranslation } from './sampleScript';
 import { TwitterTheme } from '../utils/dom-extractor/types';
 import { getXTheme, extractTweetBody, createBtnElement, createOverlayElement } from '../utils/dom-extractor/dom';
 import { allKeywords } from './health_keywords';
