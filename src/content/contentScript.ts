@@ -9,6 +9,8 @@ import { allKeywords } from './health_keywords';
 import { nanoid } from 'nanoid';
 import { getXAutoDetectState } from "../utils/storage";
 
+import {healthClaimDetection} from '../utils/claim_detection';
+
 
 const TIMER_DURATION = 1;
 
@@ -115,13 +117,20 @@ const searchKeywordAndCreateOverlay = (tweetBody: string, tweet: HTMLDivElement)
     const isMatch = allKeywords
         .some(keyword => new RegExp(`\\b${keyword}\\b`, 'i').test(tweetBody));
 
-
+    if (!isMatch) {
+        return;
+    }
+    // call api claim detection
+    const isHealthClaim = healthClaimDetection(tweetBody) ;
+    if (!isHealthClaim) {
+        return;
+    }
     /**
      * If isMatch is true and the overlay is not yet created
      * create an overlay element and append it to the tweet
      */
     let isOverlayCreated = false;
-    if (isMatch && !isOverlayCreated) {
+    if (!isOverlayCreated) {
 
         const overlayElement = createOverlayElement();
         const overlayId = nanoid();
