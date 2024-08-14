@@ -5,6 +5,8 @@ import Evidence from './Evidence';
 
 import "./css/factCheckingBody.css";
 
+import {healthClaimDetection} from '../../../utils/claim_detection';
+
 const FactCheckingSection: React.FC = () => {
   const [expanded, setExpanded] = useState<string | false>(false);
 
@@ -35,6 +37,18 @@ const FactCheckingSection: React.FC = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>, index: number) => {
     e.preventDefault();
     const hypothesis = facts[index].hypothesis;
+    
+    const isHealthClaim = healthClaimDetection(hypothesis);
+    if (!isHealthClaim) {
+      chrome.notifications.create({
+        type: 'basic',
+        iconUrl: 'error.png',
+        title: 'Error',
+        message: 'The text selected is not a health claim. Please select a health claim text to fact check.',
+        priority: 2
+      });
+      return;
+    }
     // Send the updated fact to the background script
     chrome.runtime.sendMessage({ type: 'UPDATE_FACT', hypothesis }, (response) => {
       if (chrome.runtime.lastError) {
