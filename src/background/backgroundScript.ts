@@ -6,6 +6,24 @@ import {
 import {healthClaimDetection} from '../utils/claim_detection';
 import {setDefaultInstalled} from '../utils/storage';
 
+let activeTabId: number | undefined;
+let activeWindowId: number | undefined;
+
+chrome.windows.onFocusChanged.addListener(async (windowId) => {
+    const currentWindow = await chrome.windows.getCurrent();
+    if (currentWindow.id !== chrome.windows.WINDOW_ID_NONE && currentWindow.id !== -1) {
+        activeWindowId = currentWindow.id;
+        return;
+    }
+    if (windowId === chrome.windows.WINDOW_ID_NONE) {
+        activeWindowId = undefined;
+    }
+});
+chrome.tabs.onActivated.addListener((activeInfo) => {
+    activeTabId = activeInfo.tabId;
+});
+
+
 // Listen for messages from the content script
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.message === 'factCheck') {
@@ -72,7 +90,6 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
     if (info.menuItemId === "extHealth") {
         const text = info.selectionText;
         const isHealthClaim = await healthClaimDetection(text) ;
-        console.log(isHealthClaim);
         if (!isHealthClaim) {
             chrome.notifications.create({
                 type: 'basic',
@@ -84,7 +101,6 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
             return;
         }
         factCheck(text).then(data => {
-            console.log(data);
         }).catch(error => {
             console.error(error);
         });
@@ -115,8 +131,10 @@ async function updateFactCheck(text) {
     }, (notificationId) => {
         // Add a click event listener for the notification
         chrome.notifications.onClicked.addListener((id) => {
-            if (id === notificationId) {
-                console.log('Notification clicked');
+            if (id === notificationId) {  
+                chrome.windows.update(activeWindowId, {focused: true}, (window) => {
+                    chrome.tabs.update(activeTabId, {active: true})
+                });
                 chrome.action.openPopup();
             }
         });
@@ -136,10 +154,13 @@ async function factCheck(text) {
         priority: 2
     }, (notificationId) => {
         // Add a click event listener for the notification
-        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-            if (tabs[0]) {
-                // Send a message to the content script to open the popup
-                chrome.tabs.sendMessage(tabs[0].id, { action: 'openPopup' });
+        chrome.notifications.onClicked.addListener(async (id) => {
+            if (id === notificationId) {
+                console.log(activeWindowId);
+                chrome.windows.update(activeWindowId, {focused: true}, (window) => {
+                    chrome.tabs.update(activeTabId, {active: true})
+                });
+                chrome.action.openPopup();
             }
         });
     });

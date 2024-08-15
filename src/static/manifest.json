@@ -6,7 +6,7 @@
   "action": {
     "default_popup": "popup.html"
   },
-  "permissions": ["activeTab", "scripting", "storage", "notifications", "contextMenus", "alarms"],
+  "permissions": ["activeTab", "scripting", "storage", "notifications", "contextMenus", "alarms", "tabs"],
   "background": {
     "service_worker": "background.js",
     "persistent": true

@@ -12,6 +12,7 @@ import { getXAutoDetectState } from "../utils/storage";
 import {healthClaimDetection} from '../utils/claim_detection';
 
 
+
 const TIMER_DURATION = 1;
 
 const setInitialExtensionState = async (): Promise<void> => {
