@@ -1,16 +1,12 @@
-# Accomplished
-- extension popup ui
-- extension state
-- local storage
-- toggle button backend
-- popup timer
-- Categories
+# how to run:
 
-# In progress
-- New api Integration
-- health tips ui format
-    - separate custom css 
+development:
+```
+npm run start
+```
 
-# To Do
-- timed/seasonal health tips
+production:
+```
+npm run build
+```
 

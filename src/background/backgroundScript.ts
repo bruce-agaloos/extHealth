@@ -27,7 +27,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 // notification for health reminders
 // Set an alarm to trigger every hour
 chrome.runtime.onInstalled.addListener(() => {
-    chrome.alarms.create('healthReminder', { periodInMinutes: 60 * 2 });
+    createHealthReminderAlarm();
 });
 
 chrome.alarms.onAlarm.addListener((alarm) => {
@@ -36,9 +36,10 @@ chrome.alarms.onAlarm.addListener((alarm) => {
     }
 });
 
-// chrome.runtime.onStartup.addListener(() => {
-//     checkAndNotify();
-// });
+chrome.runtime.onStartup.addListener(() => {
+    createHealthReminderAlarm();
+    checkAndNotify();
+});
 
 
 // For Browser Window Right Click Context Menu
@@ -86,6 +87,18 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
         });
     }
 });
+
+function createHealthReminderAlarm() {
+    chrome.alarms.get('healthReminder', (alarm) => {
+        if (!alarm) {
+            console.log('Creating healthReminder alarm');
+            chrome.alarms.create('healthReminder', { periodInMinutes: 60 });
+        } else {
+            console.log('healthReminder alarm already exists');
+        }
+    });
+}
+
 
 // fact checking function
 async function updateFactCheck(text) {
