@@ -59,7 +59,7 @@ const Layout = () => {
     };
   
     return (
-      <div style={{ minWidth: '700px', minHeight: '500px' }}>
+      <div id="grid">
         <header className="board">
           <div className="TitleLogo">
             <img src="icon.png" alt="Logo" className="logo" />

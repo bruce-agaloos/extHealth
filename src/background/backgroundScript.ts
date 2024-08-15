@@ -4,6 +4,7 @@ import {
 } from "../utils/api_fight_misinfo";
 
 import {healthClaimDetection} from '../utils/claim_detection';
+import {setDefaultInstalled} from '../utils/storage';
 
 // Listen for messages from the content script
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -28,6 +29,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 // Set an alarm to trigger every hour
 chrome.runtime.onInstalled.addListener(() => {
     createHealthReminderAlarm();
+    setDefaultInstalled();
 });
 
 chrome.alarms.onAlarm.addListener((alarm) => {

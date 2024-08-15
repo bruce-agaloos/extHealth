@@ -10,16 +10,22 @@
     .tips{
         background-color: var(--tips-background-color);
         font-family: var(--font-family);
+        border-radius: 16px;
+        margin-bottom: 1rem;
         .title{
             font-size: 1.5rem;
             font-weight: 700;
             border-bottom: 1px solid var(--divider-color);
+            padding: 1rem;
+            margin: 0;
         }
         .summary{
             border-bottom: 3px solid var(--divider-color);
+            padding: 1rem;
             .summary-title{
                 font-size: 1.25rem;
                 font-weight: 700;
+                margin: 0;
             }
             .summary-subtext{
                 font-size: 1rem;
@@ -32,6 +38,7 @@
             }
         }
         .link{
+            padding: 1rem;
             a{
                 font-size: 1.25rem;
                 color: var(--link-color);

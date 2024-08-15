@@ -94,6 +94,16 @@ function logLocalStorageValues() {
     });
 }
 
+const setDefaultInstalled = () => {
+  setXAutoDetectState(true);
+  setPopupState(true);
+  const categories = [15,16,18,19,20,21,23,24,28,29];
+  categories.forEach(category => {
+    setCategoryState(category, true);
+  });
+}
+
+
 
 export { 
   setXAutoDetectState,
@@ -103,4 +113,5 @@ export {
   setCategoryState, 
   getCategoryState, 
   logLocalStorageValues, 
+  setDefaultInstalled,
   Carr };

@@ -2,6 +2,7 @@
 #body {
   grid-column: 1 / 4;
   grid-row: 3 / 4;
+  position: relative;
 }
 
 #body > div {
@@ -9,7 +10,9 @@
   position: absolute;
   padding: 1rem;
   box-sizing: border-box;
-  width: 90%;
+  width: 100%;
+  overflow: auto;
+  height: 100%;
 }
 #body > div > div {
   /* position: absolute; */
