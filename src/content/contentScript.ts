@@ -94,12 +94,13 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 });
 
 const enablePopup = (): void => {
-    startTimer(TIMER_DURATION);
+    // startTimer(TIMER_DURATION);
 };
 
 const disablePopup = (): void => {
-    stopTimer();
+    // stopTimer();
 };
+
 
 
 
