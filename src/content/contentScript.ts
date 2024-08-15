@@ -196,7 +196,6 @@ const detectNewTweets = async (): Promise<void> => {
             const tweetBody = extractTweetBody(combinedWrappers);
 
             if (tweetBody) {
-                console.log("Tweet:", tweetBody);
                 searchKeywordAndCreateOverlay(tweetBody, tweet);
             }
         } catch (error) {
