@@ -64,16 +64,6 @@ const Settings: React.FC<{}> = () => {
             <div id="popupContent" className="popupContent">
                 <div className="containerSummary">
                     <p id="popupSummary" className="popupSummary">
-                        Health Reminder is <span>enabled</span> for X <span>by default.</span>
-                    </p>
-                    <Toggle
-                        isOn={extensionState}
-                        onChange={handleExtensionState}
-                    />
-                </div>
-
-                <div className="containerSummary">
-                    <p id="popupSummary" className="popupSummary">
                         Auto Detect Health Related Content in X
                     </p>
                     <XAutoDetectToggle
@@ -82,6 +72,17 @@ const Settings: React.FC<{}> = () => {
                     />
 
                 </div>
+                <div className="containerSummary">
+                    <p id="popupSummary" className="popupSummary">
+                        Health Reminder is <span>enabled</span> for X <span>by default.</span>
+                    </p>
+                    <Toggle
+                        isOn={extensionState}
+                        onChange={handleExtensionState}
+                    />
+                </div>
+
+                
 
                 
 

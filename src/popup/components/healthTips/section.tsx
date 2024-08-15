@@ -20,7 +20,7 @@ const HealthTipsSection: React.FC = () => {
     return (
         <div>
             {healthTipsData.map((tip, idx) => (
-                <HealthTips idx={idx} health_tips={tip} />
+                <HealthTips key={idx} idx={idx} health_tips={tip} />
             ))}
         </div>
     );
