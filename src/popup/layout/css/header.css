@@ -15,7 +15,7 @@ header {
   position: absolute;
   bottom: 0;
   height: 1px; /* Height of the border */
-  background-color: blue; /* Color of the border */
+  background-color: grey; /* Color of the border */
   width: 0%; /* Start with a small width */
   transition: all 0.5s ease; /* Smooth transition for the border */
   animation: 1s ease-out forwards; /* Animation duration and timing */

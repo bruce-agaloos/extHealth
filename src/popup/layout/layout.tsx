@@ -10,9 +10,9 @@ const Layout = () => {
     const [activeOption, setActiveOption] = useState('factChecking');
   
     const options = [
-      { id: 'factChecking', name: 'Fact Checking', imgSrc: '', altText: 'factLogo' },
-      { id: 'healthReminders', name: 'Health Reminders', imgSrc: '', altText: 'reminderLogo' },
-      { id: 'settings', name: 'Settings', imgSrc: '', altText: 'settingsLogo' },
+      { id: 'factChecking', name: 'Fact Checking', imgSrc: 'iconFactCheck.png', altText: 'factLogo' },
+      { id: 'healthReminders', name: 'Health Reminders', imgSrc: 'iconReminder.png', altText: 'reminderLogo' },
+      { id: 'settings', name: 'Settings', imgSrc: 'iconSettings.png', altText: 'settingsLogo' },
     ];
 
     const previousActiveOptionRef = useRef(activeOption);
@@ -58,7 +58,7 @@ const Layout = () => {
             {options.map((option) => (
               <li key={option.id} className={activeOption === option.id ? 'activeOption' : ''} onClick={() => handleOptionClick(option.id)}>
                 {option.name}
-                <img src={option.imgSrc} alt={option.altText} />
+                <img src={option.imgSrc} alt={option.altText} style={{ height: '1rem', width: '1rem' }} />
               </li>
             ))}
           </ul>
