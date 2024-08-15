@@ -68,10 +68,11 @@ chrome.contextMenus.remove("extHealth", () => {
 
 
  // Add a listener for the context menu click event
-chrome.contextMenus.onClicked.addListener((info, tab) => {
+chrome.contextMenus.onClicked.addListener(async (info, tab) => {
     if (info.menuItemId === "extHealth") {
         const text = info.selectionText;
-        const isHealthClaim = healthClaimDetection(text) ;
+        const isHealthClaim = await healthClaimDetection(text) ;
+        console.log(isHealthClaim);
         if (!isHealthClaim) {
             chrome.notifications.create({
                 type: 'basic',
@@ -111,6 +112,14 @@ async function updateFactCheck(text) {
         title: 'Fact Check Ready!!',
         message: "Your request has been processed. Please check out the results in the extension popup.",
         priority: 2
+    }, (notificationId) => {
+        // Add a click event listener for the notification
+        chrome.notifications.onClicked.addListener((id) => {
+            if (id === notificationId) {
+                console.log('Notification clicked');
+                chrome.action.openPopup();
+            }
+        });
     });
     return response;
 }
@@ -125,6 +134,14 @@ async function factCheck(text) {
         title: 'Fact Check Ready!!',
         message: "Your request has been processed. Please check out the results in the extension popup.",
         priority: 2
+    }, (notificationId) => {
+        // Add a click event listener for the notification
+        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+            if (tabs[0]) {
+                // Send a message to the content script to open the popup
+                chrome.tabs.sendMessage(tabs[0].id, { action: 'openPopup' });
+            }
+        });
     });
 }
 
@@ -154,12 +171,5 @@ async function showNotification() {
         title: 'Health Reminder',
         message: 'Here is your health reminder for this hour!',
         priority: 2
-    }, (notificationId) => {
-        // Add a click event listener for the notification
-        chrome.notifications.onClicked.addListener((id) => {
-            if (id === notificationId) {
-                chrome.action.openPopup();
-            }
-        });
     });
 }

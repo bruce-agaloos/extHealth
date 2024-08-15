@@ -108,7 +108,7 @@ const factCheck = async (text: string): Promise<void> => {
     chrome.runtime.sendMessage({ message: "factCheck", text: text });
 }
 
-const searchKeywordAndCreateOverlay = (tweetBody: string, tweet: HTMLDivElement) => {
+const searchKeywordAndCreateOverlay = async (tweetBody: string, tweet: HTMLDivElement) => {
     /** 
      * This will return an array of matched keywords
      * if the keyword is found in the tweet body
@@ -121,7 +121,7 @@ const searchKeywordAndCreateOverlay = (tweetBody: string, tweet: HTMLDivElement)
         return;
     }
     // call api claim detection
-    const isHealthClaim = healthClaimDetection(tweetBody) ;
+    const isHealthClaim = await healthClaimDetection(tweetBody) ;
     if (!isHealthClaim) {
         return;
     }
