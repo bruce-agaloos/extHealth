@@ -18,26 +18,41 @@ const Layout = () => {
     const previousActiveOptionRef = useRef(activeOption);
   
     useEffect(() => {
-        const appearClasses = ['appearRight', 'appearLeft'];
-        const disappearClasses = ['disappearRight', 'disappearLeft'];
-        const activeElement = document.querySelector(`#${activeOption}`);
-        const previousActiveElement = document.querySelector(`#${previousActiveOptionRef.current}`);
-        if (activeElement === previousActiveElement) return;
-        // Find indexes of the current and previous active options in the options array
-        const currentIndex = options.findIndex(option => option.id === activeOption);
-        const previousIndex = options.findIndex(option => option.id === previousActiveElement?.id);
-      
-        if (previousActiveElement) {
+      const appearClasses = ['appearRight', 'appearLeft'];
+      const disappearClasses = ['disappearRight', 'disappearLeft'];
+      const activeElement = document.querySelector(`#${activeOption}`);
+      const previousActiveElement = document.querySelector(`#${previousActiveOptionRef.current}`);
+  
+      if (activeElement === previousActiveElement) return;
+  
+      const currentIndex = options.findIndex(option => option.id === activeOption);
+      const previousIndex = options.findIndex(option => option.id === previousActiveElement?.id);
+  
+      if (previousActiveElement) {
+          // Remove all appear classes before adding disappear classes
+          appearClasses.forEach(cls => previousActiveElement.classList.remove(cls));
+  
           const disappearClass = currentIndex > previousIndex ? disappearClasses[0] : disappearClasses[1];
           previousActiveElement.classList.remove('selectedOption');
           previousActiveElement.classList.add(disappearClass);
-        }
-        if (activeElement) {
+  
+          // Use a timeout to remove the disappear class after the animation completes
+          setTimeout(() => {
+              previousActiveElement.classList.remove(disappearClass);
+          }, 500); // Adjust this timing to match your animation duration
+      }
+  
+      if (activeElement) {
+          // Remove any lingering disappear classes before adding appear classes
+          disappearClasses.forEach(cls => activeElement.classList.remove(cls));
+  
           const appearClass = currentIndex > previousIndex ? appearClasses[0] : appearClasses[1];
           activeElement.classList.add('selectedOption', appearClass);
-        }
-        previousActiveOptionRef.current = activeOption;
-      }, [activeOption, options]);
+      }
+  
+      previousActiveOptionRef.current = activeOption;
+    }, [activeOption, options]);
+  
   
     const handleOptionClick = (optionId) => {
       setActiveOption(optionId);
