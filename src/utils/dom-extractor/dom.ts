@@ -76,13 +76,13 @@ const createBtnElement = (tweetBody): HTMLButtonElement => {
     // button.st
     // button.style.transform = "scale(0)";
     // button.style.transition = "transform 0.3s ease-in-out";
-    button.style.width = "2rem";
+    button.style.width = "3rem";
 
     button.style.pointerEvents = "auto";
 
     const img = document.createElement("img");
     // replace with the real image of our extension
-    img.src = "https://picsum.photos/200/300";
+    img.src = chrome.runtime.getURL('iconCheckThisOut.png');
     img.alt = "";
     img.style.transition = "transform 0.3s ease-in-out";
     img.style.height = "100%";
@@ -105,7 +105,7 @@ const createBtnElement = (tweetBody): HTMLButtonElement => {
 
     button.addEventListener('mouseover', () => {
         // button.style.animation = 'expandButtonXHealth 0.5s forwards';
-        button.style.width = "10rem";
+        button.style.width = "11rem";
         span.style.opacity = "1";
         // button.style.transform = "scale(1)";
 
@@ -113,7 +113,7 @@ const createBtnElement = (tweetBody): HTMLButtonElement => {
 
     button.addEventListener('mouseout', () => {
         // button.style.animation = 'shrinkButtonXHealth 0.5s forwards';
-        button.style.width = "2rem";
+        button.style.width = "3rem";
         span.style.opacity = "0";
         // button.style.transform = "scale(0)";
     });
