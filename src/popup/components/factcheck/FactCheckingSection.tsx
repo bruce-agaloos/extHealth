@@ -7,6 +7,8 @@ import "./css/factCheckingBody.css";
 
 import {healthClaimDetection} from '../../../utils/claim_detection';
 
+
+
 const FactCheckingSection: React.FC = () => {
   const [expanded, setExpanded] = useState<string | false>(false);
 
@@ -28,7 +30,13 @@ const FactCheckingSection: React.FC = () => {
     setExpanded(isExpanded ? panel : false);
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+  const autoResizeTextarea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const textarea = e.target;
+    textarea.style.height = 'auto'; // Reset the height
+    textarea.style.height = `${textarea.scrollHeight}px`; // Set the height to the scroll height
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, index: number) => {
     const newFacts = [...facts];
     newFacts[index].hypothesis = e.target.value;
     setFacts(newFacts);
@@ -85,8 +93,11 @@ const FactCheckingSection: React.FC = () => {
         facts.map((fact, index) => (
           <div key={index}>
             <form action="" id={`form-${index}`} onSubmit={(e) => handleSubmit(e, index)}>
-              <input type="text" value={fact.hypothesis} 
-              onChange={(e) => handleInputChange(e, index)}/>
+            <textarea 
+              value={fact.hypothesis} 
+              onChange={(e) => handleInputChange(e, index)}
+              onInput={(e: React.ChangeEvent<HTMLTextAreaElement>) => autoResizeTextarea(e)}
+            />
             </form>
             {accordionStates.map((state) => {
               const relatedPremises = fact.premises.filter(premise => premise.relationship.toLowerCase() === state.toLowerCase());
