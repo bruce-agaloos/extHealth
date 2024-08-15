@@ -40,6 +40,11 @@
 #body .disappearLeft {
   animation: disappearLeft 1s forwards;
 }
+
+#body .hidden {
+  display: none;
+}
+
 @keyframes appearRight {
     from {
       opacity: 0;
