@@ -2,6 +2,11 @@ const OCR_API_ENDPOINT = "http://127.0.0.1:8000/ocr";
 const LIBRETRANSLATE_API_ENDPOINT = "http://127.0.0.1:8000/translate"
 
 
+const requestOptions: RequestInit = {
+    method: 'GET',
+    redirect: 'follow'as RequestRedirect
+};
+
 /**
  * Sends the tweet content to the detoX API for hate speech detection.
  * @param content - The text content of the tweet to be sent for hate speech detection.
@@ -36,7 +41,16 @@ const sendImageUrl = async (url: string) => {
     return data.text;
 }
 
+
+
+const sendImageToServer = async (url: string) => {
+    const response = await fetch(`${OCR_API_ENDPOINT}?image_url=${encodeURI(url)}`, requestOptions);
+    const data = await response.json();
+    return data.text;
+};
+
 export { 
     sendtTweetToTranslateInServer,
-    sendImageUrl 
+    sendImageUrl,
+    sendImageToServer
 };
