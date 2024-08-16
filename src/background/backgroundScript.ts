@@ -3,8 +3,9 @@ import {
     factCheckWithGenerateQueries, factCheckWithoutGenerateQueries
 } from "../utils/api_fight_misinfo";
 
-import {healthClaimDetection} from '../utils/claim_detection';
-import {setDefaultInstalled} from '../utils/storage';
+import { healthClaimDetection } from '../utils/claim_detection';
+import { setDefaultInstalled } from '../utils/storage';
+import { sendImageToServer } from "../utils/dom-extractor/api";
 
 let activeTabId: number | undefined;
 let activeWindowId: number | undefined;
@@ -74,7 +75,7 @@ chrome.contextMenus.remove("extHealth", () => {
     chrome.contextMenus.create({
         id: "extHealth",
         title: "Check Health Information",
-        contexts: ["selection"]
+        contexts: ["selection", "image"]
     }, function () {
         if (chrome.runtime.lastError) {
             console.error(chrome.runtime.lastError.message);
@@ -85,25 +86,48 @@ chrome.contextMenus.remove("extHealth", () => {
 });
 
 
- // Add a listener for the context menu click event
+// Add a listener for the context menu click event
 chrome.contextMenus.onClicked.addListener(async (info, tab) => {
     if (info.menuItemId === "extHealth") {
-        const text = info.selectionText;
-        const isHealthClaim = await healthClaimDetection(text) ;
-        if (!isHealthClaim) {
-            chrome.notifications.create({
-                type: 'basic',
-                iconUrl: 'error.png',
-                title: 'Error',
-                message: 'The text selected is not a health claim. Please select a health claim text to fact check.',
-                priority: 2
+        if (info.selectionText) {
+            const text = info.selectionText;
+            const isHealthClaim = await healthClaimDetection(text);
+            if (!isHealthClaim) {
+                chrome.notifications.create({
+                    type: 'basic',
+                    iconUrl: 'error.png',
+                    title: 'Error',
+                    message: 'The text selected is not a health claim. Please select a health claim text to fact check.',
+                    priority: 2
+                });
+                return;
+            }
+            factCheck(text).then(data => {
+            }).catch(error => {
+                console.error(error);
             });
-            return;
+        } else if (info.srcUrl) {
+            const url = info.srcUrl;
+            console.log("URL:", url);
+
+            const text = await sendImageToServer(url);
+            console.log("Extracted: ", text);
+            const isHealthClaim = await healthClaimDetection(text);
+            if (!isHealthClaim) {
+                chrome.notifications.create({
+                    type: 'basic',
+                    iconUrl: 'error.png',
+                    title: 'Error',
+                    message: 'The image selected does not contain a health claim. Please select an image containing a health claim to fact check.',
+                    priority: 2
+                });
+                return;
+            }
+            factCheck(text).then(data => {
+            }).catch(error => {
+                console.error(error);
+            });
         }
-        factCheck(text).then(data => {
-        }).catch(error => {
-            console.error(error);
-        });
     }
 });
 
@@ -131,9 +155,9 @@ async function updateFactCheck(text) {
     }, (notificationId) => {
         // Add a click event listener for the notification
         chrome.notifications.onClicked.addListener((id) => {
-            if (id === notificationId) {  
-                chrome.windows.update(activeWindowId, {focused: true}, (window) => {
-                    chrome.tabs.update(activeTabId, {active: true})
+            if (id === notificationId) {
+                chrome.windows.update(activeWindowId, { focused: true }, (window) => {
+                    chrome.tabs.update(activeTabId, { active: true })
                 });
                 chrome.action.openPopup();
             }
@@ -157,8 +181,8 @@ async function factCheck(text) {
         chrome.notifications.onClicked.addListener(async (id) => {
             if (id === notificationId) {
                 console.log(activeWindowId);
-                chrome.windows.update(activeWindowId, {focused: true}, (window) => {
-                    chrome.tabs.update(activeTabId, {active: true})
+                chrome.windows.update(activeWindowId, { focused: true }, (window) => {
+                    chrome.tabs.update(activeTabId, { active: true })
                 });
                 chrome.action.openPopup();
             }
