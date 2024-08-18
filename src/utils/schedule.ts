@@ -1,12 +1,15 @@
-import { togglePopup } from "./togglePopup";
-import { contentString } from "./api";
-
-document.addEventListener("DOMContentLoaded", () => togglePopup(false));
+import { getHealthTips } from "../utils";
 
 let timerActive = true;
-
 let timerIntervalId: NodeJS.Timeout | null = null;
 
+/**
+ * Starts a countdown timer.
+ * 
+ * @param {number} duration - The duration of the timer in seconds.
+ * @param {boolean} [repeat=true] - Whether the timer should repeat after finishing.
+ * @returns {NodeJS.Timeout} - The interval ID of the timer.
+ */
 const startTimer = (
   duration: number,
   repeat: boolean = true
@@ -18,6 +21,8 @@ const startTimer = (
     clearInterval(timerIntervalId);
   }
 
+  timerActive = true;
+
   timerIntervalId = setInterval(() => {
     remainingTime--;
     console.log(`Time remaining: ${remainingTime} seconds`);
@@ -25,7 +30,8 @@ const startTimer = (
       clearInterval(timerIntervalId as NodeJS.Timeout);
       console.log("Countdown finished");
 
-      togglePopup(true, contentString);
+      getHealthTips()
+        .catch((error) => console.error("Error:", error));
       if (repeat && timerActive) {
         startTimer(duration, true);
       } else {
@@ -37,6 +43,9 @@ const startTimer = (
   return timerIntervalId;
 };
 
+/**
+ * Stops the currently running timer and prevents future timers from repeating.
+ */
 const stopTimer = (): void => {
   if (timerIntervalId !== null) {
     clearInterval(timerIntervalId);
