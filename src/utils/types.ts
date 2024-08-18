@@ -1,6 +1,7 @@
 interface LocalStorage {
     HealthTipsEnabled?: boolean;
     xAutoDetectEnabled?: boolean;
+
     id15Enabled?: boolean;
     id16Enabled?: boolean;
     id18Enabled?: boolean;
@@ -11,6 +12,8 @@ interface LocalStorage {
     id24Enabled?: boolean;
     id28Enabled?: boolean;
     id29Enabled?: boolean;
+
+    healthTips?: string[];
 }
 
 interface HealthTipsProps {
