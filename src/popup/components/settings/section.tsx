@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 
-import { getCategoryState, getPopupState, getXAutoDetectState } from "./../../../utils/storage";
+import { getCategoryState, getHealthTipState, getXAutoDetectState, setHealthTipState } from "./../../../utils/storage";
 import { sendMessageToContentScript, } from "../../../utils/general";
 import { Toggle, Category, XAutoDetectToggle} from "../index";
 
 const Settings: React.FC<{}> = () => {
-    const [extensionState, setExtensionState] = useState<boolean | null>(false);
+    const [healthTipState, setHealthTipState] = useState<boolean | null>(false);
     const [xAutoDetectState, setXAutoDetectState] = useState<boolean | null>(false);
     const [categoryState, setCategoryState] = useState<{ [key: number]: boolean }>({});
     const ids = [15, 16, 18, 19, 20, 21, 23, 24, 28, 29];
 
     useEffect(() => {
-        getPopupState().then((state) => {
-            setExtensionState(state);
+        getHealthTipState().then((state) => {
+            setHealthTipState(state);
         });
 
         getXAutoDetectState().then((state) => {
@@ -34,9 +34,9 @@ const Settings: React.FC<{}> = () => {
         });
     }, []);
 
-    const handleExtensionState = (newState: boolean): void => {
-        setExtensionState(newState);
-        sendMessageToContentScript({ state: newState }, (response) => {
+    const handleHealtTipState = (newStatee: boolean): void => {
+        setHealthTipState(newStatee);
+        sendMessageToContentScript({ state: newStatee }, (response) => {
             console.log('Received response for extension state:', response);
         });
     };
@@ -77,15 +77,10 @@ const Settings: React.FC<{}> = () => {
                         Health Reminder is <span>enabled</span> for X <span>by default.</span>
                     </p>
                     <Toggle
-                        isOn={extensionState}
-                        onChange={handleExtensionState}
+                        isOn={healthTipState}
+                        onChange={handleHealtTipState}
                     />
                 </div>
-
-                
-
-                
-
                 <div className="containerSummary">
                     <p id="popupSummary" className="popupSummary">
                         Cancer

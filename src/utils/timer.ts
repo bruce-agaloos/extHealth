@@ -1,33 +1,37 @@
-import { togglePopup } from "./togglePopup";
-import { contentString } from "./api";
-
-document.addEventListener("DOMContentLoaded", () => togglePopup(false));
+import { getHealthTips } from ".";
 
 let timerActive = true;
-
 let timerIntervalId: NodeJS.Timeout | null = null;
 
 const startTimer = (
-  duration: number,
+  minutes: number,
+  seconds: number,
   repeat: boolean = true
 ): NodeJS.Timeout => {
+  const duration = minutes * 60 + seconds;
   let remainingTime = duration;
-  console.log(`Countdown started for ${duration} seconds`);
 
   if (timerIntervalId !== null) {
     clearInterval(timerIntervalId);
   }
 
+  timerActive = true;
+
   timerIntervalId = setInterval(() => {
     remainingTime--;
-    console.log(`Time remaining: ${remainingTime} seconds`);
+    const remainingMinutes = Math.floor(remainingTime / 60);
+    const remainingSeconds = remainingTime % 60;
+    //debug
+    //console.log(`Time remaining: ${remainingMinutes} minutes and ${remainingSeconds} seconds`);
+    
     if (remainingTime <= 0) {
       clearInterval(timerIntervalId as NodeJS.Timeout);
       console.log("Countdown finished");
 
-      togglePopup(true, contentString);
+      getHealthTips()
+        .catch((error) => console.error("Error:", error));
       if (repeat && timerActive) {
-        startTimer(duration, true);
+        startTimer(minutes, seconds, true);
       } else {
         timerIntervalId = null;
       }
@@ -43,7 +47,8 @@ const stopTimer = (): void => {
     timerIntervalId = null;
   }
   timerActive = false;
-  console.log("Timer stopped and future timers are prevented.");
+  // debug 
+  // console.log("Timer stopped and future timers are prevented.");
 };
 
 export { startTimer, stopTimer };
