@@ -1,4 +1,4 @@
-import { startTimer } from "./schedule";
+import { startTimer } from "./timer";
 
 import {
     getCurrentTab,

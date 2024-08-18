@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 
-import { getCategoryState, getHealthTipState, getXAutoDetectState } from "./../../../utils/storage";
+import { getCategoryState, getHealthTipState, getXAutoDetectState, setHealthTipState } from "./../../../utils/storage";
 import { sendMessageToContentScript, } from "../../../utils/general";
 import { Toggle, Category, XAutoDetectToggle} from "../index";
 
 const Settings: React.FC<{}> = () => {
-    const [extensionState, setExtensionState] = useState<boolean | null>(false);
+    const [healthTipState, setHealthTipState] = useState<boolean | null>(false);
     const [xAutoDetectState, setXAutoDetectState] = useState<boolean | null>(false);
     const [categoryState, setCategoryState] = useState<{ [key: number]: boolean }>({});
     const ids = [15, 16, 18, 19, 20, 21, 23, 24, 28, 29];
 
     useEffect(() => {
         getHealthTipState().then((state) => {
-            setExtensionState(state);
+            setHealthTipState(state);
         });
 
         getXAutoDetectState().then((state) => {
@@ -34,8 +34,8 @@ const Settings: React.FC<{}> = () => {
         });
     }, []);
 
-    const handleHealtTipsState = (newStatee: boolean): void => {
-        setExtensionState(newStatee);
+    const handleHealtTipState = (newStatee: boolean): void => {
+        setHealthTipState(newStatee);
         sendMessageToContentScript({ state: newStatee }, (response) => {
             console.log('Received response for extension state:', response);
         });
@@ -77,15 +77,10 @@ const Settings: React.FC<{}> = () => {
                         Health Reminder is <span>enabled</span> for X <span>by default.</span>
                     </p>
                     <Toggle
-                        isOn={extensionState}
-                        onChange={handleHealtTipsState}
+                        isOn={healthTipState}
+                        onChange={handleHealtTipState}
                     />
                 </div>
-
-                
-
-                
-
                 <div className="containerSummary">
                     <p id="popupSummary" className="popupSummary">
                         Cancer
