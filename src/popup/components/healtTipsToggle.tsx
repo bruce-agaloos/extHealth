@@ -1,11 +1,11 @@
 import React from "react";
-import { setCategoryState } from "../../utils/storage";
-import { CatProps } from "../../utils/types";
+import { setHealthTipState } from "../../utils/storage";
+import { HealthTipsProps } from "../../utils/types";
 
-const Category: React.FC<CatProps> = ({ isOn, onChange, id }) => {
+const Toggle: React.FC<HealthTipsProps> = ({ isOn, onChange }) => {
   const handleToggleChange = () => {
     onChange(!isOn);
-    setCategoryState(id, !isOn);
+    setHealthTipState(!isOn);
   };
 
   return (
@@ -21,4 +21,4 @@ const Category: React.FC<CatProps> = ({ isOn, onChange, id }) => {
   );
 };
 
-export default Category;
+export default Toggle;
