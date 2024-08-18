@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { getCategoryState, getPopupState, getXAutoDetectState } from "./../../../utils/storage";
+import { getCategoryState, getHealthTipState, getXAutoDetectState } from "./../../../utils/storage";
 import { sendMessageToContentScript, } from "../../../utils/general";
 import { Toggle, Category, XAutoDetectToggle} from "../index";
 
@@ -11,7 +11,7 @@ const Settings: React.FC<{}> = () => {
     const ids = [15, 16, 18, 19, 20, 21, 23, 24, 28, 29];
 
     useEffect(() => {
-        getPopupState().then((state) => {
+        getHealthTipState().then((state) => {
             setExtensionState(state);
         });
 
@@ -34,9 +34,9 @@ const Settings: React.FC<{}> = () => {
         });
     }, []);
 
-    const handleExtensionState = (newState: boolean): void => {
-        setExtensionState(newState);
-        sendMessageToContentScript({ state: newState }, (response) => {
+    const handleHealtTipsState = (newStatee: boolean): void => {
+        setExtensionState(newStatee);
+        sendMessageToContentScript({ state: newStatee }, (response) => {
             console.log('Received response for extension state:', response);
         });
     };
@@ -78,7 +78,7 @@ const Settings: React.FC<{}> = () => {
                     </p>
                     <Toggle
                         isOn={extensionState}
-                        onChange={handleExtensionState}
+                        onChange={handleHealtTipsState}
                     />
                 </div>
 

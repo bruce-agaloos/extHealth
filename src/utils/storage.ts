@@ -1,9 +1,9 @@
 import { LocalStorage } from "./types";
 
-const setPopupState = (extensionEnabled: boolean): Promise<void> => {
+const setHealthTipState = (HealthTipsEnabled: boolean): Promise<void> => {
   return new Promise<void>((resolve) => {
     const vals: LocalStorage = {
-      extensionEnabled,
+      HealthTipsEnabled,
     };
     chrome.storage.local.set(vals, () => {
       resolve();
@@ -31,10 +31,11 @@ const setCategoryState = (id: number, enabled: boolean): Promise<void> => {
     chrome.storage.local.set(vals, () => {
       resolve();
     });
+    
   });
 };
 
-const getPopupState = (): Promise<boolean> => {
+const getHealthTipState = (): Promise<boolean> => {
     return new Promise((resolve) => {
       chrome.storage.local.get("extensionEnabled", (result) => {
         const state = result.extensionEnabled;
@@ -63,7 +64,8 @@ const getXAutoDetectState = (): Promise<boolean> => {
 };
 
 
-let Carr=[];
+const Carr: Array<{ key: string, value: any }> = [];
+const booleanKeys: Array<{ key: string, value: boolean }> = [];
 
 function logLocalStorageValues() {
     const keys: string[] = [
@@ -80,23 +82,34 @@ function logLocalStorageValues() {
     ];
 
     chrome.storage.local.get(keys, (result) => {
-        const valuesArray: Array<{ key: string, value: any }> = [];
+        Carr.length = 0; // Clear the array before updating
+        booleanKeys.length = 0; // Clear the booleanKeys array before updating
         
         keys.forEach(key => {
             if (result[key] !== undefined) {
                 Carr.push({ key: key, value: result[key] });
+                if (typeof result[key] === 'boolean') {
+                    booleanKeys.push({ key: key, value: result[key] });
+                }
             } else {
                 Carr.push({ key: key, value: 'not found' });
             }
         });
-    
+
         console.log(Carr);
+        // console.log(booleanKeys);
     });
 }
 
+
+
+
+
+
+
 const setDefaultInstalled = () => {
   setXAutoDetectState(true);
-  setPopupState(true);
+  setHealthTipState(true);
   const categories = [15,16,18,19,20,21,23,24,28,29];
   categories.forEach(category => {
     setCategoryState(category, true);
@@ -108,10 +121,11 @@ const setDefaultInstalled = () => {
 export { 
   setXAutoDetectState,
   getXAutoDetectState,
-  setPopupState, 
-  getPopupState, 
+  setHealthTipState, 
+  getHealthTipState, 
   setCategoryState, 
   getCategoryState, 
   logLocalStorageValues, 
   setDefaultInstalled,
-  Carr };
+  Carr,
+  booleanKeys};

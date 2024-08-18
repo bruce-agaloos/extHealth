@@ -1,26 +1,25 @@
 // summarizing/giving news
 import { initialScroll, startTimer } from "../utils";
 import { stopTimer } from "../utils/schedule";
-import { getPopupState, getCategoryState } from "../utils";
-
+import { getHealthTipState, getCategoryState } from "../utils";
 import { TwitterTheme } from '../utils/dom-extractor/types';
 import { getXTheme, extractTweetBody, createBtnElement, createOverlayElement } from '../utils/dom-extractor/dom';
 import { allKeywords } from './health_keywords';
 import { nanoid } from 'nanoid';
-import { getXAutoDetectState } from "../utils/storage";
-
+import { getXAutoDetectState, logLocalStorageValues } from "../utils/storage";
 import {healthClaimDetection} from '../utils/claim_detection';
 
+const TIMER_DURATION = 5;
 
-
-const TIMER_DURATION = 1;
+logLocalStorageValues()
 
 const setInitialExtensionState = async (): Promise<void> => {
-    const isExtensionEnabled = await getPopupState();
+    const isExtensionEnabled = await getHealthTipState();
     if (isExtensionEnabled) {
-        enablePopup();
+        enableHealthTips();
+        console.log("Extension is enabled");
     } else {
-        disablePopup();
+        disableHealthTips();
     }
 
     /**
@@ -39,24 +38,24 @@ const setInitialExtensionState = async (): Promise<void> => {
 
 setInitialExtensionState();
 
-// const setInitialCategoryState = async (): Promise<void> => {
-//   const isCategoryEnabled = await getCategoryState(15);
-//   if (isCategoryEnabled) {
-//     console.log("Category is enabled");
-//   } else {
-//     console.log("Category is disabled");
-//   }
-// }
-// setInitialCategoryState();
+const setInitialCategoryState = async (): Promise<void> => {
+  const isCategoryEnabled = await getCategoryState(15);
+  if (isCategoryEnabled) {
+    console.log("Category is enabled");
+  } else {
+    console.log("Category is disabled");
+  }
+}
+setInitialCategoryState();
 
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     if (message.state !== undefined) {
         const state = message.state;
         if (typeof state === 'boolean') {
             if (state) {
-                enablePopup();
+                enableHealthTips();
             } else {
-                disablePopup();
+                disableHealthTips();
             }
         } else {
             console.warn("State is not a boolean:", state);
@@ -94,12 +93,12 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     }
 });
 
-const enablePopup = (): void => {
-    // startTimer(TIMER_DURATION);
+const enableHealthTips = (): void => {
+    startTimer(TIMER_DURATION);
 };
 
-const disablePopup = (): void => {
-    // stopTimer();
+const disableHealthTips = (): void => {
+    stopTimer();
 };
 
 

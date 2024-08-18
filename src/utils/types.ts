@@ -1,5 +1,5 @@
 interface LocalStorage {
-    extensionEnabled?: boolean;
+    HealthTipsEnabled?: boolean;
     xAutoDetectEnabled?: boolean;
     id15Enabled?: boolean;
     id16Enabled?: boolean;
@@ -13,9 +13,9 @@ interface LocalStorage {
     id29Enabled?: boolean;
 }
 
-interface ToggleProps {
+interface HealthTipsProps {
     isOn: boolean;
-    onChange: (newState: boolean) => void;
+    onChange: (newHealthTipState: boolean) => void;
     
 }
 
@@ -32,7 +32,7 @@ interface xAutoDetectProps {
 
 export {
     LocalStorage,
-    ToggleProps,
+    HealthTipsProps,
     CatProps,
     xAutoDetectProps
 }

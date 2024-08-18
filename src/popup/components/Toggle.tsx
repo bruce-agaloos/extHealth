@@ -1,11 +1,11 @@
 import React from "react";
-import { setPopupState } from "./../../utils/storage";
-import { ToggleProps } from "./../../utils/types";
+import { setHealthTipState } from "./../../utils/storage";
+import { HealthTipsProps } from "./../../utils/types";
 
-const Toggle: React.FC<ToggleProps> = ({ isOn, onChange }) => {
+const Toggle: React.FC<HealthTipsProps> = ({ isOn, onChange }) => {
   const handleToggleChange = () => {
     onChange(!isOn);
-    setPopupState(!isOn);
+    setHealthTipState(!isOn);
   };
 
   return (

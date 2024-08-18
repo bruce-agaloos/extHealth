@@ -5,16 +5,17 @@ import {
     sendMessageToContentScript,
     initialScroll,
 } from "./general";
-import { setPopupState, getPopupState, setCategoryState, getCategoryState } from "./storage";
+import { setHealthTipState, getHealthTipState, setCategoryState, getCategoryState } from "./storage";
+import { getHealthTips } from "./api_health_tips";
 
 export {
     sendMessageToContentScript,
     initialScroll,
-    getPopupState,
-    setPopupState,
+    getHealthTipState,
+    setHealthTipState,
     getCurrentTab,
     startTimer,
-
+    getHealthTips,
     getCategoryState,
     setCategoryState
 };
