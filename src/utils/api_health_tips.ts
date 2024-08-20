@@ -28,9 +28,9 @@ async function getRandomCategory(): Promise<number | null> {
 
 export async function getHealthTips() {
   let param = await getRandomCategory();
-
+  const finalendpoint = API_ENDPOINT + "/health_tips?param=" + param;
   const response = await fetch(
-    `http://localhost:8000/health_tips?param=${param}`,
+    finalendpoint,
     {
       method: "GET",
       headers: {
