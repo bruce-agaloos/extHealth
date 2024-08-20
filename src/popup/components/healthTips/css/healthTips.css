@@ -18,6 +18,14 @@
             border-bottom: 1px solid var(--divider-color);
             padding: 1rem;
             margin: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            > span {
+                color: var(--summary-subtext-color);
+                font-weight: 500;
+                font-size: 1rem;
+            }
         }
         .summary{
             border-bottom: 3px solid var(--divider-color);

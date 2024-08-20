@@ -4,8 +4,9 @@ interface HealthTipsProps {
     idx : number;
     health_tips: {
         title: string;
-        url: string;
-        summary: string;
+        link: string;
+        content: string;
+        LastUpdated: string;
     };
 }
 
@@ -19,12 +20,15 @@ const getSecondSentenceAndRest = (text: string) => {
 }
 
 const HealthTips: React.FC<HealthTipsProps> = ({idx, health_tips }) => {
-    const firstSentence = getFirstSentence(health_tips.summary);
-    const theRestSentence = getSecondSentenceAndRest(health_tips.summary);
+    const firstSentence = getFirstSentence(health_tips.content);
+    const theRestSentence = getSecondSentenceAndRest(health_tips.content);
     return (
         <div key={idx} className="tips">
             <h2 className = "title">
                 {health_tips.title}
+                <span>
+                    {health_tips.LastUpdated}
+                </span>
             </h2>
             <div className='summary'>
                 <h2 className = "summary-title">
@@ -35,7 +39,7 @@ const HealthTips: React.FC<HealthTipsProps> = ({idx, health_tips }) => {
                 </p>
             </div>
             <div className='link'>
-                <a href={health_tips.url} target="_blank" rel="noopener noreferrer">
+                <a href={health_tips.link} target="_blank" rel="noopener noreferrer">
                     Read More
                 </a>
             </div>
