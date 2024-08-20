@@ -18,11 +18,25 @@ const FactCheckingSection: React.FC = () => {
   useEffect(() => {
     // Retrieve the stored data using Chrome Storage API
     chrome.storage.local.get(['extHealthFacts'], function(result) {
-      if (result.extHealthFacts) {
-        // Use the 'result' array directly from the storage
-        setFacts(result.extHealthFacts.result);
-      }
+        if (result.extHealthFacts) {
+            // Use the 'result' array directly from the storage
+            setFacts(result.extHealthFacts.result);
+        }
     });
+
+    // Set up an event listener for changes in the storage
+    const handleStorageChange = (changes: { [key: string]: chrome.storage.StorageChange }, areaName: string) => {
+        if (areaName === 'local' && changes.extHealthFacts) {
+            setFacts(changes.extHealthFacts.newValue.result);
+        }
+    };
+
+    chrome.storage.onChanged.addListener(handleStorageChange);
+
+    // Clean up the event listener on component unmount
+    return () => {
+        chrome.storage.onChanged.removeListener(handleStorageChange);
+    };
   }, []);
 
   const handleChange =
