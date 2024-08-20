@@ -117,6 +117,25 @@ function storeHealthTipResponse(data: any) {
   });
 }
 
+function getAllHealthTips(): Promise<any[]> {
+  return new Promise((resolve, reject) => {
+    chrome.storage.local.get(["healthTips"], (result) => {
+      let healthTips = result.healthTips || [];
+      resolve(healthTips);
+    });
+  });
+}
+
+function getLatestHealthTip(): Promise<any> {
+  return new Promise((resolve, reject) => {
+    chrome.storage.local.get(["healthTips"], (result) => {
+      let healthTips = result.healthTips || [];
+      let latestHealthTip = healthTips.length > 0 ? healthTips[0] : null;
+      resolve(latestHealthTip);
+    });
+  });
+}
+
 const setDefaultInstalled = () => {
   setXAutoDetectState(true);
   setHealthTipState(true);
@@ -136,4 +155,6 @@ export {
   categoryStorageValue,
   setDefaultInstalled,
   storeHealthTipResponse,
+  getAllHealthTips,
+  getLatestHealthTip
 };

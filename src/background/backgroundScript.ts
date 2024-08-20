@@ -4,8 +4,9 @@ import {
 } from "../utils/api_fight_misinfo";
 
 import { healthClaimDetection } from '../utils/claim_detection';
-import { setDefaultInstalled } from '../utils/storage';
+import { getHealthTipState, setDefaultInstalled, getLatestHealthTip } from '../utils/storage';
 import { sendImageToServer } from "../utils/dom-extractor/api";
+import {getHealthTips} from "../utils/api_health_tips"
 
 let activeTabId: number | undefined;
 let activeWindowId: number | undefined;
@@ -135,7 +136,7 @@ function createHealthReminderAlarm() {
     chrome.alarms.get('healthReminder', (alarm) => {
         if (!alarm) {
             console.log('Creating healthReminder alarm');
-            chrome.alarms.create('healthReminder', { periodInMinutes: 60 });
+            chrome.alarms.create('healthReminder', { periodInMinutes: 60 * 2 });
         } else {
             console.log('healthReminder alarm already exists');
         }
@@ -209,12 +210,17 @@ function checkAndNotify() {
 
 // Show the notification
 async function showNotification() {
-
+    const state = await getHealthTipState();
+    if (state === undefined || state === false) {
+        return;
+    }
+    await getHealthTips();
+    const content = await getLatestHealthTip();
     chrome.notifications.create({
         type: 'basic',
         iconUrl: 'icon.png',
-        title: 'Health Reminder',
-        message: 'Here is your health reminder for this hour!',
+        title: content.title,
+        message: content.content,
         priority: 2
     });
 }

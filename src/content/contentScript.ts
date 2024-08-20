@@ -80,11 +80,11 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 
 
 const enableHealthTips = (): void => {
-    startTimer(TIMER_DURATION.minutes, TIMER_DURATION.seconds);
+    // startTimer(TIMER_DURATION.minutes, TIMER_DURATION.seconds);
 };
 
 const disableHealthTips = (): void => {
-    stopTimer();
+    // stopTimer();
 };
 
 
