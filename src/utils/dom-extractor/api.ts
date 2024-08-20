@@ -1,5 +1,7 @@
-const OCR_API_ENDPOINT = "http://127.0.0.1:8000/ocr";
-const LIBRETRANSLATE_API_ENDPOINT = "http://127.0.0.1:8000/translate"
+import { API_ENDPOINT } from "../endpoint";
+
+const OCR_API_ENDPOINT = API_ENDPOINT + "/ocr";
+const LIBRETRANSLATE_API_ENDPOINT = API_ENDPOINT + "/translate"
 
 
 const requestOptions: RequestInit = {
