@@ -161,6 +161,16 @@ async function updateFactCheck(text) {
         return;
     }
     let response = await factCheckWithoutGenerateQueries(text);
+    if (!Array.isArray(response)) {
+        chrome.notifications.create({
+            type: 'basic',
+            iconUrl: 'warning.png',
+            title: 'eXtHealth Error',
+            message: response.result,
+            priority: 2
+        });
+        return [];
+    };
     chrome.notifications.create({
         type: 'basic',
         iconUrl: 'icon.png',
@@ -195,6 +205,16 @@ async function factCheck(text) {
         return;
     }
     let response = await factCheckWithGenerateQueries(text);
+    if (!Array.isArray(response.result)) {
+        chrome.notifications.create({
+            type: 'basic',
+            iconUrl: 'warning.png',
+            title: 'eXtHealth Error',
+            message: response.result,
+            priority: 2
+        });
+        return;
+    };
     chrome.storage.local.set({ extHealthFacts: response });
     chrome.notifications.create({
         type: 'basic',
