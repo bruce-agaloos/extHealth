@@ -7,6 +7,7 @@ import { healthClaimDetection } from '../utils/claim_detection';
 import { getHealthTipState, setDefaultInstalled, getLatestHealthTip } from '../utils/storage';
 import { sendImageToServer } from "../utils/dom-extractor/api";
 import {getHealthTips} from "../utils/api_health_tips"
+import {setFactCheckWholeLoad, setSingleFactCheckLoad, isFactCheckLoading} from "../utils/pop_up_storage/storage"
 
 let activeTabId: number | undefined;
 let activeWindowId: number | undefined;
@@ -61,6 +62,8 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 chrome.runtime.onStartup.addListener(() => {
     createHealthReminderAlarm();
     checkAndNotify();
+    setFactCheckWholeLoad(false);
+    setSingleFactCheckLoad(false);
 });
 
 
@@ -146,6 +149,17 @@ function createHealthReminderAlarm() {
 
 // fact checking function
 async function updateFactCheck(text) {
+    let loading = await isFactCheckLoading();
+    if (loading) {
+        chrome.notifications.create({
+            type: 'basic',
+            iconUrl: 'warning.png',
+            title: 'Error',
+            message: 'Please wait for the current fact check to finish before starting a new one.',
+            priority: 2
+        });
+        return;
+    }
     let response = await factCheckWithoutGenerateQueries(text);
     chrome.notifications.create({
         type: 'basic',
@@ -169,6 +183,17 @@ async function updateFactCheck(text) {
 
 
 async function factCheck(text) {
+    let loading = await isFactCheckLoading();
+    if (loading) {
+        chrome.notifications.create({
+            type: 'basic',
+            iconUrl: 'warning.png',
+            title: 'Error',
+            message: 'Please wait for the current fact check to finish before starting a new one.',
+            priority: 2
+        });
+        return;
+    }
     let response = await factCheckWithGenerateQueries(text);
     chrome.storage.local.set({ extHealthFacts: response });
     chrome.notifications.create({

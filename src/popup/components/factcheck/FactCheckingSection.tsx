@@ -66,7 +66,7 @@ const FactCheckingSection: React.FC = () => {
         type: 'basic',
         iconUrl: 'error.png',
         title: 'Error',
-        message: 'The text selected is not a health claim. Please select a health claim text to fact check.',
+        message: 'The current query is not an health claim. Please make sure it is',
         priority: 2
       });
       return;
