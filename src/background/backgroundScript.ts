@@ -8,6 +8,7 @@ import { getHealthTipState, setDefaultInstalled, getLatestHealthTip } from '../u
 import { sendImageToServer } from "../utils/dom-extractor/api";
 import {getHealthTips} from "../utils/api_health_tips"
 import {setFactCheckWholeLoad, setSingleFactCheckLoad, isFactCheckLoading} from "../utils/pop_up_storage/storage"
+import {getFromStorage, setInStorage} from "../utils/storage"
 
 let activeTabId: number | undefined;
 let activeWindowId: number | undefined;
@@ -205,6 +206,7 @@ async function factCheck(text) {
         return;
     }
     let response = await factCheckWithGenerateQueries(text);
+
     if (!Array.isArray(response.result)) {
         chrome.notifications.create({
             type: 'basic',
@@ -214,8 +216,33 @@ async function factCheck(text) {
             priority: 2
         });
         return;
-    };
-    chrome.storage.local.set({ extHealthFacts: response });
+    }
+
+    try {
+        let result = await getFromStorage(['extHealthFacts']);
+        let currentData = result.extHealthFacts ? result.extHealthFacts.result : [];
+
+        response.result.forEach(newItem => {
+            currentData = currentData.filter(item => item.Hypothesis !== newItem.Hypothesis);
+            currentData.unshift(newItem);
+        });
+
+        if (currentData.length > 4) {
+            currentData = currentData.slice(0, 4);
+        }
+
+        await setInStorage({ extHealthFacts: { result: currentData } });
+
+    } catch (error) {
+        chrome.notifications.create({
+            type: 'basic',
+            iconUrl: 'warning.png',
+            title: 'eXtHealth Error',
+            message: 'Error in Accessing Storage',
+            priority: 2
+        });
+        return;
+    }
     chrome.notifications.create({
         type: 'basic',
         iconUrl: 'icon.png',
