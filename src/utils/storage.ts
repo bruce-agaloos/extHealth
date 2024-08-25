@@ -145,6 +145,31 @@ const setDefaultInstalled = () => {
   });
 };
 
+
+function getFromStorage(keys) {
+    return new Promise((resolve, reject) => {
+        chrome.storage.local.get(keys, function(result) {
+            if (chrome.runtime.lastError) {
+                reject(chrome.runtime.lastError);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+};
+
+function setInStorage(data) {
+    return new Promise((resolve, reject) => {
+        chrome.storage.local.set(data, function() {
+            if (chrome.runtime.lastError) {
+                reject(chrome.runtime.lastError);
+            } else {
+                resolve();
+            }
+        });
+    });
+};
+
 export {
   setXAutoDetectState,
   getXAutoDetectState,
@@ -156,5 +181,7 @@ export {
   setDefaultInstalled,
   storeHealthTipResponse,
   getAllHealthTips,
-  getLatestHealthTip
+  getLatestHealthTip,
+getFromStorage,
+setInStorage
 };
