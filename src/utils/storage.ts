@@ -158,17 +158,17 @@ function getFromStorage(keys) {
     });
 };
 
-function setInStorage(data) {
-    return new Promise((resolve, reject) => {
-        chrome.storage.local.set(data, function() {
-            if (chrome.runtime.lastError) {
-                reject(chrome.runtime.lastError);
-            } else {
-                resolve();
-            }
-        });
-    });
-};
+function setInStorage(data: { [key: string]: any }): Promise<void> {
+  return new Promise<void>((resolve, reject) => {
+      chrome.storage.local.set(data, function() {
+          if (chrome.runtime.lastError) {
+              reject(chrome.runtime.lastError);
+          } else {
+              resolve();
+          }
+      });
+  });
+}
 
 export {
   setXAutoDetectState,
