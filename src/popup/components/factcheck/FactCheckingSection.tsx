@@ -88,10 +88,21 @@ const FactCheckingSection: React.FC = () => {
         });
       }
     });
-    
   };
 
-
+  const addNewFacts = (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const form = e.target as HTMLFormElement;
+      const textarea = form.querySelector('textarea') as HTMLTextAreaElement;
+      const fact = textarea.value;
+  
+      // Send a message to the background script
+      chrome.runtime.sendMessage({ message: 'factCheck', text: fact }, (response) => {
+          console.log('Response from background script:', response);
+      });
+      textarea.value = '';
+  };
+  
   
   const accordionStates = ['entailment', 'contradiction', 'neutral'];
 
@@ -103,6 +114,13 @@ const FactCheckingSection: React.FC = () => {
 
   return (
     <div>
+      <form action="" id={`form_add_facts`} onSubmit={(e) => addNewFacts(e)}>
+        <textarea 
+          onInput={(e: React.ChangeEvent<HTMLTextAreaElement>) => autoResizeTextarea(e)}
+          placeholder='Enter a health claim here...'
+        />
+        <button type="submit">+</button>
+      </form>
       {Array.isArray(facts) && facts.length > 0 ? (
         facts.map((fact, index) => (
           <div key={index}>

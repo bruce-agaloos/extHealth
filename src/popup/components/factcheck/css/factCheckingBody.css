@@ -15,3 +15,24 @@
     --date-color: #524A3E;
     --show-more-color: #66B5FD;
 }
+
+#factChecking {
+    #form_add_facts {
+        display: flex;
+        flex-direction: row; /* Place children side by side */
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    #form_add_facts textarea {
+        flex-grow: 1; /* Allow textarea to consume the remaining width */
+        margin-right: 10px; /* Space between textarea and button */
+        width: calc(100% - 60px); /* Adjust width dynamically, considering button width and margin */
+    }
+
+    #form_add_facts button {
+        height: 50px;
+        width: 50px; /* Fixed width for the button */
+    }
+}
