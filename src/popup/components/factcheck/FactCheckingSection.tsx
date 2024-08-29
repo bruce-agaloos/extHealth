@@ -100,7 +100,6 @@ const FactCheckingSection: React.FC = () => {
       chrome.runtime.sendMessage({ message: 'factCheck', text: fact }, (response) => {
           console.log('Response from background script:', response);
       });
-      textarea.value = '';
   };
   
   
