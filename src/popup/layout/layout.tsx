@@ -55,7 +55,45 @@ const Layout = () => {
         previousActiveOptionRef.current = activeOption;
     }, [activeOption, options]);
   
+    useEffect(() => {
+      chrome.storage.local.get(['isFactCheckLoading', 'isSingleFactCheckLoading'], (result) => {
+        const isFactCheckLoading = result.isFactCheckLoading === true;
+        const isSingleFactCheckLoading = result.isSingleFactCheckLoading === true;
+
+        const loaderElement = document.querySelector('.loader');
+
+        if (loaderElement) {
+            if (isFactCheckLoading || isSingleFactCheckLoading) {
+                loaderElement.classList.add('loading');
+            }
+        }
+      });
+      const handleStorageChange = (changes: { [key: string]: chrome.storage.StorageChange }) => {
+          if (changes.isFactCheckLoading || changes.isSingleFactCheckLoading) {
+              chrome.storage.local.get(['isFactCheckLoading', 'isSingleFactCheckLoading'], (result) => {
+                  const isFactCheckLoading = result.isFactCheckLoading === true;
+                  const isSingleFactCheckLoading = result.isSingleFactCheckLoading === true;
+          
+                  const loaderElement = document.querySelector('.loader');
+          
+                  if (loaderElement) {
+                      if (isFactCheckLoading || isSingleFactCheckLoading) {
+                          loaderElement.classList.add('loading');
+                      } else {
+                          loaderElement.classList.remove('loading');
+                      }
+                  }
+              });
+          }
+      };
   
+      chrome.storage.onChanged.addListener(handleStorageChange);
+  
+      // Cleanup event listener on component unmount
+      return () => {
+          chrome.storage.onChanged.removeListener(handleStorageChange);
+      };
+  }, []);
   
     const handleOptionClick = (optionId) => {
       setActiveOption(optionId);
@@ -69,6 +107,7 @@ const Layout = () => {
             <h2 id="popupTitle" className="popupTitle">
               eXtHealth <span className="forc">for Chrome</span>
             </h2>
+            <span className="loader"></span>
           </div>
         </header>
         <section id="options">
