@@ -11,6 +11,8 @@ import {setFactCheckWholeLoad, setSingleFactCheckLoad, isFactCheckLoading} from 
 import {getFromStorage, setInStorage} from "../utils/storage"
 import {HealthFactsStorage} from "../utils/pop_up_storage/types"
 
+import { allKeywords } from '../utils/keywords/health_keywords';
+
 let activeTabId: number | undefined;
 let activeWindowId: number | undefined;
 
@@ -97,6 +99,19 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
     if (info.menuItemId === "extHealth") {
         if (info.selectionText) {
             const text = info.selectionText;
+            const isMatch = allKeywords
+                .some(keyword => new RegExp(`(?:^|[\\s.,;?!()\\[\\]{}])${keyword}(?:[\\s.,;?!()\\[\\]{}]|$)`, 'i').test(text));
+            if (!isMatch) {
+                chrome.notifications.create({
+                    type: 'basic',
+                    iconUrl: 'error.png',
+                    title: 'Keyword Error',
+                    message: 'The current selected text does not include any of the health keywords for this extension. Please select a text that includes health keywords to fact check.',
+                    priority: 2
+                });
+                return;
+            }
+
             const isHealthClaim = await healthClaimDetection(text);
             if (!isHealthClaim) {
                 let error_value = await getFromStorage(['healthClaimResult']);
@@ -113,7 +128,7 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
                 chrome.notifications.create({
                     type: 'basic',
                     iconUrl: 'error.png',
-                    title: 'Error',
+                    title: 'Health Claim error',
                     message: 'The text selected is not a health claim. Please select a health claim text to fact check.',
                     priority: 2
                 });

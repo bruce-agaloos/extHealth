@@ -8,7 +8,7 @@ import "./css/factCheckingBody.css";
 import {healthClaimDetection} from '../../../utils/claim_detection';
 import {getFromStorage} from "../../../utils/storage"
 
-
+import { allKeywords } from '../../../utils/keywords/health_keywords';
 
 const FactCheckingSection: React.FC = () => {
   const [expanded, setExpanded] = useState<string | false>(false);
@@ -73,6 +73,19 @@ const FactCheckingSection: React.FC = () => {
     e.preventDefault();
     const hypothesis = facts[index].hypothesis;
     
+    const isMatch = allKeywords
+          .some(keyword => new RegExp(`(?:^|[\\s.,;?!()\\[\\]{}])${keyword}(?:[\\s.,;?!()\\[\\]{}]|$)`, 'i').test(hypothesis));
+      if (!isMatch) {
+          chrome.notifications.create({
+              type: 'basic',
+              iconUrl: 'error.png',
+              title: 'Keyword Error',
+              message: 'The current selected text does not include any of the health keywords for this extension. Please select a text that includes health keywords to fact check.',
+              priority: 2
+          });
+          return;
+      }
+
     const isHealthClaim = healthClaimDetection(hypothesis);
     if (!isHealthClaim) {
       let error_value = await getFromStorage(['healthClaimResult']);
@@ -89,7 +102,7 @@ const FactCheckingSection: React.FC = () => {
       chrome.notifications.create({
         type: 'basic',
         iconUrl: 'error.png',
-        title: 'Error',
+        title: 'Health Claim Error',
         message: 'The current query is not an health claim. Please make sure it is',
         priority: 2
       });
@@ -122,6 +135,19 @@ const FactCheckingSection: React.FC = () => {
       const textarea = form.querySelector('textarea') as HTMLTextAreaElement;
       const fact = textarea.value;
 
+      const isMatch = allKeywords
+          .some(keyword => new RegExp(`(?:^|[\\s.,;?!()\\[\\]{}])${keyword}(?:[\\s.,;?!()\\[\\]{}]|$)`, 'i').test(fact));
+      if (!isMatch) {
+          chrome.notifications.create({
+              type: 'basic',
+              iconUrl: 'error.png',
+              title: 'Keyword Error',
+              message: 'The current input does not include any health keywords considered in this extension. It might result in an unexpected result.',
+              priority: 2
+          });
+          return;
+      }
+
       const isHealthClaim = healthClaimDetection(fact);
       if (!isHealthClaim) {
         let error_value = await getFromStorage(['healthClaimResult']);
@@ -130,7 +156,7 @@ const FactCheckingSection: React.FC = () => {
                 type: 'basic',
                 iconUrl: 'error.png',
                 title: 'Daily Limit Reached',
-                message: 'I am sorry, but you have reached the daily limit or there is an error on the server. Please try again later.',
+                message: 'The current input does not include any health keywords considered in this extension. It might result in an unexpected result.',
                 priority: 2
             });
             return;
@@ -138,7 +164,7 @@ const FactCheckingSection: React.FC = () => {
         chrome.notifications.create({
           type: 'basic',
           iconUrl: 'error.png',
-          title: 'Error',
+          title: 'Health Claim Error',
           message: 'The current query is not an health claim. Please make sure it is',
           priority: 2
         });
