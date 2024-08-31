@@ -6,6 +6,7 @@ import Evidence from './Evidence';
 import "./css/factCheckingBody.css";
 
 import {healthClaimDetection} from '../../../utils/claim_detection';
+import {getFromStorage} from "../../../utils/storage"
 
 
 
@@ -56,12 +57,23 @@ const FactCheckingSection: React.FC = () => {
     setFacts(newFacts);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>, index: number) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, index: number) => {
     e.preventDefault();
     const hypothesis = facts[index].hypothesis;
     
     const isHealthClaim = healthClaimDetection(hypothesis);
     if (!isHealthClaim) {
+      let error_value = await getFromStorage(['healthClaimResult']);
+      if (error_value != "yes" || error_value != "no") {
+          chrome.notifications.create({
+              type: 'basic',
+              iconUrl: 'error.png',
+              title: 'Daily Limit Reached',
+              message: 'I am sorry, but you have reached the daily limit or there is an error on the server. Please try again later.',
+              priority: 2
+          });
+          return;
+      }
       chrome.notifications.create({
         type: 'basic',
         iconUrl: 'error.png',
@@ -92,7 +104,7 @@ const FactCheckingSection: React.FC = () => {
     });
   };
 
-  const addNewFacts = (e: React.FormEvent<HTMLFormElement>) => {
+  const addNewFacts = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       const form = e.target as HTMLFormElement;
       const textarea = form.querySelector('textarea') as HTMLTextAreaElement;
@@ -100,6 +112,17 @@ const FactCheckingSection: React.FC = () => {
 
       const isHealthClaim = healthClaimDetection(fact);
       if (!isHealthClaim) {
+        let error_value = await getFromStorage(['healthClaimResult']);
+        if (error_value != "yes" || error_value != "no") {
+            chrome.notifications.create({
+                type: 'basic',
+                iconUrl: 'error.png',
+                title: 'Daily Limit Reached',
+                message: 'I am sorry, but you have reached the daily limit or there is an error on the server. Please try again later.',
+                priority: 2
+            });
+            return;
+        }
         chrome.notifications.create({
           type: 'basic',
           iconUrl: 'error.png',

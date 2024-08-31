@@ -99,6 +99,17 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
             const text = info.selectionText;
             const isHealthClaim = await healthClaimDetection(text);
             if (!isHealthClaim) {
+                let error_value = await getFromStorage(['healthClaimResult']);
+                if (error_value != "yes" || error_value != "no") {
+                    chrome.notifications.create({
+                        type: 'basic',
+                        iconUrl: 'error.png',
+                        title: 'Daily Limit Reached',
+                        message: 'I am sorry, but you have reached the daily limit or there is an error on the server. Please try again later.',
+                        priority: 2
+                    });
+                    return;
+                }
                 chrome.notifications.create({
                     type: 'basic',
                     iconUrl: 'error.png',
