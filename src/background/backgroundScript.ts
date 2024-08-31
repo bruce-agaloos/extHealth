@@ -152,6 +152,7 @@ function createHealthReminderAlarm() {
 
 // fact checking function
 async function updateFactCheck(text) {
+    
     let loading = await isFactCheckLoading();
     if (loading) {
         chrome.notifications.create({

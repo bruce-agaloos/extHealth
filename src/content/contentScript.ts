@@ -100,7 +100,7 @@ const searchKeywordAndCreateOverlay = async (tweetBody: string, tweet: HTMLDivEl
      * 
     */
     const isMatch = allKeywords
-        .some(keyword => new RegExp(`\\b${keyword}\\b`, 'i').test(tweetBody));
+    .some(keyword => new RegExp(`(?:^|[\\s.,;?!()\\[\\]{}])${keyword}(?:[\\s.,;?!()\\[\\]{}]|$)`, 'i').test(tweetBody));
 
     if (!isMatch) {
         return;
