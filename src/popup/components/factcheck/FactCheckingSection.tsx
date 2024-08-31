@@ -75,6 +75,8 @@ const FactCheckingSection: React.FC = () => {
     chrome.runtime.sendMessage({ type: 'UPDATE_FACT', hypothesis }, (response) => {
       if (chrome.runtime.lastError) {
         console.error('Error:', chrome.runtime.lastError.message);
+      } else if (response === undefined || response === null) {
+        console.error('Error: Background script encountered an error and returned no response.');
       } else {
         const updatedFacts = [...facts];
         updatedFacts[index].premises = response;
@@ -95,7 +97,18 @@ const FactCheckingSection: React.FC = () => {
       const form = e.target as HTMLFormElement;
       const textarea = form.querySelector('textarea') as HTMLTextAreaElement;
       const fact = textarea.value;
-  
+
+      const isHealthClaim = healthClaimDetection(fact);
+      if (!isHealthClaim) {
+        chrome.notifications.create({
+          type: 'basic',
+          iconUrl: 'error.png',
+          title: 'Error',
+          message: 'The current query is not an health claim. Please make sure it is',
+          priority: 2
+        });
+        return;
+      }
       // Send a message to the background script
       chrome.runtime.sendMessage({ message: 'factCheck', text: fact }, (response) => {
           console.log('Response from background script:', response);
@@ -116,6 +129,12 @@ const FactCheckingSection: React.FC = () => {
       <form action="" id={`form_add_facts`} onSubmit={(e) => addNewFacts(e)}>
         <textarea 
           onInput={(e: React.ChangeEvent<HTMLTextAreaElement>) => autoResizeTextarea(e)}
+          onKeyDown={(e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              (e.target as HTMLTextAreaElement).form?.requestSubmit();
+            }
+          }}
           placeholder='Enter a health claim here...'
         />
         <button type="submit">+</button>
@@ -128,30 +147,64 @@ const FactCheckingSection: React.FC = () => {
               value={fact.hypothesis} 
               onChange={(e) => handleInputChange(e, index)}
               onInput={(e: React.ChangeEvent<HTMLTextAreaElement>) => autoResizeTextarea(e)}
+              onKeyDown={(e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  (e.target as HTMLTextAreaElement).form?.requestSubmit();
+                }
+              }}
             />
             </form>
-            {accordionStates.map((state) => {
-              const relatedPremises = fact.premises.filter(premise => premise.relationship.toLowerCase() === state.toLowerCase());
-              const count = relatedPremises.length;
+            {accordionStates.length === 0 || fact.premises.filter(premise => accordionStates.includes(premise.relationship.toLowerCase())).length === 0 ? (
+              <div style={
+                {
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  fontSize: '20px',
+                  color: 'gray',
+                  marginBottom: '30px'
+                }
+              }>
+                <span>
+                  Sorry, no results found for this query
+                </span>
+                <img src="sad-emoji.gif" alt=":(" height="30px" width="30px"/>
+                </div>
+            ) : (
+              accordionStates.map((state) => {
+                const relatedPremises = fact.premises.filter(premise => premise.relationship.toLowerCase() === state.toLowerCase());
+                const count = relatedPremises.length;
             
-              return count > 0 && (
-                <CustomAccordion
-                  key={`${index}-${state}`}
-                  title={`${stateMappings[state]}`} 
-                  count={`${count}`}
-                  expanded={expanded === `${index}-${state}`}
-                  onChange={handleChange(`${index}-${state}`)}
-                >
-                  {relatedPremises.map((premise, idx) => (
-                    <Evidence key={`${index}-${state}-${idx}`} idx={idx} premise={premise} />
-                  ))}
-                </CustomAccordion>
-              );
-            })}
+                return count > 0 && (
+                  <CustomAccordion
+                    key={`${index}-${state}`}
+                    title={`${stateMappings[state]}`} 
+                    count={`${count}`}
+                    expanded={expanded === `${index}-${state}`}
+                    onChange={handleChange(`${index}-${state}`)}
+                  >
+                    {relatedPremises.map((premise, idx) => (
+                      <Evidence key={`${index}-${state}-${idx}`} idx={idx} premise={premise} />
+                    ))}
+                  </CustomAccordion>
+                );
+              })
+            )}
           </div>
         ))
       ) : (
-        <div>whoa look at the emptiness</div>
+        <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          fontSize: '20px',
+          color: 'gray',
+          marginTop: '30px',
+          marginBottom: '30px'
+        }}
+        >Want to try fact checking something?</div>
       )}
     </div>
   );

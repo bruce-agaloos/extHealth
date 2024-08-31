@@ -164,12 +164,12 @@ async function updateFactCheck(text) {
         return;
     }
     const characterLimit = 50;
-    if (text.length > characterLimit) {
+    if (text.trim().length > characterLimit || text.trim().length === 0) {
         chrome.notifications.create({
             type: 'basic',
             iconUrl: 'error.png', // Path to your notification icon
             title: 'Character Limit Exceeded',
-            message: `The text exceeds the character limit, it might produce inaccurate results.`,
+            message: `The text does not meet the character limit, it might produce inaccurate results.`,
         });
 
         return;
@@ -220,12 +220,12 @@ async function factCheck(text) {
         return;
     }
     const characterLimit = 50;
-    if (text.length > characterLimit) {
+    if (text.trim().length > characterLimit || text.trim().length === 0) {
         chrome.notifications.create({
             type: 'basic',
             iconUrl: 'error.png', // Path to your notification icon
             title: 'Character Limit Exceeded',
-            message: `The text exceeds the character limit, it might produce inaccurate results.`,
+            message: `The text does not meet the character limit, it might produce inaccurate results.`,
         });
         return;
     }

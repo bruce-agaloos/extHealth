@@ -37,9 +37,24 @@ const HealthTipsSection: React.FC = () => {
 
     return (
         <div>
-            {healthTipsData.map((tip, idx) => (
+            {healthTipsData.length === 0 ? (
+                <div
+                style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    fontSize: '20px',
+                    color: 'gray',
+                    marginTop: '30px',
+                    marginBottom: '30px',
+                    textAlign: 'center',
+                  }}
+                >It seems you dont have any health tips for now, just keep waiting</div>
+            ) : (
+                healthTipsData.map((tip, idx) => (
                 <HealthTips key={idx} idx={idx} health_tips={tip} />
-            ))}
+                ))
+            )}
         </div>
     );
 }
