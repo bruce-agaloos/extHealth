@@ -112,28 +112,29 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
             }).catch(error => {
                 console.error(error);
             });
-        } else if (info.srcUrl) {
-            const url = info.srcUrl;
-            console.log("URL:", url);
+        } 
+        // else if (info.srcUrl) {
+        //     const url = info.srcUrl;
+        //     console.log("URL:", url);
 
-            const text = await sendImageToServer(url);
-            console.log("Extracted: ", text);
-            const isHealthClaim = await healthClaimDetection(text);
-            if (!isHealthClaim) {
-                chrome.notifications.create({
-                    type: 'basic',
-                    iconUrl: 'error.png',
-                    title: 'Error',
-                    message: 'The image selected does not contain a health claim. Please select an image containing a health claim to fact check.',
-                    priority: 2
-                });
-                return;
-            }
-            factCheck(text).then(data => {
-            }).catch(error => {
-                console.error(error);
-            });
-        }
+        //     const text = await sendImageToServer(url);
+        //     console.log("Extracted: ", text);
+        //     const isHealthClaim = await healthClaimDetection(text);
+        //     if (!isHealthClaim) {
+        //         chrome.notifications.create({
+        //             type: 'basic',
+        //             iconUrl: 'error.png',
+        //             title: 'Error',
+        //             message: 'The image selected does not contain a health claim. Please select an image containing a health claim to fact check.',
+        //             priority: 2
+        //         });
+        //         return;
+        //     }
+        //     factCheck(text).then(data => {
+        //     }).catch(error => {
+        //         console.error(error);
+        //     });
+        // }
     }
 });
 
