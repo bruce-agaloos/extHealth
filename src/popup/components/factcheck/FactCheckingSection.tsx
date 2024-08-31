@@ -128,6 +128,7 @@ const FactCheckingSection: React.FC = () => {
     <div>
       <form action="" id={`form_add_facts`} onSubmit={(e) => addNewFacts(e)}>
         <textarea 
+          rows={1}
           onInput={(e: React.ChangeEvent<HTMLTextAreaElement>) => autoResizeTextarea(e)}
           onKeyDown={(e: React.KeyboardEvent<HTMLTextAreaElement>) => {
             if (e.key === 'Enter') {
@@ -144,6 +145,7 @@ const FactCheckingSection: React.FC = () => {
           <div key={index}>
             <form action="" id={`form-${index}`} onSubmit={(e) => handleSubmit(e, index)}>
             <textarea 
+              rows={1}
               value={fact.hypothesis} 
               onChange={(e) => handleInputChange(e, index)}
               onInput={(e: React.ChangeEvent<HTMLTextAreaElement>) => autoResizeTextarea(e)}
