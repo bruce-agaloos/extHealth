@@ -1,4 +1,4 @@
-import React, {useEffect, useState } from 'react';
+import React, {useEffect, useState, useRef } from 'react';
 import Typography from '@mui/material/Typography';
 import CustomAccordion from './CustomAccordion';
 import Evidence from './Evidence'; 
@@ -15,6 +15,18 @@ const FactCheckingSection: React.FC = () => {
 
 
   const [facts, setFacts] = useState([]);
+
+  const textareaRefs = useRef<(HTMLTextAreaElement | null)[]>([]);
+
+  useEffect(() => {
+    if (textareaRefs.current) {
+      textareaRefs.current.forEach((textarea) => {
+        if (textarea) {
+          autoResizeTextarea({ target: textarea } as React.ChangeEvent<HTMLTextAreaElement>);
+        }
+      });
+    }
+  }, [facts]);
 
   useEffect(() => {
     // Retrieve the stored data using Chrome Storage API
@@ -168,6 +180,7 @@ const FactCheckingSection: React.FC = () => {
           <div key={index}>
             <form action="" id={`form-${index}`} onSubmit={(e) => handleSubmit(e, index)}>
             <textarea 
+              ref={(el) => (textareaRefs.current[index] = el)}
               rows={1}
               value={fact.hypothesis} 
               onChange={(e) => handleInputChange(e, index)}
