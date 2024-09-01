@@ -18,14 +18,22 @@ const FactCheckingSection: React.FC = () => {
 
   const textareaRefs = useRef<(HTMLTextAreaElement | null)[]>([]);
 
-  useEffect(() => {
-    if (textareaRefs.current) {
-      textareaRefs.current.forEach((textarea) => {
-        if (textarea) {
-          autoResizeTextarea({ target: textarea } as React.ChangeEvent<HTMLTextAreaElement>);
-        }
-      });
-    }
+   useEffect(() => {
+      const resizeTextareas = () => {
+          if (textareaRefs.current) {
+              textareaRefs.current.forEach((textarea) => {
+                  if (textarea) {
+                      autoResizeTextarea({ target: textarea } as React.ChangeEvent<HTMLTextAreaElement>);
+                  }
+              });
+          }
+      };
+  
+      // Use a slight delay to ensure the DOM is fully updated
+      const timeoutId = setTimeout(resizeTextareas, 100);
+  
+      // Cleanup the timeout on unmount
+      return () => clearTimeout(timeoutId);
   }, [facts]);
 
   useEffect(() => {

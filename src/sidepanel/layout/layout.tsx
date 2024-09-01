@@ -46,11 +46,8 @@ const Layout = () => {
       return () => {
           chrome.storage.onChanged.removeListener(handleStorageChange);
       };
-  }, []);
+    }, []);
   
-    const handleOptionClick = (optionId) => {
-      setActiveOption(optionId);
-    };
   
     return (
       <div id="grid">
@@ -64,7 +61,7 @@ const Layout = () => {
           </div>
         </header>
         <section id="body">
-          <div id="factChecking" className='selectedOption appearLeft'>
+          <div id="factChecking" className='appearLeft'>
             <FactCheckingSection/>
           </div>
         </section>

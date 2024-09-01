@@ -20,8 +20,14 @@
     > div {
         display: flex;
         flex-direction: column-reverse;
-        justify-content: end;
+        justify-content: flex-start;
         min-height: 100%;
+        overflow: auto;
+        > div{
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
     }
     #form_add_facts {
         display: flex;
