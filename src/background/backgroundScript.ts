@@ -13,29 +13,15 @@ import {HealthFactsStorage} from "../utils/pop_up_storage/types"
 
 import { allKeywords } from '../utils/keywords/health_keywords';
 
-let activeTabId: number | undefined;
-let activeWindowId: number | undefined;
-
-chrome.windows.onFocusChanged.addListener(async (windowId) => {
-    const currentWindow = await chrome.windows.getCurrent();
-    if (currentWindow.id !== chrome.windows.WINDOW_ID_NONE && currentWindow.id !== -1) {
-        activeWindowId = currentWindow.id;
-        return;
-    }
-    if (windowId === chrome.windows.WINDOW_ID_NONE) {
-        activeWindowId = undefined;
-    }
-});
-chrome.tabs.onActivated.addListener((activeInfo) => {
-    activeTabId = activeInfo.tabId;
-});
-
 
 // Listen for messages from the content script
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    (async () => {
     if (request.message === 'factCheck') {
+        await chrome.sidePanel.open({ tabId: sender.tab.id });
         factCheck(request.text);
     }
+    })();
 });
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -98,6 +84,7 @@ chrome.contextMenus.remove("extHealth", () => {
 chrome.contextMenus.onClicked.addListener(async (info, tab) => {
     if (info.menuItemId === "extHealth") {
         if (info.selectionText) {
+            await chrome.sidePanel.open({ windowId: tab.windowId });
             const text = info.selectionText;
             const isMatch = allKeywords
                 .some(keyword => new RegExp(`(?:^|[\\s.,;?!()\\[\\]{}])${keyword}(?:[\\s.,;?!()\\[\\]{}]|$)`, 'i').test(text));
@@ -211,29 +198,12 @@ async function updateFactCheck(text) {
         });
         return [];
     };
-    chrome.notifications.create({
-        type: 'basic',
-        iconUrl: 'icon.png',
-        title: 'Fact Check Ready!!',
-        message: "Your request has been processed. Please check out the results in the extension popup.",
-        priority: 2
-    }, (notificationId) => {
-        // Add a click event listener for the notification
-        chrome.notifications.onClicked.addListener((id) => {
-            if (id === notificationId) {
-                chrome.windows.update(activeWindowId, { focused: true }, (window) => {
-                    chrome.tabs.update(activeTabId, { active: true })
-                });
-                chrome.action.openPopup();
-            }
-        });
-    });
+    
     return response;
 }
 
 
 async function factCheck(text) {
-    
     let loading = await isFactCheckLoading();
     if (loading) {
         chrome.notifications.create({
@@ -294,24 +264,7 @@ async function factCheck(text) {
         });
         return;
     }
-    chrome.notifications.create({
-        type: 'basic',
-        iconUrl: 'icon.png',
-        title: 'Fact Check Ready!!',
-        message: "Your request has been processed. Please check out the results in the extension popup.",
-        priority: 2
-    }, (notificationId) => {
-        // Add a click event listener for the notification
-        chrome.notifications.onClicked.addListener(async (id) => {
-            if (id === notificationId) {
-                console.log(activeWindowId);
-                chrome.windows.update(activeWindowId, { focused: true }, (window) => {
-                    chrome.tabs.update(activeTabId, { active: true })
-                });
-                chrome.action.openPopup();
-            }
-        });
-    });
+
 }
 
 
