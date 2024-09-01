@@ -184,6 +184,48 @@ const FactCheckingSection: React.FC = () => {
       });
   };
   
+  // loading
+  useEffect(() => {
+    chrome.storage.local.get(['isFactCheckLoading', 'isSingleFactCheckLoading'], (result) => {
+      const isFactCheckLoading = result.isFactCheckLoading === true;
+      const isSingleFactCheckLoading = result.isSingleFactCheckLoading === true;
+
+      const loaderElement = document.querySelector('.loader');
+
+      if (loaderElement) {
+          if (isFactCheckLoading || isSingleFactCheckLoading) {
+              loaderElement.classList.add('loading');
+          }
+      }
+    });
+    const handleStorageChange = (changes: { [key: string]: chrome.storage.StorageChange }) => {
+        if (changes.isFactCheckLoading || changes.isSingleFactCheckLoading) {
+            chrome.storage.local.get(['isFactCheckLoading', 'isSingleFactCheckLoading'], (result) => {
+                const isFactCheckLoading = result.isFactCheckLoading === true;
+                const isSingleFactCheckLoading = result.isSingleFactCheckLoading === true;
+        
+                const loaderElement = document.querySelector('.loader');
+                const buttonElement = document.querySelector('.add_fact_button');
+        
+                if (loaderElement) {
+                    if (isFactCheckLoading || isSingleFactCheckLoading) {
+                        loaderElement.classList.add('loading');
+                        buttonElement.classList.add('loading');
+                    } else {
+                        loaderElement.classList.remove('loading');
+                        buttonElement.classList.remove('loading');
+                    }
+                }
+            });
+        }
+    };
+    chrome.storage.onChanged.addListener(handleStorageChange);
+    // Cleanup event listener on component unmount
+    return () => {
+        chrome.storage.onChanged.removeListener(handleStorageChange);
+    };
+  }, []);
+
   
   const accordionStates = ['entailment', 'contradiction', 'neutral'];
 
@@ -207,7 +249,8 @@ const FactCheckingSection: React.FC = () => {
           }}
           placeholder='Enter a health claim here...'
         />
-        <button type="submit">+</button>
+        <button type="submit" className='add_fact_button'>+</button>
+        <span className="loader"></span>
       </form>
       {Array.isArray(facts) && facts.length > 0 ? (
         facts.map((fact, index) => (

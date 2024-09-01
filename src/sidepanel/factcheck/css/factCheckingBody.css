@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto+Slab');
 @import url('accordion.css');
 @import url('evidence.css');
+@import url('loading.css');
 
 
 #factChecking{
@@ -38,9 +39,8 @@
     }
 
     #form_add_facts textarea {
-        flex-grow: 1; /* Allow textarea to consume the remaining width */
         margin-right: 10px; /* Space between textarea and button */
-        width: calc(100% - 30px); /* Adjust width dynamically, considering button width and margin */
+        width: calc(100% - 65px); /* Adjust width dynamically, considering button width and margin */
         margin-bottom: 0;
     }
 
