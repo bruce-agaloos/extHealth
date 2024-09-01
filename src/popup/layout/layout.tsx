@@ -1,16 +1,14 @@
 import React, { useState,  useEffect, useRef  } from 'react';
 import './css/default.css'; // Assuming styles are defined here
 
-import FactCheckingSection from "../components/factcheck/FactCheckingSection"
 import HealthTipsSection from "../components/healthTips/section"
 import Settings from "../components/settings/section"
 
 
 const Layout = () => {
-    const [activeOption, setActiveOption] = useState('factChecking');
+    const [activeOption, setActiveOption] = useState('healthReminders');
   
     const options = [
-      { id: 'factChecking', name: 'Fact Checking', imgSrc: 'iconFactCheck.png', altText: 'factLogo' },
       { id: 'healthReminders', name: 'Health Reminders', imgSrc: 'iconReminder.png', altText: 'reminderLogo' },
       { id: 'settings', name: 'Settings', imgSrc: 'iconSettings.png', altText: 'settingsLogo' },
     ];
@@ -55,45 +53,6 @@ const Layout = () => {
         previousActiveOptionRef.current = activeOption;
     }, [activeOption, options]);
   
-    useEffect(() => {
-      chrome.storage.local.get(['isFactCheckLoading', 'isSingleFactCheckLoading'], (result) => {
-        const isFactCheckLoading = result.isFactCheckLoading === true;
-        const isSingleFactCheckLoading = result.isSingleFactCheckLoading === true;
-
-        const loaderElement = document.querySelector('.loader');
-
-        if (loaderElement) {
-            if (isFactCheckLoading || isSingleFactCheckLoading) {
-                loaderElement.classList.add('loading');
-            }
-        }
-      });
-      const handleStorageChange = (changes: { [key: string]: chrome.storage.StorageChange }) => {
-          if (changes.isFactCheckLoading || changes.isSingleFactCheckLoading) {
-              chrome.storage.local.get(['isFactCheckLoading', 'isSingleFactCheckLoading'], (result) => {
-                  const isFactCheckLoading = result.isFactCheckLoading === true;
-                  const isSingleFactCheckLoading = result.isSingleFactCheckLoading === true;
-          
-                  const loaderElement = document.querySelector('.loader');
-          
-                  if (loaderElement) {
-                      if (isFactCheckLoading || isSingleFactCheckLoading) {
-                          loaderElement.classList.add('loading');
-                      } else {
-                          loaderElement.classList.remove('loading');
-                      }
-                  }
-              });
-          }
-      };
-  
-      chrome.storage.onChanged.addListener(handleStorageChange);
-  
-      // Cleanup event listener on component unmount
-      return () => {
-          chrome.storage.onChanged.removeListener(handleStorageChange);
-      };
-  }, []);
   
     const handleOptionClick = (optionId) => {
       setActiveOption(optionId);
@@ -107,7 +66,6 @@ const Layout = () => {
             <h2 id="popupTitle" className="popupTitle">
               eXtHealth <span className="forc">for Chrome</span>
             </h2>
-            <span className="loader"></span>
           </div>
         </header>
         <section id="options">
@@ -121,10 +79,7 @@ const Layout = () => {
           </ul>
         </section>
         <section id="body">
-          <div id="factChecking" className={`${activeOption === 'factChecking' ? 'selectedOption' : ''} appearLeft`}>
-            <FactCheckingSection/>
-          </div>
-          <div id="healthReminders" className={`${activeOption === 'healthReminders' ? 'selectedOption' : ''} ${activeOption !== 'healthReminders' ? 'disappearLeft' : ''}`}>
+          <div id="healthReminders" className={`${activeOption === 'healthReminders' ? 'selectedOption' : ''} appearLeft`}>
             <HealthTipsSection/>
           </div>
           <div id="settings" className={`${activeOption === 'settings' ? 'selectedOption' : ''} ${activeOption !== 'settings' ? 'disappearLeft' : ''}`}>
