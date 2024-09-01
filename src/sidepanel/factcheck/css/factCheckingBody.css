@@ -23,7 +23,6 @@
         flex-direction: column-reverse;
         justify-content: flex-start;
         min-height: 100%;
-        overflow: auto;
         > div{
             width: 90%;
             margin-left: auto;
@@ -31,11 +30,16 @@
         }
     }
     #form_add_facts {
+        z-index: 1000;
+        background-color: white;
         display: flex;
         flex-direction: row; /* Place children side by side */
         align-items: center;
         justify-content: center;
         margin-bottom: 10px;
+        position: -webkit-sticky;
+        position: sticky;
+        bottom: 0;
     }
 
     #form_add_facts textarea {

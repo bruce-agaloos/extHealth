@@ -17,8 +17,9 @@ const FactCheckingSection: React.FC = () => {
   const [facts, setFacts] = useState([]);
 
   const textareaRefs = useRef<(HTMLTextAreaElement | null)[]>([]);
+  const scrollableDivRef = useRef<HTMLDivElement>(null);
 
-   useEffect(() => {
+     useEffect(() => {
       const resizeTextareas = () => {
           if (textareaRefs.current) {
               textareaRefs.current.forEach((textarea) => {
@@ -29,11 +30,16 @@ const FactCheckingSection: React.FC = () => {
           }
       };
   
-      // Use a slight delay to ensure the DOM is fully updated
-      const timeoutId = setTimeout(resizeTextareas, 100);
+      // Use requestAnimationFrame to ensure the DOM is fully updated
+      const rafId = requestAnimationFrame(() => {
+          const timeoutId = setTimeout(resizeTextareas, 100);
   
-      // Cleanup the timeout on unmount
-      return () => clearTimeout(timeoutId);
+          // Cleanup the timeout on unmount
+          return () => clearTimeout(timeoutId);
+      });
+  
+      // Cleanup the requestAnimationFrame on unmount
+      return () => cancelAnimationFrame(rafId);
   }, [facts]);
 
   useEffect(() => {
@@ -226,6 +232,13 @@ const FactCheckingSection: React.FC = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const scrollableDiv = scrollableDivRef.current;
+    if (scrollableDiv && scrollableDiv.lastElementChild) {
+      // Scroll the last child element into view
+      scrollableDiv.lastElementChild.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, []);
   
   const accordionStates = ['entailment', 'contradiction', 'neutral'];
 
@@ -236,7 +249,7 @@ const FactCheckingSection: React.FC = () => {
   };
 
   return (
-    <div>
+    <div ref={scrollableDivRef}>
       <form action="" id={`form_add_facts`} onSubmit={(e) => addNewFacts(e)}>
         <textarea 
           rows={1}

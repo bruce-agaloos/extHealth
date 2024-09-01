@@ -8,7 +8,6 @@
   opacity: 0;
   box-sizing: border-box;
   width: 100%;
-  overflow: auto;
   height: 100%;
 }
 #body > div > div {
