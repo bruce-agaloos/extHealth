@@ -1,0 +1,62 @@
+/* options animation */
+/* options */
+#options {
+  grid-column: 1 / 4;
+  grid-row: 2 / 3;
+}
+
+#options ul {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  list-style-type: none;
+  padding: 0;
+  transform-origin: center;
+  animation: expandFromMiddle 1s ease-out forwards;
+}
+
+#options ul li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  padding: 10px;
+  flex: 1;
+  position: relative; /* Needed for absolute positioning of the pseudo-element */
+}
+#options ul li::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0; /* Start with 0 width */
+  height: 1px; /* Height of the border */
+  background-color: grey; /* Color of the border */
+  transform: translateX(-50%); /* Center the element */
+}
+
+#options ul li.activeOption::before {
+  animation: expandBorder 1s ease forwards;
+}
+
+@keyframes expandFromMiddle {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* option border animation */
+@keyframes expandBorder {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%; /* Expand the border to full width */
+  }
+}

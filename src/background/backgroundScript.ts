@@ -278,8 +278,8 @@ async function factCheck(text) {
             currentData.unshift(newItem);
         });
 
-        if (currentData.length > 4) {
-            currentData = currentData.slice(0, 4);
+        if (currentData.length > 6) {
+            currentData = currentData.slice(0, 6);
         }
 
         await setInStorage({ extHealthFacts: { result: currentData } });

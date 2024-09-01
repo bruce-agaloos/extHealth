@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab');
+@import url('accordion.css');
+@import url('evidence.css');
+
+
+#factChecking{
+    --hypothesis-color: #1E1919;
+    --accordion-title-color: #7E939A;
+    --entailment-border: 2px solid #3BA0FD;
+    --contradiction-border: 2px solid #F8686A;
+    --neutral-border: 2px solid #A86CD0;
+    --claim-color: var(--hypothesis-color);
+    --url-color: #524A3E;
+    --snippets-color: #5F6368;
+    --date-color: #524A3E;
+    --show-more-color: #66B5FD;
+}
+
+#factChecking {
+    > div {
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: end;
+        min-height: 100%;
+    }
+    #form_add_facts {
+        display: flex;
+        flex-direction: row; /* Place children side by side */
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+
+    #form_add_facts textarea {
+        flex-grow: 1; /* Allow textarea to consume the remaining width */
+        margin-right: 10px; /* Space between textarea and button */
+        width: calc(100% - 30px); /* Adjust width dynamically, considering button width and margin */
+        margin-bottom: 0;
+    }
+
+    #form_add_facts button {
+        height: 25px;
+        width: 25px; /* Fixed width for the button */
+        background-color: red;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        padding: 5px;
+    }
+}

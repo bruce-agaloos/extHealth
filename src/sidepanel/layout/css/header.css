@@ -1,0 +1,165 @@
+/* header */
+header {
+  grid-column: 1 / 4;
+  grid-row: 1 / 2;
+}
+
+.board {
+  padding: 10px;
+  position: relative;
+}
+
+.board::before,
+.board::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  height: 1px; /* Height of the border */
+  background-color: grey; /* Color of the border */
+  width: 0%; /* Start with a small width */
+  transition: all 0.5s ease; /* Smooth transition for the border */
+  animation: 1s ease-out forwards; /* Animation duration and timing */
+}
+
+.board::before {
+  left: 0; /* Start from the left edge */
+  animation-name: growFromLeft; /* Animation for growing from left */
+}
+
+.board::after {
+  right: 0; /* Start from the right edge */
+  animation-name: growFromRight; /* Animation for growing from right */
+}
+
+.TitleLogo {
+  margin-top: -20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+.loader {
+  display: none;
+  color: grey;
+  font-size: 30px;
+  text-indent: -9999em;
+  overflow: hidden;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  position: absolute;
+  transform: translateZ(0);
+  animation: mltShdSpin 1.7s infinite ease, round 1.7s infinite ease;
+  left: 0;
+} 
+.loading.loader{
+  display: block;
+}
+
+.logo {
+  margin-left: -10px;
+  margin-right: -10px;
+  margin-top: 10px;
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  transform-origin: left;
+  animation: appearLeftToCenter 1s ease-out forwards;
+}
+
+.popupTitle {
+  font-family: "Roboto Slab", sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+  padding-top: 5px;
+  transform-origin: right;
+  animation: appearRightToCenter 1s ease-out forwards;
+}
+.forc {
+  font-weight: 400;
+  color: #7e7e7e;
+}
+
+/* title logo */
+@keyframes appearLeftToCenter {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* title logo */
+@keyframes appearRightToCenter {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* for title logo border */
+@keyframes growFromLeft {
+  from {
+    width: 0;
+  }
+  to {
+    width: 50%;
+  } /* Grow to the middle */
+}
+
+@keyframes growFromRight {
+  from {
+    width: 0;
+  }
+  to {
+    width: 50%;
+  } /* Grow to the middle */
+}
+
+@keyframes mltShdSpin {
+  0% {
+    box-shadow: 0 -0.83em 0 -0.4em,
+    0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em,
+    0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+  }
+  5%,
+  95% {
+    box-shadow: 0 -0.83em 0 -0.4em, 
+    0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 
+    0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+  }
+  10%,
+  59% {
+    box-shadow: 0 -0.83em 0 -0.4em, 
+    -0.087em -0.825em 0 -0.42em, -0.173em -0.812em 0 -0.44em, 
+    -0.256em -0.789em 0 -0.46em, -0.297em -0.775em 0 -0.477em;
+  }
+  20% {
+    box-shadow: 0 -0.83em 0 -0.4em, -0.338em -0.758em 0 -0.42em,
+     -0.555em -0.617em 0 -0.44em, -0.671em -0.488em 0 -0.46em, 
+     -0.749em -0.34em 0 -0.477em;
+  }
+  38% {
+    box-shadow: 0 -0.83em 0 -0.4em, -0.377em -0.74em 0 -0.42em,
+     -0.645em -0.522em 0 -0.44em, -0.775em -0.297em 0 -0.46em, 
+     -0.82em -0.09em 0 -0.477em;
+  }
+  100% {
+    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 
+    0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+  }
+}
+
+@keyframes round {
+  0% { transform: rotate(0deg) }
+  100% { transform: rotate(360deg) }
+}

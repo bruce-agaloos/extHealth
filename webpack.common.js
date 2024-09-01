@@ -7,9 +7,9 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 module.exports = {
     entry: {
         popup: path.resolve("./src/popup/popup.tsx"),
+        sidepanel: path.resolve("./src/sidepanel/sidePanel.tsx"),
         background: path.resolve("./src/background/backgroundScript.ts"),
         content: path.resolve("./src/content/contentScript.ts"),
-      
     },
    
     module: {
@@ -43,6 +43,7 @@ module.exports = {
             ]
         }),
         ...getHtmlPlugins(["popup"]),
+        ...getHtmlPlugins(["sidepanel"]),
     ],
 
     output: {
