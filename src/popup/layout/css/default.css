@@ -1,6 +1,7 @@
 @import url("bodyId.css");
 @import url("header.css");
 @import url("options.css");
+@import url("howTo.css");
 
 body {
   padding: 1rem;

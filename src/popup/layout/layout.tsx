@@ -86,6 +86,12 @@ const Layout = () => {
             <Settings/>
           </div>
         </section>
+        <a
+          id="userGuide"
+          onClick={() => chrome.tabs.create({ url: chrome.runtime.getURL('guide.html') })}
+        >
+          How To Use?
+        </a>
       </div>
     );
   };

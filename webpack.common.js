@@ -8,6 +8,7 @@ module.exports = {
     entry: {
         popup: path.resolve("./src/popup/popup.tsx"),
         sidepanel: path.resolve("./src/sidepanel/sidePanel.tsx"),
+        sidepanel: path.resolve("./src/guide/guide.html"),
         background: path.resolve("./src/background/backgroundScript.ts"),
         content: path.resolve("./src/content/contentScript.ts"),
     },
@@ -27,6 +28,10 @@ module.exports = {
                 test: /\.(jpg|jpeg|png|woff|woff2|eot|ttf|svg)$/,
                 type: "asset/resource",
             },
+            {
+                test: /\.html$/i,
+                use: "html-loader", // Add html-loader to handle HTML files
+            },
         ],
     },
     resolve: {
@@ -42,8 +47,7 @@ module.exports = {
                 { from: 'src/static/manifest.json', to: 'manifest.json' } // Ensure manifest.json is copied to dist
             ]
         }),
-        ...getHtmlPlugins(["popup"]),
-        ...getHtmlPlugins(["sidepanel"]),
+        ...getHtmlPlugins(["popup", "sidepanel", "guide"]),
     ],
 
     output: {
@@ -67,7 +71,7 @@ function getHtmlPlugins(chunks) {
     return chunks.map(
         (chunk) =>
             new HtmlPlugin({
-                title: "xHealth",
+                title: "extHealth",
                 filename: `${chunk}.html`,
                 chunks: [chunk],
             })
