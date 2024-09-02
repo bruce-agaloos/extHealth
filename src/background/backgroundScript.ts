@@ -5,7 +5,6 @@ import {
 
 import { healthClaimDetection } from '../utils/claim_detection';
 import { getHealthTipState, setDefaultInstalled, getLatestHealthTip } from '../utils/storage';
-import { sendImageToServer } from "../utils/dom-extractor/api";
 import {getHealthTips} from "../utils/api_health_tips"
 import {setFactCheckWholeLoad, setSingleFactCheckLoad, isFactCheckLoading} from "../utils/pop_up_storage/storage"
 import {getFromStorage, setInStorage} from "../utils/storage"

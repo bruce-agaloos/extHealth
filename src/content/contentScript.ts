@@ -1,11 +1,11 @@
 import { initialScroll, startTimer, getHealthTipState } from "../utils";
 import { stopTimer } from "../utils/timer";
-import { TwitterTheme } from '../utils/dom-extractor/types';
-import { getXTheme, extractTweetBody, createBtnElement, createOverlayElement } from '../utils/dom-extractor/dom';
+import { TwitterTheme } from '../utils/xAutoDetect/types';
+import { getXTheme, extractTweetBody, createBtnElement, createOverlayElement } from '../utils/xAutoDetect/dom';
 import { allKeywords } from './health_keywords';
 import { nanoid } from 'nanoid';
-import { getXAutoDetectState} from "../utils/storage";
-import {healthClaimDetection} from '../utils/claim_detection';
+import { getXAutoDetectState } from "../utils/storage";
+import { healthClaimDetection } from '../utils/claim_detection';
 
 const TIMER_DURATION = { minutes: 0, seconds: 5 };
 
@@ -79,6 +79,32 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 });
 
 
+/**
+ * 
+ * 
+ * 
+
+ const LIMIT = 100; // replace with your limit
+
+document.addEventListener('contextmenu', function(event) {
+    let selectedText = window.getSelection().toString();
+    if (selectedText.length > LIMIT) {
+        event.preventDefault();
+    }
+});
+ */
+
+// context menu limiter it disable the context menu if the selected text is more than 100 characters
+
+// const LIMIT = 100; // replace with your limit
+
+// document.addEventListener('contextmenu', function (event) {
+//     let selectedText = window.getSelection().toString();
+//     if (selectedText.length > LIMIT) {
+//         event.preventDefault();
+//     }
+// });
+
 const enableHealthTips = (): void => {
     // startTimer(TIMER_DURATION.minutes, TIMER_DURATION.seconds);
 };
@@ -100,13 +126,13 @@ const searchKeywordAndCreateOverlay = async (tweetBody: string, tweet: HTMLDivEl
      * 
     */
     const isMatch = allKeywords
-    .some(keyword => new RegExp(`(?:^|[\\s.,;?!()\\[\\]{}])${keyword}(?:[\\s.,;?!()\\[\\]{}]|$)`, 'i').test(tweetBody));
+        .some(keyword => new RegExp(`(?:^|[\\s.,;?!()\\[\\]{}])${keyword}(?:[\\s.,;?!()\\[\\]{}]|$)`, 'i').test(tweetBody));
 
     if (!isMatch) {
         return;
     }
     // call api claim detection
-    const isHealthClaim = await healthClaimDetection(tweetBody) ;
+    const isHealthClaim = await healthClaimDetection(tweetBody);
     if (!isHealthClaim) {
         return;
     }
@@ -116,6 +142,30 @@ const searchKeywordAndCreateOverlay = async (tweetBody: string, tweet: HTMLDivEl
      */
     let isOverlayCreated = false;
     if (!isOverlayCreated) {
+
+        // Style the spinner
+        let css = document.createElement('style');
+        css.type = 'text/css';
+        css.innerHTML = `
+        .spinner {
+            border: 16px solid #f3f3f3;
+            border-top: 16px solid #3498db;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        `;
+        document.head.appendChild(css);
 
         const overlayElement = createOverlayElement();
         const overlayId = nanoid();
@@ -127,14 +177,48 @@ const searchKeywordAndCreateOverlay = async (tweetBody: string, tweet: HTMLDivEl
         buttonContainer.style.right = "0";
         // buttonContainer.style.backgroundColor = "red";
 
+
+
         const viewBtn = createBtnElement(tweetBody);
         // viewBtn.style.width = "100%";
         viewBtn.style.position = "absolute";
         viewBtn.style.left = "0";
 
+        // Store original state of the viewBtn
+        const originalInnerHTML = viewBtn.innerHTML;
+        const originalTextContent = viewBtn.textContent;
+
+
+
         viewBtn.setAttribute("data-overlay-id", overlayId);
         viewBtn.addEventListener("click", () => {
-            factCheck(viewBtn.getAttribute("data-value"));
+
+            // Get the image element inside the viewBtn
+            const img = viewBtn.querySelector('img');
+
+            // Store the original src of the image
+            const originalImgSrc = img.src;
+
+            // Set the src of the image to the URL of the spinner image
+            img.src = '';
+
+            // Create a spinner and change the text of the viewBtn
+            const spinner = document.createElement('div');
+            spinner.className = 'spinner';
+            // viewBtn.innerHTML = '';
+            // viewBtn.textContent = 'Fact Checking...';
+            // viewBtn.appendChild(spinner);
+            spinner.style.display = 'block';
+
+            // Call the factcheck function
+            factCheck(viewBtn.getAttribute("data-value")).then(() => {
+                // Hide the spinner when the factcheck is done
+                // spinner.style.display = 'none';
+                // viewBtn.innerHTML = originalInnerHTML;
+                // viewBtn.textContent = originalTextContent;
+                spinner.style.display = 'none';
+                img.src = originalImgSrc;
+            });
         });
         buttonContainer.append(viewBtn);
         overlayElement.appendChild(buttonContainer);
