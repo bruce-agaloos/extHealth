@@ -18,7 +18,9 @@ import { allKeywords } from '../utils/keywords/health_keywords';
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     (async () => {
     if (request.message === 'factCheck') {
-        await chrome.sidePanel.open({ tabId: sender.tab.id });
+        if (sender.tab && sender.tab.id) {
+            await chrome.sidePanel.open({ tabId: sender.tab.id });
+        }
         factCheck(request.text);
     }
     })();
