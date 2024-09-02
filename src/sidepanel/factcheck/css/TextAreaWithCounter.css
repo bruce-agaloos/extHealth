@@ -2,6 +2,7 @@
 position: relative;
 width: fit-content;
 padding: 5px;
+width: 100%;
 }
 
 textarea:focus {
@@ -10,7 +11,7 @@ textarea:focus {
 
 .counter {
 position: absolute;
-bottom: -5px; /* Adjust as needed */
+bottom: 7px; /* Adjust as needed */
 left: 10px;
 font-size: 14px;
 background-color: white;

@@ -42,6 +42,11 @@
         bottom: 0;
         > .textarea-container{
             width: calc(100% - 65px);
+            margin-right: 10px;
+            > .counter{
+                bottom: -5px; /* Adjust as needed */
+                left: 10px;
+            }
         }
     }
 
