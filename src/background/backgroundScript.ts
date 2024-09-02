@@ -69,7 +69,7 @@ chrome.contextMenus.remove("extHealth", () => {
     chrome.contextMenus.create({
         id: "extHealth",
         title: "Check Health Information",
-        contexts: ["selection"]
+        contexts: ["selection", "page"]
     }, function () {
         if (chrome.runtime.lastError) {
             console.error(chrome.runtime.lastError.message);
@@ -83,8 +83,8 @@ chrome.contextMenus.remove("extHealth", () => {
 // Add a listener for the context menu click event
 chrome.contextMenus.onClicked.addListener(async (info, tab) => {
     if (info.menuItemId === "extHealth") {
+        await chrome.sidePanel.open({ windowId: tab.windowId });
         if (info.selectionText) {
-            await chrome.sidePanel.open({ windowId: tab.windowId });
             const text = info.selectionText;
             const isMatch = allKeywords
                 .some(keyword => new RegExp(`(?:^|[\\s.,;?!()\\[\\]{}])${keyword}(?:[\\s.,;?!()\\[\\]{}]|$)`, 'i').test(text));
