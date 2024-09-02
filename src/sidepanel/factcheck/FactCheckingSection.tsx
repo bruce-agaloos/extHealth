@@ -18,7 +18,6 @@ const FactCheckingSection: React.FC = () => {
 
   const [facts, setFacts] = useState([]);
 
-  const textareaRefs = useRef<(HTMLTextAreaElement | null)[]>([]);
   const scrollableDivRef = useRef<HTMLDivElement>(null);
 
   // updating new facts
@@ -131,9 +130,7 @@ const FactCheckingSection: React.FC = () => {
 
   const addNewFacts = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      const form = e.target as HTMLFormElement;
-      const textarea = form.querySelector('textarea') as HTMLTextAreaElement;
-      const fact = textarea.value;
+      const fact = newFact;
 
       const maxLength = 50;
       if (fact.length > maxLength) {

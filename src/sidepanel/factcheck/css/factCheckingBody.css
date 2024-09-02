@@ -40,6 +40,9 @@
         position: -webkit-sticky;
         position: sticky;
         bottom: 0;
+        > .textarea-container{
+            width: calc(100% - 65px);
+        }
     }
 
     #form_add_facts textarea {

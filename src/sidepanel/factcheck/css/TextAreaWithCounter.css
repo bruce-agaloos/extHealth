@@ -2,7 +2,6 @@
 position: relative;
 width: fit-content;
 padding: 5px;
-width: calc(100% - 65px);
 }
 
 textarea:focus {
