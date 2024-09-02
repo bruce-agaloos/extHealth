@@ -40,25 +40,6 @@ const TextAreaWithCounter: React.FC<TextAreaWithCounterProps> = ({
     textarea.style.height = `${textarea.scrollHeight}px`; // Set the height to the scroll height
   };
 
-  useEffect(() => {
-    const resizeTextareas = () => {
-      if (textareaRef.current) {
-        autoResizeTextarea(textareaRef.current);
-      }
-    };
-
-    // Use requestAnimationFrame to ensure the DOM is fully updated
-    const rafId = requestAnimationFrame(() => {
-      const timeoutId = setTimeout(resizeTextareas, 100);
-
-      // Cleanup the timeout on unmount
-      return () => clearTimeout(timeoutId);
-    });
-
-    // Cleanup the requestAnimationFrame on unmount
-    return () => cancelAnimationFrame(rafId);
-  }, [value]);
-
   const textColor = value.length > maxLength ? 'red' : '';
   return (
     <div className="textarea-container">
