@@ -1,0 +1,20 @@
+.textarea-container {
+position: relative;
+width: fit-content;
+padding: 5px;
+width: calc(100% - 65px);
+}
+
+textarea:focus {
+    outline: none !important;
+}
+
+.counter {
+position: absolute;
+bottom: -5px; /* Adjust as needed */
+left: 10px;
+font-size: 14px;
+background-color: white;
+z-index: 50;
+}
+  

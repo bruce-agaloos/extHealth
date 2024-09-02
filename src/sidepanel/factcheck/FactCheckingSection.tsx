@@ -5,6 +5,8 @@ import Evidence from './Evidence';
 
 import "./css/factCheckingBody.css";
 
+import TextAreaWithCounter from './TextAreaWithCounter';
+
 import {healthClaimDetection} from '../../utils/claim_detection';
 import {getFromStorage} from "../../utils/storage"
 
@@ -12,36 +14,14 @@ import { allKeywords } from '../../utils/keywords/health_keywords';
 
 const FactCheckingSection: React.FC = () => {
   const [expanded, setExpanded] = useState<string | false>(false);
-
+  const [newFact, setNewFact] = useState('');
 
   const [facts, setFacts] = useState([]);
 
   const textareaRefs = useRef<(HTMLTextAreaElement | null)[]>([]);
   const scrollableDivRef = useRef<HTMLDivElement>(null);
 
-     useEffect(() => {
-      const resizeTextareas = () => {
-          if (textareaRefs.current) {
-              textareaRefs.current.forEach((textarea) => {
-                  if (textarea) {
-                      autoResizeTextarea({ target: textarea } as React.ChangeEvent<HTMLTextAreaElement>);
-                  }
-              });
-          }
-      };
-  
-      // Use requestAnimationFrame to ensure the DOM is fully updated
-      const rafId = requestAnimationFrame(() => {
-          const timeoutId = setTimeout(resizeTextareas, 100);
-  
-          // Cleanup the timeout on unmount
-          return () => clearTimeout(timeoutId);
-      });
-  
-      // Cleanup the requestAnimationFrame on unmount
-      return () => cancelAnimationFrame(rafId);
-  }, [facts]);
-
+  // updating new facts
   useEffect(() => {
     // Retrieve the stored data using Chrome Storage API
     chrome.storage.local.get(['extHealthFacts'], function(result) {
@@ -71,11 +51,6 @@ const FactCheckingSection: React.FC = () => {
     setExpanded(isExpanded ? panel : false);
   };
 
-  const autoResizeTextarea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const textarea = e.target;
-    textarea.style.height = 'auto'; // Reset the height
-    textarea.style.height = `${textarea.scrollHeight}px`; // Set the height to the scroll height
-  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, index: number) => {
     const newFacts = [...facts];
@@ -86,7 +61,18 @@ const FactCheckingSection: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, index: number) => {
     e.preventDefault();
     const hypothesis = facts[index].hypothesis;
-    
+    const maxLength = 50;
+    if (hypothesis.length > maxLength) {
+      chrome.notifications.create({
+        type: 'basic',
+        iconUrl: 'error.png',
+        title: 'Character Limit Exceeded',
+        message: `The current selected text exceeds the character limit of ${maxLength}.`,
+        priority: 2
+      });
+      return;
+    }
+
     const isMatch = allKeywords
           .some(keyword => new RegExp(`(?:^|[\\s.,;?!()\\[\\]{}])${keyword}(?:[\\s.,;?!()\\[\\]{}]|$)`, 'i').test(hypothesis));
       if (!isMatch) {
@@ -148,6 +134,18 @@ const FactCheckingSection: React.FC = () => {
       const form = e.target as HTMLFormElement;
       const textarea = form.querySelector('textarea') as HTMLTextAreaElement;
       const fact = textarea.value;
+
+      const maxLength = 50;
+      if (fact.length > maxLength) {
+        chrome.notifications.create({
+          type: 'basic',
+          iconUrl: 'error.png',
+          title: 'Character Limit Exceeded',
+          message: `The current selected text exceeds the character limit of ${maxLength}.`,
+          priority: 2
+        });
+        return;
+      }
 
       const isMatch = allKeywords
           .some(keyword => new RegExp(`(?:^|[\\s.,;?!()\\[\\]{}])${keyword}(?:[\\s.,;?!()\\[\\]{}]|$)`, 'i').test(fact));
@@ -251,16 +249,15 @@ const FactCheckingSection: React.FC = () => {
   return (
     <div ref={scrollableDivRef}>
       <form action="" id={`form_add_facts`} onSubmit={(e) => addNewFacts(e)}>
-        <textarea 
-          rows={1}
-          onInput={(e: React.ChangeEvent<HTMLTextAreaElement>) => autoResizeTextarea(e)}
+        <TextAreaWithCounter
+          value={newFact}
+          onChange={(e) => setNewFact(e.target.value)}
           onKeyDown={(e: React.KeyboardEvent<HTMLTextAreaElement>) => {
             if (e.key === 'Enter') {
               e.preventDefault();
               (e.target as HTMLTextAreaElement).form?.requestSubmit();
             }
           }}
-          placeholder='Enter a health claim here...'
         />
         <button type="submit" className='add_fact_button'>+</button>
         <span className="loader"></span>
@@ -269,12 +266,9 @@ const FactCheckingSection: React.FC = () => {
         facts.map((fact, index) => (
           <div key={index}>
             <form action="" id={`form-${index}`} onSubmit={(e) => handleSubmit(e, index)}>
-            <textarea 
-              ref={(el) => (textareaRefs.current[index] = el)}
-              rows={1}
+            <TextAreaWithCounter 
               value={fact.hypothesis} 
               onChange={(e) => handleInputChange(e, index)}
-              onInput={(e: React.ChangeEvent<HTMLTextAreaElement>) => autoResizeTextarea(e)}
               onKeyDown={(e: React.KeyboardEvent<HTMLTextAreaElement>) => {
                 if (e.key === 'Enter') {
                   e.preventDefault();

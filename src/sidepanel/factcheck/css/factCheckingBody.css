@@ -44,7 +44,6 @@
 
     #form_add_facts textarea {
         margin-right: 10px; /* Space between textarea and button */
-        width: calc(100% - 65px); /* Adjust width dynamically, considering button width and margin */
         margin-bottom: 0;
     }
 
