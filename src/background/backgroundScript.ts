@@ -90,7 +90,19 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
     if (info.menuItemId === "extHealth") {
         await chrome.sidePanel.open({ windowId: tab.windowId });
         if (info.selectionText) {
+            const maxLength = 50;
             const text = info.selectionText;
+
+            if (text.trim().length > maxLength || text.trim().length === 0) {
+                chrome.notifications.create({
+                    type: 'basic',
+                    iconUrl: 'error.png', // Path to your notification icon
+                    title: 'Character Limit Exceeded',
+                    message: `The text does not meet the character limit, it might produce inaccurate results.`,
+                });
+                return;
+            }
+
             const isMatch = allKeywords
                 .some(keyword => new RegExp(`(?:^|[\\s.,;?!()\\[\\]{}])${keyword}(?:[\\s.,;?!()\\[\\]{}]|$)`, 'i').test(text));
             if (!isMatch) {

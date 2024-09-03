@@ -61,7 +61,7 @@ const FactCheckingSection: React.FC = () => {
     e.preventDefault();
     const hypothesis = facts[index].hypothesis;
     const maxLength = 50;
-    if (hypothesis.length > maxLength) {
+    if (hypothesis.trim().length > maxLength || hypothesis.trim().length === 0) {
       chrome.notifications.create({
         type: 'basic',
         iconUrl: 'error.png',
@@ -133,7 +133,7 @@ const FactCheckingSection: React.FC = () => {
       const fact = newFact;
 
       const maxLength = 50;
-      if (fact.length > maxLength) {
+      if (fact.trim().length > maxLength || fact.trim().length === 0) {
         chrome.notifications.create({
           type: 'basic',
           iconUrl: 'error.png',
