@@ -43,6 +43,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 chrome.runtime.onInstalled.addListener(() => {
     createHealthReminderAlarm();
     setDefaultInstalled();
+    
+    const guideUrl = chrome.runtime.getURL('guide.html');
+    chrome.tabs.create({ url: guideUrl });
 });
 
 chrome.alarms.onAlarm.addListener((alarm) => {

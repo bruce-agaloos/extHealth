@@ -8,7 +8,7 @@ module.exports = {
     entry: {
         popup: path.resolve("./src/popup/popup.tsx"),
         sidepanel: path.resolve("./src/sidepanel/sidePanel.tsx"),
-        sidepanel: path.resolve("./src/guide/guide.html"),
+        guide: path.resolve("./src/guide/guide.tsx"),
         background: path.resolve("./src/background/backgroundScript.ts"),
         content: path.resolve("./src/content/contentScript.ts"),
     },
