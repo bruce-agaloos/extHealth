@@ -1,14 +1,19 @@
 import React from "react";
 
+import './css/header.css';
+
 const Header = () => {
   return (
     <header id="thankyou">
-      <h1>
-        eXtHealth <br /> for Chrome
-      </h1>
-      <p>
-        Stay informed. Let eXtHealth guide you with trusted information and fact-checking right from your browser.
-      </p>
+      <div>
+        <h1>
+          Thank You for Installing 
+          eXtHealth!
+        </h1>
+        <p>
+          Installing our extension helps you stay well-informed.  Let eXtHealth guide you with trusted health information and fact-checking right from your browser on X.
+        </p>
+      </div>
       <img src="guide.png" alt="eXtHealth Guide" />
     </header>
   );
