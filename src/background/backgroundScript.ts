@@ -90,7 +90,7 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
     if (info.menuItemId === "extHealth") {
         await chrome.sidePanel.open({ windowId: tab.windowId });
         if (info.selectionText) {
-            const maxLength = 50;
+            const maxLength = 80;
             const text = info.selectionText;
 
             if (text.trim().length > maxLength || text.trim().length === 0) {
@@ -193,7 +193,7 @@ async function updateFactCheck(text) {
         });
         return;
     }
-    const characterLimit = 50;
+    const characterLimit = 80;
     if (text.trim().length > characterLimit || text.trim().length === 0) {
         chrome.notifications.create({
             type: 'basic',
@@ -232,7 +232,7 @@ async function factCheck(text) {
         });
         return;
     }
-    const characterLimit = 50;
+    const characterLimit = 80;
     if (text.trim().length > characterLimit || text.trim().length === 0) {
         chrome.notifications.create({
             type: 'basic',
