@@ -1,7 +1,8 @@
 import allTagalogHealthKeywords from './health_keywords_tagalog';
-
+import covid from './covid';
 const allKeywords = [ 
   ...allTagalogHealthKeywords,
+  ...covid,
     "Abdominal aortic aneurysm",
     "Acne",
     "Acute cholecystitis",
