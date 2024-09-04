@@ -11,7 +11,8 @@ import {setFactCheckWholeLoad, setSingleFactCheckLoad, isFactCheckLoading} from 
 import {getFromStorage, setInStorage} from "../utils/storage"
 import {HealthFactsStorage} from "../utils/pop_up_storage/types"
 
-import { allKeywords } from '../utils/keywords/health_keywords';
+// import { allKeywords } from '../utils/health_keywords';
+import  allKeywords from './../utils/health_keywords/';
 
 
 // Listen for messages from the content script
@@ -229,7 +230,7 @@ async function factCheck(text) {
             title: 'Error',
             message: 'Please wait for the current fact check to finish before starting a new one.',
             priority: 2
-        });
+        }); 
         return;
     }
     const characterLimit = 80;

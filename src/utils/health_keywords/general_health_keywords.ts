@@ -1,6 +1,6 @@
 import allTagalogHealthKeywords from './health_keywords_tagalog';
 
-const allKeywords = [ 
+const generalHealthKeywords = [ 
   ...allTagalogHealthKeywords,
     "Abdominal aortic aneurysm",
     "Acne",
@@ -459,6 +459,4 @@ const allKeywords = [
     "Hepatitis F"
   ];
   
-  export {
-    allKeywords
-  }
+export default generalHealthKeywords;

@@ -2,7 +2,7 @@ import { initialScroll, startTimer, getHealthTipState } from "../utils";
 import { stopTimer } from "../utils/timer";
 import { TwitterTheme } from '../utils/xAutoDetect/types';
 import { getXTheme, extractTweetBody, createBtnElement, createOverlayElement } from '../utils/xAutoDetect/dom';
-import { allKeywords } from './health_keywords';
+import  allKeywords  from './../utils/health_keywords';
 import { nanoid } from 'nanoid';
 import { getXAutoDetectState} from "../utils/storage";
 import {healthClaimDetection} from '../utils/claim_detection';
