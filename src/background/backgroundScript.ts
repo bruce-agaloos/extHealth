@@ -32,6 +32,14 @@ chrome.tabs.onActivated.addListener((activeInfo) => {
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.message === 'factCheck') {
         factCheck(request.text);
+
+        let loading =  isFactCheckLoading();
+        console.log("fact done?: ", loading);
+        if (loading) {
+            sendResponse("true");
+        } else {
+            sendResponse("false");
+        }
     }
 });
 
@@ -173,7 +181,7 @@ async function updateFactCheck(text) {
         });
         return;
     }
-    const characterLimit = 50;
+    const characterLimit = 150;
     if (text.trim().length > characterLimit || text.trim().length === 0) {
         chrome.notifications.create({
             type: 'basic',
@@ -217,8 +225,8 @@ async function updateFactCheck(text) {
 
 
 async function factCheck(text) {
-    
     let loading = await isFactCheckLoading();
+    console.log("isFact 1", loading);
     if (loading) {
         chrome.notifications.create({
             type: 'basic',
@@ -227,9 +235,10 @@ async function factCheck(text) {
             message: 'Please wait for the current fact check to finish before starting a new one.',
             priority: 2
         });
+        console.log("isFact 2", loading);
         return;
     }
-    const characterLimit = 50;
+    const characterLimit = 150;
     if (text.trim().length > characterLimit || text.trim().length === 0) {
         chrome.notifications.create({
             type: 'basic',
@@ -296,6 +305,7 @@ async function factCheck(text) {
             }
         });
     });
+    console.log(loading);
 }
 
 

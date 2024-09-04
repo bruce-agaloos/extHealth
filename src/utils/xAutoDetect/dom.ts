@@ -1,4 +1,5 @@
 
+import { Discuss } from "react-loader-spinner";
 import { TweetBodyWrapper, TwitterTheme } from "./types";
 
 /**
@@ -91,6 +92,7 @@ const createBtnElement = (tweetBody): HTMLButtonElement => {
     img.style.margin = "4px";
 
     const span = document.createElement("span");
+    span.className = "button-text";
     span.textContent = "Check This Out!";
     span.style.marginLeft = "5px";
     span.style.color = "white";
@@ -124,18 +126,21 @@ const createBtnElement = (tweetBody): HTMLButtonElement => {
 };
 
 
-const createSpinnerElement = (): HTMLDivElement => {
-    const spinner = document.createElement("div");
-    spinner.style.width = "50px";
-    spinner.style.height = "50px";
-    spinner.style.border = "5px solid #f3f3f3";
-    spinner.style.borderTop = "5px solid #3498db";
-    spinner.style.borderRadius = "50%";
-    spinner.style.animation = "spin 2s linear infinite";
-    spinner.style.position = "absolute";
-    spinner.style.top = "50%";
-    spinner.style.left = "50%";
-    spinner.style.transform = "translate(-50%, -50%)";
+const createSpinnerElement = (): HTMLSpanElement => {
+    // const spinner = document.createElement("div");
+    // spinner.style.width = "50px";
+    // spinner.style.height = "50px";
+    // spinner.style.border = "5px solid #f3f3f3";
+    // spinner.style.borderTop = "5px solid #3498db";
+    // spinner.style.borderRadius = "50%";
+    // spinner.style.animation = "spin 2s linear infinite";
+    // spinner.style.position = "absolute";
+    // spinner.style.top = "50%";
+    // spinner.style.left = "50%";
+    // spinner.style.transform = "translate(-50%, -50%)";
+
+    const spinner = document.createElement("span");
+    spinner.classList.add("spinner");
 
     return spinner;
 };
@@ -177,5 +182,6 @@ export {
     getXTheme,
     extractTweetBody,
     createBtnElement,
-    createOverlayElement
+    createOverlayElement,
+    createSpinnerElement
 }
