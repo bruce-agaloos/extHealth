@@ -1,6 +1,6 @@
-import { sendtTweetToTranslateInServer } from "../utils/dom-extractor/api";
-import { ocrExtraction } from "../utils/dom-extractor/ocr";
-import { translateText } from "../utils/dom-extractor/translate";
+import { sendtTweetToTranslateInServer } from "../utils/xAutoDetect/api";
+// import { ocrExtraction } from "../utils/xAutoDetect/ocr";
+// import { translateText } from "../utils/xAutoDetect/translate";
 import { domExtractor } from "./dom-extractor/domExtractor";
 
 const keywordExtractor = require('keyword-extractor');
@@ -48,9 +48,9 @@ const sampleTranslation = (): void => {
     // });
     // logtraslate();
 
-    translateText('Mahal Kita').then(translatedText => {
-        console.log("Translated text: ", translatedText);
-    });
+    // translateText('Mahal Kita').then(translatedText => {
+    //     console.log("Translated text: ", translatedText);
+    // });
 
 };
 
@@ -60,9 +60,9 @@ const sampleOCR = (): void => {
 
 
     // console.log(decoded_text);
-    ocrExtraction(image_url).then(extracted_text => {
-        console.log("extracted text:", extracted_text);
-    });
+    // ocrExtraction(image_url).then(extracted_text => {
+    //     console.log("extracted text:", extracted_text);
+    // });
 };
 
 const sampleHello = (): void => {
