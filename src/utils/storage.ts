@@ -136,16 +136,6 @@ function getLatestHealthTip(): Promise<any> {
   });
 }
 
-const setDefaultInstalled = () => {
-  setXAutoDetectState(true);
-  setHealthTipState(true);
-  const categories = [15, 16, 18, 19, 20, 21, 23, 24, 28, 29];
-  categories.forEach((category) => {
-    setCategoryState(category, true);
-  });
-};
-
-
 function getFromStorage(keys) {
     return new Promise((resolve, reject) => {
         chrome.storage.local.get(keys, function(result) {
@@ -169,6 +159,15 @@ function setInStorage(data: { [key: string]: any }): Promise<void> {
       });
   });
 }
+
+const setDefaultInstalled = () => {
+  setXAutoDetectState(true);
+  setHealthTipState(false);
+  const categories = [15, 16, 18, 19, 20, 21, 23, 24, 28, 29];
+  categories.forEach((category) => {
+    setCategoryState(category, true);
+  });
+};
 
 export {
   setXAutoDetectState,

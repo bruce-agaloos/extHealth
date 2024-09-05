@@ -11,6 +11,7 @@ module.exports = {
         guide: path.resolve("./src/guide/guide.tsx"),
         background: path.resolve("./src/background/backgroundScript.ts"),
         content: path.resolve("./src/content/contentScript.ts"),
+        externalPopup: path.resolve("./src/externalPopup/externalPopup.tsx"),
     },
    
     module: {
@@ -47,7 +48,7 @@ module.exports = {
                 { from: 'src/static/manifest.json', to: 'manifest.json' } // Ensure manifest.json is copied to dist
             ]
         }),
-        ...getHtmlPlugins(["popup", "sidepanel", "guide"]),
+        ...getHtmlPlugins(["popup", "sidepanel", "guide", "externalPopup"]),
     ],
 
     output: {
