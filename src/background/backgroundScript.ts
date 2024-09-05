@@ -5,13 +5,14 @@ import {
 
 import { healthClaimDetection } from '../utils/claim_detection';
 import { getHealthTipState, setDefaultInstalled, getLatestHealthTip } from '../utils/storage';
-import { sendImageToServer } from "../utils/dom-extractor/api";
+import { sendImageToServer } from "../utils/xAutoDetect/api";
 import {getHealthTips} from "../utils/api_health_tips"
 import {setFactCheckWholeLoad, setSingleFactCheckLoad, isFactCheckLoading} from "../utils/pop_up_storage/storage"
 import {getFromStorage, setInStorage} from "../utils/storage"
 import {HealthFactsStorage} from "../utils/pop_up_storage/types"
 
-import { allKeywords } from '../utils/keywords/health_keywords';
+// import { allKeywords } from '../utils/health_keywords';
+import  allKeywords from './../utils/health_keywords/';
 
 
 // Listen for messages from the content script
@@ -229,7 +230,7 @@ async function factCheck(text) {
             title: 'Error',
             message: 'Please wait for the current fact check to finish before starting a new one.',
             priority: 2
-        });
+        }); 
         return;
     }
     const characterLimit = 80;
