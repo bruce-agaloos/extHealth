@@ -4,7 +4,6 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import "./layout/css/default.css";
 
 import Root from "./layout/root";
 import ErrorPage from "./layout/error";
