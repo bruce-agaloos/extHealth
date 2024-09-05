@@ -1,0 +1,121 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap");
+
+body {
+  font-weight: bold;
+}
+
+:root {
+  font-family: "Roboto Slab";
+}
+
+.content {
+  padding: 20px;
+  padding-left: 40px;
+  margin-top: -8px;
+  background-color: #FBFCFF;
+}
+
+/* Container */
+.health-card {
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+/* Header Icons */
+.header-icons {
+  padding: 20px;
+  padding-bottom: 0px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  margin-top: -5px;
+}
+
+/* Title */
+.title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Date */
+.date {
+  font-size: 14px;
+  color: #777;
+}
+
+/* Body Text */
+.body-text {
+  font-size: 14px;
+  color: #545454;
+  margin-bottom: 10px;
+}
+
+/* URL */
+.url {
+  font-style: italic;
+  font-size: 14px;
+  color: #007bff;
+  cursor: pointer;
+}
+
+.url:hover {
+  text-decoration: underline;
+}
+
+h2 {
+  color: #333;
+}
+
+.icon {
+  font-weight: bold;
+  color: #1e1919;
+  font-size: 20px;
+}
+
+.logo {
+  width: 50px; 
+  height: 50px; 
+  object-fit: contain; 
+  border-radius: 4px; 
+}
+
+.logo-container {
+  display: flex;
+  align-items: center; 
+}
+
+.divider {
+  border: 0;
+  height: 1px;
+  background: #ccc; 
+}
+
+.date{
+  color: #3BA0FD;
+}
+
+/* WebKit browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Background of the scrollbar track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888; /* Color of the scrollbar thumb */
+  border-radius: 6px; /* Rounded corners for the scrollbar thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Color of the scrollbar thumb on hover */
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin; /* Width of the scrollbar */
+  scrollbar-color: #888 #f1f1f1; /* Color of the scrollbar thumb and track */
+}
