@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useOutlet, useLocation, Outlet } from "react-router-dom";
 import { SwitchTransition, CSSTransition } from "react-transition-group";
-import "./css/default.css";
+import "./css/root.css";
 
 export default function Root() {
   const location = useLocation(); // Get the current location from React Router

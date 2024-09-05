@@ -8,7 +8,21 @@
     scroll-behavior: smooth;
     font-size: 1rem;
     font-family: "Lexend";
+    /* border: 1px solid black; */
 }
+nav{
+  font-weight: 500;
+  height: 15vh;
+  display: flex;
+  align-items: flex-end;
+  padding-left: 5vw;
+  > img{
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+  }
+}
+
 
 h1{
   font-size: 2rem;
@@ -68,6 +82,10 @@ button{
 .base {
   position: relative;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 85vh;
 }
 
 /* CSS transition states for fade and slide effect */
