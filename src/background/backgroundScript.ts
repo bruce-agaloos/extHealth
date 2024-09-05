@@ -194,17 +194,7 @@ async function updateFactCheck(text) {
         });
         return;
     }
-    const characterLimit = 80;
-    if (text.trim().length > characterLimit || text.trim().length === 0) {
-        chrome.notifications.create({
-            type: 'basic',
-            iconUrl: 'error.png', // Path to your notification icon
-            title: 'Character Limit Exceeded',
-            message: `The text does not meet the character limit, it might produce inaccurate results.`,
-        });
-
-        return;
-    }
+    
     let response = await factCheckWithoutGenerateQueries(text);
     if (!Array.isArray(response)) {
         chrome.notifications.create({
@@ -233,16 +223,7 @@ async function factCheck(text) {
         }); 
         return;
     }
-    const characterLimit = 80;
-    if (text.trim().length > characterLimit || text.trim().length === 0) {
-        chrome.notifications.create({
-            type: 'basic',
-            iconUrl: 'error.png', // Path to your notification icon
-            title: 'Character Limit Exceeded',
-            message: `The text does not meet the character limit, it might produce inaccurate results.`,
-        });
-        return;
-    }
+    
 
     let response = await factCheckWithGenerateQueries(text);
 
