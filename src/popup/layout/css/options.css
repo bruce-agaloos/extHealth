@@ -60,3 +60,7 @@
     width: 100%; /* Expand the border to full width */
   }
 }
+
+.indent {
+  text-indent: 20px; /* Adjust the value as needed */
+}

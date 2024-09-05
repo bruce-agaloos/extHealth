@@ -9,6 +9,15 @@
   display: none;
 }
 
+.switch.disabled input[type="checkbox"] {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.switch.disabled .slider  {
+    background-color: #ccc;
+}
+
 .slider {
   position: absolute;
   cursor: pointer;
