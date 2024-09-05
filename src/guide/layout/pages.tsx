@@ -1,30 +1,39 @@
 import * as React from "react";
 import { useParams, Link } from "react-router-dom";
+import "./css/pages.css";
 
 export default function Pages() {
   const { id } = useParams(); 
   const finalPage = "finalPage";
+  const maxPages = 5;
   const pages = [
     {
       id: 1,
-      title: "Page 1",
-      content: "Content of Page 1",
+      title: "The eXtHealth 'Check This Out' button means that the tweet or post contains health-related information. ",
+      content: "The eXtHealth detects posts containing health-related information. When you're browsing X and come across a post with health content, you will see a 'Check This Out' button. Click this button to request a fact-check.",
       nextLink: "pages/2",
-      imgLink: "https://example.com/image1.png",
+      imgLink: "/page1.png",
     },
     {
       id: 2,
-      title: "Page 2",
-      content: "Content of Page 2",
+      title: "Fact-Checking Results",
+      content: "From the eXtHealth extension pop-up, you can access supported information from trusted sources to help users stay informed with accurate health data. This prevents misinformation.",
       nextLink: "pages/3",
-      imgLink: "https://example.com/image2.png",
+      imgLink: "/page2.png",
     },
     {
       id: 3,
-      title: "Page 3",
-      content: "Content of Page 3",
+      title: "Health Reminders",
+      content: "Health reminders displayed in the eXtHealth extension pop-up contain general health information from reliable and credible sources.",
+      nextLink: "pages/4",
+      imgLink: "/page3.png",
+    },
+    {
+      id: 4,
+      title: "Quick Access Side Panel for Health Claims ",
+      content: "When browsing, you can open the side panel and input health claim information by simply highlighting the text, right-clicking, and choosing 'Check Health Information,' or by right-clicking the ExtHealth logo in the extension bar.",
       nextLink: finalPage,
-      imgLink: "https://example.com/image3.png",
+      imgLink: "/page4.png",
     },
   ];
 
@@ -37,12 +46,33 @@ export default function Pages() {
 
   return (
     <div id="pages">
-      <h1>{currentPage.title}</h1>
-      <p>{currentPage.content}</p>
-      <img src={currentPage.imgLink} alt={currentPage.title} />
-
-      {/* Use the nextLink for navigation */}
-      <Link to={`/guide.html/${currentPage.nextLink}`}>Next Page</Link>
+      <h2>eXtHealth for Chrome is Now Active!</h2>
+      <div>
+        <img src={currentPage.imgLink} alt="Image" />
+        <div>
+          <h4>
+            {currentPage.title}
+          </h4>
+          <p>
+            {currentPage.content}
+          </p>
+          <div className="stepsFlex">
+            <div>
+              <Link to={`/guide.html/${currentPage.nextLink}`} className="primary-button">Next Page</Link>
+              <span>
+                {currentPage.id} of {maxPages}
+              </span>
+            </div>
+            <Link to={`/guide.html/${finalPage}`} className="skip-button-2">
+            Skip tutorial 
+            <svg className="icon" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xmlSpace="preserve">
+              <circle className="st0" cx="16" cy="16" r="13" />
+              <polyline className="st0" points="14,11.8 18.2,16 14,20.2" />
+            </svg>
+            </Link>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,0 +1,32 @@
+#pages{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    > div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        width: 60%;
+        position: relative;
+        > img {
+            width: clamp(300px,50%,700px);
+            height: clamp(300px,50%,700px);
+        }
+        p{
+            margin: 1rem 0 3rem 0;
+        }
+        p, span{
+            color: #5F6368;
+        }
+        a{
+            margin-right: 1rem;
+        }
+    }
+
+    .stepsFlex{
+        display: flex;
+        justify-content: space-between;
+    }
+}

@@ -12,10 +12,9 @@
 }
 nav{
   font-weight: 500;
-  height: 15vh;
-  display: flex;
-  align-items: flex-end;
-  padding-left: 5vw;
+  position: absolute;
+  top: 8vh;
+  left: 10vw;
   > img{
     width: 20px;
     height: 20px;
@@ -30,6 +29,7 @@ h1{
 h2{
   font-size: 1.5rem;
   text-align: center;
+  margin-bottom: 2rem;
 }
 h4{
   font-size: 1.2rem;
@@ -49,13 +49,14 @@ p{
   font-family: "Roboto Flex";
 }
 
-button{
+button, a{
   font-family: "Lexend Giga";
   font-weight: 600;
+  text-decoration: none;
 }
 
 .primary-button, .skip-button{
-  padding: 10px 5px;
+  padding: 1.1rem 1rem;
   border-radius: 10px;
   border: 1px solid #3BA0FD;
   box-shadow: 0px 4px 4px 0px #00000040;
@@ -66,16 +67,44 @@ button{
   background-color: #3BA0FD;
   color: white;
 }
+.primary-button:hover{
+  background-color: white;
+  color: #3BA0FD;
+}
 
 .skip-button{
   background-color: white;
   color: #3BA0FD;
 }
+.skip-button:hover{
+  background-color: #3BA0FD;
+  color: white;
+}
 
 .skip-button-2{
-  color: white;
-  background-color: #F11729;
-  border-radius: 50px;
+  color: #3BA0FD;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  > .icon{
+    width: 1rem;
+    height: 1rem;
+    transition: stroke 0.3s ease;
+    vertical-align: middle;
+    fill: none;
+    stroke: #3BA0FD; /* Initial color */
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-miterlimit: 10;
+  }
+}
+.skip-button-2:hover{
+  color: #5F6368;
+  cursor: pointer;
+  > .icon .st0{
+    stroke: #5F6368;
+  }
 }
 
 

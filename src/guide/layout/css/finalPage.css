@@ -1,0 +1,21 @@
+#finalPage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    width: 80%;
+    video{
+        width: 100%;
+        height: 100%;
+    }
+    p{
+        text-align: center;
+        margin: 3rem;
+    }
+    > div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+}

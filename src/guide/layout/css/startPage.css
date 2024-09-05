@@ -1,0 +1,18 @@
+#startPage{
+    width: 60%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    > img{
+        width: clamp(300px, 20%, 600px);
+    }
+    p {
+        margin: 2rem 0;
+    }
+    .groupLink{
+        display: flex;
+        justify-content: flex-start;
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+}
