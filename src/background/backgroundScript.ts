@@ -182,88 +182,87 @@ function createHealthReminderAlarm() {
 
 
 // fact checking function
-async function updateFactCheck(text) {
-  let loading = await isFactCheckLoading();
-  if (loading) {
-      chrome.notifications.create({
-          type: 'basic',
-          iconUrl: 'warning.png',
-          title: 'Error',
-          message: 'Please wait for the current fact check to finish before starting a new one.',
-          priority: 2
-      });
-      return;
-  }
-  
-  let response = await factCheckWithoutGenerateQueries(text);
-  if (!Array.isArray(response)) {
-      chrome.notifications.create({
-          type: 'basic',
-          iconUrl: 'warning.png',
-          title: 'eXtHealth Error',
-          message: response.result,
-          priority: 2
-      });
-      return [];
-  };
-  
-  return response;
+async function updateFactCheck(text) {=
+    let loading = await isFactCheckLoading();
+    if (loading) {
+        chrome.notifications.create({
+            type: 'basic',
+            iconUrl: 'warning.png',
+            title: 'Error',
+            message: 'Please wait for the current fact check to finish before starting a new one.',
+            priority: 2
+        });
+        return;
+    }
+    
+    let response = await factCheckWithoutGenerateQueries(text);
+    if (!Array.isArray(response)) {
+        chrome.notifications.create({
+            type: 'basic',
+            iconUrl: 'warning.png',
+            title: 'eXtHealth Error',
+            message: response.result,
+            priority: 2
+        });
+        return [];
+    };
+    
+    return response;
 }
 
 
 async function factCheck(text) {
-  let loading = await isFactCheckLoading();
-  if (loading) {
-      chrome.notifications.create({
-          type: 'basic',
-          iconUrl: 'warning.png',
-          title: 'Error',
-          message: 'Please wait for the current fact check to finish before starting a new one.',
-          priority: 2
-      }); 
-      return;
-  }
-  
+    let loading = await isFactCheckLoading();
+    if (loading) {
+        chrome.notifications.create({
+            type: 'basic',
+            iconUrl: 'warning.png',
+            title: 'Error',
+            message: 'Please wait for the current fact check to finish before starting a new one.',
+            priority: 2
+        }); 
+        return;
+    }
+    
 
-  let response = await factCheckWithGenerateQueries(text);
+    let response = await factCheckWithGenerateQueries(text);
 
-  if (!Array.isArray(response.result)) {
-      chrome.notifications.create({
-          type: 'basic',
-          iconUrl: 'warning.png',
-          title: 'eXtHealth Error',
-          message: response.result,
-          priority: 2
-      });
-      return;
-  }
+    if (!Array.isArray(response.result)) {
+        chrome.notifications.create({
+            type: 'basic',
+            iconUrl: 'warning.png',
+            title: 'eXtHealth Error',
+            message: response.result,
+            priority: 2
+        });
+        return;
+    }
 
-  try {
-      let result = await getFromStorage(['extHealthFacts']) as HealthFactsStorage;
-      let currentData = result.extHealthFacts ? result.extHealthFacts.result : [];
+    try {
+        let result = await getFromStorage(['extHealthFacts']) as HealthFactsStorage;
+        let currentData = result.extHealthFacts ? result.extHealthFacts.result : [];
 
-      response.result.forEach(newItem => {
-          currentData = currentData.filter(item => item.hypothesis !== newItem.hypothesis);
-          currentData.unshift(newItem);
-      });
+        response.result.forEach(newItem => {
+            currentData = currentData.filter(item => item.hypothesis !== newItem.hypothesis);
+            currentData.unshift(newItem);
+        });
 
-      if (currentData.length > 6) {
-          currentData = currentData.slice(0, 6);
-      }
+        if (currentData.length > 6) {
+            currentData = currentData.slice(0, 6);
+        }
 
-      await setInStorage({ extHealthFacts: { result: currentData } });
+        await setInStorage({ extHealthFacts: { result: currentData } });
 
-  } catch (error) {
-      chrome.notifications.create({
-          type: 'basic',
-          iconUrl: 'warning.png',
-          title: 'eXtHealth Error',
-          message: 'Error in Accessing Storage',
-          priority: 2
-      });
-      return;
-  }
-
+    } catch (error) {
+        chrome.notifications.create({
+            type: 'basic',
+            iconUrl: 'warning.png',
+            title: 'eXtHealth Error',
+            message: 'Error in Accessing Storage',
+            priority: 2
+        });
+        return;
+    }
 }
 
 

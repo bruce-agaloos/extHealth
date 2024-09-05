@@ -125,26 +125,6 @@ const createBtnElement = (tweetBody): HTMLButtonElement => {
     return button;
 };
 
-
-const createSpinnerElement = (): HTMLSpanElement => {
-    // const spinner = document.createElement("div");
-    // spinner.style.width = "50px";
-    // spinner.style.height = "50px";
-    // spinner.style.border = "5px solid #f3f3f3";
-    // spinner.style.borderTop = "5px solid #3498db";
-    // spinner.style.borderRadius = "50%";
-    // spinner.style.animation = "spin 2s linear infinite";
-    // spinner.style.position = "absolute";
-    // spinner.style.top = "50%";
-    // spinner.style.left = "50%";
-    // spinner.style.transform = "translate(-50%, -50%)";
-
-    const spinner = document.createElement("span");
-    spinner.classList.add("spinner");
-
-    return spinner;
-};
-
 const extractTweetBody = (tweetBodyWrapper: TweetBodyWrapper): string => {
     try {
         let text = "";
@@ -182,6 +162,5 @@ export {
     getXTheme,
     extractTweetBody,
     createBtnElement,
-    createOverlayElement,
-    createSpinnerElement
+    createOverlayElement
 }
