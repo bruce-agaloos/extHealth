@@ -7,7 +7,6 @@ export default function Root() {
         <nav>
           <img src="icon.png" alt="Icon" />
           <span>eXtHealth</span>
-          <Link to="startPage">Next Page</Link>
         </nav>
         <div id="detail">
           <Outlet />
