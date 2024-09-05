@@ -1,4 +1,4 @@
-.btn-loader {
+.btn-spinner {
     display: none;
     /* color: gray; */
     color: #0F0F0F;
@@ -19,7 +19,7 @@
     /* right: 2%; */
 }
 
-.btn-loading.btn-loader {
+.btn-loading.btn-spinner {
     display: block;
 }
 

@@ -2,11 +2,11 @@ import { initialScroll, startTimer, getHealthTipState } from "../utils";
 import { stopTimer } from "../utils/timer";
 import { TwitterTheme } from '../utils/xAutoDetect/types';
 import { getXTheme, extractTweetBody, createBtnElement, createOverlayElement } from '../utils/xAutoDetect/dom';
-import  allKeywords  from './../utils/health_keywords';
+import allKeywords from './../utils/health_keywords';
 import { nanoid } from 'nanoid';
-import { getXAutoDetectState} from "../utils/storage";
-import {healthClaimDetection} from '../utils/claim_detection';
-
+import { getXAutoDetectState } from "../utils/storage";
+import { healthClaimDetection } from '../utils/claim_detection';
+import './css/spinner.css';
 const TIMER_DURATION = { minutes: 0, seconds: 5 };
 
 const setInitialExtensionState = async (): Promise<void> => {
@@ -100,13 +100,13 @@ const searchKeywordAndCreateOverlay = async (tweetBody: string, tweet: HTMLDivEl
      * 
     */
     const isMatch = allKeywords
-    .some(keyword => new RegExp(`(?:^|[\\s.,;?!()\\[\\]{}])${keyword}(?:[\\s.,;?!()\\[\\]{}]|$)`, 'i').test(tweetBody));
+        .some(keyword => new RegExp(`(?:^|[\\s.,;?!()\\[\\]{}])${keyword}(?:[\\s.,;?!()\\[\\]{}]|$)`, 'i').test(tweetBody));
 
     if (!isMatch) {
         return;
     }
     // call api claim detection
-    const isHealthClaim = await healthClaimDetection(tweetBody) ;
+    const isHealthClaim = await healthClaimDetection(tweetBody);
     if (!isHealthClaim) {
         return;
     }
@@ -134,6 +134,37 @@ const searchKeywordAndCreateOverlay = async (tweetBody: string, tweet: HTMLDivEl
 
         viewBtn.setAttribute("data-overlay-id", overlayId);
         viewBtn.addEventListener("click", () => {
+
+            // Create a spinner, and append it to the button
+            let spinner = document.createElement('span');
+            spinner.className = "btn-spinner";
+            viewBtn.appendChild(spinner);
+
+            const handleStorageChange = (changes: { [key: string]: chrome.storage.StorageChange }) => {
+                if (changes.isFactCheckLoading || changes.isSingleFactCheckLoading) {
+                    chrome.storage.local.get(['isFactCheckLoading', 'isSingleFactCheckLoading'], (result) => {
+                        const isFactCheckLoading = result.isFactCheckLoading === true;
+                        const isSingleFactCheckLoading = result.isSingleFactCheckLoading === true;
+
+                        // const loaderElement = document.querySelector('.btn-loader');
+                        const loaderElement = viewBtn.querySelector('.btn-spinner');
+                        loaderElement.classList.add('btn-loading');
+                        if (loaderElement) {
+                            if (!(isFactCheckLoading || isSingleFactCheckLoading)) {
+                                // Remove the class name btn-loading
+                                loaderElement.classList.remove('btn-loading');
+
+                                // Remove the spinner
+                                if (spinner && viewBtn.contains(spinner)) {
+                                    viewBtn.removeChild(spinner);
+                                }  
+                            }
+                        }
+                    });
+                }
+            };
+            chrome.storage.onChanged.addListener(handleStorageChange);
+
             factCheck(viewBtn.getAttribute("data-value"));
         });
         buttonContainer.append(viewBtn);
