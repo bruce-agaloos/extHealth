@@ -1,26 +1,43 @@
-import React from "react";
-import { createRoot } from "react-dom/client";
+import * as React from "react";
+import * as ReactDOM from "react-dom/client";
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import "./layout/css/default.css";
 
-import Navbar from './layout/navbar';
-import Header from './layout/header';
-import SetUp from './layout/setup';
-import Features from './layout/features';
-import Faqs from './layout/faqs';
+import Root from "./layout/root";
+import ErrorPage from "./layout/error";
+import StartPage from "./layout/startPage";
+import Pages from "./layout/pages";
+import FinalPage from "./layout/finalPage";
 
-const Guide = () => {
-
-    return (
-        <>  
-            <Navbar/>
-            <Header/>
-            <SetUp/>
-            <Features/>
-            <Faqs/>
-        </>
-    );
-};
+const router = createBrowserRouter([
+  {
+    path: "/guide.html",
+    element: <Root />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "startPage",
+        element: <StartPage />,
+      },
+      {
+        path: "pages/:id",
+        element: <Pages />,
+      },
+      {
+        path: "finalPage",
+        element: <FinalPage />,
+      },
+    ],
+  },
+]);
 
 const container = document.createElement("div");
 document.body.appendChild(container);
-const root = createRoot(container);
-root.render(<Guide />);
+ReactDOM.createRoot(container).render(
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
+);
