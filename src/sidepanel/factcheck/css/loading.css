@@ -16,14 +16,14 @@
     transform: translateY(-50%);
 }
 
-.add_fact_button{
-    display: block;
+#factChecking  #form_add_facts .add_fact_button{
+    display: flex;
 }
 
 .loading.loader{
 display: block;
 }
-.loading.add_fact_button{
+#factChecking  #form_add_facts .loading.add_fact_button{
 display: none;
 }
 
