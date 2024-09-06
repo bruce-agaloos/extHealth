@@ -26,7 +26,6 @@ interface CategoryProps {
     isOn: boolean;
     onChange: (newCategoryState: boolean) => void;
     id: number;
-    disabled: boolean;
 }
 
 interface xAutoDetectProps {
