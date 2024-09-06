@@ -10,6 +10,7 @@ interface TextAreaWithCounterProps {
   onKeyDown?: (event: KeyboardEvent<HTMLTextAreaElement>) => void;
   onKeyUp?: (event: KeyboardEvent<HTMLTextAreaElement>) => void;
   onInput?: (event: KeyboardEvent<HTMLTextAreaElement>) => void;
+  style?: React.CSSProperties; 
 }
 
 const TextAreaWithCounter: React.FC<TextAreaWithCounterProps> = ({
@@ -20,10 +21,13 @@ const TextAreaWithCounter: React.FC<TextAreaWithCounterProps> = ({
   onKeyDown,
   onKeyUp,
   onInput,
+  style,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const maxLength = 80;
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  
 
   const handleFocus = (event: FocusEvent<HTMLTextAreaElement>) => {
     setIsFocused(true);
@@ -53,7 +57,7 @@ const TextAreaWithCounter: React.FC<TextAreaWithCounterProps> = ({
         onKeyDown={onKeyDown}
         onKeyUp={onKeyUp}
         onInput={(e) => autoResizeTextarea(e.target as HTMLTextAreaElement)}
-        style={{ borderColor: textColor}}
+        style={{ ...style, borderColor: textColor}}
         className="textarea"
         placeholder='Enter a health claim here...'
       />

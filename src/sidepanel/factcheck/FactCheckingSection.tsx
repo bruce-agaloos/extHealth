@@ -15,6 +15,7 @@ import  allKeywords  from '../../utils/health_keywords';
 const FactCheckingSection: React.FC = () => {
   const [expanded, setExpanded] = useState<string | false>(false);
   const [newFact, setNewFact] = useState('');
+  const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
 
   const [facts, setFacts] = useState([]);
 
@@ -44,6 +45,10 @@ const FactCheckingSection: React.FC = () => {
         chrome.storage.onChanged.removeListener(handleStorageChange);
     };
   }, []);
+
+  const handleDivClick = (index: number) => {
+    setFocusedIndex(index);
+  }
 
   const handleChange =
   (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
@@ -266,6 +271,10 @@ const FactCheckingSection: React.FC = () => {
             <TextAreaWithCounter 
               value={fact.hypothesis} 
               onChange={(e) => handleInputChange(e, index)}
+              style={{
+                backgroundColor: focusedIndex === index ? '#D7ECFF' : 'white',
+                borderColor: focusedIndex === index ? '#66B5FD' : '#CECECE'
+              }}
               onKeyDown={(e: React.KeyboardEvent<HTMLTextAreaElement>) => {
                 if (e.key === 'Enter') {
                   e.preventDefault();
@@ -302,6 +311,7 @@ const FactCheckingSection: React.FC = () => {
                     count={`${count}`}
                     expanded={expanded === `${index}-${state}`}
                     onChange={handleChange(`${index}-${state}`)}
+                    onClick={() => handleDivClick(index)}
                   >
                     {relatedPremises.map((premise, idx) => (
                       <Evidence key={`${index}-${state}-${idx}`} idx={idx} premise={premise} />

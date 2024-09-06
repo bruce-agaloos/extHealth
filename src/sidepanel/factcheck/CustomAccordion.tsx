@@ -11,6 +11,7 @@ interface CustomAccordionProps {
   children: React.ReactNode;
   expanded: boolean;
   onChange: (event: React.SyntheticEvent, isExpanded: boolean) => void;
+  onClick?: () => void;
 }
 
 const CustomAccordion: React.FC<CustomAccordionProps> = ({
@@ -19,9 +20,10 @@ const CustomAccordion: React.FC<CustomAccordionProps> = ({
   children,
   expanded,
   onChange,
+  onClick,
 }) => {
   return (
-    <Accordion expanded={expanded} onChange={onChange} className={`accordion ${title}-accordion`}>
+    <Accordion expanded={expanded} onChange={onChange} className={`accordion ${title}-accordion`} onClick={onClick}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel-content"
