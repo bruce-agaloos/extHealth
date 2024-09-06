@@ -18,6 +18,9 @@
 }
 
 #factChecking {
+    *{
+        background-color: #FBFCFF;
+    }
     > div {
         display: flex;
         flex-direction: column-reverse;
@@ -31,7 +34,7 @@
     }
     #form_add_facts {
         z-index: 1000;
-        background-color: white;
+        background-color: #FBFCFF;
         display: flex;
         flex-direction: row; /* Place children side by side */
         align-items: center;

@@ -37,7 +37,7 @@ const Evidence: React.FC<EvidenceProps> = ({idx, premise }) => {
         {premise.premise}
       </p>
       <p className="date">
-        {premise.date ? `Published ${premise.date}` : ''}
+        {premise.date ? `Published Date: ${premise.date}` : ''}
       </p>
     </div>
   );

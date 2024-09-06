@@ -3,6 +3,7 @@
         font-family: Roboto Slab;
         position: relative;
         margin-bottom: 15px;
+        background-color: #FBFCFF;
         &::after {
             content: "";
             display: block;
@@ -11,13 +12,18 @@
             background-color: grey; /* Adjust the color as needed */
             margin-top: 15px; /* Adjust the spacing as needed */
         }
+        > div {
+            margin-top: 0.5rem;
+            margin-bottom: 0.7rem;
+        }
         img{
             height: 1rem;
             width: 1rem;
             position: absolute;
             border: 2px solid #3BA0FD;
             border-radius: 5px;
-            left: -26px;
+            top: 5px;
+            left: -41px;
             background-color: white;
         }
         a{
@@ -30,8 +36,7 @@
         }
         h2{
             font-size: 1.25rem;
-            font-weight: 500;
-            color: var(--claim-color);
+            font-weight: 700;
             margin-bottom: 10px;
         }
         p{
@@ -48,6 +53,9 @@
             img{
                 border-color: #3BA0FD;
             }
+            h2{
+                color: #3BA0FD;
+            }
         }
     }
     .Disputed-accordion{
@@ -55,12 +63,18 @@
             img{
                 border-color: #F8686A;
             }
+            h2{
+                color: #F8686A;
+            }
         }
     }
     .Neutral-accordion{
         .evidence{
             img{
                 border-color: #A86CD0;
+            }
+            h2{
+                color: #A86CD0;
             }
         }
     }
