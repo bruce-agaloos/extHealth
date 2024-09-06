@@ -1,17 +1,19 @@
+.popupSummary {
+  font-size: 14px;
+  color: #333;
+  font-weight: bold;
+}
+
 .containerSummary {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-right: 10px;
-  padding-left: 10px;
-  margin-bottom: -15px;
+  padding: px;
+  padding-left: 60px;
+  padding-right: 60px;
+  font-style: bold;
 }
-.popupSummary {
-  font-size: 14px;
-  font-family: "Public Sans", sans-serif;
-  color: #1E1919;
-  width: 78%;
-}
-.popupSummary span {
+
+/* .popupSummary span {
   font-weight: bold;
-}
+} */
