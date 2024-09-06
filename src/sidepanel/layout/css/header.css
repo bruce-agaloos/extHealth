@@ -2,6 +2,7 @@
 header {
   grid-column: 1 / 4;
   grid-row: 1 / 2;
+  padding: 0.5rem;
 }
 
 .board {
@@ -32,12 +33,27 @@ header {
 }
 
 .TitleLogo {
-  margin-top: -20px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
-  position: relative;
+  padding: 0 1rem 0 1rem;
+  > div{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    transform-origin: left;
+    animation: appearLeftToCenter 1s ease-out forwards;
+  }
+  > span {
+    color: #3BA0FD;
+    transform-origin: right;
+    animation: appearRightToCenter 1s ease-out forwards;
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
 }
 
 .logo {
@@ -47,8 +63,6 @@ header {
   width: 50px;
   height: 50px;
   object-fit: contain;
-  transform-origin: left;
-  animation: appearLeftToCenter 1s ease-out forwards;
 }
 
 .popupTitle {
@@ -56,8 +70,6 @@ header {
   font-weight: bold;
   font-size: 20px;
   padding-top: 5px;
-  transform-origin: right;
-  animation: appearRightToCenter 1s ease-out forwards;
 }
 .forc {
   font-weight: 400;

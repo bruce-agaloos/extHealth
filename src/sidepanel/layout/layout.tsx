@@ -3,6 +3,8 @@ import './css/default.css'; // Assuming styles are defined here
 
 import FactCheckingSection from "../factcheck/FactCheckingSection"
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleQuestion } from '@fortawesome/free-regular-svg-icons'; 
 
 const Layout = () => {
   
@@ -10,10 +12,15 @@ const Layout = () => {
       <div id="grid">
         <header className="board">
           <div className="TitleLogo">
-            <img src="icon.png" alt="Logo" className="logo" />
-            <h2 id="popupTitle" className="popupTitle">
-              eXtHealth <span className="forc">for Chrome</span>
-            </h2>
+            <div>
+              <img src="icon.png" alt="Logo" className="logo" />
+              <h2 id="popupTitle" className="popupTitle">
+                Fact Checking
+              </h2>
+            </div>
+            <span onClick={() => chrome.tabs.create({ url: chrome.runtime.getURL('guide.html') })}>
+              <FontAwesomeIcon icon={faCircleQuestion} /> <span>How to use?</span>
+            </span>
           </div>
         </header>
         <section id="tooltip">
