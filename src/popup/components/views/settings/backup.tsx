@@ -1,26 +1,25 @@
 import React, { useEffect, useState } from "react";
 
-import { getCategoryState, getHealthTipState, getXAutoDetectState, setHealthTipState } from "./../../../utils/storage";
-import { sendMessageToContentScript, } from "../../../utils/general";
-import { Toggle, Category, XAutoDetectToggle } from "../index";
+import { getCategoryState, setHealthTipState } from "../../../../utils/storage";
+import { sendMessageToContentScript } from "../../../../utils/general";
+import { Category } from "./../../toggles";
 
 const Settings: React.FC<{}> = () => {
-    const [healthTipState, setHealthTipState] = useState<boolean | null>(false);
-    const [xAutoDetectState, setXAutoDetectState] = useState<boolean | null>(false);
     const [categoryState, setCategoryState] = useState<{ [key: number]: boolean }>({});
     const ids = [15, 16, 18, 19, 20, 21, 23, 24, 28, 29];
+    const [inputValue, setInputValue] = useState<string>('');
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = parseInt(e.target.value, 10);
+        if (value > 0) {
+            setInputValue(e.target.value); // Use the original string value
+        } else {
+            setInputValue("1"); // Default to "1" if the value is 0 or negative
+        }
+    };
 
     useEffect(() => {
-        getHealthTipState().then((state) => {
-            setHealthTipState(state);
-        });
-
-        getXAutoDetectState().then((state) => {
-            setXAutoDetectState(state);
-        });
-
         const newState: { [key: number]: boolean } = {};
-
         ids.forEach((id) => {
             getCategoryState(id).then((category) => {
                 newState[id] = category;
@@ -41,13 +40,6 @@ const Settings: React.FC<{}> = () => {
         });
     };
 
-    const handleXAutoDetectState = (newState: boolean): void => {
-        setXAutoDetectState(newState);
-        sendMessageToContentScript({ xAutoDetect: newState }, (response) => {
-            console.log('Received response for xAutoDetect state:', response);
-        });
-    }
-
     const handleCategoryState = (id: number, newCategoryState: boolean): void => {
         setCategoryState((prevState) => ({
             ...prevState,
@@ -58,28 +50,32 @@ const Settings: React.FC<{}> = () => {
         });
     };
 
-
     return (
-        <div className="popupContainer">
-            <div id="popupContent" className="popupContent">
-                <div className="containerSummary">
-                    <p id="popupSummary" className="popupSummary">
-                        Auto Detect Health Related Content in X
-                    </p>
-                    <XAutoDetectToggle
-                        isOn={xAutoDetectState}
-                        onChange={handleXAutoDetectState}
-                    />
-
+        <div id="popupContent" className="popupContent">
+            <div className="sidebar">
+                <div className="subTileHeader">Interval:</div>
+                <div className="subTileHeader">Topics:</div>
+            </div>
+            <div className="mainContent">
+                <div>
+                    <div className="tileHeader">
+                        <div className="tileBorder">
+                            Health Tips Reminder
+                        </div>
+                    </div>
                 </div>
                 <div className="containerSummary">
-                    <p id="popupSummary" className="popupSummary">
-                        Health Reminder is <span>enabled</span> for X <span>by default.</span>
+                    <div className="input-form">
+                        <input
+                            type="number"
+                            value={inputValue}
+                            onChange={handleInputChange}
+                            min="1"  // Minimum value set to 1
+                        />
+                    </div>
+                    <p id="popupSummary" className="popupSummary indent">
+                        minute/s
                     </p>
-                    <Toggle
-                        isOn={healthTipState}
-                        onChange={handleHealtTipState}
-                    />
                 </div>
                 <div className="containerSummary">
                     <p id="popupSummary" className="popupSummary indent">
@@ -89,7 +85,6 @@ const Settings: React.FC<{}> = () => {
                         isOn={categoryState[ids[0]]}
                         onChange={(newState) => handleCategoryState(ids[0], newState)}
                         id={ids[0]}
-                        disabled={!healthTipState}
                     />
                 </div>
                 <div className="containerSummary">
@@ -100,7 +95,6 @@ const Settings: React.FC<{}> = () => {
                         isOn={categoryState[ids[1]]}
                         onChange={(newState) => handleCategoryState(ids[1], newState)}
                         id={ids[1]}
-                        disabled={!healthTipState}
                     />
                 </div>
                 <div className="containerSummary">
@@ -111,7 +105,6 @@ const Settings: React.FC<{}> = () => {
                         isOn={categoryState[ids[2]]}
                         onChange={(newState) => handleCategoryState(ids[2], newState)}
                         id={ids[2]}
-                        disabled={!healthTipState}
                     />
                 </div>
                 <div className="containerSummary">
@@ -122,7 +115,6 @@ const Settings: React.FC<{}> = () => {
                         isOn={categoryState[ids[3]]}
                         onChange={(newState) => handleCategoryState(ids[3], newState)}
                         id={ids[3]}
-                        disabled={!healthTipState}
                     />
                 </div>
                 <div className="containerSummary">
@@ -133,7 +125,6 @@ const Settings: React.FC<{}> = () => {
                         isOn={categoryState[ids[4]]}
                         onChange={(newState) => handleCategoryState(ids[4], newState)}
                         id={ids[4]}
-                        disabled={!healthTipState}
                     />
                 </div>
                 <div className="containerSummary">
@@ -144,7 +135,6 @@ const Settings: React.FC<{}> = () => {
                         isOn={categoryState[ids[5]]}
                         onChange={(newState) => handleCategoryState(ids[5], newState)}
                         id={ids[5]}
-                        disabled={!healthTipState}
                     />
                 </div>
                 <div className="containerSummary">
@@ -155,7 +145,6 @@ const Settings: React.FC<{}> = () => {
                         isOn={categoryState[ids[6]]}
                         onChange={(newState) => handleCategoryState(ids[6], newState)}
                         id={ids[6]}
-                        disabled={!healthTipState}
                     />
                 </div>
                 <div className="containerSummary">
@@ -166,7 +155,6 @@ const Settings: React.FC<{}> = () => {
                         isOn={categoryState[ids[7]]}
                         onChange={(newState) => handleCategoryState(ids[7], newState)}
                         id={ids[7]}
-                        disabled={!healthTipState}
                     />
                 </div>
                 <div className="containerSummary">
@@ -177,7 +165,6 @@ const Settings: React.FC<{}> = () => {
                         isOn={categoryState[ids[8]]}
                         onChange={(newState) => handleCategoryState(ids[8], newState)}
                         id={ids[8]}
-                        disabled={!healthTipState}
                     />
                 </div>
                 <div className="containerSummary">
@@ -188,12 +175,10 @@ const Settings: React.FC<{}> = () => {
                         isOn={categoryState[ids[9]]}
                         onChange={(newState) => handleCategoryState(ids[9], newState)}
                         id={ids[9]}
-                        disabled={!healthTipState}
                     />
                 </div>
             </div>
         </div>
-
     );
 };
 

@@ -1,0 +1,140 @@
+/* open side pael button */
+
+.buttonContainer {
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.roundedButton {
+  border: none;
+  border-radius: 50px;
+  background-color: #92b4fe;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  transition: box-shadow 0.3s ease; 
+  position: relative;
+  overflow: hidden;
+  font-size: 12px;
+  padding: 8px 20px;
+
+}
+
+.roundedButton:hover {
+  background-color: #92b4fe;
+  box-shadow: inset 0px 0px 1px 1px #8da5d7;
+}
+
+.roundedButton:hover .buttonText {
+  transform: scale(1.1); 
+  text-decoration: underline; 
+}
+
+/* open side panel button */
+
+
+
+/* settings header */
+
+.setHead {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 15%; 
+  right: 50%;
+  left: 50%;
+  color: #5c5b5b;
+  z-index: 1000; 
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+.settingsTitle {
+  animation: fadeUp 0.5s ease-in-out;
+}
+
+.fade-out {
+  animation: fadeOut 0.6s ease-in-out;
+}
+
+/* settings header */
+
+
+
+
+/* time interval input-form */
+.input-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.input-form input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 40px;
+}
+/* time interval input-form */
+
+
+.tileHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #5c5b5b;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-size: 17px;
+}
+
+.tileBorder{
+  border-bottom: 1px solid #ccc;
+
+  display: inline-block;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.subTileHeader {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: left; 
+  color: #5c5b5b;
+  margin-top: 10px;
+  padding-left: 30px; 
+  font-size: 15px;
+  font-weight: bold;
+  padding-bottom: 10px;
+}
+
+
+
+
+
+
