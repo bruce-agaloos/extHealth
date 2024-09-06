@@ -41,7 +41,7 @@
         position: sticky;
         bottom: 0;
         > .textarea-container{
-            width: calc(100% - 65px);
+            width: 100%;
             margin-right: 10px;
             > .counter{
                 bottom: -5px; /* Adjust as needed */
@@ -53,18 +53,25 @@
     #form_add_facts textarea {
         margin-right: 10px; /* Space between textarea and button */
         margin-bottom: 0;
+        padding-right: 2.5rem;
     }
 
     #form_add_facts button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         height: 25px;
         width: 25px; /* Fixed width for the button */
         background-color: red;
         color: white;
-        font-size: 16px;
-        font-weight: bold;
-        border-radius: 10px;
+        font-size: 1.5rem;
+        border-radius: 5px;
         border: none;
         cursor: pointer;
         padding: 5px;
+        position: absolute;
+        right: 1.5rem;
+        top: 50%;
+        transform: translateY(-50%);
     }
 }

@@ -10,6 +10,10 @@
     border-radius: 50%;
     transform: translateZ(0);
     animation: mltShdSpin 1.7s infinite ease, round 1.7s infinite ease;
+    position: absolute;
+    right: 2rem;
+    top: 30%;
+    transform: translateY(-50%);
 }
 
 .add_fact_button{
