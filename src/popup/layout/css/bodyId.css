@@ -1,8 +1,12 @@
 /* body section */
 #body {
   grid-column: 1 / 4;
-  grid-row: 3 / 4;
+  grid-row: 2 / 4;
   position: relative;
+  > *
+  {
+    background-color: #FBFCFF;
+  }
 }
 
 #body > div {

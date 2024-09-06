@@ -38,7 +38,6 @@ header {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 0 1rem 0 1rem;
   > div{
     display: flex;
     gap: 10px;

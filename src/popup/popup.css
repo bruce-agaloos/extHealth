@@ -10,14 +10,9 @@
 
 body {
     height: 400px;
-    width: 300px;
+    width: 500px;
     background-color: #f1f1f1;
     font-family: Tahoma, Geneva, sans-serif;
-}
-/* Popup Content */
-.popupContent {
-  background-color: white;
-  color: #323130;
 }
 
 

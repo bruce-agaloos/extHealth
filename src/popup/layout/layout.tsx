@@ -4,6 +4,10 @@ import './css/default.css'; // Assuming styles are defined here
 import HealthTipsSection from "../components/healthTips/section"
 import Settings from "../components/settings/section"
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleQuestion } from '@fortawesome/free-regular-svg-icons'; 
+import { faGear, faLightbulb } from "@fortawesome/free-solid-svg-icons";
+
 
 const Layout = () => {
     const [activeOption, setActiveOption] = useState('healthReminders');
@@ -54,30 +58,38 @@ const Layout = () => {
     }, [activeOption, options]);
   
   
-    const handleOptionClick = (optionId) => {
-      setActiveOption(optionId);
+    const handleOptionClick = () => {
+      setActiveOption((prevOption) => (prevOption === 'healthReminders' ? 'settings' : 'healthReminders'));
     };
   
     return (
       <div id="grid">
         <header className="board">
           <div className="TitleLogo">
-            <img src="icon.png" alt="Logo" className="logo" />
-            <h2 id="popupTitle" className="popupTitle">
-              eXtHealth <span className="forc">for Chrome</span>
-            </h2>
+            <div>
+              <img src="icon.png" alt="Logo" className="logo" />
+              <h2 id="popupTitle" className="popupTitle">
+                Reminders
+              </h2>
+            </div>
+            <div>
+              <span onClick={() => chrome.tabs.create({ url: chrome.runtime.getURL('guide.html') })}>
+                <FontAwesomeIcon icon={faCircleQuestion} /> <span>How to use?</span>
+              </span>
+              <span onClick={handleOptionClick}>
+                  {activeOption === 'healthReminders' ? (
+                      <>
+                          <FontAwesomeIcon icon={faGear} /> <span>Settings</span>
+                      </>
+                  ) : (
+                      <>
+                          <FontAwesomeIcon icon={faLightbulb} /> <span>Reminders</span>
+                      </>
+                  )}
+              </span>
+            </div>
           </div>
         </header>
-        <section id="options">
-          <ul>
-            {options.map((option) => (
-              <li key={option.id} className={activeOption === option.id ? 'activeOption' : ''} onClick={() => handleOptionClick(option.id)}>
-                {option.name}
-                <img src={option.imgSrc} alt={option.altText} style={{ height: '1rem', width: '1rem' }} />
-              </li>
-            ))}
-          </ul>
-        </section>
         <section id="body">
           <div id="healthReminders" className={`${activeOption === 'healthReminders' ? 'selectedOption' : ''} appearLeft`}>
             <HealthTipsSection/>
@@ -86,12 +98,6 @@ const Layout = () => {
             <Settings/>
           </div>
         </section>
-        <a
-          id="userGuide"
-          onClick={() => chrome.tabs.create({ url: chrome.runtime.getURL('guide.html') })}
-        >
-          How To Use?
-        </a>
       </div>
     );
   };
