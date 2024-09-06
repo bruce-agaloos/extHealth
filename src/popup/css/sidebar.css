@@ -1,0 +1,40 @@
+.subTileHeader {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: left;
+    color: #5c5b5b;
+    margin-top: 10px;
+    padding-left: 30px;
+    font-size: 15px;
+    font-weight: bold;
+    padding-bottom: 10px;
+  }
+  
+  .sidebar-items {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+  }
+  
+  .sidebar {
+    background-color: #f0f0f0;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .subTileHeader {
+    font-weight: bold;
+    cursor: pointer;
+    padding: 10px 20px 10px 20px;
+    transition: background-color 0.3s;
+    position: relative;
+    color: #211e1e;
+  }
+  
+  .subTileHeader:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .subTileHeader.active {
+    background-color: #d0d0d0;
+  }

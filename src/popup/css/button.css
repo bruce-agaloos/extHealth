@@ -1,0 +1,30 @@
+
+.buttonContainer {
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .roundedButton {
+    border: none;
+    border-radius: 50px;
+    background-color: #92b4fe;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    transition: box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    font-size: 12px;
+    padding: 8px 20px;
+  }
+  
+  .roundedButton:hover {
+    background-color: #92b4fe;
+    box-shadow: inset 0px 0px 1px 1px #8da5d7;
+  }
+  
+  .roundedButton:hover .buttonText {
+    transform: scale(1.1);
+    text-decoration: underline;
+  }

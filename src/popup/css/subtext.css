@@ -14,6 +14,20 @@
   font-style: bold;
 }
 
-/* .popupSummary span {
-  font-weight: bold;
-} */
+.tileHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #5c5b5b;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  font-size: 17px;
+}
+
+.tileBorder {
+  border-bottom: 1px solid #ccc;
+  display: inline-block;
+  padding-left: 10px;
+  padding-right: 10px;
+}
