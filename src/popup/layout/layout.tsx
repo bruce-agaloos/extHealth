@@ -78,13 +78,21 @@ const Layout = () => {
         },);
     };
 
+    const handleTitleClick = () => {
+        setActiveSection('home');
+        setFadeOut(true);
+        setTimeout(() => {
+            setFadeOut(false);
+        }, 350);
+    };
+
     return (
         <div id="grid">
             <header className="board">
                 <div className="TitleLogo">
-                    <img src="icon.png" alt="Logo" className="logo" />
-                    <h2 id="popupTitle" className="popupTitle">
-                        extHealth <span className="forc">for Chrome</span>
+                    <img src="icon.png" alt="Logo" className="logo" onClick={handleTitleClick}/>
+                    <h2 id="popupTitle" className="popupTitle" onClick={handleTitleClick}>
+                        extHealth <span className="forc" onClick={handleTitleClick}>for Chrome</span>
                     </h2>
 
                     <div className="icons">
