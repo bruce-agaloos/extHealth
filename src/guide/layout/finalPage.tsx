@@ -6,10 +6,7 @@ export default function FinalPage() {
   
   return (
     <div id="finalPage">
-      <video controls>
-        <source src="guide.mp4" type="video/mp4"/>
-        Your browser does not support the video tag.
-      </video>
+      <iframe src="https://drive.google.com/file/d/1ozCUm43qtqZ43irLQjnbNNRCMLokAxqn/preview" width="640" height="480" allow="autoplay"></iframe>
       <div>
         <p>
           If you skip, make sure to watch our Video Demo for a quick overview of eXtHealth’s features and instructions on how to use them.
