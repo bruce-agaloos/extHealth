@@ -31,3 +31,38 @@
   padding-left: 10px;
   padding-right: 10px;
 }
+
+.alertBox {
+  display: flex; /* Ensure the alertBox is a flex container */
+  justify-content: center; /* Center the content horizontally */
+  align-items: center; /* Center the content vertically */
+  background-color: #ffe6e6; /* Light red background for the alert box */
+}
+
+.alert {
+  color: #ff0000;
+  text-align: center; /* Center the text */
+}
+.howToUse {
+  display: flex;
+  align-items: center; 
+  text-decoration: none;
+  color: inherit;
+  justify-content: center;
+  position: absolute;
+  color: #5c5b5b;
+  z-index: 1000;
+  top: 85%;
+  left: 65%;
+}
+
+.help {
+  margin-right: -5px;
+  width: 40px;
+  height: 40px; 
+  object-fit: contain;
+}
+
+.helpText {
+  display: inline-block;
+}

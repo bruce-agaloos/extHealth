@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react'; 
-import { Home, Interval, Topics } from "../components/sections";
+import React, { useState } from 'react';
+import { Home, Interval, Topics } from "./../components/sections";
+import { getHealthTipState } from "./../../utils/storage";
 
 const Layout = () => {
     const [activeSection, setActiveSection] = useState('home');
@@ -7,10 +8,13 @@ const Layout = () => {
     const [rotateClockwise, setRotateClockwise] = useState(false);
     const [fadeOut, setFadeOut] = useState(false);
     const [popupHeight, setPopupHeight] = useState(200);
+    const [healthTipsEnabled, setHealthTipsEnabled] = useState<boolean>(false);
 
-    useEffect(() => {
-        console.log("Layout component mounted");
-    }, []);
+    getHealthTipState().then((enabled) => {
+        setHealthTipsEnabled(enabled);
+    }).catch((error) => {
+        console.error('Error retrieving health tips state:', error);
+    });;
 
     const handleSettingsClick = () => {
         if (activeSection === 'settings') {
@@ -19,10 +23,10 @@ const Layout = () => {
                 setActiveSection('home');
                 setFadeOut(false);
                 setPopupHeight(200);
-            },350);
+            }, 350);
         } else {
             setActiveSection('settings');
-            setPopupHeight(200); 
+            setPopupHeight(200);
         }
         setRotateClockwise(!rotateClockwise);
     };
@@ -55,7 +59,7 @@ const Layout = () => {
             </header>
             <section id="body">
                 <div className="popupContent" style={{ height: `${popupHeight}px` }}>
-                    {activeSection === 'home' &&  (<div className={`interval ${fadeOut ? 'fade-out' : 'fade-in'}`}><Home /></div>)}
+                    {activeSection === 'home' && (<div className={`interval ${fadeOut ? 'fade-out' : 'fade-in'}`}><Home /></div>)}
                     {activeSection === 'settings' && (
                         <div id="popupContent" className="popupContent" style={{ height: `${popupHeight}px` }}>
                             <div className="sidebar-items">
@@ -74,13 +78,20 @@ const Layout = () => {
                                     </div>
                                 </div>
                                 <div className={`mainContent ${fadeOut ? 'fade-out-right' : 'fade-in-right'}`}>
+
+
                                     <div className="tileHeader">
                                         <div className="tileBorder">
                                             Health Tips Reminder
                                         </div>
                                     </div>
                                     {activeContent === 'interval' &&
-                                        (<div className={`interval ${fadeOut ? '' : 'fade-in-top'}`}><Interval /></div>)}
+                                        (<div className={`interval ${fadeOut ? '' : 'fade-in-top'}`}>
+                                            {healthTipsEnabled ?
+                                                <div className="alertBox">
+                                                    <p className="alert">
+                                                        Reminder is Enabled
+                                                    </p></div> : null}<Interval /></div>)}
                                     {activeContent === 'topics' && (
                                         <div
                                             className={`topics ${fadeOut ? '' : 'fade-in-bottom'}`}
