@@ -7,15 +7,13 @@ const Interval: React.FC<{}> = () => {
     const [healthTipsEnabled, setHealthTipsEnabled] = useState<boolean>(false);
 
     useEffect(() => {
-        // Retrieve the interval value from storage when the component mounts
         getInterval().then((interval) => {
             setInputValue(interval.toString());
-            setInitialInterval(interval); // Store the initial interval value
+            setInitialInterval(interval);
         }).catch((error) => {
             console.error('Error retrieving interval:', error);
         });
 
-        // Retrieve the health tips enabled state from storage
         getHealthTipState().then((enabled) => {
             setHealthTipsEnabled(enabled);
         }).catch((error) => {
@@ -26,11 +24,9 @@ const Interval: React.FC<{}> = () => {
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = parseInt(e.target.value, 10);
         if (value > 0) {
-            setInputValue(e.target.value); // Use the original string value
-            // Automatically update the interval in local storage
+            setInputValue(e.target.value);
+
             setInterval(value).then(() => {
-                console.log(`New interval set: ${value} minutes`); // Log the new interval value
-                // Send a message to the content script
                 chrome.runtime.sendMessage({ type: 'UPDATE_INTERVAL', interval: value }, (response) => {
                     if (chrome.runtime.lastError) {
                         console.error('Error sending message:', chrome.runtime.lastError);
@@ -42,12 +38,17 @@ const Interval: React.FC<{}> = () => {
                 console.error('Error setting interval:', error);
             });
         } else {
-            setInputValue("1"); // Default to "1" if the value is 0 or negative
+            setInputValue("1");
         }
     };
 
     return (
         <div>
+            {healthTipsEnabled ?
+                <div className="alertBox">
+                    <p className="alert">
+                        Reminder is Enabled
+                    </p></div> : null}
             <div className="containerSummary less2">
                 <div className="gaps">
                     <div className="input-form">
@@ -55,8 +56,8 @@ const Interval: React.FC<{}> = () => {
                             type="number"
                             value={inputValue}
                             onChange={handleInputChange}
-                            min="1"  // Minimum value set to 1
-                            disabled={healthTipsEnabled} // Disable input if healthTipsEnabled is true
+                            min="1"
+                            disabled={healthTipsEnabled}
                         />
                     </div>
                     <p id="popupSummary" className="popupSummary">
@@ -64,7 +65,7 @@ const Interval: React.FC<{}> = () => {
                     </p>
                 </div>
             </div>
-        
+
         </div>
 
     );

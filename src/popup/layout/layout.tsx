@@ -90,7 +90,7 @@ const Layout = () => {
         <div id="grid">
             <header className="board">
                 <div className="TitleLogo">
-                    <img src="icon.png" alt="Logo" className="logo" onClick={handleTitleClick}/>
+                    <img src="icon.png" alt="Logo" className="logo" onClick={handleTitleClick} />
                     <h2 id="popupTitle" className="popupTitle" onClick={handleTitleClick}>
                         extHealth <span className="forc" onClick={handleTitleClick}>for Chrome</span>
                     </h2>
@@ -179,11 +179,7 @@ const Layout = () => {
                                     </div>
                                     {activeContent === 'interval' &&
                                         (<div className={`interval ${fadeOut ? '' : 'fade-in-top'}`}>
-                                            {healthTipsEnabled ?
-                                                <div className="alertBox">
-                                                    <p className="alert">
-                                                        Reminder is Enabled
-                                                    </p></div> : null}<Interval /></div>)}
+                                            <Interval /></div>)}
                                     {activeContent === 'topics' && (
                                         <div
                                             className={`topics ${fadeOut ? '' : 'fade-in-bottom'}`}
