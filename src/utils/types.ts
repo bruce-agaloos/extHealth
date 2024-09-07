@@ -1,7 +1,6 @@
 interface LocalStorage {
     HealthTipsEnabled?: boolean;
     xAutoDetectEnabled?: boolean;
-
     id15Enabled?: boolean;
     id16Enabled?: boolean;
     id18Enabled?: boolean;
@@ -12,8 +11,8 @@ interface LocalStorage {
     id24Enabled?: boolean;
     id28Enabled?: boolean;
     id29Enabled?: boolean;
-
     healthTips?: string[];
+    interval?: number;
 }
 
 interface HealthTipsProps {
@@ -26,7 +25,6 @@ interface CategoryProps {
     isOn: boolean;
     onChange: (newCategoryState: boolean) => void;
     id: number;
-    disabled: boolean;
 }
 
 interface xAutoDetectProps {

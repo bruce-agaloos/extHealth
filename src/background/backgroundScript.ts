@@ -85,6 +85,17 @@ chrome.contextMenus.remove("extHealth", () => {
   });
 });
 
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.action === 'openSidePanel') {
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+          const tab = tabs[0];
+          if (tab) {
+              chrome.sidePanel.open({ windowId: tab.windowId });
+          }
+      });
+  }
+});
+
 
 // Add a listener for the context menu click event
 chrome.contextMenus.onClicked.addListener(async (info, tab) => {

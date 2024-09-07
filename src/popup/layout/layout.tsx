@@ -1,105 +1,197 @@
-import React, { useState,  useEffect, useRef  } from 'react';
-import './css/default.css'; // Assuming styles are defined here
-
-import HealthTipsSection from "../components/healthTips/section"
-import Settings from "../components/settings/section"
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleQuestion } from '@fortawesome/free-regular-svg-icons'; 
-import { faGear, faLightbulb } from "@fortawesome/free-solid-svg-icons";
-
-
+import React, { useState, useEffect } from 'react';
+import { Home, Interval, Topics, HealthTips } from "./../components/sections";
+import { getHealthTipState } from "./../../utils/storage";
 const Layout = () => {
-    const [activeOption, setActiveOption] = useState('healthReminders');
-  
-    const options = [
-      { id: 'healthReminders', name: 'Health Reminders', imgSrc: 'iconReminder.png', altText: 'reminderLogo' },
-      { id: 'settings', name: 'Settings', imgSrc: 'iconSettings.png', altText: 'settingsLogo' },
-    ];
+    const [healthTipsData, setHealthTipsData] = useState<any[]>([]);
+    const [activeSection, setActiveSection] = useState('home');
+    const [activeContent, setActiveContent] = useState<string>('interval');
+    const [rotateClockwise, setRotateClockwise] = useState(false);
+    const [rotateCounterclockwise, setRotateCounterclockwise] = useState(false);
+    const [fadeOut, setFadeOut] = useState(false);
+    const [popupHeight, setPopupHeight] = useState(200);
+    const [healthTipsEnabled, setHealthTipsEnabled] = useState<boolean>(false);
 
-    const previousActiveOptionRef = useRef(activeOption);
-  
     useEffect(() => {
-        const appearClasses = ['appearRight', 'appearLeft'];
-        const disappearClasses = ['disappearRight', 'disappearLeft'];
-        const activeElement = document.querySelector(`#${activeOption}`);
-        const previousActiveElement = document.querySelector(`#${previousActiveOptionRef.current}`);
-    
-        if (activeElement === previousActiveElement) return;
-    
-        const currentIndex = options.findIndex(option => option.id === activeOption);
-        const previousIndex = options.findIndex(option => option.id === previousActiveElement?.id);
-    
-        if (previousActiveElement) {
-            // Remove all appear classes before adding disappear classes
-            appearClasses.forEach(cls => previousActiveElement.classList.remove(cls));
-    
-            const disappearClass = currentIndex > previousIndex ? disappearClasses[0] : disappearClasses[1];
-            previousActiveElement.classList.remove('selectedOption');
-            previousActiveElement.classList.add(disappearClass);
-    
-            // Use a timeout to remove the disappear class and add hidden class after the animation completes
+        getHealthTipState().then((enabled) => {
+            setHealthTipsEnabled(enabled);
+        }).catch((error) => {
+            console.error('Error retrieving health tips state:', error);
+        });
+
+        const fetchHealthTips = async () => {
+            chrome.storage.local.get(['healthTips'], function (result) {
+                if (result.healthTips) {
+                    setHealthTipsData(result.healthTips);
+                }
+            });
+        };
+
+        fetchHealthTips();
+        const handleStorageChange = (changes: { [key: string]: chrome.storage.StorageChange }, areaName: string) => {
+            if (areaName === 'local' && changes.healthTips) {
+                setHealthTipsData(changes.healthTips.newValue);
+            }
+        };
+
+        chrome.storage.onChanged.addListener(handleStorageChange);
+
+        return () => {
+            chrome.storage.onChanged.removeListener(handleStorageChange);
+        };
+    }, []);
+
+    const handleSettingsClick = () => {
+        if (activeSection === 'settings') {
+            setFadeOut(true);
             setTimeout(() => {
-                previousActiveElement.classList.remove(disappearClass);
-                previousActiveElement.classList.add('hidden');
-            }, 500); // Adjust this timing to match your animation duration
+                setActiveSection('home');
+                setFadeOut(false);
+                setPopupHeight(200);
+            }, 350);
+        } else {
+            setActiveSection('settings');
+            setPopupHeight(200);
         }
-    
-        if (activeElement) {
-            // Remove hidden and any lingering disappear classes before adding appear classes
-            activeElement.classList.remove('hidden');
-            disappearClasses.forEach(cls => activeElement.classList.remove(cls));
-    
-            const appearClass = currentIndex > previousIndex ? appearClasses[0] : appearClasses[1];
-            activeElement.classList.add('selectedOption', appearClass);
-        }
-    
-        previousActiveOptionRef.current = activeOption;
-    }, [activeOption, options]);
-  
-  
-    const handleOptionClick = () => {
-      setActiveOption((prevOption) => (prevOption === 'healthReminders' ? 'settings' : 'healthReminders'));
+        setRotateClockwise(!rotateClockwise);
+        setRotateCounterclockwise(false);
     };
-  
+
+    const handleHistoryClick = () => {
+        if (activeSection === 'history') {
+            setFadeOut(true);
+            setTimeout(() => {
+                setActiveSection('home');
+                setFadeOut(false);
+                setPopupHeight(200);
+            }, 350);
+        } else {
+            setActiveSection('history');
+            setPopupHeight(200);
+        }
+        setRotateCounterclockwise(!rotateCounterclockwise);
+        setRotateClockwise(false);
+    };
+
+    const handleSidebarClick = (content: string) => {
+        setTimeout(() => {
+            setActiveContent(content);
+        },);
+    };
+
     return (
-      <div id="grid">
-        <header className="board">
-          <div className="TitleLogo">
-            <div>
-              <img src="icon.png" alt="Logo" className="logo" />
-              <h2 id="popupTitle" className="popupTitle">
-                Reminders
-              </h2>
-            </div>
-            <div>
-              <span onClick={() => chrome.tabs.create({ url: chrome.runtime.getURL('guide.html') })}>
-                <FontAwesomeIcon icon={faCircleQuestion} /> <span>How to use?</span>
-              </span>
-              <span onClick={handleOptionClick}>
-                  {activeOption === 'healthReminders' ? (
-                      <>
-                          <FontAwesomeIcon icon={faGear} /> <span>Settings</span>
-                      </>
-                  ) : (
-                      <>
-                          <FontAwesomeIcon icon={faLightbulb} /> <span>Reminders</span>
-                      </>
-                  )}
-              </span>
-            </div>
-          </div>
-        </header>
-        <section id="body">
-          <div id="healthReminders" className={`${activeOption === 'healthReminders' ? 'selectedOption' : ''} appearLeft`}>
-            <HealthTipsSection/>
-          </div>
-          <div id="settings" className={`${activeOption === 'settings' ? 'selectedOption' : ''} ${activeOption !== 'settings' ? 'disappearLeft' : ''}`}>
-            <Settings/>
-          </div>
-        </section>
-      </div>
+        <div id="grid">
+            <header className="board">
+                <div className="TitleLogo">
+                    <img src="icon.png" alt="Logo" className="logo" />
+                    <h2 id="popupTitle" className="popupTitle">
+                        extHealth <span className="forc">for Chrome</span>
+                    </h2>
+
+                    <div className="icons">
+                        <img
+                            src="iconSettings.png"
+                            alt="Settings"
+                            className={`settingsIcon ${rotateClockwise ? 'rotate-clockwise' : 'rotate-counterclockwise'}`}
+                            onClick={handleSettingsClick}
+                        />
+                        <img
+                            src="history.png"
+                            alt="History"
+                            className={`historyIcon ${rotateCounterclockwise ? 'rotate-clockwise2' : 'rotate-counterclockwise2'}`}
+                            onClick={handleHistoryClick}
+                        />
+                    </div>
+                </div>
+                {activeSection === 'settings' && (
+                    <div className={`setHead ${fadeOut ? 'fade-out-bottom' : 'fade-in-bottom'}`}>
+                        <h4 className="settingsTitle">Settings</h4>
+                    </div>
+                )}
+                {activeSection === 'history' && (
+                    <div className={`setHead ${fadeOut ? 'fade-out-bottom' : 'fade-in-bottom'}`}>
+                        <h4 className="settingsTitle">History</h4>
+                    </div>
+                )}
+            </header>
+            <section id="body">
+                <div className="popupContent" style={{ height: `${popupHeight}px` }}>
+                    {activeSection === 'home' && (<div className={`interval ${fadeOut ? 'fade-out' : 'fade-in'}`}><Home /></div>)}
+                    {activeSection === 'history' && (
+                        <div
+                            className={`mainContent ${fadeOut ? 'fade-out' : 'fade-in'}`}
+                            style={{
+                                maxHeight: '200px', // Set a fixed height for the div
+                                overflowY: 'auto', // Enable vertical scrolling
+                            }}
+                        >
+                            {healthTipsData.length === 0 ? (
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        fontSize: '20px',
+                                        color: 'gray',
+                                        marginTop: '30px',
+                                        marginBottom: '30px',
+                                        textAlign: 'center',
+                                    }}
+                                >
+                                    It seems you don't have any health tips for now, just keep waiting
+                                </div>
+                            ) : (
+                                healthTipsData.map((tip, idx) => (
+                                    <HealthTips key={idx} idx={idx} health_tips={tip} />
+                                ))
+                            )}
+                        </div>
+                    )}
+                    {activeSection === 'settings' && (
+                        <div id="popupContent" className="popupContent" style={{ height: `${popupHeight}px` }}>
+                            <div className="sidebar-items">
+                                <div className={`sidebar ${fadeOut ? 'fade-out-left' : 'fade-in-left'}`}>
+                                    <div
+                                        className={`subTileHeader ${activeContent === 'interval' ? 'active' : ''}`}
+                                        onClick={() => handleSidebarClick('interval')}
+                                    >
+                                        Interval
+                                    </div>
+                                    <div
+                                        className={`subTileHeader ${activeContent === 'topics' ? 'active' : ''}`}
+                                        onClick={() => handleSidebarClick('topics')}
+                                    >
+                                        Topics
+                                    </div>
+                                </div>
+                                <div className={`mainContent ${fadeOut ? 'fade-out-right' : 'fade-in-right'}`}>
+                                    <div className="tileHeader">
+                                        <div className="tileBorder">
+                                            Health Tips Reminder
+                                        </div>
+                                    </div>
+                                    {activeContent === 'interval' &&
+                                        (<div className={`interval ${fadeOut ? '' : 'fade-in-top'}`}>
+                                            {healthTipsEnabled ?
+                                                <div className="alertBox">
+                                                    <p className="alert">
+                                                        Reminder is Enabled
+                                                    </p></div> : null}<Interval /></div>)}
+                                    {activeContent === 'topics' && (
+                                        <div
+                                            className={`topics ${fadeOut ? '' : 'fade-in-bottom'}`}
+                                            style={{ overflow: 'hidden' }}
+                                        >
+                                            <Topics />
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            </section>
+        </div>
     );
-  };
-  
-  export default Layout;
+};
+
+export default Layout;

@@ -1,18 +1,45 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap');
-@import url('./css/toggle.css');
-@import url('./css/title.css');
-@import url('./css/subtext.css');
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap");
+@import url("./css/animation.css");
+@import url("./css/button.css");
+@import url("./css/form.css");
+@import url("./css/settings.css");
+@import url("./css/sidebar.css");
+@import url("./css/subtext.css");
+@import url("./css/title.css");
+@import url("./css/toggle.css");
 
 :root {
-  /* color: rgba(255, 255, 255, 0.87); */
   font-family: "Roboto Slab";
 }
 
 body {
-    height: 400px;
-    width: 500px;
-    background-color: #f1f1f1;
-    font-family: Tahoma, Geneva, sans-serif;
+  background-color: #FBFCFF;
+  font-family: Tahoma, Geneva, sans-serif;
+  margin: 0;
+  border: none;
+}
+
+
+.popupContainer{
+  padding-top: 20px;
+}
+
+.less {
+  padding-left: 20px;
+  padding-right: 10px;
+  margin-bottom: -8px;
+}
+
+.less2 {
+  padding-left: 0px;
+  padding-right: 0px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.gaps {
+  display: flex;
+  gap: 20px;
 }
 
 

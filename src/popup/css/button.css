@@ -1,0 +1,37 @@
+.buttonContainer {
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  display: flex;
+}
+
+.roundedButton {
+  border: none;
+  border-radius: 50px;
+  background-color: #92b4fe;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  transition: box-shadow 0.3s ease, transform 0.1s ease;
+  position: relative;
+  overflow: hidden;
+  font-size: 12px;
+  padding: 8px 20px;
+}
+
+.roundedButton:hover {
+  background-color: #78a1fa;
+  box-shadow: inset 0px 0px 1px 1px #8da5d7;
+}
+
+.roundedButton:hover .buttonText {
+  transform: scale(1.1);
+  
+}
+
+.roundedButton:active {
+  background-color: #7a9efb; 
+  transform: scale(0.95); 
+  box-shadow: inset 0px 0px 2px 2px #6f8ed1; 
+}
+
