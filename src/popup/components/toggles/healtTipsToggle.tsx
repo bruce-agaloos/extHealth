@@ -2,7 +2,7 @@ import React from "react";
 import { setHealthTipState } from "./../../../utils/storage";
 import { HealthTipsProps } from "./../../../utils/types";
 
-const Toggle: React.FC<HealthTipsProps> = ({ isOn, onChange }) => {
+const XHealthTips: React.FC<HealthTipsProps> = ({ isOn, onChange }) => {
   const handleToggleChange = () => {
     onChange(!isOn);
     setHealthTipState(!isOn);
@@ -21,4 +21,4 @@ const Toggle: React.FC<HealthTipsProps> = ({ isOn, onChange }) => {
   );
 };
 
-export default Toggle;
+export default XHealthTips;
