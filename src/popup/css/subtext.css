@@ -45,7 +45,7 @@
 }
 .howToUse {
   display: flex;
-  align-items: center; 
+  align-items: center;
   text-decoration: none;
   color: inherit;
   justify-content: center;
@@ -59,10 +59,59 @@
 .help {
   margin-right: -5px;
   width: 40px;
-  height: 40px; 
+  height: 40px;
   object-fit: contain;
 }
 
 .helpText {
   display: inline-block;
+}
+
+.health-tips-container {
+  padding-left: 10px;
+  margin-left: 10px;
+}
+
+.tips {
+  border: 1px solid #ccc; /* Add border to each item */
+  margin: 10px 5px 15px 15px;
+  border-radius: 8px; /* Optional: Add rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+/* Title */
+.title {
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Date */
+.date {
+  font-size: 13px;
+  color: #777;
+}
+
+/* Body Text */
+.body-text {
+  font-size: 10px;
+  color: #545454;
+  margin-bottom: 10px;
+}
+
+/* URL */
+.url {
+  font-style: italic;
+  font-size: 14px;
+  color: #007bff;
+  cursor: pointer;
+}
+
+.url:hover {
+  text-decoration: underline;
+}
+
+.content {
+  padding: 10px 20px 20px 20px;
+
 }
