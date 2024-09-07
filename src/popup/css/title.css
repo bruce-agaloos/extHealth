@@ -40,9 +40,23 @@
   left: 25%;
 }
 
+.icons {
+  display: flex;
+  flex-direction: column; 
+  align-items: center; 
+  gap: 10px;
+}
+
 /* Settings Icon */
 .settingsIcon {
-  margin-bottom: 40px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  transition: filter 0.3s ease, opacity 0.3s ease, transform 1s ease;
+}
+
+/* History Icon */
+.historyIcon {
   width: 24px;
   height: 24px;
   cursor: pointer;
@@ -54,11 +68,24 @@
   opacity: 0.8;
 }
 
+.historyIcon:hover {
+  filter: brightness(0.8);
+  opacity: 0.8;
+}
+
 .rotate-clockwise {
   transform: rotate(150deg);
 }
 
 .rotate-counterclockwise {
   transform: n rotate(-150deg);
+}
+
+.rotate-clockwise2 {
+  transform: rotate(-360deg);
+}
+
+.rotate-counterclockwise2 {
+  transform: n rotate(-360deg);
 }
 /* Settings Icon */
