@@ -186,7 +186,7 @@ function setInStorage(data: { [key: string]: any }): Promise<void> {
 
 const setDefaultInstalled = () => {
   setXAutoDetectState(true);
-  setHealthTipState(false);
+  setHealthTipState(true);
   setInterval(10);
   const categories = [15, 16, 18, 19, 20, 21, 23, 24, 28, 29];
   categories.forEach((category) => {
