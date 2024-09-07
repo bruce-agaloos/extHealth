@@ -26,7 +26,6 @@
 
 .roundedButton:hover .buttonText {
   transform: scale(1.1);
-  
 }
 
 .roundedButton:active {

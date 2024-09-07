@@ -33,15 +33,15 @@
 }
 
 .alertBox {
-  display: flex; /* Ensure the alertBox is a flex container */
-  justify-content: center; /* Center the content horizontally */
-  align-items: center; /* Center the content vertically */
-  background-color: #ffe6e6; /* Light red background for the alert box */
+  display: flex; 
+  justify-content: center;
+  align-items: center; 
+  background-color: #ffe6e6; 
 }
 
 .alert {
   color: #ff0000;
-  text-align: center; /* Center the text */
+  text-align: center; 
 }
 .howToUse {
   display: flex;
@@ -73,33 +73,30 @@
 }
 
 .tips {
-  border: 1px solid #ccc; /* Add border to each item */
+  border: 1px solid #ccc; 
   margin: 10px 5px 15px 15px;
-  border-radius: 8px; /* Optional: Add rounded corners */
+  border-radius: 8px; 
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   background-color: #fff;
 }
-/* Title */
+
 .title {
   font-size: 15px;
   font-weight: bold;
   margin-bottom: 10px;
 }
 
-/* Date */
 .date {
   font-size: 13px;
   color: #777;
 }
 
-/* Body Text */
 .body-text {
   font-size: 10px;
   color: #545454;
   margin-bottom: 10px;
 }
 
-/* URL */
 .url {
   font-style: italic;
   font-size: 14px;

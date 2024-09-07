@@ -1,12 +1,12 @@
 .input-form {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .input-form input {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 40px;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-form input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 40px;
+}
