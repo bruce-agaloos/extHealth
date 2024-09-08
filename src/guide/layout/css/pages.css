@@ -7,6 +7,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        flex-wrap: wrap;
         gap: 1rem;
         width: 60%;
         position: relative;
@@ -20,15 +21,28 @@
         p, span{
             color: #5F6368;
         }
-        a{
-            margin-right: 1rem;
-        }
     }
 
     .stepsFlex{
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
-        gap: 3rem;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        >div{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+    }
+}
+@media (min-width: 1440px){
+    #pages{
+        margin-bottom: 2rem;
+        > div {
+            width: 80%;
+            flex-wrap: nowrap;
+        }
     }
 }

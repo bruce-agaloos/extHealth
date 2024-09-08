@@ -8,13 +8,12 @@
     scroll-behavior: smooth;
     font-size: 1rem;
     font-family: "Lexend";
-    /* border: 1px solid black; */
 }
 nav{
   font-weight: 500;
-  position: absolute;
-  top: 8vh;
-  left: 10vw;
+  margin-top: min(20vh, 100px);
+  margin-left: 10vw;
+  margin-bottom: 1.5rem;
   > img{
     width: 20px;
     height: 20px;
@@ -114,7 +113,6 @@ button, a{
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 85vh;
 }
 
 /* CSS transition states for fade and slide effect */

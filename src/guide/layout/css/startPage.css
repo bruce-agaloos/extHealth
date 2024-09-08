@@ -3,8 +3,10 @@
     display:flex;
     justify-content: center;
     align-items: center;
+    padding-bottom: 1rem;
     > img{
         width: clamp(300px, 20%, 600px);
+        display: none;
     }
     p {
         margin: 2rem 0;
@@ -14,5 +16,14 @@
         justify-content: flex-start;
         gap: 1rem;
         margin-top: 2rem;
+        flex-wrap: wrap;
+    }
+}
+
+@media (min-width: 1024px){
+    #startPage{
+        > img{
+            display: block;
+        }
     }
 }
