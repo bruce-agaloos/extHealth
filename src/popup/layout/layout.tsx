@@ -10,7 +10,7 @@ const Layout = () => {
     const [rotateClockwise, setRotateClockwise] = useState(false);
     const [rotateCounterclockwise, setRotateCounterclockwise] = useState(false);
     const [fadeOut, setFadeOut] = useState(false);
-    const [popupHeight, setPopupHeight] = useState(200);
+    const [popupHeight] = useState(200);
     const [healthTipsEnabled, setHealthTipsEnabled] = useState<boolean>(false);
 
     useEffect(() => {
@@ -48,14 +48,12 @@ const Layout = () => {
             setTimeout(() => {
                 setActiveSection('home');
                 setFadeOut(false);
-                setPopupHeight(200);
             }, 350);
         } else {
             setFadeOut(true);
             setTimeout(() => {
                 setActiveSection('settings');
                 setFadeOut(false);
-                setPopupHeight(200);
             }, 350);
         }
         setRotateClockwise(!rotateClockwise);
@@ -68,14 +66,12 @@ const Layout = () => {
             setTimeout(() => {
                 setActiveSection('home');
                 setFadeOut(false);
-                setPopupHeight(200);
             }, 350);
         } else {
             setFadeOut(true);
             setTimeout(() => {
                 setActiveSection('history');
                 setFadeOut(false);
-                setPopupHeight(200);
             }, 350);
         }
         setRotateCounterclockwise(!rotateCounterclockwise);
@@ -146,10 +142,6 @@ const Layout = () => {
                     {activeSection === 'history' && (
                         <div
                             className={`mainContent ${fadeOut ? 'fade-out' : 'fade-in'}`}
-                            style={{
-                                maxHeight: '200px', // Set a fixed height for the div
-                                overflowY: 'auto', // Enable vertical scrolling
-                            }}
                         >
                             {healthTipsData.length === 0 ? (
                                 <div
