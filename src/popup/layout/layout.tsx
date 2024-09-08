@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Home, Interval, Topics, HealthTips, Danger } from "./../components/sections";
 import { getHealthTipState } from "./../../utils/storage";
+
 const Layout = () => {
     const [healthTipsData, setHealthTipsData] = useState<any[]>([]);
     const [activeSection, setActiveSection] = useState('home');
     const [activeContent, setActiveContent] = useState<string>('interval');
+    const [previousContent, setPreviousContent] = useState<string>('');
     const [rotateClockwise, setRotateClockwise] = useState(false);
     const [rotateCounterclockwise, setRotateCounterclockwise] = useState(false);
     const [fadeOut, setFadeOut] = useState(false);
@@ -49,8 +51,12 @@ const Layout = () => {
                 setPopupHeight(200);
             }, 350);
         } else {
-            setActiveSection('settings');
-            setPopupHeight(200);
+            setFadeOut(true);
+            setTimeout(() => {
+                setActiveSection('settings');
+                setFadeOut(false);
+                setPopupHeight(200);
+            }, 350);
         }
         setRotateClockwise(!rotateClockwise);
         setRotateCounterclockwise(false);
@@ -65,17 +71,20 @@ const Layout = () => {
                 setPopupHeight(200);
             }, 350);
         } else {
-            setActiveSection('history');
-            setPopupHeight(200);
+            setFadeOut(true);
+            setTimeout(() => {
+                setActiveSection('history');
+                setFadeOut(false);
+                setPopupHeight(200);
+            }, 350);
         }
         setRotateCounterclockwise(!rotateCounterclockwise);
         setRotateClockwise(false);
     };
 
     const handleSidebarClick = (content: string) => {
-        setTimeout(() => {
-            setActiveContent(content);
-        },);
+        setPreviousContent(activeContent);
+        setActiveContent(content);
     };
 
     const handleTitleClick = () => {
@@ -84,6 +93,16 @@ const Layout = () => {
         setTimeout(() => {
             setFadeOut(false);
         }, 350);
+    };
+
+    const getFadeInClass = () => {
+        if (previousContent === 'interval' && activeContent === 'topics') {
+            return 'fade-in-bottom';
+        } else if (previousContent === 'danger' && activeContent === 'topics') {
+            return 'fade-in-top';
+        } else {
+            return 'fade-in';
+        }
     };
 
     return (
@@ -192,7 +211,7 @@ const Layout = () => {
                                             <Interval /></div>)}
                                     {activeContent === 'topics' && (
                                         <div
-                                            className={`topics ${fadeOut ? '' : 'fade-in-bottom'}`}
+                                            className={`topics ${fadeOut ? '' : getFadeInClass()}`}
                                             style={{ overflow: 'hidden' }}
                                         >
                                             <Topics />
