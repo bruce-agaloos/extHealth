@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Home, Interval, Topics, HealthTips } from "./../components/sections";
+import { Home, Interval, Topics, HealthTips, Danger } from "./../components/sections";
 import { getHealthTipState } from "./../../utils/storage";
 const Layout = () => {
     const [healthTipsData, setHealthTipsData] = useState<any[]>([]);
@@ -145,7 +145,9 @@ const Layout = () => {
                                         textAlign: 'center',
                                     }}
                                 >
-                                    It seems you don't have any health tips for now, just keep waiting
+                                    <div className="text">
+                                        It seems you don't have any health tips for now
+                                    </div>
                                 </div>
                             ) : (
                                 healthTipsData.map((tip, idx) => (
@@ -170,13 +172,21 @@ const Layout = () => {
                                     >
                                         Topics
                                     </div>
+                                    <div
+                                        className={`subTileHeader ${activeContent === 'danger' ? 'active' : ''}`}
+                                        onClick={() => handleSidebarClick('danger')}
+                                    >
+                                        Danger
+                                    </div>
                                 </div>
                                 <div className={`mainContent ${fadeOut ? 'fade-out-right' : 'fade-in-right'}`}>
-                                    <div className="tileHeader">
-                                        <div className="tileBorder">
-                                            Health Tips Reminder
+                                    {(activeContent === 'interval' || activeContent === 'topics') && (
+                                        <div className="tileHeader">
+                                            <div className="tileBorder">
+                                                Health Tips Reminder
+                                            </div>
                                         </div>
-                                    </div>
+                                    )}
                                     {activeContent === 'interval' &&
                                         (<div className={`interval ${fadeOut ? '' : 'fade-in-top'}`}>
                                             <Interval /></div>)}
@@ -188,6 +198,10 @@ const Layout = () => {
                                             <Topics />
                                         </div>
                                     )}
+                                    {activeContent === 'danger' &&
+                                        (<div className={`danger ${fadeOut ? '' : 'fade-in-bottom'}`}>
+                                            <Danger /></div>)}
+
                                 </div>
                             </div>
                         </div>

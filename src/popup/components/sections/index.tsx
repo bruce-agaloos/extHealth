@@ -2,4 +2,5 @@ import Home from "./home";
 import Interval from "./interval";
 import Topics from "./topics";
 import HealthTips from "./healthTips";
-export {Home, Interval, Topics, HealthTips};
+import Danger from "./danger";
+export {Home, Interval, Topics, HealthTips, Danger};

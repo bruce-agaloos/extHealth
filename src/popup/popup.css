@@ -1,12 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap");
 @import url("./css/animation.css");
 @import url("./css/button.css");
+@import url("./css/danger.css");
 @import url("./css/form.css");
 @import url("./css/settings.css");
 @import url("./css/sidebar.css");
 @import url("./css/subtext.css");
 @import url("./css/title.css");
 @import url("./css/toggle.css");
+
 
 :root {
   font-family: "Roboto Slab";
