@@ -87,7 +87,7 @@ const Layout = () => {
     };
 
     return (
-        <div id="grid">
+        <div id="grid" className="no-select">
             <header className="board">
                 <div className="TitleLogo">
                     <img src="icon.png" alt="Logo" className="logo" onClick={handleTitleClick} />
