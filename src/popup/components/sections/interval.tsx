@@ -46,7 +46,7 @@ const Interval: React.FC<{}> = () => {
         <div>
             {healthTipsEnabled ?
                 <div className="alertBox">
-                    <p className="alert">
+                    <p className="alert bold">
                         Reminder is Enabled
                     </p></div> : null}
             <div className="containerSummary less2">

@@ -34,3 +34,32 @@
   box-shadow: inset 0px 0px 2px 2px #6f8ed1; 
 }
 
+.redRoundedButton {
+  border: none;
+  border-radius: 50px;
+  background-color: #ff4d4d; /* Red background color */
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  transition: box-shadow 0.3s ease, transform 0.1s ease;
+  position: relative;
+  overflow: hidden;
+  font-size: 12px;
+  padding: 8px 20px;
+}
+
+.redRoundedButton:hover {
+  background-color: #ff3333; /* Darker red on hover */
+  box-shadow: inset 0px 0px 1px 1px #d9534f; /* Slight shadow */
+}
+
+.redRoundedButton:hover .buttonText {
+  transform: scale(1.1);
+}
+
+.redRoundedButton:active {
+  background-color: #e60000; /* Even darker red on active */
+  transform: scale(0.95); 
+  box-shadow: inset 0px 0px 2px 2px #b52b27; /* More pronounced shadow */
+}
+

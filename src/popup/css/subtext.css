@@ -32,17 +32,6 @@
   padding-right: 10px;
 }
 
-.alertBox {
-  display: flex; 
-  justify-content: center;
-  align-items: center; 
-  background-color: #ffe6e6; 
-}
-
-.alert {
-  color: #ff0000;
-  text-align: center; 
-}
 .howToUse {
   display: flex;
   align-items: center;

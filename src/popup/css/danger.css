@@ -1,0 +1,70 @@
+.danger-popup {
+  position: fixed;
+  top: 40px;
+  left: 10px;
+  width: 80%;
+  height: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.danger-popupContent {
+  background-color: #ffe6e6;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  border: solid 1px #ff0000;
+  position: relative;
+}
+
+.closeButton {
+  position: absolute;
+  margin-top: -10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.alertBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffe6e6;
+}
+
+.alert {
+  color: #ff0000;
+  text-align: center;
+}
+
+.text {
+  padding: 0px 10px 0 10px;
+}
+
+.bold{
+    font-weight: bold;
+}
+
+.red{
+    color: #ff0000;
+}
+
+.green{
+    color: #5fbe5f;
+}
+
+.textGreen {
+    padding: 0px 10px 0 10px;
+}
+
+.successBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e6ffe6;
+  }
