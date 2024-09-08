@@ -33,9 +33,9 @@ const router = createBrowserRouter([
   },
 ]);
 
+
 const container = document.createElement("div");
-container.style.maxHeight = "100vh";
-container.style.width = "100vw";
+container.id = "root"; 
 document.body.appendChild(container);
 ReactDOM.createRoot(container).render(
   <React.StrictMode>
