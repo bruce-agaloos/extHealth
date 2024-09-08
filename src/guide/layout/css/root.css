@@ -35,6 +35,15 @@ nav{
   }
 }
 
+@media (min-height: 800px){
+  nav{
+    margin: 0;
+    position: absolute;
+    top: 10vh;
+    left: 10vw;
+  }
+}
+
 
 h1{
   font-size: 2rem;
