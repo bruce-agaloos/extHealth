@@ -1,6 +1,6 @@
 import React from "react";
-import { setXAutoDetectState } from "../../utils/storage";
-import { xAutoDetectProps } from "../../utils/types";
+import { setXAutoDetectState } from "./../../../utils/storage";
+import { xAutoDetectProps } from "./../../../utils/types";
 
 const XAutoDetectToggle: React.FC<xAutoDetectProps> = ({ isOn, onChange }) => {
     const handleToggleChange = () => {

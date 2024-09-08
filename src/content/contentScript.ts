@@ -7,7 +7,6 @@ import { nanoid } from 'nanoid';
 import { getXAutoDetectState } from "../utils/storage";
 import { healthClaimDetection } from '../utils/claim_detection';
 import './css/spinner.css';
-const TIMER_DURATION = { minutes: 0, seconds: 5 };
 
 const setInitialExtensionState = async (): Promise<void> => {
     const isHealthTipsEnabled = await getHealthTipState();
@@ -80,7 +79,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 
 
 const enableHealthTips = (): void => {
-    startTimer(TIMER_DURATION.minutes, TIMER_DURATION.seconds);
+    startTimer();
 };
 
 const disableHealthTips = (): void => {

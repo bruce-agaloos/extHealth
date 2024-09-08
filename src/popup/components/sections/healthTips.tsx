@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface HealthTipsProps {
-    idx : number;
+    idx: number;
     health_tips: {
         title: string;
         link: string;
@@ -19,28 +19,19 @@ const getSecondSentenceAndRest = (text: string) => {
     return sentenceEnd !== -1 ? text.slice(sentenceEnd + 1).trim() : "";
 }
 
-const HealthTips: React.FC<HealthTipsProps> = ({idx, health_tips }) => {
+const HealthTips: React.FC<HealthTipsProps> = ({ idx, health_tips }) => {
     const firstSentence = getFirstSentence(health_tips.content);
     const theRestSentence = getSecondSentenceAndRest(health_tips.content);
     return (
         <div key={idx} className="tips">
-            <h2 className = "title">
-                {health_tips.title}
-                <span>
-                    {health_tips.LastUpdated}
-                </span>
-            </h2>
-            <div className='summary'>
-                <h2 className = "summary-title">
+           <div className="content">
+                <h2 className="title">{health_tips.title}</h2>
+                <p className="date">{health_tips.LastUpdated}</p>
+                <p className="body-text">
                     {firstSentence}
-                </h2>
-                <p className='summary-subtext'>
-                    {theRestSentence}
                 </p>
-            </div>
-            <div className='link'>
-                <a href={health_tips.link} target="_blank" rel="noopener noreferrer">
-                    Read More
+                <a className="url" href={health_tips.link} target="_blank" rel="noopener noreferrer">
+                    read more...
                 </a>
             </div>
         </div>

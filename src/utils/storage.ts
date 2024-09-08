@@ -137,32 +137,57 @@ function getLatestHealthTip(): Promise<any> {
 }
 
 function getFromStorage(keys) {
-    return new Promise((resolve, reject) => {
-        chrome.storage.local.get(keys, function(result) {
-            if (chrome.runtime.lastError) {
-                reject(chrome.runtime.lastError);
-            } else {
-                resolve(result);
-            }
-        });
+  return new Promise((resolve, reject) => {
+    chrome.storage.local.get(keys, function (result) {
+      if (chrome.runtime.lastError) {
+        reject(chrome.runtime.lastError);
+      } else {
+        resolve(result);
+      }
     });
-};
+  });
+}
+
+function getInterval(): Promise<number> {
+  return new Promise((resolve, reject) => {
+    chrome.storage.local.get(["interval"], (result) => {
+      if (chrome.runtime.lastError) {
+        reject(chrome.runtime.lastError);
+      } else {
+        resolve(result["interval"] || 0); // Default to 0 if the key does not exist
+      }
+    });
+  });
+}
+
+function setInterval(value: number): Promise<void> {
+  return new Promise((resolve, reject) => {
+    chrome.storage.local.set({ ['interval']: value }, () => {
+      if (chrome.runtime.lastError) {
+        reject(chrome.runtime.lastError);
+      } else {
+        resolve();
+      }
+    });
+  });
+}
 
 function setInStorage(data: { [key: string]: any }): Promise<void> {
   return new Promise<void>((resolve, reject) => {
-      chrome.storage.local.set(data, function() {
-          if (chrome.runtime.lastError) {
-              reject(chrome.runtime.lastError);
-          } else {
-              resolve();
-          }
-      });
+    chrome.storage.local.set(data, function () {
+      if (chrome.runtime.lastError) {
+        reject(chrome.runtime.lastError);
+      } else {
+        resolve();
+      }
+    });
   });
 }
 
 const setDefaultInstalled = () => {
   setXAutoDetectState(true);
-  setHealthTipState(false);
+  setHealthTipState(true);
+  setInterval(10);
   const categories = [15, 16, 18, 19, 20, 21, 23, 24, 28, 29];
   categories.forEach((category) => {
     setCategoryState(category, true);
@@ -181,6 +206,8 @@ export {
   storeHealthTipResponse,
   getAllHealthTips,
   getLatestHealthTip,
-getFromStorage,
-setInStorage
+  getFromStorage,
+  setInStorage,
+  getInterval,
+  setInterval,
 };
