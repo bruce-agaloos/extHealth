@@ -2,6 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
     padding: 2rem;
     width: 80%;
     iframe{
@@ -17,5 +18,11 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
+    }
+}
+
+@media (min-width: 1440px){
+    #finalPage{
+        flex-wrap: nowrap;
     }
 }
