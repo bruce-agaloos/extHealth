@@ -110,7 +110,7 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
                   type: 'basic',
                   iconUrl: 'error.png', // Path to your notification icon
                   title: 'Character Limit Exceeded',
-                  message: `The text does not meet the character limit, it might produce inaccurate results.`,
+                  message: `The text does not meet the character limit, it should be more than 0 and less than ${maxLength} characters.`,
               });
               return;
           }

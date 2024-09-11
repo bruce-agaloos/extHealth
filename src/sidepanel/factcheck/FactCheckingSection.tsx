@@ -70,8 +70,8 @@ const FactCheckingSection: React.FC = () => {
       chrome.notifications.create({
         type: 'basic',
         iconUrl: 'error.png',
-        title: 'Character Limit Exceeded',
-        message: `The current selected text exceeds the character limit of ${maxLength}.`,
+        title: 'Character Limit Error',
+        message: `The current must be more than 0 or does not exceed the character limit of ${maxLength}.`,
         priority: 2
       });
       return;
@@ -83,8 +83,8 @@ const FactCheckingSection: React.FC = () => {
           chrome.notifications.create({
               type: 'basic',
               iconUrl: 'error.png',
-              title: 'Keyword Error',
-              message: 'The current selected text does not include any of the health keywords for this extension. Please select a text that includes health keywords to fact check.',
+              title: 'Health Claim Error',
+              message: 'The current query is not an health claim. Please make sure it is',
               priority: 2
           });
           return;
@@ -142,8 +142,8 @@ const FactCheckingSection: React.FC = () => {
         chrome.notifications.create({
           type: 'basic',
           iconUrl: 'error.png',
-          title: 'Character Limit Exceeded',
-          message: `The current selected text exceeds the character limit of ${maxLength}.`,
+          title: 'Character Limit Error',
+          message: `The current must be more than 0 or does not exceed the character limit of ${maxLength}.`,
           priority: 2
         });
         return;
@@ -155,8 +155,8 @@ const FactCheckingSection: React.FC = () => {
           chrome.notifications.create({
               type: 'basic',
               iconUrl: 'error.png',
-              title: 'Keyword Error',
-              message: 'The current input does not include any health keywords considered in this extension. It might result in an unexpected result.',
+              title: 'Health Claim Error',
+              message: 'The current query is not an health claim. Please make sure it is',
               priority: 2
           });
           return;
@@ -170,7 +170,7 @@ const FactCheckingSection: React.FC = () => {
                 type: 'basic',
                 iconUrl: 'error.png',
                 title: 'Daily Limit Reached',
-                message: 'The current input does not include any health keywords considered in this extension. It might result in an unexpected result.',
+                message: 'I am sorry, but you have reached the daily limit or there is an error on the server. Please try again later.',
                 priority: 2
             });
             return;
