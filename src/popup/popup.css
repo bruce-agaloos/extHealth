@@ -43,6 +43,8 @@ body {
   gap: 20px;
 }
 
-
+.no-select {
+  user-select: none;
+}
 
 

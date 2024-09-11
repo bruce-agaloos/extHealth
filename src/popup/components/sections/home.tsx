@@ -60,7 +60,7 @@ const Home = () => {
 
                     <div className="buttonContainer">
                         <button className="roundedButton" onClick={handleButtonClick}>
-                            <span className="buttonText">extHealth Sidebar</span>
+                            <span className="buttonText">Fact Check Sidebar</span>
                         </button>
                     </div>
 

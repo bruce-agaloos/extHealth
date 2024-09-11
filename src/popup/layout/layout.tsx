@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Home, Interval, Topics, HealthTips, Danger } from "./../components/sections";
 import { getHealthTipState } from "./../../utils/storage";
+
 const Layout = () => {
     const [healthTipsData, setHealthTipsData] = useState<any[]>([]);
     const [activeSection, setActiveSection] = useState('home');
     const [activeContent, setActiveContent] = useState<string>('interval');
+    const [previousContent, setPreviousContent] = useState<string>('');
     const [rotateClockwise, setRotateClockwise] = useState(false);
     const [rotateCounterclockwise, setRotateCounterclockwise] = useState(false);
     const [fadeOut, setFadeOut] = useState(false);
-    const [popupHeight, setPopupHeight] = useState(200);
+    const [popupHeight] = useState(200);
     const [healthTipsEnabled, setHealthTipsEnabled] = useState<boolean>(false);
 
     useEffect(() => {
@@ -46,11 +48,13 @@ const Layout = () => {
             setTimeout(() => {
                 setActiveSection('home');
                 setFadeOut(false);
-                setPopupHeight(200);
             }, 350);
         } else {
-            setActiveSection('settings');
-            setPopupHeight(200);
+            setFadeOut(true);
+            setTimeout(() => {
+                setActiveSection('settings');
+                setFadeOut(false);
+            }, 350);
         }
         setRotateClockwise(!rotateClockwise);
         setRotateCounterclockwise(false);
@@ -62,20 +66,21 @@ const Layout = () => {
             setTimeout(() => {
                 setActiveSection('home');
                 setFadeOut(false);
-                setPopupHeight(200);
             }, 350);
         } else {
-            setActiveSection('history');
-            setPopupHeight(200);
+            setFadeOut(true);
+            setTimeout(() => {
+                setActiveSection('history');
+                setFadeOut(false);
+            }, 350);
         }
         setRotateCounterclockwise(!rotateCounterclockwise);
         setRotateClockwise(false);
     };
 
     const handleSidebarClick = (content: string) => {
-        setTimeout(() => {
-            setActiveContent(content);
-        },);
+        setPreviousContent(activeContent);
+        setActiveContent(content);
     };
 
     const handleTitleClick = () => {
@@ -86,8 +91,18 @@ const Layout = () => {
         }, 350);
     };
 
+    const getFadeInClass = () => {
+        if (previousContent === 'interval' && activeContent === 'topics') {
+            return 'fade-in-bottom';
+        } else if (previousContent === 'danger' && activeContent === 'topics') {
+            return 'fade-in-top';
+        } else {
+            return 'fade-in';
+        }
+    };
+
     return (
-        <div id="grid">
+        <div id="grid" className="no-select">
             <header className="board">
                 <div className="TitleLogo">
                     <img src="icon.png" alt="Logo" className="logo" onClick={handleTitleClick} />
@@ -127,10 +142,6 @@ const Layout = () => {
                     {activeSection === 'history' && (
                         <div
                             className={`mainContent ${fadeOut ? 'fade-out' : 'fade-in'}`}
-                            style={{
-                                maxHeight: '200px', // Set a fixed height for the div
-                                overflowY: 'auto', // Enable vertical scrolling
-                            }}
                         >
                             {healthTipsData.length === 0 ? (
                                 <div
@@ -192,7 +203,7 @@ const Layout = () => {
                                             <Interval /></div>)}
                                     {activeContent === 'topics' && (
                                         <div
-                                            className={`topics ${fadeOut ? '' : 'fade-in-bottom'}`}
+                                            className={`topics ${fadeOut ? '' : getFadeInClass()}`}
                                             style={{ overflow: 'hidden' }}
                                         >
                                             <Topics />
