@@ -41,6 +41,7 @@ const allTagalogHealthKeywords = [
     "Suso",
     "Kanser sa suso",
     "Bunyon",
+    "lagnat",
 ];
 
 export default allTagalogHealthKeywords;

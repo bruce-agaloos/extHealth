@@ -12,7 +12,7 @@ import {getFromStorage, setInStorage} from "../utils/storage"
 import {HealthFactsStorage} from "../utils/pop_up_storage/types"
 
 // import { allKeywords } from '../utils/health_keywords';
-import  allKeywords from './../utils/health_keywords/';
+import  allKeywords from './../utils/health_keywords/index';
 
 
 // Listen for messages from the content script

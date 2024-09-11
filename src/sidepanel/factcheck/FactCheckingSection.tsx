@@ -10,7 +10,7 @@ import TextAreaWithCounter from './TextAreaWithCounter';
 import {healthClaimDetection} from '../../utils/claim_detection';
 import {getFromStorage} from "../../utils/storage"
 
-import  allKeywords  from '../../utils/health_keywords';
+import  allKeywords  from '../../utils/health_keywords/index';
 
 const FactCheckingSection: React.FC = () => {
   const [expanded, setExpanded] = useState<string | false>(false);
