@@ -21,14 +21,14 @@ const Home = () => {
     const handleHealtTipState = (newStatee: boolean): void => {
         setHealthTipState(newStatee);
         sendMessageToContentScript({ state: newStatee }, (response) => {
-            console.log('Received response for extension state:', response);
+            // console.log('Received response for extension state:', response);
         });
     };
 
     const handleXAutoDetectState = (newState: boolean): void => {
         setXAutoDetectState(newState);
         sendMessageToContentScript({ xAutoDetect: newState }, (response) => {
-            console.log('Received response for xAutoDetect state:', response);
+            // console.log('Received response for xAutoDetect state:', response);
         });
     }
 

@@ -31,7 +31,7 @@ const Interval: React.FC<{}> = () => {
                     if (chrome.runtime.lastError) {
                         console.error('Error sending message:', chrome.runtime.lastError);
                     } else {
-                        console.log('Response from content script:', response);
+                        // console.log('Response from content script:', response);
                     }
                 });
             }).catch((error) => {

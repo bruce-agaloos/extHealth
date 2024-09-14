@@ -125,7 +125,7 @@ const FactCheckingSection: React.FC = () => {
           if (chrome.runtime.lastError) {
             console.error('Error updating local storage:', chrome.runtime.lastError.message);
           } else {
-            console.log('Local storage updated successfully', updatedFacts);
+            // console.log('Local storage updated successfully', updatedFacts);
             setFacts(updatedFacts); // Update the state with the new facts
           }
         });
@@ -186,7 +186,7 @@ const FactCheckingSection: React.FC = () => {
       }
       // Send a message to the background script
       chrome.runtime.sendMessage({ message: 'factCheck', text: fact }, (response) => {
-          console.log('Response from background script:', response);
+          // console.log('Response from background script:', response);
       });
   };
   

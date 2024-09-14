@@ -50,10 +50,8 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
         const xAutoDetect = message.xAutoDetect;
         if (typeof xAutoDetect === 'boolean') {
             if (xAutoDetect) {
-                console.log("X Auto Detect is enabled");
                 enableDetectNewTweets();
             } else {
-                console.log("X Auto Detect is disabled");
                 disableDetectNewTweets();
             }
         } else {
@@ -67,9 +65,9 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
         const id = message.id;
         if (typeof category === 'boolean') {
             if (category) {
-                console.log(`Category ${id} is enabled`);
+                // console.log(`Category ${id} is enabled`);
             } else {
-                console.log(`Category ${id} is disabled`);
+                // console.log(`Category ${id} is disabled`);
             }
         } else {
             console.warn(`Category ${id} is not a boolean:`, category);
@@ -239,5 +237,4 @@ const enableDetectNewTweets = (): void => {
 const disableDetectNewTweets = (): void => {
     document.removeEventListener('DOMContentLoaded', detectNewTweets);
     window.removeEventListener('scroll', detectNewTweets);
-    console.log("X Auto Detect is currently disabled");
 }

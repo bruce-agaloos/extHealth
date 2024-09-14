@@ -69,7 +69,7 @@ chrome.contextMenus.remove("extHealth", () => {
 
   // Ignore if there's an error when removing the context menu item
   if (chrome.runtime.lastError) {
-      console.log(chrome.runtime.lastError.message);
+      // console.log(chrome.runtime.lastError.message);
   }
 
   chrome.contextMenus.create({
@@ -80,7 +80,7 @@ chrome.contextMenus.remove("extHealth", () => {
       if (chrome.runtime.lastError) {
           console.error(chrome.runtime.lastError.message);
       } else {
-          console.log("Context Menu item created successfully!");
+          // console.log("Context Menu item created successfully!");
       }
   });
 });
@@ -322,9 +322,6 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
         if (window) {
           // Bring the existing popup window to the front
           chrome.windows.update(popupWindowId!, { focused: true });
-          console.log(
-            "Popup window is already opened and brought to the front."
-          );
           sendResponse({ status: "already_opened" });
         } else {
           // Create a new popup window

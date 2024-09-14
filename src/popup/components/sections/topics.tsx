@@ -29,7 +29,7 @@ const Topics: React.FC<{}> = () => {
             [id]: newCategoryState,
         }));
         sendMessageToContentScript({ id, category: newCategoryState }, (response) => {
-            console.log('Received response for category state:', response);
+            // console.log('Received response for category state:', response);
         });
     };
 

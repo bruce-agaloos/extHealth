@@ -46,7 +46,7 @@ export async function getHealthTips() {
   const data = await response.json();
 
   // debug (remove later)
-  console.log(data);
+  // console.log(data);
 
   storeHealthTipResponse(data);
 
