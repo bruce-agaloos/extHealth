@@ -2,7 +2,7 @@ import React from "react";
 import { setCategoryState } from "./../../../utils/storage";
 import { CategoryProps } from "./../../../utils/types";
 
-const Category: React.FC<CategoryProps> = ({ isOn, onChange, id}) => {
+const Category: React.FC<CategoryProps> = ({ isOn = false, onChange, id}) => {
   const handleToggleChange = () => {
     onChange(!isOn);
     setCategoryState(id, !isOn);

@@ -41,6 +41,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
             } else {
                 disableHealthTips();
             }
+            sendResponse({ message: "Health Tips is set" });
         } else {
             console.warn("State is not a boolean:", state);
         }
@@ -54,6 +55,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
             } else {
                 disableDetectNewTweets();
             }
+            sendResponse({ message: "X Auto Detect is set" });
         } else {
             console.warn("X Auto Detect is not a boolean:", xAutoDetect);
         }
