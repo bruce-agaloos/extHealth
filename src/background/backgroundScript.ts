@@ -23,6 +23,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
           await chrome.sidePanel.open({ tabId: sender.tab.id });
       }
       factCheck(request.text);
+      sendResponse({ success: true });
   }
   })();
 });
