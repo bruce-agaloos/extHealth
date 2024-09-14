@@ -19,15 +19,9 @@ const startTimer = async (repeat: boolean = true): Promise<NodeJS.Timeout | null
 
     timerIntervalId = setInterval(() => {
       remainingTime--;
-      const remainingMinutes = Math.floor(remainingTime / 60);
-      const remainingSeconds = remainingTime % 60;
-      // Debug
-      console.log(`Time remaining: ${remainingMinutes} minutes and ${remainingSeconds} seconds`);
 
       if (remainingTime <= 0) {
         clearInterval(timerIntervalId as NodeJS.Timeout);
-        console.log("Countdown finished");
-
         (async () => {
           try {
             await getHealthTips();
@@ -58,18 +52,7 @@ const stopTimer = (): void => {
     timerIntervalId = null;
   }
   timerActive = false;
-  // Debug
-  console.log("Timer stopped and future timers are prevented.");
 };
 
-// Listen for interval update messages
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.type === 'UPDATE_INTERVAL') {
-    console.log(`Received new interval: ${message.interval} minutes`);
-    stopTimer();
-    startTimer(true);
-    sendResponse({ status: 'Interval updated and timer restarted' });
-  }
-});
 
 export { startTimer, stopTimer };

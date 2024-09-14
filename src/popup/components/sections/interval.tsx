@@ -44,10 +44,10 @@ const Interval: React.FC<{}> = () => {
 
     return (
         <div>
-            {healthTipsEnabled ?
+            {!healthTipsEnabled ?
                 <div className="alertBox">
                     <p className="alert bold">
-                        Reminder is Enabled
+                        Reminder is Disabled
                     </p></div> : null}
             <div className="containerSummary less2">
                 <div className="gaps">
@@ -57,7 +57,7 @@ const Interval: React.FC<{}> = () => {
                             value={inputValue}
                             onChange={handleInputChange}
                             min="1"
-                            disabled={healthTipsEnabled}
+                            // disabled={healthTipsEnabled}
                         />
                     </div>
                     <p id="popupSummary" className="popupSummary">
@@ -65,7 +65,9 @@ const Interval: React.FC<{}> = () => {
                     </p>
                 </div>
             </div>
-
+                <p id="tipsTimeInterval" className="tipsTimeInterval">
+                    Timer will restart upon change if health reminder is active.
+                </p>
         </div>
 
     );

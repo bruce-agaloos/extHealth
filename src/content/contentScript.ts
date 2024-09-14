@@ -77,7 +77,15 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     }
 });
 
-
+chrome.storage.onChanged.addListener(async (changes, areaName) => {
+    if (areaName === 'local' && changes.interval) {
+        const isHealthTipsEnabled = await getHealthTipState();
+        if (isHealthTipsEnabled){
+            stopTimer();
+            startTimer();
+         }
+    }
+});
 const enableHealthTips = (): void => {
     startTimer();
 };
