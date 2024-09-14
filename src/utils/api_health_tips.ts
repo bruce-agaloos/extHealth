@@ -8,7 +8,7 @@ async function getRandomCategory(): Promise<number | null> {
   const enabledCategories = await categoryStorageValue();
 
   if (enabledCategories.length === 0) {
-    console.error("No enabled categories available.");
+    // console.error("No enabled categories available.");
     return null;
   }
 

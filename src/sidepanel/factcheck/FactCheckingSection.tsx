@@ -115,15 +115,15 @@ const FactCheckingSection: React.FC = () => {
     // Send the updated fact to the background script
     chrome.runtime.sendMessage({ type: 'UPDATE_FACT', hypothesis }, (response) => {
       if (chrome.runtime.lastError) {
-        console.error('Error:', chrome.runtime.lastError.message);
+        // console.error('Error:', chrome.runtime.lastError.message);
       } else if (response === undefined || response === null) {
-        console.error('Error: Background script encountered an error and returned no response.');
+        // console.error('Error: Background script encountered an error and returned no response.');
       } else {
         const updatedFacts = [...facts];
         updatedFacts[index].premises = response;
         chrome.storage.local.set({ extHealthFacts: { result: updatedFacts } }, () => {
           if (chrome.runtime.lastError) {
-            console.error('Error updating local storage:', chrome.runtime.lastError.message);
+            // console.error('Error updating local storage:', chrome.runtime.lastError.message);
           } else {
             // console.log('Local storage updated successfully', updatedFacts);
             setFacts(updatedFacts); // Update the state with the new facts

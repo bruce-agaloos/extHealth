@@ -32,7 +32,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       updateFactCheck(request.hypothesis).then(response => {
           sendResponse(response);
       }).catch(error => {
-          console.error('Error:', error);
+          // console.error('Error:', error);
           sendResponse({ error: error.message });
       });
       return true;
@@ -70,7 +70,7 @@ chrome.contextMenus.remove("extHealth", () => {
       contexts: ["selection", "page"]
   }, function () {
       if (chrome.runtime.lastError) {
-          console.error(chrome.runtime.lastError.message);
+          // console.error(chrome.runtime.lastError.message);
       } else {
           // console.log("Context Menu item created successfully!");
       }
@@ -144,7 +144,7 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
           }
           factCheck(text).then(data => {
           }).catch(error => {
-              console.error(error);
+              // console.error(error);
           });
       } 
       // else if (info.srcUrl) {

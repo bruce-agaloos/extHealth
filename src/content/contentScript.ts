@@ -221,7 +221,7 @@ const detectNewTweets = async (): Promise<void> => {
                 searchKeywordAndCreateOverlay(tweetBody, tweet);
             }
         } catch (error) {
-            console.error(error);
+            // console.error(error);
         }
     }
 }

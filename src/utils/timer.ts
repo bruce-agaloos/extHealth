@@ -27,7 +27,7 @@ const startTimer = async (repeat: boolean = true): Promise<NodeJS.Timeout | null
             await getHealthTips();
             chrome.runtime.sendMessage({ action: "openPopup" });
           } catch (error) {
-            console.error("Error:", error);
+            // console.error("Error:", error);
           }
 
           if (repeat && timerActive) {
@@ -41,7 +41,7 @@ const startTimer = async (repeat: boolean = true): Promise<NodeJS.Timeout | null
 
     return timerIntervalId;
   } catch (error) {
-    console.error("Error retrieving interval from local storage:", error);
+    // console.error("Error retrieving interval from local storage:", error);
     return null;
   }
 };

@@ -18,7 +18,7 @@ const Topics: React.FC<{}> = () => {
                     setCategoryState(newState);
                 }
             }).catch((error) => {
-                console.error(`Failed to fetch category state for id ${id}:`, error);
+                // console.error(`Failed to fetch category state for id ${id}:`, error);
             });
         });
     }, []);

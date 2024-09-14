@@ -11,13 +11,13 @@ const Interval: React.FC<{}> = () => {
             setInputValue(interval.toString());
             setInitialInterval(interval);
         }).catch((error) => {
-            console.error('Error retrieving interval:', error);
+            // console.error('Error retrieving interval:', error);
         });
 
         getHealthTipState().then((enabled) => {
             setHealthTipsEnabled(enabled);
         }).catch((error) => {
-            console.error('Error retrieving health tips state:', error);
+            // console.error('Error retrieving health tips state:', error);
         });
     }, []);
 
@@ -26,17 +26,7 @@ const Interval: React.FC<{}> = () => {
         if (value > 0) {
             setInputValue(e.target.value);
 
-            setInterval(value).then(() => {
-                chrome.runtime.sendMessage({ type: 'UPDATE_INTERVAL', interval: value }, (response) => {
-                    if (chrome.runtime.lastError) {
-                        console.error('Error sending message:', chrome.runtime.lastError);
-                    } else {
-                        // console.log('Response from content script:', response);
-                    }
-                });
-            }).catch((error) => {
-                console.error('Error setting interval:', error);
-            });
+            setInterval(value)
         } else {
             setInputValue("1");
         }

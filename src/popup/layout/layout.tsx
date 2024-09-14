@@ -17,7 +17,7 @@ const Layout = () => {
         getHealthTipState().then((enabled) => {
             setHealthTipsEnabled(enabled);
         }).catch((error) => {
-            console.error('Error retrieving health tips state:', error);
+            // console.error('Error retrieving health tips state:', error);
         });
 
         const fetchHealthTips = async () => {
