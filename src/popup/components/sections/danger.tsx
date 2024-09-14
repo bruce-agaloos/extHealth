@@ -35,14 +35,14 @@ const Danger: React.FC<{}> = () => {
             ) : (
                 <div className="alertBox">
                     <p className="text red bold">
-                        clearing will lose all your data
+                        Clearing will lose all your data
                     </p>
                 </div>
             )}
 
             <div className="containerSummary less">
                 <p id="popupSummary" className="popupSummary indent">
-                    LocalStorage
+                    Local Storage
                 </p>
                 <button className="redRoundedButton" onClick={handleButtonClick}>
                     <span className="buttonText">Clear</span>
