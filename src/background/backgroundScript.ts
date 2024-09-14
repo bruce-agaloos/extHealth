@@ -284,7 +284,7 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
     chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       if (request.action === "healthCardHeight") {
         const height = request.height;
-        console.log("Health card height:", height);
+        // console.log("Health card height:", height);
         // Resize the popup window to match the height of the health card
         if (popupWindowId !== null ) {
           // If the popup window is already open, resize it
@@ -331,7 +331,7 @@ function createPopupWindow(sendResponse: (response: any) => void) {
     },
     (window) => {
       if (window) {
-        console.log("External popup opened:", window);
+        // console.log("External popup opened:", window);
         popupWindowId = window.id ?? null;
         sendResponse({ status: "opened" });
       } else {
