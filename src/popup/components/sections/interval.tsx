@@ -55,9 +55,12 @@ const Interval: React.FC<{}> = () => {
                     </p>
                 </div>
             </div>
+            {healthTipsEnabled ?
                 <p id="tipsTimeInterval" className="tipsTimeInterval">
-                    Timer will restart upon change if health reminder is active.
+                Timer will restart upon change if health reminder is active.
                 </p>
+            : null}
+                
         </div>
 
     );
