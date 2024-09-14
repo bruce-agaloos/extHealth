@@ -42,22 +42,14 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 // notification for health reminders
 // Set an alarm to trigger every hour
 chrome.runtime.onInstalled.addListener(() => {
-  createHealthReminderAlarm();
   setDefaultInstalled();
   
   const guideUrl = chrome.runtime.getURL('guide.html');
   chrome.tabs.create({ url: guideUrl });
 });
 
-chrome.alarms.onAlarm.addListener((alarm) => {
-  if (alarm.name === 'healthReminder') {
-      checkAndNotify();
-  }
-});
 
 chrome.runtime.onStartup.addListener(() => {
-  createHealthReminderAlarm();
-  checkAndNotify();
   setFactCheckWholeLoad(false);
   setSingleFactCheckLoad(false);
 });
@@ -180,17 +172,6 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
   }
 });
 
-function createHealthReminderAlarm() {
-  chrome.alarms.get('healthReminder', (alarm) => {
-      if (!alarm) {
-          console.log('Creating healthReminder alarm');
-          chrome.alarms.create('healthReminder', { periodInMinutes: 60 * 2 });
-      } else {
-          console.log('healthReminder alarm already exists');
-      }
-  });
-}
-
 
 // fact checking function
 async function updateFactCheck(text) {
@@ -275,40 +256,6 @@ async function factCheck(text) {
       return;
   }
 
-}
-
-
-
-// For health reminders
-function checkAndNotify() {
-  const now = Date.now();
-  chrome.storage.local.get(['lastNotificationTime'], (result) => {
-      const lastNotificationTime = result.lastNotificationTime || 0;
-      const time = 60 * 60 * 1000 * 2;
-      // const tenSeconds = 10 * 1000;
-
-      if (now - lastNotificationTime >= time) {
-          showNotification();
-          chrome.storage.local.set({ lastNotificationTime: now });
-      }
-  });
-}
-
-// Show the notification
-async function showNotification() {
-  const state = await getHealthTipState();
-  if (state === undefined || state === false) {
-      return;
-  }
-  await getHealthTips();
-  const content = await getLatestHealthTip();
-  chrome.notifications.create({
-      type: 'basic',
-      iconUrl: 'icon.png',
-      title: content.title,
-      message: content.content,
-      priority: 2
-  });
 }
 
 let popupWindowId: number | null = null;
