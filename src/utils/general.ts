@@ -7,8 +7,15 @@ const sendMessageToContentScript = (message: object, callback?: (response: any) 
         const activeTab = tabs[0];
         if (activeTab) {
             chrome.tabs.sendMessage(activeTab.id, message, function (response) {
-                if (callback) {
-                    callback(response);
+                if (chrome.runtime.lastError) {
+                    // console.error("Error sending message:", chrome.runtime.lastError.message);
+                    if (callback) {
+                        callback(null); // Optionally, you can pass null or an error object to the callback
+                    }
+                } else {
+                    if (callback) {
+                        callback(response);
+                    }
                 }
             });
         }
