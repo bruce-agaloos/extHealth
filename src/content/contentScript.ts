@@ -71,6 +71,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
             } else {
                 // console.log(`Category ${id} is disabled`);
             }
+            sendResponse({ message: "Category was changed" });
         } else {
             console.warn(`Category ${id} is not a boolean:`, category);
         }
