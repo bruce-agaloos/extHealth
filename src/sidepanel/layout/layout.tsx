@@ -23,7 +23,7 @@ const Layout = () => {
             </span>
           </div>
         </header>
-        <section id="tooltip">
+        {/* <section id="tooltip">
           <div>
             <p>
               <img src="info_white.png" alt="" height={'20px'} width={'20px'} />
@@ -31,7 +31,7 @@ const Layout = () => {
             </p>
             <p>Avoid submitting complex/multiple claims like: "Cancer symptoms are headaches, high fever, and hallucinations."</p>
           </div>
-        </section>
+        </section> */}
         <section id="body">
           <div id="factChecking" className='appearLeft'>
             <FactCheckingSection/>
