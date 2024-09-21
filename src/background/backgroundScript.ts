@@ -95,7 +95,7 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
   if (info.menuItemId === "extHealth") {
       await chrome.sidePanel.open({ windowId: tab.windowId });
       if (info.selectionText) {
-          const maxLength = 80;
+          const maxLength = 200;
           const text = info.selectionText;
 
           if (text.trim().length > maxLength || text.trim().length === 0) {
