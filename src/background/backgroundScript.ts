@@ -148,28 +148,40 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
               // console.error(error);
           });
       } 
-      // else if (info.srcUrl) {
-      //     const url = info.srcUrl;
-      //     console.log("URL:", url);
+      else if (info.srcUrl) {
+          const url = info.srcUrl;
+          // console.log("URL:", url);
 
-      //     const text = await sendImageToServer(url);
-      //     console.log("Extracted: ", text);
-      //     const isHealthClaim = await healthClaimDetection(text);
-      //     if (!isHealthClaim) {
-      //         chrome.notifications.create({
-      //             type: 'basic',
-      //             iconUrl: 'error.png',
-      //             title: 'Error',
-      //             message: 'The image selected does not contain a health claim. Please select an image containing a health claim to fact check.',
-      //             priority: 2
-      //         });
-      //         return;
-      //     }
-      //     factCheck(text).then(data => {
-      //     }).catch(error => {
-      //         console.error(error);
-      //     });
-      // }
+          const text = await sendImageToServer(url);
+          // console.log("Extracted: ", text);
+          const isMatch = allKeywords
+              .some(keyword => new RegExp(`(?:^|[\\s.,;?!()\\[\\]{}])${keyword}(?:[\\s.,;?!()\\[\\]{}]|$)`, 'i').test(text));
+          if (!isMatch) {
+              chrome.notifications.create({
+                  type: 'basic',
+                  iconUrl: 'error.png',
+                  title: 'Keyword Error',
+                  message: 'The current selected text does not include any of the health keywords for this extension. Please select a text that includes health keywords to fact check.',
+                  priority: 2
+              });
+              return;
+          }
+          const isHealthClaim = await healthClaimDetection(text);
+          if (!isHealthClaim) {
+              chrome.notifications.create({
+                  type: 'basic',
+                  iconUrl: 'error.png',
+                  title: 'Error',
+                  message: 'The image selected does not contain a health claim. Please select an image containing a health claim to fact check.',
+                  priority: 2
+              });
+              return;
+          }
+          factCheck(text).then(data => {
+          }).catch(error => {
+              console.error(error);
+          });
+      }
   }
 });
 
