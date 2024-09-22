@@ -271,10 +271,7 @@ const FactCheckingSection: React.FC = () => {
             <TextAreaWithCounter 
               value={fact.hypothesis} 
               onChange={(e) => handleInputChange(e, index)}
-              style={{
-                backgroundColor: focusedIndex === index ? '#D7ECFF' : 'white',
-                borderColor: focusedIndex === index ? '#66B5FD' : '#CECECE'
-              }}
+              className={focusedIndex === index ? 'textarea-focused' : 'textarea-unfocused'}
               onKeyDown={(e: React.KeyboardEvent<HTMLTextAreaElement>) => {
                 if (e.key === 'Enter') {
                   e.preventDefault();
