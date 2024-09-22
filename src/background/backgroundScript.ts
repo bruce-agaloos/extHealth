@@ -68,7 +68,7 @@ chrome.contextMenus.remove("extHealth", () => {
   chrome.contextMenus.create({
       id: "extHealth",
       title: "Check Health Information",
-      contexts: ["selection", "page"]
+      contexts: ["selection", "page", "image"]
   }, function () {
       if (chrome.runtime.lastError) {
           // console.error(chrome.runtime.lastError.message);

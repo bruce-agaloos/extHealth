@@ -2,7 +2,7 @@ import { API_ENDPOINT } from "../endpoint";
 
 const OCR_API_ENDPOINT = API_ENDPOINT + "/ocr";
 const LIBRETRANSLATE_API_ENDPOINT = API_ENDPOINT + "/translate"
-
+import {setFactCheckWholeLoad, setSingleFactCheckLoad} from '../pop_up_storage/storage';
 
 const requestOptions: RequestInit = {
     method: 'GET',
@@ -46,9 +46,16 @@ const sendImageUrl = async (url: string) => {
 
 
 const sendImageToServer = async (url: string) => {
-    const response = await fetch(`${OCR_API_ENDPOINT}?image_url=${encodeURI(url)}`, requestOptions);
-    const data = await response.json();
-    return data.text;
+    try {
+        await setFactCheckWholeLoad(true);
+        const response = await fetch(`${OCR_API_ENDPOINT}?image_url=${encodeURI(url)}`, requestOptions);
+        const data = await response.json();
+        return data.text;
+    } catch (error) {
+
+    } finally {
+        await setFactCheckWholeLoad(false);
+    }
 };
 
 export { 
