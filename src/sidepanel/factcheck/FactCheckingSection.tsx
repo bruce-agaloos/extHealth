@@ -16,6 +16,7 @@ const FactCheckingSection: React.FC = () => {
   const [expanded, setExpanded] = useState<string | false>(false);
   const [newFact, setNewFact] = useState('');
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
+  const [focusedState, setFocusedState] = useState<string | null>(null);
 
   const [facts, setFacts] = useState([]);
 
@@ -46,10 +47,18 @@ const FactCheckingSection: React.FC = () => {
     };
   }, []);
 
-  const handleDivClick = (index: number) => {
-    setFocusedIndex(index);
-  }
-
+  const handleDivClick = (index: number, accordionState: string) => {
+    setFocusedIndex(prevIndex => {
+      setFocusedState(prevState => {
+        if (prevIndex === index && prevState === accordionState) {
+          return null;
+        } else {
+          return accordionState;
+        }
+      });
+      return prevIndex === index && focusedState === accordionState ? null : index;
+    });
+  };
   const handleChange =
   (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
     setExpanded(isExpanded ? panel : false);
@@ -308,7 +317,7 @@ const FactCheckingSection: React.FC = () => {
                     count={`${count}`}
                     expanded={expanded === `${index}-${state}`}
                     onChange={handleChange(`${index}-${state}`)}
-                    onClick={() => handleDivClick(index)}
+                    onClick={() => handleDivClick(index, state)}
                   >
                     {relatedPremises.map((premise, idx) => (
                       <Evidence key={`${index}-${state}-${idx}`} idx={idx} premise={premise} />
