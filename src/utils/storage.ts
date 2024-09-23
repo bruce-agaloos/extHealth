@@ -136,16 +136,19 @@ function getLatestHealthTip(): Promise<any> {
   });
 }
 
-function getFromStorage(keys) {
-  return new Promise((resolve, reject) => {
-    chrome.storage.local.get(keys, function (result) {
-      if (chrome.runtime.lastError) {
-        reject(chrome.runtime.lastError);
-      } else {
-        resolve(result);
-      }
-    });
-  });
+function getFromStorage(keys, timeout = 3000) {
+  return Promise.race([
+    new Promise((resolve, reject) => {
+      chrome.storage.local.get(keys, function (result) {
+        if (chrome.runtime.lastError) {
+          reject(chrome.runtime.lastError);
+        } else {
+          resolve(result);
+        }
+      });
+    }),
+    new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), timeout))
+  ]);
 }
 
 function getInterval(): Promise<number> {
