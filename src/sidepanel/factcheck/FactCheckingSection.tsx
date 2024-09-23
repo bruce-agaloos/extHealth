@@ -173,29 +173,6 @@ const FactCheckingSection: React.FC = () => {
           });
           return;
       }
-
-      const isHealthClaim = healthClaimDetection(fact);
-      if (!isHealthClaim) {
-        let error_value = await getFromStorage(['healthClaimResult']);
-        if (error_value != "yes" || error_value != "no") {
-            chrome.notifications.create({
-                type: 'basic',
-                iconUrl: 'error.png',
-                title: 'Daily Limit Reached',
-                message: 'I am sorry, but you have reached the daily limit or there is an error on the server. Please try again later.',
-                priority: 2
-            });
-            return;
-        }
-        chrome.notifications.create({
-          type: 'basic',
-          iconUrl: 'error.png',
-          title: 'Health Claim Error',
-          message: 'The current query is not an health claim. Please make sure it is',
-          priority: 2
-        });
-        return;
-      }
       // Send a message to the background script
       chrome.runtime.sendMessage({ message: 'factCheck', text: fact }, (response) => {
           // console.log('Response from background script:', response);

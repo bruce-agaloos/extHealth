@@ -120,29 +120,6 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
               });
               return;
           }
-
-          const isHealthClaim = await healthClaimDetection(text);
-          if (!isHealthClaim) {
-              let error_value = await getFromStorage(['healthClaimResult']);
-              if (error_value != "yes" || error_value != "no") {
-                  chrome.notifications.create({
-                      type: 'basic',
-                      iconUrl: 'error.png',
-                      title: 'Daily Limit Reached',
-                      message: 'I am sorry, but you have reached the daily limit or there is an error on the server. Please try again later.',
-                      priority: 2
-                  });
-                  return;
-              }
-              chrome.notifications.create({
-                  type: 'basic',
-                  iconUrl: 'error.png',
-                  title: 'Health Claim error',
-                  message: 'The text selected is not a health claim. Please select a health claim text to fact check.',
-                  priority: 2
-              });
-              return;
-          }
           factCheck(text).then(data => {
           }).catch(error => {
               // console.error(error);
@@ -162,17 +139,6 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
                   iconUrl: 'error.png',
                   title: 'Keyword Error',
                   message: 'The current selected text does not include any of the health keywords for this extension. Please select a text that includes health keywords to fact check.',
-                  priority: 2
-              });
-              return;
-          }
-          const isHealthClaim = await healthClaimDetection(text);
-          if (!isHealthClaim) {
-              chrome.notifications.create({
-                  type: 'basic',
-                  iconUrl: 'error.png',
-                  title: 'Error',
-                  message: 'The image selected does not contain a health claim. Please select an image containing a health claim to fact check.',
                   priority: 2
               });
               return;
