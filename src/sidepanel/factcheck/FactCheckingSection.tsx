@@ -186,10 +186,11 @@ const FactCheckingSection: React.FC = () => {
       const isSingleFactCheckLoading = result.isSingleFactCheckLoading === true;
 
       const loaderElement = document.querySelector('.loader');
-
+      const buttonElement = document.querySelector('.add_fact_button');
       if (loaderElement) {
           if (isFactCheckLoading || isSingleFactCheckLoading) {
               loaderElement.classList.add('loading');
+              buttonElement.classList.add('loading');
           }
       }
     });
