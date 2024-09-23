@@ -77,7 +77,7 @@ const FactCheckingSection: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, index: number) => {
     e.preventDefault();
     const hypothesis = facts[index].hypothesis;
-    const maxLength = 200;
+    const maxLength = 256;
     if (hypothesis.trim().length > maxLength || hypothesis.trim().length === 0) {
       chrome.notifications.create({
         type: 'basic',
@@ -149,7 +149,7 @@ const FactCheckingSection: React.FC = () => {
       e.preventDefault();
       const fact = newFact;
 
-      const maxLength = 200;
+      const maxLength = 256;
       if (fact.trim().length > maxLength || fact.trim().length === 0) {
         chrome.notifications.create({
           type: 'basic',

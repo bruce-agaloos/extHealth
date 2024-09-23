@@ -24,7 +24,7 @@ const TextAreaWithCounter: React.FC<TextAreaWithCounterProps> = ({
   className,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
-  const maxLength = 200;
+  const maxLength = 256;
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   
