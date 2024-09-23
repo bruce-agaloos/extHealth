@@ -15,7 +15,7 @@
     position: absolute;
     /* transform: translateZ(0); */
     animation: mltShdSpin 1.7s infinite ease, round 1.7s infinite ease;
-    left: 1.5%;
+    /* left: 1.5%; */
     /* right: 2%; */
 }
 

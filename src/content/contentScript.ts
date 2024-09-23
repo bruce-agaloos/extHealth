@@ -142,6 +142,7 @@ const searchKeywordAndCreateOverlay = async (tweetBody: string, tweet: HTMLDivEl
         // viewBtn.style.width = "100%";
         viewBtn.style.position = "absolute";
         viewBtn.style.left = "0";
+        
 
         viewBtn.setAttribute("data-overlay-id", overlayId);
         viewBtn.addEventListener("click", () => {
@@ -149,6 +150,12 @@ const searchKeywordAndCreateOverlay = async (tweetBody: string, tweet: HTMLDivEl
             // Create a spinner, and append it to the button
             let spinner = document.createElement('span');
             spinner.className = "btn-spinner";
+            spinner.style.color = "#f5f5f5"
+            spinner.style.position = "absolute";
+            spinner.style.left = "0";
+           
+
+           
             viewBtn.appendChild(spinner);
 
             const handleStorageChange = (changes: { [key: string]: chrome.storage.StorageChange }) => {
@@ -160,10 +167,14 @@ const searchKeywordAndCreateOverlay = async (tweetBody: string, tweet: HTMLDivEl
                         // const loaderElement = document.querySelector('.btn-loader');
                         const loaderElement = viewBtn.querySelector('.btn-spinner');
                         loaderElement.classList.add('btn-loading');
+                        viewBtn.style.paddingLeft = "35px";
+                        viewBtn.style.pointerEvents = "none !important";
                         if (loaderElement) {
                             if (!(isFactCheckLoading || isSingleFactCheckLoading)) {
                                 // Remove the class name btn-loading
                                 loaderElement.classList.remove('btn-loading');
+                                viewBtn.style.paddingLeft = "0";
+                                viewBtn.style.pointerEvents = "auto";
 
                                 // Remove the spinner
                                 if (spinner && viewBtn.contains(spinner)) {
