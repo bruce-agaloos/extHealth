@@ -1,0 +1,45 @@
+/* Parent container for items */
+#searchItems {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Consistent spacing between items */
+}
+
+/* Container for each item */
+.item-container {
+    border-radius: 8px;
+    padding: 16px;
+    background-color: white;
+    transition: box-shadow 0.1s ease;
+    cursor: pointer; /* Indicate that the div is clickable */
+}
+
+.item-container:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Change the color and underline the item-button when the item-container is hovered */
+.item-container:hover .item-button {
+    color: #551a8b;
+    text-decoration: underline;
+}
+
+/* Button styling */
+.item-button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    color: #1a0dab;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 0;
+    margin-bottom: 8px;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+/* Details paragraph styling */
+.item-details {
+    font-size: 14px;
+    color: #4d5156;
+    margin: 0;
+}

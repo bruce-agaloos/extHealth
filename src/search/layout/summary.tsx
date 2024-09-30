@@ -45,7 +45,7 @@ const Summary: React.FC<SummaryProps> = ({ data }) => {
     if (!data) {
         return (
             <div style={{ color: 'gray', marginBottom: '30px' }}>
-                <span>Sorry, there were results found for this query</span>
+                <span>Please select a query first</span>
                 <img src="sad-emoji.gif" alt=":(" height="30px" width="30px" />
             </div>
         );

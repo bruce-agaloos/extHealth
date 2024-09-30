@@ -8,9 +8,9 @@ interface LabelProps {
 const Label: React.FC<LabelProps> = ({ value }) => {
     let text;
     if (value === 1) {
-        text = "mostly supporting";
+        text = "Mostly Supporting";
     } else if (value === -1) {
-        text = "mostly disputing";
+        text = "Mostly Disputing";
     } else {
         text = "";
     }
