@@ -210,8 +210,26 @@ const Layout = () => {
                                         </div>
                                     )}
                                     {activeContent === 'danger' &&
-                                        (<div className={`danger ${fadeOut ? '' : 'fade-in-bottom'}`}>
-                                            <Danger /></div>)}
+                                        (<div className={`danger ${fadeOut ? '' : 'fade-in-bottom'}`}
+                                        style={{ height: '100%'}}>
+                                            <Danger />
+                                            <a 
+                                                className='howToUse' 
+                                                href='search.html' 
+                                                target='_blank' 
+                                                style={{ 
+                                                    width: 'fit-content', 
+                                                    whiteSpace: 'nowrap', 
+                                                    top: '80%', 
+                                                    left: '50%', 
+                                                    transform: 'translateX(-50%)', 
+                                                    position: 'absolute'
+                                                }}
+                                            >
+                                                <img className="help" src="Help.png" alt="Help Icon" />
+                                                <div className="helpText" style={{ width: 'fit-content', whiteSpace: 'nowrap' }}>Search Past Fact Check Queries</div>
+                                            </a>
+                                            </div>)}
 
                                 </div>
                             </div>
