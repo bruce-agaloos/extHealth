@@ -4,6 +4,8 @@ import { SearchResult, ResultItem } from './types';
 import Item from './layout/item';
 import Summary from './layout/summary';
 
+import NoResults from './layout/components/noResults';
+
 import './layout/css/layout.css';
 import './layout/css/normalize.css';
 
@@ -54,6 +56,12 @@ const sampleData: SearchResult = {
                     date: "2021-01-01",
                 }
             ]
+        },
+        {
+            hypothesis: "Something",
+            query: "anything",
+            query_vector: [0.1, 0.2, 0.3, 0.4, 0.5],
+            premises: []
         }
     ]
 };
@@ -106,9 +114,13 @@ const Search: React.FC = () => {
                 </button>
             </form>
             <div id="searchItems">
-                {sampleData?.result.map((item, index) => (
-                    <Item key={index} data={item} onClick={handleItemClick} />
-                ))}
+                {sampleData?.result.length === 0 ? (
+                    <NoResults message="Sorry there seems to be no similary query" />
+                ) : (
+                    sampleData?.result.map((item, index) => (
+                        <Item key={index} data={item} onClick={handleItemClick} />
+                    ))
+                )}
             </div>
             {sampleData && (
                 <div id="summary">

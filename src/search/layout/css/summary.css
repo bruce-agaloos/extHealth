@@ -3,7 +3,7 @@
     padding-top: 30px;
     border-left: 1px solid #ddd; /* Light border */
     max-width: 300px; /* Maximum width */
-    margin: 0 auto; /* Center the container */
+    margin: 0; /* Center the container */
     font-family: Arial, sans-serif; /* Font family */
     position: relative; /* Position relative */
 }

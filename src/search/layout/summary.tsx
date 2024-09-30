@@ -6,6 +6,8 @@ import Label from './components/label';
 import CustomAccordion from '../../sidepanel/factcheck/CustomAccordion';
 import Evidence from '../../sidepanel/factcheck/Evidence';
 
+import NoResults from './components/noResults';
+
 import './css/summary.css';
 interface SummaryProps {
     data: ResultItem | null;
@@ -45,10 +47,7 @@ const Summary: React.FC<SummaryProps> = ({ data }) => {
 
     if (!data) {
         return (
-            <div style={{ color: 'gray', marginBottom: '30px' }}>
-                <span>Please select a query first</span>
-                <img src="sad-emoji.gif" alt=":(" height="30px" width="30px" />
-            </div>
+            <div></div>
         );
     }
     const entailmentCount = data.premises.filter(premise => premise.relationship === 'entailment').length;
@@ -62,29 +61,35 @@ const Summary: React.FC<SummaryProps> = ({ data }) => {
         labelValue = -1;
     }
 
+    const allPremisesEmpty = data.premises.length === 0;
+
     return (
         <div className="summary-container">
             <h1>{data.hypothesis}</h1>
             <h2>Query: {data.query}</h2>
             <Label value={labelValue} />
-            {accordionStates.map((state, index) => {
-                const relatedPremises = data.premises.filter(premise => premise.relationship.toLowerCase() === state.toLowerCase());
-                const count = relatedPremises.length;
+            {allPremisesEmpty ? (
+                <NoResults message="Sorry there were no results for this past query" />
+            ) : (
+                accordionStates.map((state, index) => {
+                    const relatedPremises = data.premises.filter(premise => premise.relationship.toLowerCase() === state.toLowerCase());
+                    const count = relatedPremises.length;
 
-                return count > 0 && (
-                    <CustomAccordion
-                        key={`${index}-${state}`}
-                        title={`${stateMappings[state]}`}
-                        count={`${count}`}
-                        expanded={expanded === `${index}-${state}`}
-                        onChange={handleAccordionChange(`${index}-${state}`, index, state)}
-                    >
-                        {relatedPremises.map((premise, idx) => (
-                            <Evidence key={`${index}-${state}-${idx}`} idx={idx} premise={premise} />
-                        ))}
-                    </CustomAccordion>
-                );
-            })}
+                    return count > 0 && (
+                        <CustomAccordion
+                            key={`${index}-${state}`}
+                            title={`${stateMappings[state]}`}
+                            count={`${count}`}
+                            expanded={expanded === `${index}-${state}`}
+                            onChange={handleAccordionChange(`${index}-${state}`, index, state)}
+                        >
+                            {relatedPremises.map((premise, idx) => (
+                                <Evidence key={`${index}-${state}-${idx}`} idx={idx} premise={premise} />
+                            ))}
+                        </CustomAccordion>
+                    );
+                })
+            )}
         </div>
     );
 };
