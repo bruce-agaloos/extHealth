@@ -1,6 +1,10 @@
 /* Mobile-first styles */
-*{
+* {
     box-sizing: border-box;
+}
+
+#logo {
+    display: none;
 }
 
 .container {
@@ -13,6 +17,7 @@
     max-width: 1200px; /* Maximum width to prevent excessive stretching */
     overflow-x: auto; /* Enable horizontal scrolling when necessary */
     padding: 1rem;
+    margin: 0 auto; /* Center the container */
 }
 
 #searchBox {
@@ -34,3 +39,33 @@
     display: flex;
 }
 
+/* Styles for larger screens */
+@media (min-width: 1000px) {
+    .container {
+        grid-template-rows: auto 1fr; /* First row auto height, second row takes remaining space */
+        grid-template-columns: auto minmax(300px, 2fr) minmax(200px, 1fr); /* Three columns with min and max widths */
+    }
+
+    #logo {
+        grid-row: 1 / 2; /* First row */
+        grid-column: 1 / 2; /* First column */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #searchBox {
+        grid-row: 1 / 2; /* First row */
+        grid-column: 2 / 4; /* Spans second and third columns */
+    }
+
+    #searchItems {
+        grid-row: 2 / 3; /* Second row */
+        grid-column: 2 / 3; /* Second column */
+    }
+
+    #summary {
+        grid-row: 2 / 3; /* Second row */
+        grid-column: 3 / 4; /* Third column */
+    }
+}

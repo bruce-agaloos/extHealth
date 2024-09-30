@@ -5,6 +5,7 @@ import Item from './layout/item';
 import Summary from './layout/summary';
 
 import NoResults from './layout/components/noResults';
+import Logo from './layout/components/logo'
 
 import './layout/css/layout.css';
 import './layout/css/normalize.css';
@@ -37,6 +38,48 @@ const sampleData: SearchResult = {
                 {
                     premise: "sample premise 3",
                     relationship: "neutral",
+                    url: "https://www.google.com",
+                    title: "Google",
+                    date: "2021-01-01",
+                }
+            ]
+        },
+        {
+            hypothesis: "The quick Dog fox jumps over the lazy dog",
+            query: "quick brown Catquick brown Catquick brown Catquick brown Catquick brown Catquick brown Catquick brown Catquick brown Cat",
+            query_vector: [0.1, 0.2, 0.3, 0.4, 0.5],
+            premises: [
+                {
+                    premise: "sample premise 2",
+                    relationship: "contradiction",
+                    url: "https://www.google.com",
+                    title: "Google",
+                    date: "2021-01-01",
+                }
+            ]
+        },
+        {
+            hypothesis: "The quick Dog fox jumps over the lazy dog",
+            query: "quick brown Catquick brown Catquick brown Catquick brown Catquick brown Catquick brown Catquick brown Catquick brown Cat",
+            query_vector: [0.1, 0.2, 0.3, 0.4, 0.5],
+            premises: [
+                {
+                    premise: "sample premise 2",
+                    relationship: "contradiction",
+                    url: "https://www.google.com",
+                    title: "Google",
+                    date: "2021-01-01",
+                }
+            ]
+        },
+        {
+            hypothesis: "The quick Dog fox jumps over the lazy dog",
+            query: "quick brown Catquick brown Catquick brown Catquick brown Catquick brown Catquick brown Catquick brown Catquick brown Cat",
+            query_vector: [0.1, 0.2, 0.3, 0.4, 0.5],
+            premises: [
+                {
+                    premise: "sample premise 2",
+                    relationship: "contradiction",
                     url: "https://www.google.com",
                     title: "Google",
                     date: "2021-01-01",
@@ -100,9 +143,10 @@ const Search: React.FC = () => {
     return (
         <div id="body" className="container">
             <div id="logo">
-
+                <Logo />
             </div>
             <form id="searchBox" onSubmit={handleFormSubmit}>
+                
                 <input
                     type="text"
                     placeholder="Search..."
