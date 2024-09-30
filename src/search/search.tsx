@@ -6,6 +6,11 @@ import Summary from './layout/summary';
 
 import './layout/css/layout.css';
 import './layout/css/normalize.css';
+
+import './layout/css/searchBar.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+
 const sampleData: SearchResult = {
     result: [
         {
@@ -96,7 +101,9 @@ const Search: React.FC = () => {
                     value={searchQuery}
                     onChange={handleInputChange}
                 />
-                <button type="submit">Search</button>
+                <button type="submit">
+                    <FontAwesomeIcon icon={faSearch} />
+                </button>
             </form>
             <div id="searchItems">
                 {sampleData?.result.map((item, index) => (
