@@ -24,7 +24,7 @@ const Search: React.FC = () => {
 
     const handleFormSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        const backendEndpoint = `${API_ENDPOINT}/api/v1/searchPastQueries?content=${encodeURIComponent(searchQuery)}`;
+        const backendEndpoint = `${API_ENDPOINT}/searchPastQueries?content=${encodeURIComponent(searchQuery)}`;
         try {
             const response = await fetch(backendEndpoint, {
                 method: "GET",
