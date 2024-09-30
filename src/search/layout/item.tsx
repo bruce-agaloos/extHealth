@@ -26,6 +26,9 @@ const Item: React.FC<ItemProps> = ({ data, onClick }) => {
                 {data.hypothesis} | {data.query}
             </button>
             <Label value={labelValue} />
+            <p>
+                Entailment: {entailmentCount} | Contradiction: {contradictionCount} | Neutral: {neutralCount}
+            </p>
         </div>
     );
 };

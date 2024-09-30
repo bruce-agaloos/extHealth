@@ -1,28 +1,90 @@
 // Summary.tsx
-import React from 'react';
+import React, { useState } from 'react';
 import { ResultItem } from '../types';
+import Label from './components/label';
+
+import CustomAccordion from '../../sidepanel/factcheck/CustomAccordion';
+import Evidence from '../../sidepanel/factcheck/Evidence';
 
 interface SummaryProps {
     data: ResultItem | null;
 }
 
-const Summary: React.FC<SummaryProps> = ({ data }) => {
-    if (!data) {
-        return <div>Select an item to see the summary.</div>;
-    }
+const accordionStates = ['entailment', 'contradiction', 'neutral'];
+const stateMappings = {
+    entailment: "Supported",
+    contradiction: "Disputed",
+    neutral: "Neutral"
+};
 
+const Summary: React.FC<SummaryProps> = ({ data }) => {
+    const [expanded, setExpanded] = useState<string | false>(false);
+    const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
+    const [focusedState, setFocusedState] = useState<string | null>(null);
+
+    const handleAccordionChange =
+        (panel: string, index: number, accordionState: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+            setExpanded(isExpanded ? panel : false);
+            if (isExpanded) {
+                setFocusedIndex(prevIndex => {
+                    setFocusedState(prevState => {
+                        if (prevIndex === index && prevState === accordionState) {
+                            return null;
+                        } else {
+                            return accordionState;
+                        }
+                    });
+                    return prevIndex === index && focusedState === accordionState ? null : index;
+                });
+            } else {
+                setFocusedIndex(null);
+                setFocusedState(null);
+            }
+        };
+
+    if (!data) {
+        return (
+            <div style={{ color: 'gray', marginBottom: '30px' }}>
+                <span>Sorry, there were results found for this query</span>
+                <img src="sad-emoji.gif" alt=":(" height="30px" width="30px" />
+            </div>
+        );
+    }
     const entailmentCount = data.premises.filter(premise => premise.relationship === 'entailment').length;
     const contradictionCount = data.premises.filter(premise => premise.relationship === 'contradiction').length;
     const neutralCount = data.premises.filter(premise => premise.relationship === 'neutral').length;
 
+    let labelValue = 0;
+    if (entailmentCount > contradictionCount && entailmentCount > neutralCount) {
+        labelValue = 1;
+    } else if (contradictionCount > entailmentCount && contradictionCount > neutralCount) {
+        labelValue = -1;
+    }
+
     return (
         <div>
+            <h1>{data.hypothesis}</h1>
+            <h2>{data.query}</h2>
             <h3>Summary:</h3>
-            <ul>
-                <li>Entailment: {entailmentCount}</li>
-                <li>Contradiction: {contradictionCount}</li>
-                <li>Neutral: {neutralCount}</li>
-            </ul>
+            <Label value={labelValue} />
+            {accordionStates.map((state, index) => {
+                const relatedPremises = data.premises.filter(premise => premise.relationship.toLowerCase() === state.toLowerCase());
+                const count = relatedPremises.length;
+
+                return count > 0 && (
+                    <CustomAccordion
+                        key={`${index}-${state}`}
+                        title={`${stateMappings[state]}`}
+                        count={`${count}`}
+                        expanded={expanded === `${index}-${state}`}
+                        onChange={handleAccordionChange(`${index}-${state}`, index, state)}
+                    >
+                        {relatedPremises.map((premise, idx) => (
+                            <Evidence key={`${index}-${state}-${idx}`} idx={idx} premise={premise} />
+                        ))}
+                    </CustomAccordion>
+                );
+            })}
         </div>
     );
 };

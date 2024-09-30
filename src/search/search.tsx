@@ -4,6 +4,8 @@ import { SearchResult, ResultItem } from './types';
 import Item from './layout/item';
 import Summary from './layout/summary';
 
+import './layout/css/layout.css';
+import './layout/css/normalize.css';
 const sampleData: SearchResult = {
     result: [
         {
@@ -83,7 +85,10 @@ const Search: React.FC = () => {
     };
 
     return (
-        <div id="body">
+        <div id="body" className="container">
+            <div id="logo">
+
+            </div>
             <form id="searchBox" onSubmit={handleFormSubmit}>
                 <input
                     type="text"

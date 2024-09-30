@@ -1,0 +1,32 @@
+/* Mobile-first styles */
+.container {
+    display: grid;
+    grid-template-rows: auto 1fr; /* First row auto height, second row takes remaining space */
+    grid-template-columns: minmax(200px, 2fr) minmax(100px, 1fr); /* Two columns with min and max widths */
+    gap: 10px; /* Optional: space between grid items */
+    min-height: 100vh; /* Full viewport height */
+    min-width: 700px; /* Minimum width to prevent excessive zooming */
+    max-width: 1200px; /* Maximum width to prevent excessive stretching */
+    overflow-x: auto; /* Enable horizontal scrolling when necessary */
+    padding: 1rem;
+}
+
+#searchBox {
+    grid-row: 1 / 2; /* First row */
+    grid-column: 1 / 3; /* Spans both columns */
+    display: flex;
+}
+
+#searchItems {
+    grid-row: 2 / 3; /* Second row */
+    grid-column: 1 / 2; /* First column */
+    display: flex;
+    flex-direction: column;
+}
+
+#summary {
+    grid-row: 2 / 3; /* Second row */
+    grid-column: 2 / 3; /* Second column */
+    display: flex;
+}
+
