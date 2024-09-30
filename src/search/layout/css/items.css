@@ -28,7 +28,7 @@
 /* Button styling */
 .item-button {
     display: block;
-    width: 80%;
+    width: min(80%, 40vw);
     text-align: left;
     color: #1a0dab;
     font-size: 18px;

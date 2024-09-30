@@ -1,4 +1,8 @@
 /* Mobile-first styles */
+*{
+    box-sizing: border-box;
+}
+
 .container {
     display: grid;
     grid-template-rows: auto 1fr; /* First row auto height, second row takes remaining space */
