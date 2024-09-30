@@ -1,0 +1,37 @@
+#searchBox {
+    width: 100%;
+    max-width: 600px;
+    margin: 0;
+    padding: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 25px;
+    background-color: white;
+}
+
+#searchBox input[type="text"] {
+    flex: 1;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px 0 0 25px;
+    outline: none;
+    font-size: 16px;
+}
+
+#searchBox button {
+    padding: 10px;
+    border: none;
+    border-radius: 0 25px 25px 0;
+    background-color: transparent; /* No background color */
+    color: #4285f4; /* Blue color for the icon */
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#searchBox button:hover {
+    background-color: transparent; /* No background color on hover */
+    color: #357ae8; /* Darker blue on hover */
+}
