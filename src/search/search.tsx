@@ -15,121 +15,7 @@ import './layout/css/accordionAndEvidence.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
-const sampleData: SearchResult = {
-    result: [
-        {
-            hypothesis: "The quick brown fox jumps over the lazy dog",
-            query: "quick brown fox",
-            query_vector: [0.1, 0.2, 0.3, 0.4, 0.5],
-            premises: [
-                {
-                    premise: "sample premise 1",
-                    relationship: "entailment",
-                    url: "https://www.google.com",
-                    title: "Google",
-                    date: "2021-01-01",
-                },
-                {
-                    premise: "sample premise 1",
-                    relationship: "entailment",
-                    url: "https://www.google.com",
-                    title: "Google",
-                    date: "2021-01-01",
-                },
-                {
-                    premise: "sample premise 1",
-                    relationship: "entailment",
-                    url: "https://www.google.com",
-                    title: "Google",
-                    date: "2021-01-01",
-                },
-                {
-                    premise: "sample premise 1",
-                    relationship: "entailment",
-                    url: "https://www.google.com",
-                    title: "Google",
-                    date: "2021-01-01",
-                },
-                {
-                    premise: "sample premise 2",
-                    relationship: "contradiction",
-                    url: "https://www.google.com",
-                    title: "Google",
-                    date: "2021-01-01",
-                },
-                {
-                    premise: "sample premise 3",
-                    relationship: "neutral",
-                    url: "https://www.google.com",
-                    title: "Google",
-                    date: "2021-01-01",
-                }
-            ]
-        },
-        {
-            hypothesis: "The quick Dog fox jumps over the lazy dog",
-            query: "quick brown Catquick brown Catquick brown Catquick brown Catquick brown Catquick brown Catquick brown Catquick brown Cat",
-            query_vector: [0.1, 0.2, 0.3, 0.4, 0.5],
-            premises: [
-                {
-                    premise: "sample premise 2",
-                    relationship: "contradiction",
-                    url: "https://www.google.com",
-                    title: "Google",
-                    date: "2021-01-01",
-                }
-            ]
-        },
-        {
-            hypothesis: "The quick Dog fox jumps over the lazy dog",
-            query: "quick brown Catquick brown Catquick brown Catquick brown Catquick brown Catquick brown Catquick brown Catquick brown Cat",
-            query_vector: [0.1, 0.2, 0.3, 0.4, 0.5],
-            premises: [
-                {
-                    premise: "sample premise 2",
-                    relationship: "contradiction",
-                    url: "https://www.google.com",
-                    title: "Google",
-                    date: "2021-01-01",
-                }
-            ]
-        },
-        {
-            hypothesis: "The quick Dog fox jumps over the lazy dog",
-            query: "quick brown Catquick brown Catquick brown Catquick brown Catquick brown Catquick brown Catquick brown Catquick brown Cat",
-            query_vector: [0.1, 0.2, 0.3, 0.4, 0.5],
-            premises: [
-                {
-                    premise: "sample premise 2",
-                    relationship: "contradiction",
-                    url: "https://www.google.com",
-                    title: "Google",
-                    date: "2021-01-01",
-                }
-            ]
-        },
-        {
-            hypothesis: "The quick Dog fox jumps over the lazy dog",
-            query: "quick brown Catquick brown Catquick brown Catquick brown Catquick brown Catquick brown Catquick brown Catquick brown Cat",
-            query_vector: [0.1, 0.2, 0.3, 0.4, 0.5],
-            premises: [
-                {
-                    premise: "sample premise 2",
-                    relationship: "contradiction",
-                    url: "https://www.google.com",
-                    title: "Google",
-                    date: "2021-01-01",
-                }
-            ]
-        },
-        {
-            hypothesis: "Something",
-            query: "anything",
-            query_vector: [0.1, 0.2, 0.3, 0.4, 0.5],
-            premises: []
-        }
-    ]
-};
+import {API_ENDPOINT} from './../utils/endpoint';
 
 const Search: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState<string>("");
@@ -138,14 +24,13 @@ const Search: React.FC = () => {
 
     const handleFormSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        const backendEndpoint = "https://your-backend-endpoint.com/search";
+        const backendEndpoint = `${API_ENDPOINT}/api/v1/searchPastQueries?content=${encodeURIComponent(searchQuery)}`;
         try {
             const response = await fetch(backendEndpoint, {
-                method: "POST",
+                method: "GET",
                 headers: {
                     "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ query: searchQuery })
+                }
             });
             const data: SearchResult = await response.json();
             setSearchResults(data);
@@ -180,15 +65,15 @@ const Search: React.FC = () => {
                 </button>
             </form>
             <div id="searchItems">
-                {sampleData?.result.length === 0 ? (
+                {searchResults?.result.length === 0 ? (
                     <NoResults message="Sorry there seems to be no similary query" />
                 ) : (
-                    sampleData?.result.map((item, index) => (
+                    searchResults?.result.map((item, index) => (
                         <Item key={index} data={item} onClick={handleItemClick} />
                     ))
                 )}
             </div>
-            {sampleData && (
+            {searchResults && (
                 <div id="summary">
                     <Summary data={selectedItem} />
                 </div>
