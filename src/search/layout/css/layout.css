@@ -14,7 +14,7 @@
     gap: 10px; /* Optional: space between grid items */
     min-height: 100vh; /* Full viewport height */
     min-width: 700px; /* Minimum width to prevent excessive zooming */
-    max-width: 1200px; /* Maximum width to prevent excessive stretching */
+    max-width: 1500px; /* Maximum width to prevent excessive stretching */
     overflow-x: auto; /* Enable horizontal scrolling when necessary */
     padding: 1rem;
     margin: 0 auto; /* Center the container */

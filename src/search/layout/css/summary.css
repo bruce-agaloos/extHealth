@@ -6,6 +6,9 @@
     margin: 0; /* Center the container */
     font-family: Arial, sans-serif; /* Font family */
     position: relative; /* Position relative */
+    padding-left: 40px;
+    overflow: auto;
+    max-height: 80vh;
 }
 
 .summary-container h1 {

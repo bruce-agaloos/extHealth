@@ -11,6 +11,7 @@ import './layout/css/layout.css';
 import './layout/css/normalize.css';
 
 import './layout/css/searchBar.css';
+import './layout/css/accordionAndEvidence.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
@@ -21,6 +22,27 @@ const sampleData: SearchResult = {
             query: "quick brown fox",
             query_vector: [0.1, 0.2, 0.3, 0.4, 0.5],
             premises: [
+                {
+                    premise: "sample premise 1",
+                    relationship: "entailment",
+                    url: "https://www.google.com",
+                    title: "Google",
+                    date: "2021-01-01",
+                },
+                {
+                    premise: "sample premise 1",
+                    relationship: "entailment",
+                    url: "https://www.google.com",
+                    title: "Google",
+                    date: "2021-01-01",
+                },
+                {
+                    premise: "sample premise 1",
+                    relationship: "entailment",
+                    url: "https://www.google.com",
+                    title: "Google",
+                    date: "2021-01-01",
+                },
                 {
                     premise: "sample premise 1",
                     relationship: "entailment",
