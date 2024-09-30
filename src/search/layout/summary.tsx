@@ -6,6 +6,7 @@ import Label from './components/label';
 import CustomAccordion from '../../sidepanel/factcheck/CustomAccordion';
 import Evidence from '../../sidepanel/factcheck/Evidence';
 
+import './css/summary.css';
 interface SummaryProps {
     data: ResultItem | null;
 }
@@ -62,10 +63,9 @@ const Summary: React.FC<SummaryProps> = ({ data }) => {
     }
 
     return (
-        <div>
+        <div className="summary-container">
             <h1>{data.hypothesis}</h1>
-            <h2>{data.query}</h2>
-            <h3>Summary:</h3>
+            <h2>Query: {data.query}</h2>
             <Label value={labelValue} />
             {accordionStates.map((state, index) => {
                 const relatedPremises = data.premises.filter(premise => premise.relationship.toLowerCase() === state.toLowerCase());
