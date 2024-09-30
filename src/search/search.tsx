@@ -43,7 +43,7 @@ const sampleData: SearchResult = {
         },
         {
             hypothesis: "The quick Dog fox jumps over the lazy dog",
-            query: "quick brown Cat",
+            query: "quick brown Catquick brown Catquick brown Catquick brown Catquick brown Catquick brown Catquick brown Catquick brown Cat",
             query_vector: [0.1, 0.2, 0.3, 0.4, 0.5],
             premises: [
                 {

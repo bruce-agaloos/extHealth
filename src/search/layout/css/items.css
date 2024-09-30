@@ -12,6 +12,7 @@
     background-color: white;
     transition: box-shadow 0.1s ease;
     cursor: pointer; /* Indicate that the div is clickable */
+    position: relative; /* Enable absolute positioning for children */
 }
 
 .item-container:hover {
@@ -27,7 +28,7 @@
 /* Button styling */
 .item-button {
     display: block;
-    width: 100%;
+    width: 80%;
     text-align: left;
     color: #1a0dab;
     font-size: 18px;
@@ -35,6 +36,9 @@
     padding: 0;
     margin-bottom: 8px;
     transition: color 0.3s ease, text-decoration 0.3s ease;
+    white-space: nowrap; /* Prevents text from wrapping */
+    overflow: hidden; /* Hides overflow text */
+    text-overflow: ellipsis; /* Adds ellipsis (...) for overflow text */
 }
 
 /* Details paragraph styling */

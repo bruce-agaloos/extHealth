@@ -29,7 +29,7 @@ const Item: React.FC<ItemProps> = ({ data, onClick }) => {
             </div>
             <Label value={labelValue} />
             <p className="item-details">
-                Hypothesis: {data.hypothesis} <br />
+                <strong>Hypothesis:</strong> {data.hypothesis} <br />
                 Entailment: {entailmentCount} | Contradiction: {contradictionCount} | Neutral: {neutralCount}
             </p>
         </div>
