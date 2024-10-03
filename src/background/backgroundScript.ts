@@ -34,6 +34,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       }
       factCheck(request.text);
       sendResponse({ success: true });
+      return true;
   }
   })();
 });
