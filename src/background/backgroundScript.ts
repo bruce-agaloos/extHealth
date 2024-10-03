@@ -18,8 +18,8 @@ import  allKeywords from './../utils/health_keywords/index';
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.mode) {
       const newMode = request.mode;
-      console.log('Received mode:', newMode);
       setInStorage({ factCheckMode: newMode });
+      setInStorage({ extHealthFacts: { result: [] } });
       sendResponse({ success: true });
   }
   return true;
