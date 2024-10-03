@@ -224,15 +224,9 @@ const Layout = () => {
                                     {activeContent === 'fact-mode' && (
                                         <div 
                                             className={`fact-mode ${fadeOut ? '' : getFadeInClass()}`}
-                                            style={{ overflow: 'hidden' }}
+                                            style={{ height: '100%' }}
                                         >
                                             <FactCheckMode />
-                                        </div>
-                                    )}
-                                    {activeContent === 'danger' &&
-                                        (<div className={`danger ${fadeOut ? '' : 'fade-in-bottom'}`}
-                                        style={{ height: '100%'}}>
-                                            <Danger />
                                             <a 
                                                 className='howToUse' 
                                                 href='search.html' 
@@ -249,6 +243,11 @@ const Layout = () => {
                                                 <img className="help" src="Help.png" alt="Help Icon" />
                                                 <div className="helpText" style={{ width: 'fit-content', whiteSpace: 'nowrap' }}>Search Past Fact Check Queries</div>
                                             </a>
+                                        </div>
+                                    )}
+                                    {activeContent === 'danger' &&
+                                        (<div className={`danger ${fadeOut ? '' : 'fade-in-bottom'}`}>
+                                            <Danger />
                                             </div>)}
 
                                 </div>
