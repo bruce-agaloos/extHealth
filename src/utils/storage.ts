@@ -197,6 +197,7 @@ const setDefaultInstalled = async (): Promise<void> => {
       setCategoryState(category, true);
     });
     await setInStorage({ extHealthFacts: { result: [] } });
+    setInStorage({ factCheckMode: 'offline' });
   } catch (error) {
     console.error('Error setting default installed state:', error);
   }

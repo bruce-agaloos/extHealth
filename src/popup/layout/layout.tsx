@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Home, Interval, Topics, HealthTips, Danger } from "./../components/sections";
+import { Home, Interval, Topics, HealthTips, FactCheckMode, Danger } from "./../components/sections";
 import { getHealthTipState } from "./../../utils/storage";
 
 const Layout = () => {
@@ -92,12 +92,11 @@ const Layout = () => {
     };
 
     const getFadeInClass = () => {
-        if (previousContent === 'interval' && activeContent === 'topics') {
-            return 'fade-in-bottom';
-        } else if (previousContent === 'danger' && activeContent === 'topics') {
+        const possibleContent = ['interval', 'topics', 'fact-mode', 'danger'];
+        if (possibleContent.indexOf(previousContent) < possibleContent.indexOf(activeContent)) {
             return 'fade-in-top';
-        } else {
-            return 'fade-in';
+        } else if (possibleContent.indexOf(previousContent) > possibleContent.indexOf(activeContent)) {
+            return 'fade-in-bottom';
         }
     };
 
@@ -184,6 +183,12 @@ const Layout = () => {
                                         Topics
                                     </div>
                                     <div
+                                        className={`subTileHeader ${activeContent === 'fact-mode' ? 'active' : ''}`}
+                                        onClick={() => handleSidebarClick('fact-mode')}
+                                    >
+                                        Fact Mode
+                                    </div>
+                                    <div
                                         className={`subTileHeader ${activeContent === 'danger' ? 'active' : ''}`}
                                         onClick={() => handleSidebarClick('danger')}
                                     >
@@ -198,6 +203,13 @@ const Layout = () => {
                                             </div>
                                         </div>
                                     )}
+                                    {(activeContent === 'fact-mode') && (
+                                        <div className="tileHeader">
+                                            <div className="tileBorder">
+                                                Fact Check Mode
+                                            </div>
+                                        </div>
+                                    )}
                                     {activeContent === 'interval' &&
                                         (<div className={`interval ${fadeOut ? '' : 'fade-in-top'}`}>
                                             <Interval /></div>)}
@@ -207,6 +219,14 @@ const Layout = () => {
                                             style={{ overflow: 'hidden' }}
                                         >
                                             <Topics />
+                                        </div>
+                                    )}
+                                    {activeContent === 'fact-mode' && (
+                                        <div 
+                                            className={`fact-mode ${fadeOut ? '' : getFadeInClass()}`}
+                                            style={{ overflow: 'hidden' }}
+                                        >
+                                            <FactCheckMode />
                                         </div>
                                     )}
                                     {activeContent === 'danger' &&

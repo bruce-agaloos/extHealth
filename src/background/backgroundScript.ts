@@ -15,6 +15,16 @@ import {HealthFactsStorage} from "../utils/pop_up_storage/types"
 import  allKeywords from './../utils/health_keywords/index';
 
 
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.mode) {
+      const newMode = request.mode;
+      console.log('Received mode:', newMode);
+      setInStorage({ factCheckMode: newMode });
+      sendResponse({ success: true });
+  }
+  return true;
+});
+
 // Listen for messages from the content script
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   (async () => {
