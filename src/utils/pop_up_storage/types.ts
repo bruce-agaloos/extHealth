@@ -22,4 +22,8 @@ interface HealthFactsStorage {
     result: Fact[];
 }};
 
-export { PopUpStorage, HealthFactsStorage }
+interface FactCheckMode {
+  factCheckMode: string;
+}
+
+export { PopUpStorage, HealthFactsStorage, Premise, Fact, FactCheckMode };
