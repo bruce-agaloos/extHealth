@@ -82,6 +82,7 @@ const Summary: React.FC<SummaryProps> = ({ data }) => {
                             count={`${count}`}
                             expanded={expanded === `${index}-${state}`}
                             onChange={handleAccordionChange(`${index}-${state}`, index, state)}
+                            mode='google'
                         >
                             {relatedPremises.map((premise, idx) => (
                                 <Evidence key={`${index}-${state}-${idx}`} idx={idx} premise={premise} />
