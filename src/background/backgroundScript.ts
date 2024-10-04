@@ -9,7 +9,7 @@ import { sendImageToServer } from "../utils/xAutoDetect/api";
 import {getHealthTips} from "../utils/api_health_tips"
 import {setFactCheckWholeLoad, setSingleFactCheckLoad, isFactCheckLoading} from "../utils/pop_up_storage/storage"
 import {getFromStorage, setInStorage} from "../utils/storage"
-import {HealthFactsStorage} from "../utils/pop_up_storage/types"
+import {Fact, HealthFactsStorage} from "../utils/pop_up_storage/types"
 
 // import { allKeywords } from '../utils/health_keywords';
 import  allKeywords from './../utils/health_keywords/index';
@@ -226,7 +226,7 @@ async function factCheck(text) {
         let currentData = result.extHealthFacts ? result.extHealthFacts.result : [];
     
         // Replace current data with the received data
-        currentData = response.result;
+        currentData = response.result as Fact[];
     
         // Ensure the data length does not exceed 6 items
         if (currentData.length > 6) {

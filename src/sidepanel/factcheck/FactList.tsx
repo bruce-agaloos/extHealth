@@ -72,6 +72,7 @@ const FactList: React.FC<FactListProps> = ({
             count={`${count}`}
             expanded={expanded === `${index}-${state}`}
             onChange={handleAccordionChange(`${index}-${state}`, index, state)}
+            mode={mode} 
           >
             {relatedPremises.map((premise, idx) => (
               <Evidence key={`${index}-${state}-${idx}`} idx={idx} premise={premise} />
@@ -96,6 +97,7 @@ const FactList: React.FC<FactListProps> = ({
           count={`${stateCounts[maxState]}`}
           expanded={expanded === `${index}-${maxState}`}
           onChange={handleAccordionChange(`${index}-${maxState}`, index, maxState)}
+          mode={mode} 
         >
           {fact.premises.map((premise, idx) => (
             <Evidence key={`${index}-${maxState}-${idx}`} idx={idx} premise={premise} />

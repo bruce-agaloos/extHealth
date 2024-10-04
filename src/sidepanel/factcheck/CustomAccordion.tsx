@@ -12,6 +12,7 @@ interface CustomAccordionProps {
   expanded: boolean;
   onChange: (event: React.SyntheticEvent, isExpanded: boolean) => void;
   onClick?: () => void;
+  mode: string; // Add mode prop
 }
 
 const CustomAccordion: React.FC<CustomAccordionProps> = ({
@@ -21,6 +22,7 @@ const CustomAccordion: React.FC<CustomAccordionProps> = ({
   expanded,
   onChange,
   onClick,
+  mode, // Destructure mode prop
 }) => {
   return (
     <Accordion expanded={expanded} onChange={onChange} className={`accordion ${title}-accordion`} onClick={onClick}>
@@ -33,7 +35,7 @@ const CustomAccordion: React.FC<CustomAccordionProps> = ({
           <span>
             {count}
           </span>
-          {title}
+          {mode === 'google' ? title : `Result - Mostly ${title}`} {/* Conditional rendering based on mode */}
         </Typography>
       </AccordionSummary>
       <AccordionDetails>{children}</AccordionDetails>

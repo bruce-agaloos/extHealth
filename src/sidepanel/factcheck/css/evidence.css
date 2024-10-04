@@ -53,6 +53,11 @@
             top: 5px;
             font-size: 0.75rem;
             color: white;
+            padding: 5px;
+            border-radius: 5px;
+            ::first-letter {
+                text-transform: capitalize; /* Capitalize the first letter */
+            }
         }
         .relationship.entailment{
             background-color: #3BA0FD;
