@@ -3,7 +3,7 @@ import TextAreaWithCounter from './TextAreaWithCounter';
 import CustomAccordion from './CustomAccordion';
 import Evidence from './Evidence';
 import { Fact, FactCheckMode } from './../../utils/pop_up_storage/types';
-import { getFromStorage } from './../../utils/storage';
+import { getFactCheckMode } from './../../utils/pop_up_storage/storage';
 
 interface FactListProps {
   facts: Fact[];
@@ -34,7 +34,7 @@ const FactList: React.FC<FactListProps> = ({
   // mode change listener
   useEffect(() => {
     // Fetch the initial mode from storage
-    getFromStorage('factCheckMode').then((result) => {
+    getFactCheckMode().then((result) => {
       const data = result as FactCheckMode; // Type assertion
       if (data.factCheckMode) {
         setMode(data.factCheckMode);

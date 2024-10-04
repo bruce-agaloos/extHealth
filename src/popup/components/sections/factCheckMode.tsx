@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import FactRadio from './../toggles/factRadio';
-import { getFromStorage } from './../../../utils/storage';
+import { getFactCheckMode } from './../../../utils/pop_up_storage/storage';
 
 interface factModeData {
     factCheckMode: string;
@@ -11,7 +11,7 @@ const FactCheckMode: React.FC = () => {
 
     useEffect(() => {
         // Fetch the initial mode from storage
-        getFromStorage('factCheckMode').then((result) => {
+        getFactCheckMode().then((result) => {
             const mode = result as factModeData;
             console.log('Retrieved mode from storage:', mode);
             if (mode.factCheckMode) {

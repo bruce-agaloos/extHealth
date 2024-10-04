@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import {getFromStorage} from './../../utils/storage';
+import {getFactCheckMode} from './../../utils/pop_up_storage/storage';
 
 interface EvidenceProps {
   idx : number;
@@ -16,7 +16,7 @@ const Evidence: React.FC<EvidenceProps> = ({idx, premise }) => {
   const [mode, setMode] = React.useState<string>('onlineDatabase');
 
   useEffect(() => {
-    getFromStorage('factCheckMode').then((result) => {
+    getFactCheckMode().then((result) => {
       const data = result as { factCheckMode: string };
       if (data.factCheckMode) {
         setMode(data.factCheckMode);

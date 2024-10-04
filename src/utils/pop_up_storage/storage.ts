@@ -1,48 +1,56 @@
 import { PopUpStorage } from "./types";
+import { getFromStorage, setInStorage } from "../storage";
+import { FactCheckMode, HealthFactsStorage, Fact } from "./types";
 
 const setFactCheckWholeLoad = (isFactCheckLoading: boolean): Promise<void> => {
-    return new Promise<void>((resolve) => {
-      const vals: PopUpStorage = {
-        isFactCheckLoading,
-      };
-      chrome.storage.local.set(vals, () => {
-        resolve();
-      });
-    });
+  return setInStorage({ isFactCheckLoading });
 };
 
 const setSingleFactCheckLoad = (isSingleFactCheckLoading: boolean): Promise<void> => {
-    return new Promise<void>((resolve) => {
-      const vals: PopUpStorage = {
-        isSingleFactCheckLoading,
-      };
-      chrome.storage.local.set(vals, () => {
-        resolve();
-      });
-    });
+  return setInStorage({ isSingleFactCheckLoading });
 };
 
 const getFactCheckWholeLoad = (): Promise<boolean> => {
-    return new Promise((resolve) => {
-      chrome.storage.local.get("isFactCheckLoading", (result) => {
-        const state = result.isFactCheckLoading;
-        resolve(state);
-      });
-    });
-}
+  return getFromStorage('isFactCheckLoading') as Promise<boolean>;
+};
 
 const getSingleFactCheckLoad = (): Promise<boolean> => {
-    return new Promise((resolve) => {
-      chrome.storage.local.get("isSingleFactCheckLoading", (result) => {
-        const state = result.isSingleFactCheckLoading;
-        resolve(state);
-      });
-    });
-}
+  return getFromStorage('isSingleFactCheckLoading') as Promise<boolean>;
+};
 
 const isFactCheckLoading = async (): Promise<boolean> => {
-    const [wholeLoad, singleLoad] = await Promise.all([getFactCheckWholeLoad(), getSingleFactCheckLoad()]);
-    return wholeLoad || singleLoad;
+  const { isFactCheckLoading } = await getFromStorage('isFactCheckLoading') as { isFactCheckLoading: boolean };
+  return isFactCheckLoading;
+};
+
+// Function to set the factCheckMode in storage
+function setFactCheckMode(mode: string): Promise<void> {
+  return setInStorage({ factCheckMode: mode });
 }
 
-export { setFactCheckWholeLoad, setSingleFactCheckLoad, getFactCheckWholeLoad, getSingleFactCheckLoad, isFactCheckLoading }
+// Function to get the factCheckMode from storage
+function getFactCheckMode(): Promise<FactCheckMode> {
+  return getFromStorage('factCheckMode') as Promise<FactCheckMode>;
+}
+
+// Function to set the extHealthFacts in storage
+function setExtHealthFacts(facts: Fact[]): Promise<void> {
+  return setInStorage({ extHealthFacts: { result: facts } });
+}
+
+// Function to get the extHealthFacts from storage
+function getExtHealthFacts(): Promise<HealthFactsStorage> {
+  return getFromStorage('extHealthFacts') as Promise<HealthFactsStorage>;
+}
+
+export { 
+  setFactCheckWholeLoad,
+  setSingleFactCheckLoad,
+  getFactCheckWholeLoad,
+  getSingleFactCheckLoad,
+  isFactCheckLoading,
+  setFactCheckMode,
+  getFactCheckMode,
+  setExtHealthFacts,
+  getExtHealthFacts
+};

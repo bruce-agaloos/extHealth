@@ -8,7 +8,7 @@ import { getHealthTipState, setDefaultInstalled, getLatestHealthTip } from '../u
 import { sendImageToServer } from "../utils/xAutoDetect/api";
 import {getHealthTips} from "../utils/api_health_tips"
 import {setFactCheckWholeLoad, setSingleFactCheckLoad, isFactCheckLoading} from "../utils/pop_up_storage/storage"
-import {getFromStorage, setInStorage} from "../utils/storage"
+import {getExtHealthFacts, setExtHealthFacts, setFactCheckMode} from "../utils/pop_up_storage/storage"
 import {Fact, HealthFactsStorage} from "../utils/pop_up_storage/types"
 
 // import { allKeywords } from '../utils/health_keywords';
@@ -18,8 +18,8 @@ import  allKeywords from './../utils/health_keywords/index';
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.mode) {
       const newMode = request.mode;
-      setInStorage({ factCheckMode: newMode });
-      setInStorage({ extHealthFacts: { result: [] } });
+      setFactCheckMode(newMode);
+      setExtHealthFacts([]);
       sendResponse({ success: true });
   }
   return true;
@@ -222,7 +222,7 @@ async function factCheck(text) {
 
     try {
         // Retrieve extHealthFacts from storage with a timeout of 3 seconds
-        let result = await getFromStorage(['extHealthFacts'], 3000) as HealthFactsStorage;
+        let result = await getExtHealthFacts();
         let currentData = result.extHealthFacts ? result.extHealthFacts.result : [];
     
         // Replace current data with the received data
@@ -233,7 +233,7 @@ async function factCheck(text) {
             currentData = currentData.slice(0, 6);
         }
     
-        await setInStorage({ extHealthFacts: { result: currentData } });
+        await setExtHealthFacts(currentData);
     
     } catch (error) {
         if (error.message === 'Timeout') {
@@ -248,7 +248,7 @@ async function factCheck(text) {
                 currentData = currentData.slice(0, 6);
             }
     
-            await setInStorage({ extHealthFacts: { result: currentData } });
+            await setExtHealthFacts(currentData);
         } else {
             chrome.notifications.create({
                 type: 'basic',
