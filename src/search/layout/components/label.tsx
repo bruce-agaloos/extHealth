@@ -2,7 +2,7 @@ import React from 'react';
 import '../css/label.css';
 
 interface LabelProps {
-    value: number;
+    value: 1 | -1 | 0;
 }
 
 const Label: React.FC<LabelProps> = ({ value }) => {
