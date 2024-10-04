@@ -47,6 +47,22 @@
             margin-top: 10px;
             font-size: 0.75rem;
         }
+        .relationship{
+            position: absolute;
+            right: 0;
+            top: 5px;
+            font-size: 0.75rem;
+            color: white;
+        }
+        .relationship.entailment{
+            background-color: #3BA0FD;
+        }
+        .relationship.neutral{
+            background-color: #A86CD0;
+        }
+        .relationship.contradiction{
+            background-color: #F8686A;
+        }
     }
     .Supported-accordion{
         .evidence{
