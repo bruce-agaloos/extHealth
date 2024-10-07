@@ -40,7 +40,7 @@ const factCheckWithoutGenerateQueries = async (content: string) => {
 
         // If mode is offline, return early
         if (factCheckMode === 'offline') {
-            return { result: "Offline mode" };
+            return { result: "Offline mode not available in this feature" };
         }
 
         await setSingleFactCheckLoad(true);
