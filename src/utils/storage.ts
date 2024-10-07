@@ -1,6 +1,6 @@
 import { LocalStorage } from "./types";
 import { setExtHealthFacts, setFactCheckMode } from "./pop_up_storage/storage";
-
+import { resetFactCheckHistory } from "./pop_up_storage/history";
 const setHealthTipState = (HealthTipsEnabled: boolean): Promise<void> => {
   return new Promise<void>((resolve) => {
     const vals: LocalStorage = {
@@ -199,6 +199,7 @@ const setDefaultInstalled = async (): Promise<void> => {
     });
     setExtHealthFacts([]);
     setFactCheckMode('onlineDatabase');
+    resetFactCheckHistory();
   } catch (error) {
     console.error('Error setting default installed state:', error);
   }

@@ -34,6 +34,9 @@ const Search: React.FC = () => {
                 }
             });
             const data: SearchResult = await response.json();
+            if (!Array.isArray(data.result)) {
+                data.result = []; // or handle the error appropriately
+            }
             setSearchResults(data);
         } catch (error) {
             console.error("Error fetching search results:", error);
