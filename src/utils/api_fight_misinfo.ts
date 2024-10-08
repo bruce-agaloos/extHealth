@@ -14,7 +14,7 @@ const factCheckWithGenerateQueries = async (content: string) => {
 
         // If mode is offline, return early
         if (factCheckMode === 'offline') {
-            return { result: searchHistory(content) };
+            return { result: await searchHistory(content) };
         }
 
         // Encode the content to ensure it's safe to include in a URL
@@ -23,10 +23,14 @@ const factCheckWithGenerateQueries = async (content: string) => {
         const extraEndpoint = "/factCheck";
         const response = await fetch(`${API_ENDPOINT}${extraEndpoint}?content=${encodedContent}&mode=${factCheckMode}`);
         const data = await response.json();
-        await addFactCheckHistory(content, data.result);
+        if (Array.isArray(data.result)) {
+            await addFactCheckHistory(content, { result: data.result });
+        }
+        await setFactCheckWholeLoad(false);
         return data;
     } catch (error) {
         // console.error('Error in factCheckWithGenerateQueries:', error);
+        await setFactCheckWholeLoad(false);
         return { result: "Network error" }; // Re-throw the error after logging it
     } finally {
         await setFactCheckWholeLoad(false);
@@ -48,9 +52,11 @@ const factCheckWithoutGenerateQueries = async (content: string) => {
         const extraEndpoint = "/factCheckWithoutQueries";
         const response = await fetch(`${API_ENDPOINT}${extraEndpoint}?content=${encodedContent}&mode=${factCheckMode}`);
         const data = await response.json();
+        await setSingleFactCheckLoad(false);
         return data;
     } catch (error) {
         // console.error('Error in factCheckWithoutGenerateQueries:', error);
+        await setSingleFactCheckLoad(false);
         return { result: "Network error" };
     } finally {
         await setSingleFactCheckLoad(false);

@@ -28,15 +28,15 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 // Listen for messages from the content script
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   (async () => {
-  if (request.message === 'factCheck') {
+    if (request.message === 'factCheck') {
       if (sender.tab && sender.tab.id) {
-          await chrome.sidePanel.open({ tabId: sender.tab.id });
+        await chrome.sidePanel.open({ tabId: sender.tab.id });
       }
-      factCheck(request.text);
+      await factCheck(request.text);
       sendResponse({ success: true });
-      return true;
-  }
+    }
   })();
+  return true; // Keep the message channel open for the async response
 });
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
