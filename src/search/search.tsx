@@ -18,11 +18,13 @@ const Search: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState<string>("");
     const [selectedItem, setSelectedItem] = useState<ResultItem | null>(null);
     const [searchResults, setSearchResults] = useState<SearchResult | null>(null);
+    const [noInternet, setNoInternet] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
     const [initialMessage, setInitialMessage] = useState<string>("Try searching");
 
     const handleFormSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
+        setNoInternet(false);
         setLoading(true);
         setInitialMessage("");
         const backendEndpoint = `${API_ENDPOINT}/searchPastQueries?content=${encodeURIComponent(searchQuery)}`;
@@ -39,6 +41,7 @@ const Search: React.FC = () => {
             }
             setSearchResults(data);
         } catch (error) {
+            setNoInternet(true);
             console.error("Error fetching search results:", error);
         } finally {
             setLoading(false);
@@ -72,6 +75,8 @@ const Search: React.FC = () => {
             <div id="searchItems">
                 {loading ? (
                     <Spinner />
+                ) : noInternet ? (
+                    <NoResults message="Network error" />
                 ) : searchResults ? (
                     searchResults.result.length === 0 ? (
                         <NoResults message="Sorry there seems to be no similar query" />

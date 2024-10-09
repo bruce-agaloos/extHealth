@@ -13,6 +13,9 @@ const NoResults: React.FC<NoResultsProps> = ({ message }) => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        gap: "10px",
+        fontSize: "1.2em",
+        marginTop: "20px",
       }}
     >
       <span>{message}</span>
