@@ -52,6 +52,7 @@ const TextAreaWithCounter: React.FC<TextAreaWithCounterProps> = ({
         onBlur={handleBlur}
         onKeyDown={onKeyDown}
         onKeyUp={onKeyUp}
+        spellCheck={true}
         className={textareaClassName}
         placeholder='Enter a health claim here...'
       />
