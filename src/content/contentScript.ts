@@ -129,7 +129,7 @@ const searchKeywordAndCreateOverlay = async (tweetBody: string, tweet: HTMLDivEl
 
         // Define the JSON object
         const claimData = {
-            claim: "Polio is not deadly to all age bracket",
+            claim: "Covid-19 is non-communicable disease",
             entailment: 3,
             disputed: 5,
             neutral: 2
@@ -165,6 +165,7 @@ const searchKeywordAndCreateOverlay = async (tweetBody: string, tweet: HTMLDivEl
                 // newImg.src = chrome.runtime.getURL('warning.png');
                 // newImg.alt = "Warning Icon";
                 // viewBtn.prepend(newImg);
+                viewBtn.title = "This claim is highly disputed. This may not be true. ( You may click the button to fact check )";
             }
 
         }    
