@@ -1,7 +1,7 @@
 import { initialScroll, startTimer, getHealthTipState } from "../utils";
 import { stopTimer } from "../utils/timer";
 import { TwitterTheme } from '../utils/xAutoDetect/types';
-import { getXTheme, extractTweetBody, createBtnElement, createOverlayElement } from '../utils/xAutoDetect/dom';
+import { getXTheme, extractTweetBody, createBtnElement, createOverlayElement, checkForKeywords } from '../utils/xAutoDetect/dom';
 import allKeywords from './../utils/health_keywords';
 import { nanoid } from 'nanoid';
 import { getXAutoDetectState } from "../utils/storage";
@@ -110,8 +110,7 @@ const searchKeywordAndCreateOverlay = async (tweetBody: string, tweet: HTMLDivEl
      * if the keyword is found in the tweet body
      * 
     */
-    const isMatch = allKeywords
-        .some(keyword => new RegExp(`(?:^|[\\s.,;?!()\\[\\]{}])${keyword}(?:[\\s.,;?!()\\[\\]{}]|$)`, 'i').test(tweetBody));
+    const isMatch = checkForKeywords(tweetBody);
 
     if (!isMatch) {
         return;

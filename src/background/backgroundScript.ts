@@ -3,16 +3,13 @@ import {
   factCheckWithGenerateQueries, factCheckWithoutGenerateQueries
 } from "../utils/api_fight_misinfo";
 
-import { healthClaimDetection } from '../utils/claim_detection';
-import { getHealthTipState, setDefaultInstalled, getLatestHealthTip } from '../utils/storage';
+import { setDefaultInstalled } from '../utils/storage';
 import { sendImageToServer } from "../utils/xAutoDetect/api";
-import {getHealthTips} from "../utils/api_health_tips"
 import {setFactCheckWholeLoad, setSingleFactCheckLoad, isFactCheckLoading} from "../utils/pop_up_storage/storage"
 import {getExtHealthFacts, setExtHealthFacts, setFactCheckMode} from "../utils/pop_up_storage/storage"
-import {Fact, HealthFactsStorage} from "../utils/pop_up_storage/types"
+import {Fact} from "../utils/pop_up_storage/types"
+import {checkForKeywords } from '../utils/xAutoDetect/dom';
 
-// import { allKeywords } from '../utils/health_keywords';
-import  allKeywords from './../utils/health_keywords/index';
 
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -119,8 +116,7 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
               return;
           }
 
-          const isMatch = allKeywords
-              .some(keyword => new RegExp(`(?:^|[\\s.,;?!()\\[\\]{}])${keyword}(?:[\\s.,;?!()\\[\\]{}]|$)`, 'i').test(text));
+          const isMatch = checkForKeywords(text);
           if (!isMatch) {
               chrome.notifications.create({
                   type: 'basic',
@@ -142,8 +138,7 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
 
           const text = await sendImageToServer(url);
           // console.log("Extracted: ", text);
-          const isMatch = allKeywords
-              .some(keyword => new RegExp(`(?:^|[\\s.,;?!()\\[\\]{}])${keyword}(?:[\\s.,;?!()\\[\\]{}]|$)`, 'i').test(text));
+          const isMatch = checkForKeywords(text);
           if (!isMatch) {
               chrome.notifications.create({
                   type: 'basic',

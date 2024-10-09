@@ -7,8 +7,7 @@ import TextAreaWithCounter from './TextAreaWithCounter';
 
 import {healthClaimDetection} from '../../utils/claim_detection';
 import {getFromStorage} from "../../utils/storage"
-
-import  allKeywords  from '../../utils/health_keywords/index';
+import {checkForKeywords } from "./../../utils/xAutoDetect/dom";
 
 const FactCheckingSection: React.FC = () => {
   const [expanded, setExpanded] = useState<string | false>(false);
@@ -87,18 +86,17 @@ const FactCheckingSection: React.FC = () => {
       return;
     }
 
-    const isMatch = allKeywords
-          .some(keyword => new RegExp(`(?:^|[\\s.,;?!()\\[\\]{}])${keyword}(?:[\\s.,;?!()\\[\\]{}]|$)`, 'i').test(hypothesis));
-      if (!isMatch) {
-          chrome.notifications.create({
-              type: 'basic',
-              iconUrl: 'error.png',
-              title: 'Health Claim Error',
-              message: 'The current query is not an health claim. Please make sure it is',
-              priority: 2
-          });
-          return;
-      }
+    const isMatch = checkForKeywords(hypothesis);
+    if (!isMatch) {
+        chrome.notifications.create({
+            type: 'basic',
+            iconUrl: 'error.png',
+            title: 'Health Claim Error',
+            message: 'The current query is not an health claim. Please make sure it is',
+            priority: 2
+        });
+        return;
+    }
 
     const isHealthClaim = healthClaimDetection(hypothesis);
     if (!isHealthClaim) {
@@ -159,8 +157,7 @@ const FactCheckingSection: React.FC = () => {
         return;
       }
 
-      const isMatch = allKeywords
-          .some(keyword => new RegExp(`(?:^|[\\s.,;?!()\\[\\]{}])${keyword}(?:[\\s.,;?!()\\[\\]{}]|$)`, 'i').test(fact));
+      const isMatch = checkForKeywords(fact);
       if (!isMatch) {
           chrome.notifications.create({
               type: 'basic',

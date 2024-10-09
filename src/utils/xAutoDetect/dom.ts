@@ -1,7 +1,7 @@
 
 import { Discuss } from "react-loader-spinner";
 import { TweetBodyWrapper, TwitterTheme } from "./types";
-
+import allKeywords from "./../health_keywords/index";
 /**
  * 
  * @returns - The current theme of the twitter page
@@ -158,9 +158,18 @@ const extractTweetBody = (tweetBodyWrapper: TweetBodyWrapper): string => {
     }
 };
 
+function checkForKeywords(input: string): boolean {
+    const keywords = allKeywords;
+    return keywords.some(keyword => {
+        const regex = new RegExp(`\\b${keyword}\\b`, 'i'); // Use \b for word boundaries and 'i' for case-insensitive matching
+        return regex.test(input); // Return true if regex finds a match in the input
+    });
+}
+
 export {
     getXTheme,
     extractTweetBody,
     createBtnElement,
-    createOverlayElement
+    createOverlayElement,
+    checkForKeywords
 }
