@@ -81,10 +81,10 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 chrome.storage.onChanged.addListener(async (changes, areaName) => {
     if (areaName === 'local' && changes.interval) {
         const isHealthTipsEnabled = await getHealthTipState();
-        if (isHealthTipsEnabled){
+        if (isHealthTipsEnabled) {
             stopTimer();
             startTimer();
-         }
+        }
     }
 });
 const enableHealthTips = (): void => {
@@ -127,6 +127,16 @@ const searchKeywordAndCreateOverlay = async (tweetBody: string, tweet: HTMLDivEl
     let isOverlayCreated = false;
     if (!isOverlayCreated) {
 
+        // Define the JSON object
+        const claimData = {
+            claim: "Polio is not deadly to all age bracket",
+            entailment: 3,
+            disputed: 5,
+            neutral: 2
+        };
+
+        
+
         const overlayElement = createOverlayElement();
         const overlayId = nanoid();
 
@@ -141,7 +151,23 @@ const searchKeywordAndCreateOverlay = async (tweetBody: string, tweet: HTMLDivEl
         // viewBtn.style.width = "100%";
         viewBtn.style.position = "absolute";
         viewBtn.style.left = "0";
-        
+
+        if (tweetBody == claimData.claim) {
+
+            if (claimData.disputed > claimData.entailment && claimData.disputed > claimData.neutral) {
+                const img = viewBtn.querySelector('img');
+                if (img) {
+                    // img.remove();
+                    img.src = chrome.runtime.getURL('warning.png');
+                    img.alt = "Warning Icon";
+                }
+                // const newImg = document.createElement('img');
+                // newImg.src = chrome.runtime.getURL('warning.png');
+                // newImg.alt = "Warning Icon";
+                // viewBtn.prepend(newImg);
+            }
+
+        }    
 
         viewBtn.setAttribute("data-overlay-id", overlayId);
         viewBtn.addEventListener("click", () => {
@@ -152,9 +178,9 @@ const searchKeywordAndCreateOverlay = async (tweetBody: string, tweet: HTMLDivEl
             spinner.style.color = "#f5f5f5"
             spinner.style.position = "absolute";
             spinner.style.left = "0";
-           
 
-           
+
+
             viewBtn.appendChild(spinner);
 
             const handleStorageChange = (changes: { [key: string]: chrome.storage.StorageChange }) => {
@@ -178,7 +204,7 @@ const searchKeywordAndCreateOverlay = async (tweetBody: string, tweet: HTMLDivEl
                                 // Remove the spinner
                                 if (spinner && viewBtn.contains(spinner)) {
                                     viewBtn.removeChild(spinner);
-                                }  
+                                }
                             }
                         }
                     });
