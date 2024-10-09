@@ -172,7 +172,7 @@ const searchKeywordAndCreateOverlay = async (tweetBody: string, tweet: HTMLDivEl
                             if (!(isFactCheckLoading || isSingleFactCheckLoading)) {
                                 // Remove the class name btn-loading
                                 loaderElement.classList.remove('btn-loading');
-                                viewBtn.style.paddingLeft = "0";
+                                viewBtn.style.padding = "0 5px";
                                 viewBtn.style.pointerEvents = "auto";
 
                                 // Remove the spinner
