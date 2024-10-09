@@ -7,6 +7,7 @@ import { nanoid } from 'nanoid';
 import { getXAutoDetectState } from "../utils/storage";
 import { healthClaimDetection } from '../utils/claim_detection';
 import './css/spinner.css';
+import './css/tooltip.css';
 
 const setInitialExtensionState = async (): Promise<void> => {
     const isHealthTipsEnabled = await getHealthTipState();
@@ -128,14 +129,25 @@ const searchKeywordAndCreateOverlay = async (tweetBody: string, tweet: HTMLDivEl
     if (!isOverlayCreated) {
 
         // Define the JSON object
-        const claimData = {
-            claim: "Covid-19 is non-communicable disease",
-            entailment: 3,
-            disputed: 5,
-            neutral: 2
-        };
+        const claimData = [
+            {
+                claim: "Covid-19 is non-communicable disease",
+                entailment: 3,
+                disputed: 5,
+                neutral: 2
 
-        
+            },
+            {
+                claim: "Polio is not deadly to all age bracket",
+                entailment: 3,
+                disputed: 5,
+                neutral: 2
+            }
+        ];
+
+
+
+
 
         const overlayElement = createOverlayElement();
         const overlayId = nanoid();
@@ -151,25 +163,42 @@ const searchKeywordAndCreateOverlay = async (tweetBody: string, tweet: HTMLDivEl
         // viewBtn.style.width = "100%";
         viewBtn.style.position = "absolute";
         viewBtn.style.left = "0";
+        claimData.forEach (claimData => {
+            if (tweetBody == claimData.claim) {
 
-        if (tweetBody == claimData.claim) {
-
-            if (claimData.disputed > claimData.entailment && claimData.disputed > claimData.neutral) {
-                const img = viewBtn.querySelector('img');
-                if (img) {
-                    // img.remove();
-                    img.src = chrome.runtime.getURL('warning.png');
-                    img.alt = "Warning Icon";
+                if (claimData.disputed > claimData.entailment && claimData.disputed > claimData.neutral) {
+                    const img = viewBtn.querySelector('img');
+                    if (img) {
+                        // Change the image source
+                        img.src = chrome.runtime.getURL('warning.png');
+                        img.alt = "Warning Icon";
+                    }
+    
+                    // Tooltip for disputer flagged claim
+                    const tooltip = document.createElement('div');
+                    tooltip.className = 'tooltip';
+                    tooltip.innerText = "This claim is highly disputed. This may not be true. ( You may click the button to check out )";
+                    // viewBtn.title = "This claim is highly disputed. This may not be true. ( You may click the button to check out )";
+    
+                    // Append the tooltip to the button container
+                    buttonContainer.appendChild(tooltip);
+    
+                    // Show the tooltip on hover
+                    viewBtn.addEventListener('mouseenter', () => {
+                        tooltip.classList.add('show-tooltip');
+                    });
+    
+                    // Hide the tooltip on mouse leave
+                    viewBtn.addEventListener('mouseleave', () => {
+                        tooltip.classList.remove('show-tooltip');
+                    });
+    
                 }
-                // const newImg = document.createElement('img');
-                // newImg.src = chrome.runtime.getURL('warning.png');
-                // newImg.alt = "Warning Icon";
-                // viewBtn.prepend(newImg);
-                viewBtn.title = "This claim is highly disputed. This may not be true. ( You may click the button to fact check )";
+    
             }
-
-        }    
-
+    
+        });
+       
         viewBtn.setAttribute("data-overlay-id", overlayId);
         viewBtn.addEventListener("click", () => {
 
