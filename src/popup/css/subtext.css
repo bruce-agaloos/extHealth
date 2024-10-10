@@ -1,11 +1,12 @@
 .popupSummary {
-  font-size: 14px;
+  font-size: 1rem;
   color: #333;
   font-weight: bold;
 }
 
 .tipsTimeInterval {
   margin: 10px 5px 15px 15px;
+  font-size: 1rem;
 }
 
 .containerSummary {
@@ -13,8 +14,8 @@
   justify-content: space-between;
   align-items: center;
   padding: px;
-  padding-left: 60px;
-  padding-right: 60px;
+  padding-left: 80px;
+  padding-right: 80px;
   font-style: bold;
 }
 
@@ -26,7 +27,7 @@
   color: #5c5b5b;
   margin-top: 10px;
   margin-bottom: 5px;
-  font-size: 17px;
+  font-size: 1.2rem;
 }
 
 .tileBorder {
@@ -46,7 +47,10 @@
   color: #5c5b5b;
   z-index: 1000;
   top: 85%;
-  left: 65%;
+  left: 70%;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .help {

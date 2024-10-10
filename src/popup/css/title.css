@@ -4,6 +4,7 @@
   padding-left: 20px;
   padding-bottom: 10px;
   cursor: pointer;
+  justify-content: space-around;
 }
 
 .logo {
@@ -18,13 +19,13 @@
   border-bottom: 1px solid #ccc;
   background-color: white;
   padding: 10px;
-  width: 340px;
+  width: 400px;
 }
 
 .popupTitle {
   font-family: "Roboto Slab", sans-serif;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 1.4rem;
   padding-top: 5px;
   margin-right: 30px;
   cursor: pointer;
@@ -45,6 +46,7 @@
   top: 15%;
   right: 20%;
   left: 25%;
+  font-size: 1rem;
 }
 
 .icons {
