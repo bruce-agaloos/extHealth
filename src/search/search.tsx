@@ -13,6 +13,7 @@ import './layout/css/accordionAndEvidence.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { API_ENDPOINT } from './../utils/endpoint';
+import {getFactCheckMode} from './../utils/pop_up_storage/storage';
 
 const Search: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState<string>("");
@@ -21,13 +22,51 @@ const Search: React.FC = () => {
     const [noInternet, setNoInternet] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
     const [initialMessage, setInitialMessage] = useState<string>("Try searching");
+    const [mode, setMode] = useState<string>("");
+    const updateInitialMessage = (mode: string) => {
+        setInitialMessage("Try searching");
+        if (mode === 'offline') {
+            setInitialMessage("This feature is not available in offline mode");
+        }
+    };
+    useEffect(() => {
+        const handleStorageChange = (changes: { [key: string]: chrome.storage.StorageChange }, areaName: string) => {
+            if (changes.factCheckMode) {
+                const newMode = changes.factCheckMode.newValue;
+                setMode(newMode);
+                setSelectedItem(null);
+                setSearchResults(null);
+                setNoInternet(false);
+                setLoading(false);
+                updateInitialMessage(newMode);
+            }
+        };
 
+        chrome.storage.onChanged.addListener(handleStorageChange);
+
+        getFactCheckMode().then((modeObject) => {
+            const initialMode = modeObject.factCheckMode;
+            setMode(initialMode);
+            updateInitialMessage(initialMode);
+        });
+
+        return () => {
+            chrome.storage.onChanged.removeListener(handleStorageChange);
+        };
+    }, []);
     const handleFormSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         setNoInternet(false);
         setLoading(true);
         setInitialMessage("");
-        const backendEndpoint = `${API_ENDPOINT}/searchPastQueries?content=${encodeURIComponent(searchQuery)}`;
+        const modeObject = await getFactCheckMode();
+        const mode = modeObject.factCheckMode; 
+        if (mode === 'offline') {
+            setInitialMessage("This feature is not available in offline mode");
+            setLoading(false);
+            return;
+        }
+        const backendEndpoint = `${API_ENDPOINT}/searchPastQueries?content=${encodeURIComponent(searchQuery)}&mode=${encodeURIComponent(mode)}`;
         try {
             const response = await fetch(backendEndpoint, {
                 method: "GET",
@@ -72,6 +111,18 @@ const Search: React.FC = () => {
                     <FontAwesomeIcon icon={faSearch} />
                 </button>
             </form>
+            <div id="mode">
+                {mode && (
+                    <div>
+                        <span>
+                            <strong>Mode: </strong>
+                        </span>
+                        {mode === 'offline' && "Offline Mode"}
+                        {mode === 'onlineDatabase' && "Online Database Mode"}
+                        {mode === 'google' && "Google Mode"}
+                    </div>
+                )}
+            </div>
             <div id="searchItems">
                 {loading ? (
                     <Spinner />

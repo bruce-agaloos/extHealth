@@ -9,7 +9,7 @@
 
 .container {
     display: grid;
-    grid-template-rows: auto 1fr; /* First row auto height, second row takes remaining space */
+    grid-template-rows: auto auto 1fr; /* First row auto height, second row takes remaining space */
     grid-template-columns: minmax(200px, 2fr) minmax(100px, 1fr); /* Two columns with min and max widths */
     gap: 10px; /* Optional: space between grid items */
     min-height: 100vh; /* Full viewport height */
@@ -26,15 +26,23 @@
     display: flex;
 }
 
+#mode{
+    grid-row: 2 / 3;
+    grid-column: 1 / 3;
+    font-size: 1rem;
+    margin-left: 5px;
+    color: #4b4b4b;
+}
+
 #searchItems {
-    grid-row: 2 / 3; /* Second row */
+    grid-row: 3 / 4; 
     grid-column: 1 / 2; /* First column */
     display: flex;
     flex-direction: column;
 }
 
 #summary {
-    grid-row: 2 / 3; /* Second row */
+    grid-row: 3 / 4; 
     grid-column: 2 / 3; /* Second column */
     display: flex;
 }
@@ -42,7 +50,7 @@
 /* Styles for larger screens */
 @media (min-width: 1000px) {
     .container {
-        grid-template-rows: auto 1fr; /* First row auto height, second row takes remaining space */
+        grid-template-rows: auto auto 1fr; /* First row auto height, second row takes remaining space */
         grid-template-columns: auto minmax(300px, 2fr) minmax(200px, 1fr); /* Three columns with min and max widths */
     }
 
