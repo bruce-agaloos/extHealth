@@ -23,15 +23,14 @@ const Layout = () => {
             </span>
           </div>
         </header>
-        {/* <section id="tooltip">
+        <section id="tooltip">
           <div>
             <p>
               <img src="info_white.png" alt="" height={'20px'} width={'20px'} />
-              For best results, try simple claims like: "Cancer causes headaches", "Polio is deadly".
+              The <strong>model</strong> used to determine the "supporting," "disputed," and "neutral" is not <strong>100%</strong> correct. Please use your own judgement when reading the fact-checking results.
             </p>
-            <p>Avoid submitting complex/multiple claims like: "Cancer symptoms are headaches, high fever, and hallucinations."</p>
           </div>
-        </section> */}
+        </section>
         <section id="body">
           <div id="factChecking" className='appearLeft'>
             <FactCheckingSection/>
