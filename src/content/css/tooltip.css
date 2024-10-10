@@ -1,6 +1,6 @@
 .tooltip {
     position: absolute;
-    top: 15%;
+    top: 15px;
     left: -30%;
     transform: translateX(-50%);
     background-color: #555;
