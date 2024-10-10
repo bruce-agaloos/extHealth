@@ -43,7 +43,16 @@ const sendImageUrl = async (url: string) => {
     return data.text;
 }
 
-
+/**
+ * 
+ * @param text - The text content to be checked for highly disputed claim.
+ * @returns bool - true if the claim is highly disputed, otherwise false.
+ */
+const checkHighlyDisputedClaim = async (text: string) => {
+    const response = await fetch(`${API_ENDPOINT}/checkClaimIfDisputed?content=${text}`);
+    const data = await response.json();
+    return data.result;
+}
 
 const sendImageToServer = async (url: string) => {
     try {
@@ -61,5 +70,7 @@ const sendImageToServer = async (url: string) => {
 export { 
     sendtTweetToTranslateInServer,
     sendImageUrl,
-    sendImageToServer
+    sendImageToServer,
+    checkHighlyDisputedClaim
+    
 };

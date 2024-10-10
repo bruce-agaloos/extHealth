@@ -6,6 +6,7 @@ import allKeywords from './../utils/health_keywords';
 import { nanoid } from 'nanoid';
 import { getXAutoDetectState } from "../utils/storage";
 import { healthClaimDetection } from '../utils/claim_detection';
+import { checkHighlyDisputedClaim } from '../utils/xAutoDetect/api';
 import './css/spinner.css';
 import './css/tooltip.css';
 
@@ -126,8 +127,8 @@ const searchKeywordAndCreateOverlay = async (tweetBody: string, tweet: HTMLDivEl
      * create an overlay element and append it to the tweet
      */
     let isOverlayCreated = false;
-    if (!isOverlayCreated) {
-
+    if (!isOverlayCreated) {   
+        
         // Define the JSON object
         const claimData = [
             {
@@ -158,46 +159,42 @@ const searchKeywordAndCreateOverlay = async (tweetBody: string, tweet: HTMLDivEl
         buttonContainer.style.position = "absolute";
         buttonContainer.style.right = "0";
         // buttonContainer.style.backgroundColor = "red";
+        const isClaimDisputed = await checkHighlyDisputedClaim(tweetBody);
 
         const viewBtn = createBtnElement(tweetBody);
         // viewBtn.style.width = "100%";
         viewBtn.style.position = "absolute";
         viewBtn.style.left = "0";
-        claimData.forEach (claimData => {
-            if (tweetBody == claimData.claim) {
-
-                if (claimData.disputed > claimData.entailment && claimData.disputed > claimData.neutral) {
-                    const img = viewBtn.querySelector('img');
-                    if (img) {
-                        // Change the image source
-                        img.src = chrome.runtime.getURL('warning.png');
-                        img.alt = "Warning Icon";
-                    }
-    
-                    // Tooltip for disputer flagged claim
-                    const tooltip = document.createElement('div');
-                    tooltip.className = 'tooltip';
-                    tooltip.innerText = "This claim is highly disputed. This may not be true. ( You may click the button to check out )";
-                    // viewBtn.title = "This claim is highly disputed. This may not be true. ( You may click the button to check out )";
-    
-                    // Append the tooltip to the button container
-                    buttonContainer.appendChild(tooltip);
-    
-                    // Show the tooltip on hover
-                    viewBtn.addEventListener('mouseenter', () => {
-                        tooltip.classList.add('show-tooltip');
-                    });
-    
-                    // Hide the tooltip on mouse leave
-                    viewBtn.addEventListener('mouseleave', () => {
-                        tooltip.classList.remove('show-tooltip');
-                    });
-    
+        if (isClaimDisputed) {
+            const img = viewBtn.querySelector('img');
+                if (img) {
+                    // Change the image source
+                    img.src = chrome.runtime.getURL('warning.png');
+                    img.alt = "Warning Icon";
                 }
-    
-            }
-    
-        });
+
+                // Tooltip for disputer flagged claim
+                const tooltip = document.createElement('div');
+                tooltip.className = 'tooltip';
+                tooltip.innerText = "This claim is highly disputed. ( You may click the button to check out )";
+                // viewBtn.title = "This claim is highly disputed. This may not be true. ( You may click the button to check out )";
+
+                // Append the tooltip to the button container
+                buttonContainer.appendChild(tooltip);
+
+                // Show the tooltip on hover
+                viewBtn.addEventListener('mouseenter', () => {
+                    tooltip.classList.add('show-tooltip');
+                });
+
+                // Hide the tooltip on mouse leave
+                viewBtn.addEventListener('mouseleave', () => {
+                    tooltip.classList.remove('show-tooltip');
+                });
+
+           
+
+        }
        
         viewBtn.setAttribute("data-overlay-id", overlayId);
         viewBtn.addEventListener("click", () => {
