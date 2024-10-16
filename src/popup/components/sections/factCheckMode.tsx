@@ -80,7 +80,7 @@ const FactCheckMode: React.FC = () => {
             {showModal && (
                 <Modal
                     title="Warning"
-                    message="Are you sure you want to switch to Google Mode?"
+                    message="Google mode has better diversity, but some content may be unevaluated. Proceed?"
                     onConfirm={handleConfirm}
                     onCancel={handleCancel}
                 />
