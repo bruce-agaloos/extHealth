@@ -64,8 +64,8 @@ const HealthTips: React.FC<HealthTipsProps> = ({ idx, health_tips }) => {
                 <p className="body-text">
                     {theRestSentence}
                 </p>
-                <a className="url" href={health_tips.link} target="_blank" rel="noopener noreferrer">
-                    health.gov
+                <a className="url" href={health_tips.link.replace("https://", "https://odphp.")} target="_blank" rel="noopener noreferrer">
+                    read more
                 </a>
             </div>
         </div>
