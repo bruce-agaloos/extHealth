@@ -192,13 +192,13 @@ const setDefaultInstalled = async (): Promise<void> => {
   try {
     setXAutoDetectState(true);
     setHealthTipState(true);
-    setInterval(10);
+    setInterval(5);
     const categories = [15, 16, 18, 19, 20, 21, 23, 24, 28, 29];
     categories.forEach((category) => {
       setCategoryState(category, true);
     });
     setExtHealthFacts([]);
-    setFactCheckMode('onlineDatabase');
+    setFactCheckMode('google');
     resetFactCheckHistory();
   } catch (error) {
     console.error('Error setting default installed state:', error);
