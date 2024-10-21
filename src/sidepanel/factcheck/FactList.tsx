@@ -80,21 +80,23 @@ const FactList: React.FC<FactListProps> = ({
           </CustomAccordion>
         );
       });
-    } else {
+    }     else {
       // For offline or onlineDatabase mode
       const stateCounts = fact.premises.reduce((acc, premise) => {
         const state = premise.relationship.toLowerCase();
         acc[state] = (acc[state] || 0) + 1;
         return acc;
       }, {} as { [key: string]: number });
-
+    
       const maxState = Object.keys(stateCounts).reduce((a, b) => stateCounts[a] > stateCounts[b] ? a : (stateCounts[a] === stateCounts[b] ? 'neutral' : b), 'neutral');
-
+    
+      const totalCount = Object.values(stateCounts).reduce((sum, count) => sum + count, 0);
+    
       return (
         <CustomAccordion
           key={`${index}-${maxState}`}
           title={`${stateMappings[maxState]}`} 
-          count={`${stateCounts[maxState]}`}
+          count={`${totalCount}`}
           expanded={expanded === `${index}-${maxState}`}
           onChange={handleAccordionChange(`${index}-${maxState}`, index, maxState)}
           mode={mode} 

@@ -43,6 +43,103 @@ function getExtHealthFacts(): Promise<HealthFactsStorage> {
   return getFromStorage('extHealthFacts') as Promise<HealthFactsStorage>;
 }
 
+function testingDataFacts(mode: string): Promise<{ result: { hypothesis: string; premises: { premise: string; relationship: string; url: string; title: string; date: string; }[]; }[]; }> {
+  let sampleUrl = "www.who.int";
+  if (mode !== 'google') {
+    sampleUrl = "#page=54";
+  }
+  const sampleFact = {
+    result: [
+      {
+        hypothesis: 'sample',
+        premises: [
+          {
+            premise: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio.',
+            relationship: 'contradiction',
+            url: sampleUrl,
+            title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio.',
+            date: ""
+          },
+          {
+            premise: '2',
+            relationship: 'entailment',
+            url: sampleUrl,
+            title: 'Some other title',
+            date: ""
+          },
+          {
+            premise: '3',
+            relationship: 'neutral',
+            url: 'https://example.com',
+            title: 'Some 123 title',
+            date: ""
+          },
+          {
+            premise: '4',
+            relationship: 'neutral',
+            url: 'https://example.com',
+            title: 'Some 333 title',
+            date: ""
+          },
+        ],
+      },
+      {
+        hypothesis: 'sample ',
+        premises: [
+          {
+            premise: '1',
+            relationship: 'contradiction',
+            url: 'https://example.com',
+            title: 'Some title',
+            date: "3/4/2021"
+          },
+          {
+            premise: '2',
+            relationship: 'entailment',
+            url: 'https://example.com',
+            title: 'Some title',
+            date: "3/4/2121"
+          },
+          {
+            premise: '3',
+            relationship: 'neutral',
+            url: 'https://example.com',
+            title: 'Some title',
+            date: "33/3/333"
+          },
+        ],
+      },
+      {
+        hypothesis: '100000',
+        premises: [
+          {
+            premise: '1',
+            relationship: 'contradiction',
+            url: sampleUrl,
+            title: 'Some title',
+            date: ""
+          },
+          {
+            premise: '2',
+            relationship: 'entailment',
+            url: 'https://example.com',
+            title: 'Some title',
+            date: ""
+          },
+          {
+            premise: '3',
+            relationship: 'neutral',
+            url: 'https://example.com',
+            title: 'Some title',
+            date: ""
+          },
+        ],
+      },
+    ],
+  };
+  return Promise.resolve(sampleFact);
+}
+
 export { 
   setFactCheckWholeLoad,
   setSingleFactCheckLoad,
@@ -52,5 +149,8 @@ export {
   setFactCheckMode,
   getFactCheckMode,
   setExtHealthFacts,
-  getExtHealthFacts
+  getExtHealthFacts,
+
+  // remove after testing
+  testingDataFacts
 };

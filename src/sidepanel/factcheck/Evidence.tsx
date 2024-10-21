@@ -33,23 +33,56 @@ const Evidence: React.FC<EvidenceProps> = ({idx, premise }) => {
     };
   }, []);
 
-  const getIcon = (url: string) => {
-    return "https://www.google.com/s2/favicons?sz=32&domain_url=" + url;
+  const isValidURL = (url: string) => {
+    try {
+      new URL(url);
+      return true;
+    } catch (e) {
+      return false;
+    }
   };
 
+  const getIcon = (url: string) => {
+    const factCheckMode = mode;
+    let icon = "https://www.google.com/s2/favicons?sz=32&domain_url=" + url
+    if (!isValidURL(url)) {
+      icon = chrome.runtime.getURL("icon.png");
+    }
+    return icon;
+  };
+
+  const getUrlLink = (url: string) => {
+    let newUrl = url
+    if (!isValidURL(url)) {
+      const book = "book.pdf"
+      // means its a page in the book
+      if (url.startsWith("#")) {
+        // means it's a page in the book
+        newUrl = chrome.runtime.getURL(`${book}${url}`);
+      } else {
+        newUrl = chrome.runtime.getURL(`${book}#${url}`);
+      }
+    }
+    return newUrl;
+  }
+
   const getBasedUrl = (url: string) => {
+    if (!isValidURL(url)) {
+      return "Check out the source";
+    }
     return new URL(url).hostname;
   }
+
 
   return (
     <div key={idx} className="evidence">
       <img src={getIcon(premise.url)} alt="icon of image" />
       <div>
-        <a href={premise.url} target="_blank" rel="noopener noreferrer">
+        <a href={getUrlLink(premise.url)} target="_blank" rel="noopener noreferrer">
           {getBasedUrl(premise.url)}
         </a>
       </div>
-      <h2>
+      <h2 style={{ marginTop: mode !== 'google' ? '5px' : '0px' }}>
         {premise.title}
       </h2>
       <p>

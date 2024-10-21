@@ -40,8 +40,8 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["iconCheckThisOut.png", "warning.png"],
-      "matches": ["https://*.twitter.com/*", "https://*.x.com/*"]
+      "resources": ["iconCheckThisOut.png", "warning.png", "book.pdf"],
+      "matches": ["<all_urls>"]
     }
   ]
 }
