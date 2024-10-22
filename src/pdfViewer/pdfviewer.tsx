@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Document, Page, pdfjs } from 'react-pdf';
+import { Document, Page, Outline, pdfjs } from 'react-pdf';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 
@@ -43,11 +43,13 @@ const PdfViewer: React.FC<PdfViewerProps> = ({ pdfPath, initialPage = 5, search 
     
         for (let i = 0; i < pagesToRender; i++) {
             pages.push(
-                <Page
-                    key={`page_${currentPage + i}`}
-                    pageNumber={currentPage + i}
-                    customTextRenderer={textRenderer}
-                />
+                <div className = "pdf-page" key={`parentPage_${currentPage + i}`}>
+                    <Page
+                        key={`page_${currentPage + i}`}
+                        pageNumber={currentPage + i}
+                        customTextRenderer={textRenderer}
+                    />
+                </div>
             );
         }
     
@@ -57,6 +59,7 @@ const PdfViewer: React.FC<PdfViewerProps> = ({ pdfPath, initialPage = 5, search 
     return (
         <div style={{ textAlign: 'center', margin: '20px' }}>
             <Document
+                className="pdf-body"
                 options={options}
                 onLoadSuccess={onDocumentLoadSuccess}
                 file={pdfPath}

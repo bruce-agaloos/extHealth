@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PdfViewer from './pdfviewer';
 import { createRoot } from "react-dom/client";
-
+import "./style.css";
 // Function to extract the page number and search term from the URL hash
 const getParamsFromUrl = () => {
     const hash = window.location.hash;
