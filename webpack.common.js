@@ -3,6 +3,8 @@ const CopyPlugin = require('copy-webpack-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
+const pdfjsDistPath = path.dirname(require.resolve('pdfjs-dist/package.json'));
+const cMapsDir = path.join(pdfjsDistPath, 'cmaps');
 
 module.exports = {
     entry: {
@@ -13,6 +15,7 @@ module.exports = {
         background: path.resolve("./src/background/backgroundScript.ts"),
         content: path.resolve("./src/content/contentScript.ts"),
         externalPopup: path.resolve("./src/externalPopup/externalPopup.tsx"),
+        pdfviewer: path.resolve("./src/pdfviewer/layout.tsx"),
     },
    
     module: {
@@ -49,7 +52,15 @@ module.exports = {
                 { from: 'src/static/manifest.json', to: 'manifest.json' } // Ensure manifest.json is copied to dist
             ]
         }),
-        ...getHtmlPlugins(["popup", "sidepanel", "guide", "search", "externalPopup"]),
+        new CopyPlugin({
+            patterns: [
+                {
+                    from: cMapsDir,
+                    to: 'cmaps/'
+                },
+            ],
+        }),
+        ...getHtmlPlugins(["popup", "sidepanel", "guide", "search", "externalPopup", "pdfviewer"]),
     ],
 
     output: {
