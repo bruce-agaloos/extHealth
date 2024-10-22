@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import "./css/startPage.css";
-import openPdf from "../../pdfViewer/openPdf";
 export default function StartPage() {
 
   return (
@@ -17,7 +16,6 @@ export default function StartPage() {
         <div className="groupLink">
           <Link to="/guide.html/pages/1" className="primary-button">Get Started</Link>
           <Link to="/guide.html/finalPage" className="skip-button">Skip Tutorial</Link>
-          <button onClick={() => openPdf("5", "is")}>open pdf</button>
         </div>
       </div>
       <img src="iconBig.png" alt="" />
