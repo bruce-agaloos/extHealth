@@ -1,10 +1,66 @@
 body{
-    background-color: rgb(42,42,46);
+    background-color: rgb(82, 86, 89);
+    margin: 0;
+    width: auto;
     > div {
         background-color: inherit;
         > div {
             background-color: inherit;
         }
+    }
+}
+
+nav {
+    background-color: rgb(50, 54, 57);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.09) 0px -2px 8px, rgba(0, 0, 0, 0.06) 0px 4px 8px, rgba(0, 0, 0, 0.3) 0px 1px 2px, rgba(0, 0, 0, 0.15) 0px 2px 6px;
+    padding: 0px 16px;
+    height: 10vh; /* Fixed height */
+    color: white;
+}
+
+#zoom{
+    padding: 0 4px;
+    display: flex;
+    align-items: center;
+}
+.pageNumber{
+    margin-inline-end: 20px;
+    display: inline;
+}
+
+#fit{
+    margin-inline-start: 20px;
+}
+
+.vertical-separator{
+    background-color: rgba(255, 255, 255, 0.3);
+    height: 15px;
+    width: 1px;
+    display: inline-block;
+}
+
+#zoom-controls{
+    > button{
+        background-color: transparent;
+        border: none;
+        height: 32px;
+        width: 32px;
+    }
+    > button:hover{
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+    }
+    input {
+        width: 5ch;
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
     }
 }
 
@@ -14,11 +70,5 @@ body{
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    width: 100vw;
     gap: 1rem;
-}
-
-.pdf-page{
-    padding: 1rem;
-    background-color: white;
 }
