@@ -30,6 +30,8 @@ const PdfLayout: React.FC = () => {
     const [zoomInput, setZoomInput] = useState((zoom * 100).toString() + '%'); // State for input value
     const minZoom = 0.25; // Minimum zoom level (25%)
     const maxZoom = 5.0; // Maximum zoom level (500%)
+    const [searchResults, setSearchResults] = useState<string[]>([]);
+    const [currentIndex, setCurrentIndex] = useState(0);
 
     // Update the state if the URL hash changes
     useEffect(() => {
@@ -43,8 +45,9 @@ const PdfLayout: React.FC = () => {
         };
     }, []);
 
-    const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSearch(event.target.value);
+    const handleSearchChange = (results: string[], index: number) => {
+        setSearchResults(results);
+        setCurrentIndex(index);
     };
 
     // Zoom handling
@@ -145,7 +148,6 @@ const PdfLayout: React.FC = () => {
             window.removeEventListener('keydown', handleKeyDown);
         };
     }, [zoom]);
-    
 
     return (
         <div>
@@ -171,7 +173,7 @@ const PdfLayout: React.FC = () => {
                         </button>
                     </span>
                 </div>
-                <SearchDropdown onSearch={handleSearch} onNext={nextSearch} onPrev={prevSearch} ></SearchDropdown>
+                <SearchDropdown onSearchResultsChange={handleSearchChange} />
             </nav>
             <PdfViewer pdfPath={pdfPath} initialPage={initialPage} title={titleSearch} search={search} zoom={zoom} />
         </div>
