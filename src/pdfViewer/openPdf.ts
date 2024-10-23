@@ -17,10 +17,10 @@ const openPdf = (page: string, search: string) => {
       search = search.substring(0, colonIndex).trim();
     }
 
-    url = `${url}#${page}&search=${encodeURIComponent(search)}`;
+    url = `${url}#${page}&title=${encodeURIComponent(search)}`;
   } else {
     // Optionally, you can set a default page or handle the error as needed
-    url = `${url}#page=1&search=${encodeURIComponent(search)}`;
+    url = `${url}#page=1&title=${encodeURIComponent(search)}`;
   }
 
   chrome.tabs.create({ url });
