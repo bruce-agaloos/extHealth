@@ -1,0 +1,101 @@
+/* Container for the search button and dropdown */
+.search-container {
+    position: relative;
+    display: inline-block;
+}
+
+/* Styling for the search button */
+.search-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+    background-color: #0056b3;
+}
+
+/* Styling for the dropdown */
+.search-dropdown {
+    position: absolute;
+    top: 40px;
+    right: 5px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 5px;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+    animation-fill-mode: forwards; /* Ensure the dropdown stays in place after the animation */
+    max-width: calc(100vw - 20px); /* Ensure the dropdown doesn't exceed the viewport width */
+    margin: 0 10px; /* Add margin to avoid being cut off by the edges */
+}
+
+/* Container for the input and navigation buttons */
+.search-input-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+/* Styling for the input field */
+.search-input {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    outline: none;
+    transition: border-color 0.3s ease;
+    border-radius: 5px 0 0 5px; /* Rounded corners on the left side */
+}
+
+.search-input:focus {
+    border-color: #007bff;
+}
+
+/* Styling for the search indicator */
+.search-indicator {
+    padding: 8px;
+    background-color: #f1f1f1;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Styling for the navigation buttons */
+.nav-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.1s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0; /* Remove border-radius for seamless integration */
+}
+
+.nav-button:hover {
+    background-color: #0056b3;
+}
+
+/* Animation for the dropdown */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
