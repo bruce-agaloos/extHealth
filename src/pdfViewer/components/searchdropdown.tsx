@@ -1,71 +1,51 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronUp, faChevronDown, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
+import './SearchDropdown.css'; // Import the CSS file for styling
 
 interface SearchDropdownProps {
-    onSearchResultsChange: (results: string[], currentIndex: number) => void; // Callback to pass results and index to parent
+    onSearchTermChange: (term: string) => void;
+    onNavigateUp?: () => void; // Optional callback for navigating up
+    onNavigateDown?: () => void; // Optional callback for navigating down
 }
 
-const SearchDropdown: React.FC<SearchDropdownProps> = ({ onSearchResultsChange }) => {
+const SearchDropdown: React.FC<SearchDropdownProps> = ({ onSearchTermChange, onNavigateUp, onNavigateDown }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [isDropdownVisible, setDropdownVisible] = useState(false);
-    const [searchResults, setSearchResults] = useState<string[]>([]);
-    const [currentIndex, setCurrentIndex] = useState(0);
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const term = event.target.value;
         setSearchTerm(term);
-        // Perform search logic (dummy example here)
-        const results = performSearch(term); // Replace with actual search logic
-        setSearchResults(results);
-        setCurrentIndex(0); // Reset index when searching
-        onSearchResultsChange(results, currentIndex); // Pass results to parent
+        onSearchTermChange(term); // Call the callback function to update the search term
     };
 
     const toggleDropdown = () => {
         setDropdownVisible((prev) => !prev);
     };
 
-    const handleNext = () => {
-        if (currentIndex < searchResults.length - 1) {
-            setCurrentIndex((prev) => prev + 1);
-            onSearchResultsChange(searchResults, currentIndex + 1); // Update parent with new index
-        }
-    };
-
-    const handlePrev = () => {
-        if (currentIndex > 0) {
-            setCurrentIndex((prev) => prev - 1);
-            onSearchResultsChange(searchResults, currentIndex - 1); // Update parent with new index
-        }
-    };
-
-    const performSearch = (term: string): string[] => {
-        // Dummy search logic; replace with actual search from your PDF content
-        // Example: return ['term1', 'term2', 'term3'].filter(term => term.includes(term));
-        return term ? ['term1', 'term2', 'term3'].filter(item => item.includes(term)) : [];
-    };
-
     return (
-        <div>
-            <button id="search" onClick={toggleDropdown}>
+        <div className="search-container">
+            <button id="search" onClick={toggleDropdown} className="search-button">
                 <FontAwesomeIcon icon={faSearch} />
             </button>
             {isDropdownVisible && (
-                <div id="search-dropdown">
-                    <input
-                        type="text"
-                        placeholder="Find in document..."
-                        value={searchTerm}
-                        onChange={handleInputChange}
-                        aria-label="Search term"
-                    />
-                    <button onClick={handlePrev} aria-label="Previous occurrence" disabled={currentIndex === 0}>
-                        <FontAwesomeIcon icon={faChevronUp} />
-                    </button>
-                    <button onClick={handleNext} aria-label="Next occurrence" disabled={currentIndex === searchResults.length - 1}>
-                        <FontAwesomeIcon icon={faChevronDown} />
-                    </button>
+                <div id="search-dropdown" className="search-dropdown">
+                    <div className="search-input-container">
+                        <input
+                            type="text"
+                            placeholder="Find in document..."
+                            value={searchTerm}
+                            onChange={handleInputChange}
+                            aria-label="Search term"
+                            className="search-input"
+                        />
+                        <button onClick={onNavigateUp} className="nav-button">
+                            <FontAwesomeIcon icon={faArrowUp} />
+                        </button>
+                        <button onClick={onNavigateDown} className="nav-button">
+                            <FontAwesomeIcon icon={faArrowDown} />
+                        </button>
+                    </div>
                 </div>
             )}
         </div>

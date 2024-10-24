@@ -20,7 +20,7 @@ interface PdfViewerProps {
     zoom: number; // Zoom level
 }
 
-function highlightPattern(text: string, pattern: string) {
+function highlightPattern(text: string, pattern: string): string {
     const regex = new RegExp(pattern, 'gi');
     return text.replace(regex, (value) => `<mark>${value}</mark>`);
 }
@@ -29,61 +29,58 @@ const PdfViewer: React.FC<PdfViewerProps> = ({ pdfPath, initialPage = 1, title =
     const [numPages, setNumPages] = useState<number>(0);
     const [currentPage, setCurrentPage] = useState<number>(initialPage);
     const [searchText, setSearchText] = useState<string>(search);
-    const [searchTitle, setSearchTitle] = useState<string>(title);
     const [zoomLevel, setZoomLevel] = useState<number>(zoom);
+
+    
 
     useEffect(() => {
         setSearchText(search);
+        if (search) {
+            findFirstOccurrence(search);
+        }
     }, [search]);
 
     useEffect(() => {
         setZoomLevel(zoom);
     }, [zoom]);
+    
 
     const textRenderer = useCallback(
-        (textItem) => highlightPattern(textItem.str, searchTitle),
-        [searchTitle]
+        (textItem: { str: string }) => {
+            const { str } = textItem;
+            return highlightPattern(str, searchText);
+        },
+        [searchText]
     );
 
     function onDocumentLoadSuccess({ numPages }: { numPages: number }): void {
         setNumPages(numPages);
     }
 
+    const findFirstOccurrence = async (term: string) => {
+        try {
+            const loadingTask = pdfjs.getDocument(pdfPath);
+            const pdfDocument = await loadingTask.promise; // Await the promise to get the PDFDocumentProxy
+            for (let pageNum = 1; pageNum <= numPages; pageNum++) {
+                const page = await pdfDocument.getPage(pageNum); // Call getPage on the PDFDocumentProxy
+                const textContent = await page.getTextContent();
+                const textItems = textContent.items.map((item: any) => item.str).join(' ');
+                if (textItems.toLowerCase().includes(term.toLowerCase())) {
+                    setCurrentPage(pageNum);
+                    break;
+                }
+            }
+        } catch (error) {
+            console.error('Error finding first occurrence:', error);
+        }
+    };
+
     const renderPages = () => {
         const pages = [];
         const pagesToRender = Math.min(5, numPages - currentPage + 1);
-
         if (currentPage <= 0) {
             setCurrentPage(1);
         }
-
-        if (currentPage !== 1) {
-            pages.push(
-                <div key={`pageParent_1`} style={{ position: 'relative' }}>
-                    <span
-                        key={`pageCounter_1`}
-                        style={{
-                            zIndex: 25,
-                            position: 'absolute',
-                            top: '0',
-                            right: '0',
-                            backgroundColor: 'green',
-                            color: 'white',
-                            padding: '5px',
-                            borderRadius: '0px 0px 0px 5px'
-                        }}>
-                        {1 + " of " + numPages}
-                    </span>
-                    <Page
-                        key={`page_1`}
-                        pageNumber={1}
-                        customTextRenderer={textRenderer}
-                        scale={zoomLevel}
-                    />
-                </div>
-            );
-        }
-
         for (let i = 0; i < pagesToRender; i++) {
             pages.push(
                 <div key={`pageParent_${currentPage + i}`} style={{ position: 'relative' }}>
@@ -110,7 +107,6 @@ const PdfViewer: React.FC<PdfViewerProps> = ({ pdfPath, initialPage = 1, title =
                 </div>
             );
         }
-
         return pages;
     };
 
