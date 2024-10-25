@@ -29,17 +29,14 @@ const PdfViewer: React.FC<PdfViewerProps> = ({ pdfPath, initialPage = 1, title =
     const initialPageNumber = initialPage;
     const pdfTitle= title;
     const [currentPage, setCurrentPage] = useState<number>(initialPage);
-    // const [searchText, setSearchText] = useState<string>(search);
     const [zoomLevel, setZoomLevel] = useState<number>(zoom);
 
-    
-
-    // useEffect(() => {
-    //     setSearchText(search);
-    //     if (search) {
-    //         findFirstOccurrence(search);
-    //     }
-    // }, [search]);
+    const scrollToTitle = () => {
+        const firstPossibleTitle = document.querySelector<HTMLElement>('mark.possibleTitles');
+        if (firstPossibleTitle) {
+            firstPossibleTitle.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    };
 
     useEffect(() => {
         setZoomLevel(zoom);
@@ -49,7 +46,7 @@ const PdfViewer: React.FC<PdfViewerProps> = ({ pdfPath, initialPage = 1, title =
     const textRenderer = useCallback(
         (textItem: { str: string }) => {
             const { str } = textItem;
-            console.log(pdfTitle);
+            scrollToTitle();
             return highlightPattern(str, pdfTitle);
         },
         [pdfTitle]
