@@ -23,9 +23,7 @@ const PdfLayout: React.FC = () => {
     // Store the initial page number and search text
     const [{ page: initialPage, title: initialTitle }, setParams] = useState(getParamsFromUrl());
     
-    const [titleSearch, setTitleSearch] = useState(initialTitle);
-    const [search, setSearch] = useState('');
-    const title = titleSearch ? titleSearch : 'PDF Viewer';
+    const title = initialTitle ? initialTitle : 'PDF Viewer';
     const [zoom, setZoom] = useState(1.0); // Default zoom level set to 100%
     const [zoomInput, setZoomInput] = useState((zoom * 100).toString() + '%'); // State for input value
     const minZoom = 0.25; // Minimum zoom level (25%)
@@ -43,11 +41,9 @@ const PdfLayout: React.FC = () => {
         };
     }, []);
 
-    const handleSearchTermChange = (term: string) => {
-        setSearch(term);
-        setTitleSearch(term);
-    };
-
+    
+    
+    
     // Zoom handling
     const addZoom = () => {
         if (zoom < maxZoom) {
@@ -171,9 +167,9 @@ const PdfLayout: React.FC = () => {
                         </button>
                     </span>
                 </div>
-                <SearchDropdown onSearchTermChange={handleSearchTermChange} />
+                <SearchDropdown/>
             </nav>
-            <PdfViewer pdfPath={pdfPath} initialPage={initialPage} search={search} zoom={zoom} />
+            <PdfViewer pdfPath={pdfPath} initialPage={initialPage} title={title} zoom={zoom} />
         </div>
     );
 };

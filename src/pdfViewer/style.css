@@ -72,3 +72,13 @@ nav {
     min-height: 100vh;
     gap: 1rem;
 }
+
+mark.searchedClass{
+    background-color: rgba(239, 243, 3, 0.3);
+    color: transparent;
+}
+
+::selection {
+    background-color: rgba(49, 238, 49, 0.5); /* Change this to your desired color */
+    color: transparent; /* Change this to your desired text color */
+}
