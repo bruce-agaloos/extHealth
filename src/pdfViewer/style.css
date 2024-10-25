@@ -78,6 +78,15 @@ mark.searchedClass{
     color: transparent;
 }
 
+mark.searchedClass.active{
+    background-color: rgba(245, 0, 253, 0.507);
+}
+
+mark.possibleTitles{
+    background-color: rgba(3, 243, 239, 0.3);
+    color: transparent;
+}
+
 ::selection {
     background-color: rgba(49, 238, 49, 0.5); /* Change this to your desired color */
     color: transparent; /* Change this to your desired text color */

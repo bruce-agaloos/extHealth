@@ -2,86 +2,40 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import './SearchDropdown.css'; // Import the CSS file for styling
+import  {searchPdf, navigateUp, navigateDown, highlightCurrentResult} from './../functions/search'; 
 
-interface SearchDropdownProps {
-    onNavigateUp?: () => void; // Optional callback for navigating up
-    onNavigateDown?: () => void; // Optional callback for navigating down
-}
 
-const SearchDropdown: React.FC<SearchDropdownProps> = ({ onNavigateUp, onNavigateDown }) => {
-    const [searchTerm, setSearchTerm] = useState('');
+const SearchDropdown: React.FC = () => {
+    const [searchTerm, setSearchTerm] = useState<string>('');
     const [isDropdownVisible, setDropdownVisible] = useState(false);
+    const [searchResults, setSearchResults] = useState<number[]>([]); // Store indexes of search results
+    const [currentIndex, setCurrentIndex] = useState<number>(-1);
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const term = event.target.value;
         setSearchTerm(term);
-        searchPdf(term); // Highlight the search term in the PDF
+        const results = searchPdf(term); // Highlight the search term in the PDF
+        setSearchResults(results);
+        setCurrentIndex(-1);
     };
-
-    const searchPdf = (term: string) => {
-        console.log(term);
-        const pdfViewer = document.querySelector('#pdfViewer');
-        if (!pdfViewer || !term) return; // Check if the element exists and if the term is provided
-    
-        // Remove previous highlights
-        const existingMarks = pdfViewer.querySelectorAll('mark.searchedClass');
-        existingMarks.forEach((mark) => {
-            const parent = mark.parentNode;
-            if (parent) {
-                // Create a text node with the original text content of the mark
-                const textContent = mark.textContent || '';
-                // Create a document fragment to gather text nodes
-                const fragment = document.createDocumentFragment();
-                // Create a text node for the content and append it to the fragment
-                fragment.appendChild(document.createTextNode(textContent));
-                // Replace the mark with the fragment
-                parent.replaceChild(fragment, mark);
-                const originalText = parent.textContent || '';
-                parent.textContent = originalText; // Remove the mark element
-            }
-        });
-    
-        // Escape the search term for use in the regex
-        const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        const regex = new RegExp(`(${escapedTerm})`, 'gi'); // 'g' for global, 'i' for case insensitive
-    
-        // Function to highlight search term
-        const highlightText = (text: string) => {
-            return text.replace(regex, '<mark class="searchedClass">$1</mark>');
-        };
-    
-        // Iterate through child nodes and update text
-        const walk = (node: Node) => {
-            if (node.nodeType === Node.TEXT_NODE) {
-                // Replace text in text nodes
-                const newText = highlightText(node.textContent || '');
-                if (newText !== node.textContent) {
-                    const tempDiv = document.createElement('div');
-                    tempDiv.innerHTML = newText;
-    
-                    // Insert new highlighted nodes before the original text node
-                    while (tempDiv.firstChild) {
-                        node.parentNode?.insertBefore(tempDiv.firstChild, node);
-                    }
-    
-                    // Remove the original text node
-                    node.parentNode?.removeChild(node);
-                }
-            } else if (node.nodeType === Node.ELEMENT_NODE && node.nodeName !== 'MARK') {
-                // Recursively walk through child nodes
-                node.childNodes.forEach(walk);
-            }
-        };
-    
-        // Start walking through the pdfViewer element
-        pdfViewer.childNodes.forEach(walk);
-    };
-    
-    
 
     const toggleDropdown = () => {
         setDropdownVisible((prev) => !prev);
     };
+
+    const onNavigateUp = () => {
+        if (searchResults.length === 0) return; // Do nothing if no results
+        setCurrentIndex((prev) => (prev > 0 ? prev - 1 : searchResults.length - 1)); // Navigate up
+        highlightCurrentResult((currentIndex - 1 + searchResults.length) % searchResults.length); // Highlight new result
+    };
+
+    const onNavigateDown = () => {
+        if (searchResults.length === 0) return; // Do nothing if no results
+        setCurrentIndex((prev) => (prev < searchResults.length - 1 ? prev + 1 : 0)); // Navigate down
+        highlightCurrentResult((currentIndex + 1) % searchResults.length); // Highlight new result
+    };
+
+
 
     return (
         <div className="search-container">

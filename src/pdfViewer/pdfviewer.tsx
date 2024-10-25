@@ -21,7 +21,7 @@ interface PdfViewerProps {
 
 function highlightPattern(text: string, pattern: string): string {
     const regex = new RegExp(pattern, 'gi');
-    return text.replace(regex, (value) => `<mark>${value}</mark>`);
+    return text.replace(regex, (value) => `<mark class="possibleTitles">${value}</mark>`);
 }
 
 const PdfViewer: React.FC<PdfViewerProps> = ({ pdfPath, initialPage = 1, title = '', zoom = 1.0 }) => {
