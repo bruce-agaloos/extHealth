@@ -23,7 +23,7 @@ const openPdf = (page: string, search: string) => {
     url = `${url}#page=1&title=${encodeURIComponent(search)}`;
   }
 
-  chrome.tabs.create({ url });
+  return url;
 };
 
 export default openPdf;

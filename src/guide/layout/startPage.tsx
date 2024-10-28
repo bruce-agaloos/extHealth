@@ -17,7 +17,6 @@ export default function StartPage() {
         <div className="groupLink">
           <Link to="/guide.html/pages/1" className="primary-button">Get Started</Link>
           <Link to="/guide.html/finalPage" className="skip-button">Skip Tutorial</Link>
-          <button onClick={() => openPdf("","")}>open pdf</button>
         </div>
       </div>
       <img src="iconBig.png" alt="" />

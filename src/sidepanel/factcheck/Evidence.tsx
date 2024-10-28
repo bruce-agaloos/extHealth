@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import {getFactCheckMode} from './../../utils/pop_up_storage/storage';
+import openPdf from './../../pdfViewer/openPdf';
 
 interface EvidenceProps {
   idx : number;
@@ -41,9 +42,9 @@ const Evidence: React.FC<EvidenceProps> = ({idx, premise }) => {
       return false;
     }
   };
+  
 
   const getIcon = (url: string) => {
-    const factCheckMode = mode;
     let icon = "https://www.google.com/s2/favicons?sz=32&domain_url=" + url
     if (!isValidURL(url)) {
       icon = chrome.runtime.getURL("icon.png");
@@ -54,14 +55,12 @@ const Evidence: React.FC<EvidenceProps> = ({idx, premise }) => {
   const getUrlLink = (url: string) => {
     let newUrl = url
     if (!isValidURL(url)) {
-      const book = "book.pdf"
-      // means its a page in the book
       if (url.startsWith("#")) {
-        // means it's a page in the book
-        newUrl = chrome.runtime.getURL(`${book}${url}`);
-      } else {
-        newUrl = chrome.runtime.getURL(`${book}#${url}`);
+        url = url.substring(1);
       }
+      const PAGE_URL = url;
+      const TITLE = premise.title;
+      newUrl = openPdf(PAGE_URL, TITLE);
     }
     return newUrl;
   }
