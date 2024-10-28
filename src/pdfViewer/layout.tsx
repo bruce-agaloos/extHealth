@@ -146,7 +146,7 @@ const PdfLayout: React.FC = () => {
     return (
         <div>
             <nav>
-                <h1>{title}</h1>
+                <h1 className="title">{title}</h1>
                 <div id="zoom">
                     {/* <div className="pageNumber">
                         <span id="currentPage">{initialPage}</span>

@@ -22,6 +22,14 @@ nav {
     padding: 0px 16px;
     height: 6vh; /* Fixed height */
     color: white;
+    min-height: 56px;
+}
+
+.title {
+    max-width: 8ch; /* Limit the width to 8 characters */
+    overflow: hidden; /* Hide the overflow text */
+    white-space: nowrap; /* Prevent text from wrapping to the next line */
+    text-overflow: ellipsis; /* Add ellipsis (...) for overflow text */
 }
 
 #zoom{

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import './SearchDropdown.css'; // Import the CSS file for styling
-import  {searchPdf, navigateUp, navigateDown, highlightCurrentResult} from './../functions/search'; 
+import  {searchPdf, highlightCurrentResult} from './../functions/search'; 
 
 
 const SearchDropdown: React.FC = () => {
@@ -23,17 +23,35 @@ const SearchDropdown: React.FC = () => {
         setDropdownVisible((prev) => !prev);
     };
 
+    const handleRerendering = () => {
+        const isThereSearchResult = document.querySelector('mark.searchedClass');
+        if (!isThereSearchResult){
+            const term = searchTerm;
+            const results = searchPdf(term); // Highlight the search term in the PDF
+            setSearchResults(results);
+            setCurrentIndex(-1);
+        };
+    };
+
     const onNavigateUp = () => {
+        handleRerendering();
         if (searchResults.length === 0) return; // Do nothing if no results
         setCurrentIndex((prev) => (prev > 0 ? prev - 1 : searchResults.length - 1)); // Navigate up
         highlightCurrentResult((currentIndex - 1 + searchResults.length) % searchResults.length); // Highlight new result
     };
 
     const onNavigateDown = () => {
+        handleRerendering();
         if (searchResults.length === 0) return; // Do nothing if no results
         setCurrentIndex((prev) => (prev < searchResults.length - 1 ? prev + 1 : 0)); // Navigate down
         highlightCurrentResult((currentIndex + 1) % searchResults.length); // Highlight new result
     };
+
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+            onNavigateDown();
+        }
+    }
 
 
 
@@ -50,6 +68,7 @@ const SearchDropdown: React.FC = () => {
                             placeholder="Find in document..."
                             value={searchTerm}
                             onChange={handleInputChange}
+                            onKeyDown={handleKeyDown}
                             aria-label="Search term"
                             className="search-input"
                         />
