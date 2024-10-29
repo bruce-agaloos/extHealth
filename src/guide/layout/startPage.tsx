@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import "./css/startPage.css";
-
+import openPdf from "../../pdfViewer/openPdf";
 export default function StartPage() {
 
   return (
