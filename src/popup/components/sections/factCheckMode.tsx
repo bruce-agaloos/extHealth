@@ -77,6 +77,16 @@ const FactCheckMode: React.FC = () => {
                 checked={selectedMode === 'google'}
                 onChange={handleModeChange}
             />
+            <a
+                className='searchLink'
+                href='search.html'
+                target='_blank'
+            >
+
+                <img className="help" src="Help.png" alt="Help Icon" />
+                <div className="helpText">Search Past Fact Check Queries</div>
+
+            </a>
             {showModal && (
                 <Modal
                     title="Warning"

@@ -53,6 +53,38 @@
   }
 }
 
+.howToUse {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  justify-content: center;
+  position: absolute;
+  color: #5c5b5b;
+  z-index: 1000;
+  top: 85%;
+  left: 70%;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.searchLink {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  justify-content: center;
+  color: #5c5b5b;
+  position: absolute;
+  margin-top: -13px;
+  margin-left: 40px;
+ 
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 .help {
   margin-right: -5px;
   width: 40px;

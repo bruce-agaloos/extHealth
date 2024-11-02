@@ -222,33 +222,18 @@ const Layout = () => {
                                         </div>
                                     )}
                                     {activeContent === 'fact-mode' && (
-                                        <div 
+                                        <div
                                             className={`fact-mode ${fadeOut ? '' : getFadeInClass()}`}
-                                            style={{ height: '100%' }}
+                                        
                                         >
                                             <FactCheckMode />
-                                            <a 
-                                                className='howToUse' 
-                                                href='search.html' 
-                                                target='_blank' 
-                                                style={{ 
-                                                    width: 'fit-content', 
-                                                    whiteSpace: 'nowrap', 
-                                                    top: '80%', 
-                                                    left: '50%', 
-                                                    transform: 'translateX(-50%)', 
-                                                    position: 'absolute'
-                                                }}
-                                            >
-                                                <img className="help" src="Help.png" alt="Help Icon" />
-                                                <div className="helpText" style={{ width: 'fit-content', whiteSpace: 'nowrap' }}>Search Past Fact Check Queries</div>
-                                            </a>
+                                            
                                         </div>
                                     )}
                                     {activeContent === 'danger' &&
                                         (<div className={`danger ${fadeOut ? '' : 'fade-in-bottom'}`}>
                                             <Danger />
-                                            </div>)}
+                                        </div>)}
 
                                 </div>
                             </div>
