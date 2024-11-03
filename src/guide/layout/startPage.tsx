@@ -1,11 +1,14 @@
 import * as React from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./css/startPage.css";
-import openPdf from "../../pdfViewer/openPdf";
+import TermsOfServiceModal from "./../../termsAndPrivacy/forOtherFolders/modal"
 export default function StartPage() {
+
 
   return (
     <div id="startPage">
+      <TermsOfServiceModal/>
       <div>
         <h1>
         Thank You for Installing 

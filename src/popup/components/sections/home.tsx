@@ -63,7 +63,14 @@ const Home = () => {
                             <span className="buttonText">Fact Check Sidebar</span>
                         </button>
                     </div>
-
+                    <a className='howToUse' href='TermsAndPrivacy.html' target='_blank' style={
+                        {
+                            left: '10px',
+                        }
+                    }>
+                        <img className="help" src="Help.png" alt="Help Icon" />
+                        <div className="helpText">ToS and Privacy Policy</div>
+                    </a>
                     <a className='howToUse' href='guide.html' target='_blank'>
                         <img className="help" src="Help.png" alt="Help Icon" />
                         <div className="helpText">How to use?</div>

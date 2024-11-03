@@ -16,6 +16,7 @@ module.exports = {
         content: path.resolve("./src/content/contentScript.ts"),
         externalPopup: path.resolve("./src/externalPopup/externalPopup.tsx"),
         pdfviewer: path.resolve("./src/pdfviewer/layout.tsx"),
+        TermsAndPrivacy: path.resolve("./src/termsAndPrivacy/termsAndPrivacy.tsx"),
     },
    
     module: {
@@ -60,7 +61,7 @@ module.exports = {
                 },
             ],
         }),
-        ...getHtmlPlugins(["popup", "sidepanel", "guide", "search", "externalPopup", "pdfviewer"]),
+        ...getHtmlPlugins(["popup", "sidepanel", "guide", "search", "externalPopup", "pdfviewer", "TermsAndPrivacy"]),
     ],
 
     output: {

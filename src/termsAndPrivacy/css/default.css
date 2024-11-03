@@ -1,0 +1,7 @@
+/* tabs.css */
+
+.tab-panel {
+    overflow-y: auto; /* Enable vertical scrolling */
+    max-height: calc(100vh - 64px); /* Adjust according to your Tabs height */
+}
+  

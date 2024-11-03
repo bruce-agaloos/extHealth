@@ -188,6 +188,15 @@ function setInStorage(data: { [key: string]: any }): Promise<void> {
   });
 }
 
+const setTOS = (tosAccepted: boolean): Promise<void> => {
+  return setInStorage({ tosAccepted });
+};
+
+const getTOS = (): Promise<{ tosAccepted: boolean }> => {
+  return getFromStorage('tosAccepted') as Promise<{ tosAccepted: boolean }>;
+};
+
+
 const setDefaultInstalled = async (): Promise<void> => {
   try {
     setXAutoDetectState(true);
@@ -221,4 +230,6 @@ export {
   setInStorage,
   getInterval,
   setInterval,
+  setTOS,
+  getTOS,
 };
