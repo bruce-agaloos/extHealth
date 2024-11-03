@@ -6,17 +6,28 @@ nav{
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    height: clamp(300px,50%,700px);
     > div {
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: flex-start;
         flex-wrap: wrap;
         gap: 1rem;
         width: 60%;
         position: relative;
         > img {
-            width: clamp(300px,50%,700px);
-            height: clamp(300px,50%,700px);
+            width: clamp(300px,50%,550px);
+            /* height: clamp(300px,50%,700px); */
+        }
+        > div{
+            align-self: stretch;
+            margin: 10px;
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 1rem;
+            width: 100%;
         }
         p{
             margin: 1rem 0 3rem 0;

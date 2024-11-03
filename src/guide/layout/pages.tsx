@@ -64,12 +64,14 @@ export default function Pages() {
       <div>
         <img src={currentPage.imgLink} alt="Image" />
         <div>
-          <h4>
-            {currentPage.title}
-          </h4>
-          <p>
-            {currentPage.content}
-          </p>
+          <div>
+            <h4>
+              {currentPage.title}
+            </h4>
+            <p>
+              {currentPage.content}
+            </p>
+          </div>
           <div className="stepsFlex">
             <div>
               <Link to={`/guide.html/${currentPage.nextLink}`} className="primary-button">Next Page</Link>
