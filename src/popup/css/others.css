@@ -1,0 +1,15 @@
+.link-container ul{
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Space between links */
+}
+
+.link-container a {
+    font-family: "Lexend", Tahoma, Geneva, sans-serif;
+    text-decoration: none; /* Remove underline from links */
+    color: #3BA0FD; /* Link color */
+    font-size: 1rem;
+    font-weight: bold;
+    transition: color 0.3s, border-bottom 0.3s; /* Smooth transition for hover effects */
+    padding: 5px; /* Padding around the text */
+}

@@ -4,4 +4,5 @@ import Topics from "./topics";
 import HealthTips from "./healthTips";
 import Danger from "./danger";
 import FactCheckMode from "./factCheckMode";
-export {Home, Interval, Topics, HealthTips, Danger, FactCheckMode};
+import Others from "./others";
+export {Home, Interval, Topics, HealthTips, Danger, FactCheckMode, Others};

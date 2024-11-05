@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Home, Interval, Topics, HealthTips, FactCheckMode, Danger } from "./../components/sections";
+import { Home, Interval, Topics, HealthTips, FactCheckMode, Others, Danger } from "./../components/sections";
 import { getHealthTipState } from "./../../utils/storage";
 
 const Layout = () => {
@@ -92,7 +92,7 @@ const Layout = () => {
     };
 
     const getFadeInClass = () => {
-        const possibleContent = ['interval', 'topics', 'fact-mode', 'danger'];
+        const possibleContent = ['interval', 'topics', 'fact-mode', 'others', 'danger'];
         if (possibleContent.indexOf(previousContent) < possibleContent.indexOf(activeContent)) {
             return 'fade-in-top';
         } else if (possibleContent.indexOf(previousContent) > possibleContent.indexOf(activeContent)) {
@@ -169,7 +169,7 @@ const Layout = () => {
                     {activeSection === 'settings' && (
                         <div id="popupContent" className="popupContent" style={{ height: `${popupHeight}px` }}>
                             <div className="sidebar-items">
-                                <div className={`sidebar ${fadeOut ? 'fade-out-left' : 'fade-in-left'}`}>
+                                <div className={`sidebar ${fadeOut ? 'fade-out-left' : 'fade-in-left'}`} style={{overflow:"auto"}}>
                                     <div
                                         className={`subTileHeader ${activeContent === 'interval' ? 'active' : ''}`}
                                         onClick={() => handleSidebarClick('interval')}
@@ -187,6 +187,12 @@ const Layout = () => {
                                         onClick={() => handleSidebarClick('fact-mode')}
                                     >
                                         Fact Mode
+                                    </div>
+                                    <div
+                                        className={`subTileHeader ${activeContent === 'others' ? 'active' : ''}`}
+                                        onClick={() => handleSidebarClick('others')}
+                                    >
+                                        Others
                                     </div>
                                     <div
                                         className={`subTileHeader ${activeContent === 'danger' ? 'active' : ''}`}
@@ -210,6 +216,13 @@ const Layout = () => {
                                             </div>
                                         </div>
                                     )}
+                                    {(activeContent === 'others') && (
+                                        <div className="tileHeader">
+                                            <div className="tileBorder">
+                                                Others
+                                            </div>
+                                        </div>
+                                    )}
                                     {activeContent === 'interval' &&
                                         (<div className={`interval ${fadeOut ? '' : 'fade-in-top'}`}>
                                             <Interval /></div>)}
@@ -227,6 +240,15 @@ const Layout = () => {
                                         
                                         >
                                             <FactCheckMode />
+                                            
+                                        </div>
+                                    )}
+                                    {activeContent === 'others' && (
+                                        <div
+                                            className={`others ${fadeOut ? '' : getFadeInClass()}`}
+                                        
+                                        >
+                                            <Others />
                                             
                                         </div>
                                     )}
