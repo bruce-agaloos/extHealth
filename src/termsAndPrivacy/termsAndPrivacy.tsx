@@ -5,6 +5,7 @@ import 'normalize.css';
 import './css/default.css';
 import TermsOfService from './components/ToS';
 import PrivacyPolicy from './components/Privacy';
+import License from './components/License';  // Importing the new License component
 import TabPanel from './components/TabPanel';  // Importing the new TabPanel component
 
 const TermsAndPrivacy = () => {
@@ -23,8 +24,9 @@ const TermsAndPrivacy = () => {
         </Typography>
       </div>
       <Tabs value={value} onChange={handleChange} variant="fullWidth">
-        <Tab label="Terms of Service" />
+        <Tab label="Terms of Use" />
         <Tab label="Privacy Policy" />
+        <Tab label="License"/>
       </Tabs>
       <Box className="tab-panel" flexGrow={1} p={3}>
         <TabPanel value={value} index={0}>
@@ -32,6 +34,9 @@ const TermsAndPrivacy = () => {
         </TabPanel>
         <TabPanel value={value} index={1}>
           <PrivacyPolicy />
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          <License />
         </TabPanel>
       </Box>
     </div>

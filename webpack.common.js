@@ -17,6 +17,7 @@ module.exports = {
         externalPopup: path.resolve("./src/externalPopup/externalPopup.tsx"),
         pdfviewer: path.resolve("./src/pdfviewer/layout.tsx"),
         TermsAndPrivacy: path.resolve("./src/termsAndPrivacy/termsAndPrivacy.tsx"),
+        documentation: path.resolve("./src/documentation/layout.tsx"),
     },
    
     module: {
@@ -61,7 +62,7 @@ module.exports = {
                 },
             ],
         }),
-        ...getHtmlPlugins(["popup", "sidepanel", "guide", "search", "externalPopup", "pdfviewer", "TermsAndPrivacy"]),
+        ...getHtmlPlugins(["popup", "sidepanel", "guide", "search", "externalPopup", "pdfviewer", "TermsAndPrivacy", "documentation"]),
     ],
 
     output: {
