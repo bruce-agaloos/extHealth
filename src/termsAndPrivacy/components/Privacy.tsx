@@ -16,7 +16,7 @@ const PrivacyPolicy = () => {
         </Typography>
 
         <Box marginTop={3}>
-          <Typography paragraph>
+          <Typography component="div" paragraph>
             This privacy notice for CS82 group (“Company,” “we,” “us,” or
             “our“), describes how and why we might collect, store, use, and/or
             share (“process“) your information when you use our services
@@ -58,14 +58,15 @@ const PrivacyPolicy = () => {
           </Typography>
           <Typography paragraph>
             <strong>Do we process any sensitive personal information?</strong>{" "}
-            We do not process sensitive personal information.
+            We do not collect, use, or store any sensitive personal information.
           </Typography>
           <Typography paragraph>
             <strong>Do you receive any information from third parties?</strong>{" "}
-            No you do not receive any information from third parties.
+            No we do not give any information from third parties for advertising. We do however 
+            share information with third parties for the purpose of providing our services.
           </Typography>
           <Typography paragraph>
-            <strong>How do you process my information?</strong> We process the
+            <strong>How do you process the information I give to you?</strong> We process the
             information you give to us to provide, improve, and administer our
             Services. We may also process the information you provide to us for
             other purposes with your consent. We process your information only
@@ -91,17 +92,7 @@ const PrivacyPolicy = () => {
             modify your information.
           </Typography>
           <Typography paragraph>
-            <strong>What are your rights? </strong> Depending on where you are
-            located geographically, the applicable privacy law may mean you have
-            certain rights regarding the information you give to us.
-          </Typography>
-          <Typography paragraph>
-            <strong>How do I exercise my rights?</strong> The easiest way to
-            exercise your rights is by contacting us. We will consider and act
-            upon any request in accordance with applicable data protection laws.
-          </Typography>
-          <Typography paragraph>
-            Want to learn more about what [Company Name] does with any
+            Want to learn more about what CS82 does with any
             information we collect? Review the notice in full below.
           </Typography>
         </Box>
@@ -198,7 +189,7 @@ const PrivacyPolicy = () => {
             We process your personal information for a variety of reasons,
             depending on how you interact with our Services, including:
           </Typography>
-          <Typography paragraph>
+          <Typography component="div" paragraph>
             <ul>
               <li>
                 To deliver and facilitate delivery of services to the user. We
@@ -235,7 +226,7 @@ const PrivacyPolicy = () => {
             personal information. As such, we may rely on the following legal
             bases to process your personal information:
           </Typography>
-          <Typography paragraph>
+          <Typography component="div" paragraph>
             <ul>
               <li>
                 Consent. We may process your information if you have given us
@@ -304,7 +295,7 @@ const PrivacyPolicy = () => {
             situations described in this section and/or with the following
             categories of third parties.
           </Typography>
-          <Typography paragraph>
+          <Typography component="div" paragraph>
             Vendors, Consultants, and Other Third-Party Service Providers. We
             may share your data with third-party vendors, service providers,
             contractors, or agents (“third parties”) who perform services for us
@@ -331,7 +322,7 @@ const PrivacyPolicy = () => {
             We also may need to share your personal information in the following
             situations:
           </Typography>
-          <Typography>
+          <Typography component="div" paragraph>
             <ul>
               <li>
                 Business Transfers. We may share or transfer your information in

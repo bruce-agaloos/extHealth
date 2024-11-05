@@ -113,7 +113,7 @@ const TermsOfService = () => {
           <Typography variant="h6" gutterBottom>
             USER REPRESENTATIONS
           </Typography>
-          <Typography paragraph>
+          <Typography component="div" paragraph>
             By using the extension, you represent and warrant that:
             <ol>
               <li>
@@ -143,7 +143,7 @@ const TermsOfService = () => {
           <Typography variant="h6" gutterBottom>
             PROHIBITED ACTIVITIES
           </Typography>
-          <Typography paragraph>
+          <Typography component="div" paragraph>
             You may not access or use the extension for any purpose other than
             that for which we make the extension available. The extension may
             not be used in connection with any commercial endeavors except those
@@ -280,7 +280,7 @@ const TermsOfService = () => {
             non-proprietary. When you create or make available any
             Contributions, you thereby represent and warrant that:
           </Typography>
-          <Typography paragraph>
+          <Typography component="div" paragraph>
             <ol>
               <li>
                 the creation, distribution, transmission, public display, or
@@ -460,7 +460,6 @@ const TermsOfService = () => {
             Philippines, without regard to its conflict of law principles.
           </Typography>
         </Box>
-        {/* Todo */}
         <Box marginTop={3}>
           <Typography variant="h6" gutterBottom>
             DISPUTE RESOLUTION
