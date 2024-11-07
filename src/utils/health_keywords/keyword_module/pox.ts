@@ -9,11 +9,6 @@ const pox = [
     "chicken pox",
     "chickenpox",
     
-    "cow pox",
-    "cowpox",
-
-
-    
     "smallpox",
     "small pox",
     "variola",
