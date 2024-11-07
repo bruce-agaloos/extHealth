@@ -1,22 +1,46 @@
 // src/pages/Introduction.js
 import React from 'react';
-import { Typography } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 
 const HowToUse = () => (
-  <div>
-    <section id = "introduction">
-      introduction
-    </section>
-    
-    <section id="getting-started">
+  <Box>
+    {/* Introduction Section */}
+    <Box id="default">
+      <Typography variant="h4" component="h1" gutterBottom>
+        Default Use
+      </Typography>
+    </Box>
 
-    </section>
-    
-    <section id="components">
-
-    </section>
-
-  </div>
+    {/* Pinning Extension Section */}
+    <Box id="submit" mt={4}>
+      <Typography variant="h4" component="h1" gutterBottom>
+        Submit a text
+      </Typography>
+      {/* GIF Placeholder */}
+      <Box mt={2} textAlign="center">
+        <img 
+          src="factSubmit.gif" 
+          alt="Submit a text" 
+          width="400" 
+          height="auto" 
+        />
+      </Box>
+    </Box>
+    <Box id="offline" mt={4}>
+      <Typography variant="h4" component="h1" gutterBottom>
+        Correct a text
+      </Typography>
+      {/* GIF Placeholder */}
+      <Box mt={2} textAlign="center">
+        <img 
+          src="factCorrect.gif" 
+          alt="Correct a text" 
+          width="400" 
+          height="auto" 
+        />
+      </Box>
+    </Box>
+  </Box>
 );
 
 export default HowToUse;

@@ -22,7 +22,7 @@ const MainContent: React.FC<MainContentProps> = ({
       alignItems: "center",
       flexGrow: 1,
       width: { sm: `calc(100% - ${drawerWidth}px)` },
-      minHeight: "100vh",
+      minHeight: "90vh",
       padding: 2,
       boxSizing: "border-box",
     }}
@@ -31,7 +31,7 @@ const MainContent: React.FC<MainContentProps> = ({
       sx={{
         padding: 2,
         boxSizing: 'border-box',
-        maxWidth: 'max(300px, 70vw)',
+        maxWidth: 800,
         width: '100%', // Allows the Box to take the full width of its container
       }}
     >
@@ -41,7 +41,7 @@ const MainContent: React.FC<MainContentProps> = ({
       sx={{
         padding: 2,
         boxSizing: "border-box",
-        maxWidth: 'max(300px, 70vw)',
+        maxWidth: 800,
         width: '100%',
       }}
     >

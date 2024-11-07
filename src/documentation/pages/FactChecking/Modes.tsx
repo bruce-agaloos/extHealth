@@ -1,22 +1,24 @@
 // src/pages/Introduction.js
 import React from 'react';
-import { Typography } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 
 const Modes = () => (
-  <div>
-    <section id = "introduction">
-      introduction
-    </section>
-    
-    <section id="getting-started">
-
-    </section>
-    
-    <section id="components">
-
-    </section>
-
-  </div>
+  <Box>
+    {/* Introduction Section */}
+    <Box id="modes">
+      <Typography variant="h4" component="h1" gutterBottom>
+        Changing Modes
+      </Typography>
+      <Box mt={2} textAlign="center">
+        <img 
+          src="factChangingModes.gif" 
+          alt="Google Mode" 
+          width="400" 
+          height="auto" 
+        />
+      </Box>
+    </Box>
+  </Box>
 );
 
 export default Modes;

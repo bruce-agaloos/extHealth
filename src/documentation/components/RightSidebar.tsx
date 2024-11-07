@@ -33,21 +33,33 @@ const RightSidebar = () => {
   // Handle scrolling and update active section
   const handleScroll = () => {
     const scrollPosition = window.scrollY;
-    let currentActiveSection = '';
+    const windowHeight = window.innerHeight;
+    let closestSection = '';
+    let minDistance = Infinity;
 
     sections.forEach(({ id }) => {
       const element = document.getElementById(id);
       if (element) {
-        const offsetTop = element.getBoundingClientRect().top + scrollPosition;
-        if (scrollPosition >= offsetTop - 10 && scrollPosition < offsetTop + element.clientHeight) {
-          currentActiveSection = id;
+        const elementTop = element.getBoundingClientRect().top + scrollPosition;
+        const elementHeight = element.clientHeight;
+
+        // Calculate the center of the section
+        const sectionCenter = elementTop + elementHeight / 2;
+
+        // Calculate the distance from the center of the screen
+        const distanceToCenter = Math.abs(sectionCenter - (scrollPosition + windowHeight / 2));
+
+        // If the section is closer to the center, mark it as the active one
+        if (distanceToCenter < minDistance) {
+          minDistance = distanceToCenter;
+          closestSection = id;
         }
       }
     });
 
     // Only update if the active section has changed
-    if (currentActiveSection && currentActiveSection !== activeSection) {
-      setActiveSection(currentActiveSection);
+    if (closestSection && closestSection !== activeSection) {
+      setActiveSection(closestSection);
     }
   };
 

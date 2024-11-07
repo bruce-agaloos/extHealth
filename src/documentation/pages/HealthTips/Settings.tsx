@@ -1,22 +1,40 @@
 // src/pages/Introduction.js
 import React from 'react';
-import { Typography } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 
 const Settings = () => (
-  <div>
-    <section id = "introduction">
-      introduction3
-    </section>
-    
-    <section id="getting-started">
+  <Box>
+    {/* Introduction Section */}
+    <Box id="timer">
+      <Typography variant="h4" component="h1" gutterBottom>
+        Set Timer for Health Tips
+      </Typography>
+      <Box mt={2} textAlign="center">
+        <img 
+          src="healthTipsTimer.gif" 
+          alt="Timer for Health Tips" 
+          width="400" 
+          height="auto" 
+        />
+      </Box>
+    </Box>
 
-    </section>
-    
-    <section id="components">
-
-    </section>
-
-  </div>
+    {/* Pinning Extension Section */}
+    <Box id="topics" mt={4}>
+      <Typography variant="h4" component="h1" gutterBottom>
+        Choose Topics
+      </Typography>
+      {/* GIF Placeholder */}
+      <Box mt={2} textAlign="center">
+        <img 
+          src="healthTipsTopic.gif" 
+          alt="Topics for Health Tips" 
+          width="400" 
+          height="auto" 
+        />
+      </Box>
+    </Box>
+  </Box>
 );
 
 export default Settings;

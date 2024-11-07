@@ -1,22 +1,23 @@
 // src/pages/Introduction.js
 import React from 'react';
-import { Typography } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 
 const KeywordsSupported = () => (
-  <div>
-    <section id = "introduction">
-      introduction
-    </section>
-    
-    <section id="getting-started">
+  <Box>
+    {/* Introduction Section */}
+    <Box id="keywords">
+      <Typography variant="h4" component="h1" gutterBottom>
+        Keywords Supported
+      </Typography>
+    </Box>
 
-    </section>
-    
-    <section id="components">
-
-    </section>
-
-  </div>
+    {/* Pinning Extension Section */}
+    <Box id="language" mt={4}>
+      <Typography variant="h4" component="h1" gutterBottom>
+        Language Supported
+      </Typography>
+    </Box>
+</Box>
 );
 
 export default KeywordsSupported;
