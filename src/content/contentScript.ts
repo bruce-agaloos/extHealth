@@ -1,10 +1,8 @@
-import { initialScroll, startTimer, getHealthTipState } from "../utils";
-import { stopTimer } from "../utils/timer";
+import { initialScroll, getHealthTipState,  getXAutoDetectState, setHealthTipsEnabled  } from "../utils";
 import { TwitterTheme } from '../utils/xAutoDetect/types';
 import { getXTheme, extractTweetBody, createBtnElement, createOverlayElement, checkForKeywords } from '../utils/xAutoDetect/dom';
 import allKeywords from './../utils/health_keywords';
 import { nanoid } from 'nanoid';
-import { getXAutoDetectState } from "../utils/storage";
 import { healthClaimDetection } from '../utils/claim_detection';
 import { checkHighlyDisputedClaim } from '../utils/xAutoDetect/api';
 import './css/spinner.css';
@@ -63,6 +61,9 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
         }
     }
 
+    if (message.action === "stopTimer") {
+        disableHealthTips();
+    }
 
     if (message.category !== undefined && message.id !== undefined) {
         const category = message.category;
@@ -84,27 +85,41 @@ chrome.storage.onChanged.addListener(async (changes, areaName) => {
     if (areaName === 'local' && changes.interval) {
         const isHealthTipsEnabled = await getHealthTipState();
         if (isHealthTipsEnabled) {
-            stopTimer();
-            startTimer();
+            chrome.runtime.sendMessage({ action: "stopTimer" });
+            chrome.runtime.sendMessage({ action: "startTimer" });
         }
     }
 });
+
 const enableHealthTips = (): void => {
-    startTimer();
+    chrome.runtime.sendMessage({ action: "startTimer" });
 };
 
 const disableHealthTips = (): void => {
-    stopTimer();
+    chrome.runtime.sendMessage({ action: "stopTimer" });
 };
 
+// Add event listeners for enabling and disabling health tips
+document.addEventListener('enableHealthTips', () => {
+    setHealthTipsEnabled(true).then(() => {
+        enableHealthTips();
+    }).catch((error) => {
+        console.error('Error enabling health tips:', error);
+    });
+});
 
-
-
+document.addEventListener('disableHealthTips', () => {
+    setHealthTipsEnabled(false).then(() => {
+        disableHealthTips();
+    }).catch((error) => {
+        console.error('Error disabling health tips:', error);
+    });
+});
 
 // fact check function
 const factCheck = async (text: string): Promise<void> => {
     chrome.runtime.sendMessage({ message: "factCheck", text: text });
-}
+};
 
 const searchKeywordAndCreateOverlay = async (tweetBody: string, tweet: HTMLDivElement) => {
     /** 
@@ -146,10 +161,6 @@ const searchKeywordAndCreateOverlay = async (tweetBody: string, tweet: HTMLDivEl
             }
         ];
 
-
-
-
-
         const overlayElement = createOverlayElement();
         const overlayId = nanoid();
 
@@ -165,7 +176,7 @@ const searchKeywordAndCreateOverlay = async (tweetBody: string, tweet: HTMLDivEl
         viewBtn.style.position = "absolute";
         viewBtn.style.left = "0";
 
-        // Check if the claim is highly disputed
+         // Check if the claim is highly disputed
         // const isClaimDisputed = await checkHighlyDisputedClaim(tweetBody);
         // if (isClaimDisputed) {
         //     const img = viewBtn.querySelector('img');
@@ -201,11 +212,9 @@ const searchKeywordAndCreateOverlay = async (tweetBody: string, tweet: HTMLDivEl
             // Create a spinner, and append it to the button
             let spinner = document.createElement('span');
             spinner.className = "btn-spinner";
-            spinner.style.color = "#f5f5f5"
+            spinner.style.color = "#f5f5f5";
             spinner.style.position = "absolute";
             spinner.style.left = "0";
-
-
 
             viewBtn.appendChild(spinner);
 
@@ -251,14 +260,9 @@ const searchKeywordAndCreateOverlay = async (tweetBody: string, tweet: HTMLDivEl
     }
 };
 
-
 const detectNewTweets = async (): Promise<void> => {
-
-
     const theme: TwitterTheme = getXTheme();
-
     const elements = document.getElementsByClassName(theme);
-
 
     for (let index = 0; index < elements.length; index++) {
         const tweet = elements[index] as HTMLDivElement;
@@ -266,7 +270,6 @@ const detectNewTweets = async (): Promise<void> => {
         if (tweet.hasAttribute("data-tweet-processed")) {
             continue;
         }
-
 
         // const  elements = document.getElementsByClassName('css-175oi2r r-1wbh5a2 r-1habvwh r-16xksha');
 
@@ -289,17 +292,15 @@ const detectNewTweets = async (): Promise<void> => {
             // console.error(error);
         }
     }
-}
-
+};
 
 const enableDetectNewTweets = (): void => {
     document.addEventListener('DOMContentLoaded', detectNewTweets);
     window.addEventListener('scroll', detectNewTweets);
     initialScroll();
-
-}
+};
 
 const disableDetectNewTweets = (): void => {
     document.removeEventListener('DOMContentLoaded', detectNewTweets);
     window.removeEventListener('scroll', detectNewTweets);
-}
+};
