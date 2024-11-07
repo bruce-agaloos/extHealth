@@ -1,6 +1,7 @@
 import { LocalStorage } from "./types";
 import { setExtHealthFacts, setFactCheckMode } from "./pop_up_storage/storage";
 import { resetFactCheckHistory } from "./pop_up_storage/history";
+
 const setHealthTipState = (HealthTipsEnabled: boolean): Promise<void> => {
   return new Promise<void>((resolve) => {
     const vals: LocalStorage = {
@@ -11,6 +12,15 @@ const setHealthTipState = (HealthTipsEnabled: boolean): Promise<void> => {
     });
   });
 };
+
+const setHealthTipsEnabled = async (enabled: boolean): Promise<void> => {
+  await setHealthTipState(enabled);
+  if (!enabled) {
+    // Broadcast a message to all tabs to stop the timer
+    chrome.runtime.sendMessage({ action: "stopTimer" });
+  }
+};
+
 
 const setXAutoDetectState = (xAutoDetectEnabled: boolean): Promise<void> => {
   return new Promise<void>((resolve) => {
@@ -176,6 +186,29 @@ function setInterval(value: number): Promise<void> {
   });
 }
 
+const getRemainingTime = (): Promise<number> => {
+  return new Promise((resolve, reject) => {
+    chrome.storage.local.get(["remainingTime"], (result) => {
+      if (chrome.runtime.lastError) {
+        reject(chrome.runtime.lastError);
+      } else {
+        resolve(result["remainingTime"] || 0); // Default to 0 if the key does not exist
+      }
+    });
+  });
+};
+function setRemainingTime(value: number): Promise<void> {
+  return new Promise((resolve, reject) => {
+    chrome.storage.local.set({ ['remainingTime']: value }, () => {
+      if (chrome.runtime.lastError) {
+        reject(chrome.runtime.lastError);
+      } else {
+        resolve();
+      }
+    });
+  });
+}
+
 function setInStorage(data: { [key: string]: any }): Promise<void> {
   return new Promise<void>((resolve, reject) => {
     chrome.storage.local.set(data, function () {
@@ -201,7 +234,9 @@ const setDefaultInstalled = async (): Promise<void> => {
   try {
     setXAutoDetectState(true);
     setHealthTipState(true);
-    setInterval(5);
+    const interval = 5;
+    setInterval(interval);
+    setRemainingTime(interval*60);
     const categories = [15, 16, 18, 19, 20, 21, 23, 24, 28, 29];
     categories.forEach((category) => {
       setCategoryState(category, true);
@@ -218,6 +253,7 @@ export {
   setXAutoDetectState,
   getXAutoDetectState,
   setHealthTipState,
+  setHealthTipsEnabled,
   getHealthTipState,
   setCategoryState,
   getCategoryState,
@@ -229,6 +265,8 @@ export {
   getFromStorage,
   setInStorage,
   getInterval,
+  getRemainingTime,
+  setRemainingTime,
   setInterval,
   setTOS,
   getTOS,
