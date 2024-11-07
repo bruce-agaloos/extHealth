@@ -42,13 +42,25 @@ const Sidebar = ({ mobileOpen, onDrawerToggle, sections }) => {
 
   const renderSections = () => {
     return sections.map((section, index) => {
+      const isActive = location.pathname === section.path;
+      const headerStyle = {
+        fontFamily: '"Lexend Deca", sans-serif',
+        fontWeight: isActive ? 500 : 400,
+        color: isActive ? '#718ECB' : '#00000080',
+      };
+
       if (section.type === 'header') {
         // Render header as a non-clickable, non-expandable item
         return (
           <Typography
             key={index}
             variant="h6"
-            sx={{ px: 2, py: 1, color: 'text.secondary' }}
+            sx={{
+              ...headerStyle,
+              px: 2,
+              py: 1,
+              // Removed the border-bottom
+            }}
           >
             {section.name}
           </Typography>
@@ -60,23 +72,41 @@ const Sidebar = ({ mobileOpen, onDrawerToggle, sections }) => {
             key={index}
             expanded={expanded === `panel${index}`}
             onChange={handleAccordionChange(`panel${index}`)}
+            sx={{
+              boxShadow: 'none', // Remove shadow
+              border: 'none', // Remove border
+              '&::before': {
+                display: 'none', // Remove the unwanted line (pseudo-element)
+              },
+            }}
           >
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography>{section.name}</Typography>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />} sx={{ padding: '0 16px' }}>
+              <Typography sx={{ fontFamily: '"Lexend Deca", sans-serif', fontWeight: 500 }}>
+                {section.name}
+              </Typography>
             </AccordionSummary>
             <AccordionDetails>
               <List>
-                {section.subSections.map((subSection, subIndex) => (
-                  <ListItem key={subIndex} disablePadding>
-                    <ListItemButton
-                      component={Link}
-                      to={subSection.path}
-                      selected={location.pathname === subSection.path}
-                    >
-                      <ListItemText primary={subSection.name} />
-                    </ListItemButton>
-                  </ListItem>
-                ))}
+                {section.subSections.map((subSection, subIndex) => {
+                  const isSubSectionActive = location.pathname === subSection.path;
+                  return (
+                    <ListItem key={subIndex} disablePadding>
+                      <ListItemButton
+                        component={Link}
+                        to={subSection.path}
+                        selected={isSubSectionActive}
+                        sx={{
+                          fontFamily: '"Lexend Deca", sans-serif',
+                          fontWeight: isSubSectionActive ? 500 : 400,
+                          color: isSubSectionActive ? '#718ECB' : 'inherit',
+                          backgroundColor: 'transparent', // Ensure background color is unchanged
+                        }}
+                      >
+                        <ListItemText primary={subSection.name} />
+                      </ListItemButton>
+                    </ListItem>
+                  );
+                })}
               </List>
             </AccordionDetails>
           </Accordion>
@@ -88,7 +118,13 @@ const Sidebar = ({ mobileOpen, onDrawerToggle, sections }) => {
             <ListItemButton
               component={Link}
               to={section.path}
-              selected={location.pathname === section.path}
+              selected={isActive}
+              sx={{
+                fontFamily: '"Lexend Deca", sans-serif',
+                fontWeight: isActive ? 500 : 400,
+                color: isActive ? '#718ECB' : 'inherit',
+                backgroundColor: 'transparent', // Ensure background color is unchanged
+              }}
             >
               <ListItemText primary={section.name} />
             </ListItemButton>
@@ -106,7 +142,12 @@ const Sidebar = ({ mobileOpen, onDrawerToggle, sections }) => {
           display: { xs: 'none', sm: 'none', md: 'none', lg: 'block' },
           width: drawerWidth,
           flexShrink: 0,
-          [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
+          borderRight: '1px solid #00000080', // Add right border
+          [`& .MuiDrawer-paper`]: {
+            width: drawerWidth,
+            boxSizing: 'border-box',
+            boxShadow: 'none', // Remove shadow
+          },
         }}
         open
       >
@@ -123,7 +164,7 @@ const Sidebar = ({ mobileOpen, onDrawerToggle, sections }) => {
         onClose={onDrawerToggle}
         sx={{
           display: { md: 'block', lg: 'none' },
-          [`& .MuiDrawer-paper`]: { width: drawerWidth },
+          [`& .MuiDrawer-paper`]: { width: drawerWidth, boxShadow: 'none' },
         }}
         ModalProps={{
           keepMounted: true, // Better open performance on mobile

@@ -7,6 +7,7 @@ import MainContent from './components/MainContent';
 import RightSidebar from './components/RightSidebar';
 import TopBar from './components/TopBar';
 import sections from './functions/sections';
+import { Helmet } from 'react-helmet';
 
 function App() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -17,6 +18,14 @@ function App() {
 
   return (
     <Router>
+      <Helmet>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Lexend+Deca:wght@100..900&display=swap"
+          rel="stylesheet"
+        />
+      </Helmet>
       <Box sx={{ display: 'flex', pt: 8 }}>
         <CssBaseline />
         <TopBar onDrawerToggle={handleDrawerToggle} />

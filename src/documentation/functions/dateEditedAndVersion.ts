@@ -5,4 +5,6 @@ const dateEdited = [
     {"license": "November 5, 2024"},
     {"about": "November 5, 2024"},
 ];
-const version = "1.4.2";
+const version = "v1.4.2";
+
+export { dateEdited, version };

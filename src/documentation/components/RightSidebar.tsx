@@ -81,20 +81,22 @@ const RightSidebar = () => {
       sx={{
         width: 250,
         flexShrink: 0,
-        display: { xs: 'none', sm: 'none', md: 'block' },
+        display: { xs: 'none', sm: 'none', md: 'none', lg: 'block' },
         '& .MuiDrawer-paper': {
           width: 250,
           height: '100%',
           position: 'fixed',
           top: 0,
           right: 0,
-          bgcolor: 'background.paper',
-          boxShadow: 1,
+          bgcolor: '#7075CB1A', // Background color
+          borderLeft: '2px solid #7075CB', // Left border
+          fontFamily: 'Lexend Deca, sans-serif', // Font family
+          boxShadow: 'none', // Remove shadow
         },
       }}
     >
       <Toolbar />
-      <Box sx={{ overflow: 'auto' }}>
+      <Box sx={{ overflow: 'auto', color: '#00000080' }}> {/* Text color */}
         <List>
           {sections.map(({ id, title }) => (
             <ListItem

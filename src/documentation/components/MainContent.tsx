@@ -2,6 +2,7 @@
 import React, { ReactNode } from "react";
 import { Box } from "@mui/material";
 import NavigatePage from "./NavigatePage";
+import Footer from "./footer";
 
 const drawerWidth = 240;
 
@@ -23,7 +24,6 @@ const MainContent: React.FC<MainContentProps> = ({
       flexGrow: 1,
       width: { sm: `calc(100% - ${drawerWidth}px)` },
       minHeight: "90vh",
-      padding: 2,
       boxSizing: "border-box",
     }}
   >
@@ -46,6 +46,14 @@ const MainContent: React.FC<MainContentProps> = ({
       }}
     >
       <NavigatePage />
+    </Box>
+    <Box
+      sx={{
+        boxSizing: "border-box",
+        width: '100%',
+      }}
+    >
+      <Footer />
     </Box>
   </Box>
 );

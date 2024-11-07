@@ -37,6 +37,7 @@
     "nanoid": "^5.0.7",
     "normalize.css": "^8.0.1",
     "react-frame-component": "^5.2.7",
+    "react-helmet": "^6.1.0",
     "react-loader-spinner": "^6.1.6",
     "react-pdf": "^9.1.1",
     "react-router-dom": "^6.26.1",
