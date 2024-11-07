@@ -5,7 +5,7 @@ import { Typography, Box } from '@mui/material';
 const ContextMenu = () => (
   <Box>
   {/* Introduction Section */}
-  <Box id="plain">
+  <Box component="section" id="plain">
     <Typography variant="h4" component="h1" gutterBottom>
       Plain Text
     </Typography>
@@ -20,7 +20,7 @@ const ContextMenu = () => (
   </Box>
 
   {/* Pinning Extension Section */}
-  <Box id="image" mt={4}>
+  <Box component="section" id="image" mt={4}>
     <Typography variant="h4" component="h1" gutterBottom>
       Image
     </Typography>

@@ -5,7 +5,7 @@ import { Typography, Box } from '@mui/material';
 const Settings = () => (
   <Box>
     {/* Introduction Section */}
-    <Box id="timer">
+    <Box component="section" id="timer">
       <Typography variant="h4" component="h1" gutterBottom>
         Set Timer for Health Tips
       </Typography>
@@ -20,7 +20,7 @@ const Settings = () => (
     </Box>
 
     {/* Pinning Extension Section */}
-    <Box id="topics" mt={4}>
+    <Box component="section" id="topics" mt={4}>
       <Typography variant="h4" component="h1" gutterBottom>
         Choose Topics
       </Typography>

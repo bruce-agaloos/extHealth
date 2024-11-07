@@ -5,7 +5,7 @@ import { Typography, Box } from '@mui/material';
 const Modes = () => (
   <Box>
     {/* Introduction Section */}
-    <Box id="modes">
+    <Box component="section" id="modes">
       <Typography variant="h4" component="h1" gutterBottom>
         Changing Modes
       </Typography>

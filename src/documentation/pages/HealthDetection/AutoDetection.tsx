@@ -5,7 +5,7 @@ import { Typography, Box } from '@mui/material';
 const AutoDetection = () => (
   <Box>
     {/* Introduction Section */}
-    <Box id="turn">
+    <Box component="section" id="turn">
       <Typography variant="h4" component="h1" gutterBottom>
         Turn On/Off Auto Detection
       </Typography>
@@ -20,7 +20,7 @@ const AutoDetection = () => (
     </Box>
 
     {/* Pinning Extension Section */}
-    <Box id="supported" mt={4}>
+    <Box component="section" id="supported" mt={4}>
       <Typography variant="h4" component="h1" gutterBottom>
         Supported Auto Detection Website
       </Typography>

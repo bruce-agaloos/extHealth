@@ -17,7 +17,7 @@ const sections = [
         ],
     },
     {
-        name: 'Health Detections',
+        name: 'Health Detection',
         subSections: [
             { name: 'Auto Detection', path: '/health-detections/auto-detection', component: AutoDetection },
             { name: 'Context Menu', path: '/health-detections/context-menu', component: ContextMenu },

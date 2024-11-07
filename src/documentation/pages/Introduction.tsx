@@ -5,7 +5,7 @@ import { Box, Typography } from '@mui/material';
 const Introduction = () => (
   <Box>
     {/* Introduction Section */}
-    <Box id="introduction">
+    <Box component="section" id="introduction">
       <Typography variant="h4" component="h1" gutterBottom>
         Welcome
       </Typography>
@@ -38,7 +38,7 @@ const Introduction = () => (
     </Box>
 
     {/* Pinning Extension Section */}
-    <Box id="pin" mt={4}>
+    <Box component="section" id="pin" mt={4}>
       <Typography variant="h5" component="h2" gutterBottom>
         Pinning the Extension
       </Typography>

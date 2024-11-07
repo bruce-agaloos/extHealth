@@ -5,7 +5,7 @@ import { Typography, Box } from '@mui/material';
 const Looks = () => (
   <Box>
     {/* Introduction Section */}
-    <Box id="Looks">
+    <Box component="section" id="Looks">
       <Typography variant="h4" component="h1" gutterBottom>
         Looks of health tips
       </Typography>
@@ -20,7 +20,7 @@ const Looks = () => (
     </Box>
 
     {/* Pinning Extension Section */}
-    <Box id="Turn" mt={4}>
+    <Box component="section" id="Turn" mt={4}>
       <Typography variant="h4" component="h1" gutterBottom>
         Turn On/Off Health tips
       </Typography>

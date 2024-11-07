@@ -1,7 +1,7 @@
 // src/components/RightSidebar.js
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Box, List, ListItem, ListItemText, useTheme, Drawer, Toolbar } from '@mui/material';
+import { Box, List, ListItem, ListItemText, useTheme, Drawer, Toolbar, Typography } from '@mui/material';
 
 const RightSidebar = () => {
   const location = useLocation();
@@ -11,7 +11,7 @@ const RightSidebar = () => {
 
   // Function to detect all sections with an ID and extract h1/h2 text
   const detectSections = () => {
-    const sectionElements = document.querySelectorAll('[id]');
+    const sectionElements = document.querySelectorAll('section[id]');
     const detectedSections = Array.from(sectionElements).map((element) => {
       const header = element.querySelector('h1, h2');
       return {
@@ -96,7 +96,17 @@ const RightSidebar = () => {
       }}
     >
       <Toolbar />
-      <Box sx={{ overflow: 'auto', color: '#00000080' }}> {/* Text color */}
+      <Box sx={{ overflow: 'auto', color: '#00000080', padding: '16px' }}> {/* Text color and padding */}
+        <Typography
+          variant="h6"
+          sx={{
+            fontFamily: 'Lexend Deca, sans-serif',
+            fontWeight: 500,
+            marginBottom: '16px',
+          }}
+        >
+          ON THIS PAGE
+        </Typography>
         <List>
           {sections.map(({ id, title }) => (
             <ListItem

@@ -5,7 +5,7 @@ import { Typography, Box } from '@mui/material';
 const History = () => (
   <Box>
     {/* Introduction Section */}
-    <Box id="access">
+    <Box component="section" id="access">
       <Typography variant="h4" component="h1" gutterBottom>
         Accessing Health Tips History
       </Typography>

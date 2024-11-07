@@ -6,14 +6,14 @@ import SearchableTable from "./tableKeywords"
 const KeywordsSupported = () => (
   <Box>
     {/* Introduction Section */}
-    <Box id="keywords">
+    <Box component="section" id="keywords">
       <Typography variant="h4" component="h1" gutterBottom>
         Keywords Supported
       </Typography>
       <SearchableTable />
     </Box>
     {/* Pinning Extension Section */}
-    <Box id="language" mt={4}>
+    <Box component="section" id="language" mt={4}>
       <Typography variant="h4" component="h1" gutterBottom>
         Language Supported
       </Typography>

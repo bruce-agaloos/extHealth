@@ -5,7 +5,7 @@ import { Typography, Box } from '@mui/material';
 const AllHistory = () => (
   <Box>
     {/* Introduction Section */}
-    <Box id="access">
+    <Box component="section" id="access">
       <Typography variant="h4" component="h1" gutterBottom>
         Accessing Fact Checking History
       </Typography>
@@ -20,7 +20,7 @@ const AllHistory = () => (
     </Box>
 
     {/* Pinning Extension Section */}
-    <Box id="sample" mt={4}>
+    <Box component="section" id="sample" mt={4}>
       <Typography variant="h4" component="h1" gutterBottom>
         Sample Use
       </Typography>

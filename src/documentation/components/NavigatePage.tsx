@@ -1,8 +1,10 @@
 // src/components/NavigatePage.tsx
 import React from 'react';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
 import sections from './../functions/sections';
+import ArrowCircleLeftOutlinedIcon from '@mui/icons-material/ArrowCircleLeftOutlined';
+import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
 
 // Modified flattenSections function to exclude headers (those without a path)
 const flattenSections = () => {
@@ -50,24 +52,41 @@ const NavigatePage: React.FC = () => {
         alignItems: 'center',
         mt: 2,
         mb: 2,
+        width: '100%',
+        flexDirection: { xs: 'column', sm: 'row' }, // Switch to column layout on small screens
       }}
     >
       {prevSection && (
         <Button
-          variant="contained"
-          color="primary"
+          variant="text"
+          sx={{
+            color: '#7075CB',
+            fontFamily: 'Lexend Deca, sans-serif',
+            fontWeight: 500,
+            mb: { xs: 1, sm: 0 }, // Add margin bottom for small screens
+          }}
           onClick={() => navigate(prevSection.path)}
         >
-          Go back to: {prevSection.fullName}
+          <ArrowCircleLeftOutlinedIcon sx={{ marginRight: '8px' }} />
+          {prevSection.fullName}
         </Button>
       )}
+      
+      <Box sx={{ flexGrow: 1 }} /> {/* Empty space to push the next section to the right */}
+
       {nextSection && (
         <Button
-          variant="contained"
-          color="primary"
+          variant="text"
+          sx={{
+            color: '#7075CB',
+            fontFamily: 'Lexend Deca, sans-serif',
+            fontWeight: 500,
+            mt: { xs: 1, sm: 0 }, // Add margin top for small screens
+          }}
           onClick={() => navigate(nextSection.path)}
         >
-          Proceed to: {nextSection.fullName}
+          {nextSection.fullName}
+          <ArrowCircleRightOutlinedIcon sx={{ marginLeft: '8px' }} />
         </Button>
       )}
     </Box>
