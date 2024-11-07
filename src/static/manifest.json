@@ -20,7 +20,9 @@
     "sidePanel"
   ],
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "background.js",
+    "scripts": ["backgroundscript.js"],
+    "persistent": true
   },
   "icons": {
     "16": "icon.png",
@@ -41,7 +43,7 @@
   "web_accessible_resources": [
     {
       "resources": ["iconCheckThisOut.png", "warning.png", "book.pdf"],
-      "matches": ["<all_urls>"]
+      "matches": ["https://*.twitter.com/*", "https://*.x.com/*"]
     }
   ]
 }
