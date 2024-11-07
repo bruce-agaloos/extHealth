@@ -7,6 +7,7 @@ import TermsOfService from './components/ToS';
 import PrivacyPolicy from './components/Privacy';
 import License from './components/License';  // Importing the new License component
 import TabPanel from './components/TabPanel';  // Importing the new TabPanel component
+import AboutUs from './components/AboutUs';  // Importing the new AboutUs component
 
 const TermsAndPrivacy = () => {
   const [value, setValue] = React.useState(0);
@@ -27,6 +28,7 @@ const TermsAndPrivacy = () => {
         <Tab label="Terms of Use" />
         <Tab label="Privacy Policy" />
         <Tab label="License"/>
+        <Tab label="About Us"/>
       </Tabs>
       <Box className="tab-panel" flexGrow={1} p={3}>
         <TabPanel value={value} index={0}>
@@ -37,6 +39,9 @@ const TermsAndPrivacy = () => {
         </TabPanel>
         <TabPanel value={value} index={2}>
           <License />
+        </TabPanel>
+        <TabPanel value={value} index={3}>
+          <AboutUs />
         </TabPanel>
       </Box>
     </div>

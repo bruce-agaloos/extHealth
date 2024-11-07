@@ -392,14 +392,7 @@ const TermsOfService = () => {
           <Typography paragraph>
             We care about data privacy and security. By using the extension, you
             agree to be bound by our Privacy Policy, which is incorporated into
-            these Terms of Use. Please be advised the extension is hosted in the
-            Philippines. If you access the extension from the European Union,
-            Asia, or any other region of the world with laws or other
-            requirements governing personal data collection, use, or disclosure
-            that differ from applicable laws in the Philippines, then through
-            your continued use of the extension, you are transferring your data
-            to the Philippines, and you expressly consent to have your data
-            transferred to and processed in the Philippines.
+            these Terms of Use.
           </Typography>
         </Box>
         <Box marginTop={3}>
