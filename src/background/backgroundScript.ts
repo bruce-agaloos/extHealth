@@ -52,7 +52,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 // Set an alarm to trigger every hour
 chrome.runtime.onInstalled.addListener(() => {
   setDefaultInstalled();
-  
+  startTimer();
   const guideUrl = chrome.runtime.getURL('guide.html');
   chrome.tabs.create({ url: guideUrl });
 });
@@ -61,6 +61,7 @@ chrome.runtime.onInstalled.addListener(() => {
 chrome.runtime.onStartup.addListener(() => {
   setFactCheckWholeLoad(false);
   setSingleFactCheckLoad(false);
+  startTimer();
 });
 
 
@@ -257,46 +258,97 @@ async function factCheck(text) {
 
 }
 
+import { getHealthTips } from "./../utils";
+import { getInterval, getRemainingTime, setRemainingTime, setHealthTipState, getHealthTipState } from "./../utils/storage"; 
+
+let timerActive = true;
+let timerIntervalId: NodeJS.Timeout | null = null;
 let popupWindowId: number | null = null;
 let isResizing = false;
 
-chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
-  if (request.action === "openPopup") {
-    console.log("Received openPopup request");
-    // Check if the popup window is already opened
-    if (popupWindowId !== null) {
-      console.log("Popup window ID exists:", popupWindowId);
-      chrome.windows.get(popupWindowId, (window) => {
-        if (window) {
-          console.log("Popup window found, closing it");
-          // Close the existing popup window
-          chrome.windows.remove(popupWindowId!, () => {
-            console.log("Existing popup window closed.");
-            // Reset popupWindowId after closing
-            popupWindowId = null;
-            // Create a new popup window after closing the existing one
-            createPopupWindow(sendResponse);
-          });
-        } else {
-          console.log("Popup window not found, resetting ID and creating new window");
-          // Reset popupWindowId if the window is not found
-          popupWindowId = null;
-          // Create a new popup window if the existing one is not found
-          createPopupWindow(sendResponse);
-        }
-      });
-    } else {
-      console.log("No existing popup window, creating a new one");
-      // Create a new popup window
-      createPopupWindow(sendResponse);
+const startTimer = async (repeat: boolean = true): Promise<NodeJS.Timeout | null> => {
+  // Retrieve interval from local storage
+  try {
+    const interval = await getInterval();
+    const duration = interval * 60; // Convert minutes to seconds
+    let remainingTime = duration;
+
+    const storedTime = await getRemainingTime();
+
+    if (storedTime !== null && storedTime > 0) {
+      remainingTime = storedTime;
     }
 
-    return true; // Keep the message channel open for sendResponse
-  }
+    if (timerIntervalId !== null) {
+      clearInterval(timerIntervalId);
+    }
 
-  // Handle healthCardHeight message
-  if (request.action === "healthCardHeight") {
-    const height = request.height;
+    timerActive = true;
+
+    timerIntervalId = setInterval(async () => {
+      remainingTime--;
+
+      // Log the remaining time
+      // console.log(`Remaining time: ${remainingTime} seconds`);
+
+      // Store the remaining time in chrome.storage
+      await setRemainingTime(remainingTime);
+
+      if (remainingTime <= 0) {
+        clearInterval(timerIntervalId as NodeJS.Timeout);
+
+        try {
+          await getHealthTips();
+          openPopup();
+        } catch (error) {
+          console.error("Error:", error);
+        }
+
+        if (repeat && timerActive) {
+          startTimer(true);
+        } else {
+          timerIntervalId = null;
+          // Clear the remaining time from chrome.storage
+          chrome.storage.local.remove(['remainingTime']);
+        }
+      }
+    }, 1000);
+
+    return timerIntervalId;
+  } catch (error) {
+    console.error("Error retrieving interval from local storage:", error);
+    return null;
+  }
+};
+
+const stopTimer = (): void => {
+  if (timerIntervalId !== null) {
+    clearInterval(timerIntervalId);
+    timerIntervalId = null;
+  }
+  timerActive = false;
+  // Clear the remaining time from chrome.storage
+  chrome.storage.local.remove(['remainingTime']);
+};
+
+const setHealthTipsEnabled = async (enabled: boolean): Promise<void> => {
+  await setHealthTipState(enabled);
+  if (!enabled) {
+    // Broadcast a message to all tabs to stop the timer
+    chrome.runtime.sendMessage({ action: "stopTimer" });
+  }
+};
+
+// Listen for messages to start or stop the timer
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.action === "startTimer") {
+    startTimer();
+  } else if (message.action === "stopTimer") {
+    stopTimer();
+  } else if (message.action === "openPopup") {
+    openPopup();
+  } else if (message.action === "healthCardHeight") {
+    const height = message.height;
     console.log("Received healthCardHeight request with height:", height);
     // Resize the popup window to match the height of the health card
     if (popupWindowId !== null) {
@@ -325,7 +377,38 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
   }
 });
 
-function createPopupWindow(sendResponse: (response: any) => void, height: number = 400) {
+function openPopup() {
+  console.log("Received openPopup request");
+  // Check if the popup window is already opened
+  if (popupWindowId !== null) {
+    console.log("Popup window ID exists:", popupWindowId);
+    chrome.windows.get(popupWindowId, (window) => {
+      if (window) {
+        console.log("Popup window found, closing it");
+        // Close the existing popup window
+        chrome.windows.remove(popupWindowId!, () => {
+          console.log("Existing popup window closed.");
+          // Reset popupWindowId after closing
+          popupWindowId = null;
+          // Create a new popup window after closing the existing one
+          createPopupWindow();
+        });
+      } else {
+        console.log("Popup window not found, resetting ID and creating new window");
+        // Reset popupWindowId if the window is not found
+        popupWindowId = null;
+        // Create a new popup window if the existing one is not found
+        createPopupWindow();
+      }
+    });
+  } else {
+    console.log("No existing popup window, creating a new one");
+    // Create a new popup window
+    createPopupWindow();
+  }
+}
+
+function createPopupWindow(sendResponse?: (response: any) => void, height: number = 400) {
   const popupWidth = 400;
   const defaultPopupHeight = height; // Set a default height
   const title = "Health Tip"; // Set the desired title
@@ -349,11 +432,38 @@ function createPopupWindow(sendResponse: (response: any) => void, height: number
       if (window) {
         console.log("New popup window created with ID:", window.id);
         popupWindowId = window.id ?? null;
-        sendResponse({ status: "opened" });
+        if (sendResponse) {
+          sendResponse({ status: "opened" });
+        }
       } else {
         console.log("Failed to create new popup window");
-        sendResponse({ status: "failed_to_open" });
+        if (sendResponse) {
+          sendResponse({ status: "failed_to_open" });
+        }
       }
     }
   );
 }
+
+// Listen for window removal events to handle browser close
+chrome.windows.onRemoved.addListener((windowId) => {
+  if (windowId === popupWindowId) {
+    console.log("Popup window closed, resetting popupWindowId");
+    popupWindowId = null;
+  } else {
+    // Check if there are no more windows open
+    chrome.windows.getAll({}, (windows) => {
+      if (windows.length === 0) {
+        console.log("All browser windows closed, closing popup window");
+        if (popupWindowId !== null) {
+          chrome.windows.remove(popupWindowId, () => {
+            console.log("Popup window closed as browser was closed.");
+            popupWindowId = null;
+          });
+        }
+      }
+    });
+  }
+});
+
+

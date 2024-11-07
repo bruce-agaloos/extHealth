@@ -11,25 +11,25 @@ body {
 .content {
   padding: 20px;
   padding-left: 40px;
-  margin-top: -8px;
+  margin-top: -10px;
   background-color: #FBFCFF;
+  border: 1px solid #ccc;
 }
 
 /* Container */
 .health-card {
-  border: 1px solid #ccc;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   background-color: #fff;
 }
 
 /* Header Icons */
 .header-icons {
+  border: 1px solid #ccc;
   padding: 20px;
-  padding-bottom: 0px;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
-  margin-top: -5px;
+  margin-bottom: 9.5px;
+ 
 }
 
 /* Title */
@@ -39,9 +39,26 @@ body {
   margin-bottom: 10px;
 }
 
+
+/* Date Container */
+.date-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0px;
+}
+
 /* Date */
-.date {
+.datess {
   font-size: 14px;
+  color: #777;
+  margin: 0;
+  padding: 0;
+}
+
+/* Last Updated */
+.last-updated {
+  font-size: 10px;
   color: #777;
 }
 
@@ -96,26 +113,14 @@ h2 {
   color: #3BA0FD;
 }
 
-/* WebKit browsers (Chrome, Safari) */
+/* Hide scrollbar for WebKit browsers (Chrome, Safari) */
 ::-webkit-scrollbar {
-  width: 12px; /* Width of the scrollbar */
+  width: 0;
+  height: 0;
 }
 
-::-webkit-scrollbar-track {
-  background: #f1f1f1; /* Background of the scrollbar track */
-}
-
-::-webkit-scrollbar-thumb {
-  background: #888; /* Color of the scrollbar thumb */
-  border-radius: 6px; /* Rounded corners for the scrollbar thumb */
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #555; /* Color of the scrollbar thumb on hover */
-}
-
-/* Firefox */
+/* Hide scrollbar for Firefox */
 * {
-  scrollbar-width: thin; /* Width of the scrollbar */
-  scrollbar-color: #888 #f1f1f1; /* Color of the scrollbar thumb and track */
+  scrollbar-width: none; /* Hide the scrollbar */
+  -ms-overflow-style: none; /* Hide the scrollbar for Internet Explorer and Edge */
 }
