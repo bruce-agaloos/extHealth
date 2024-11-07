@@ -26,7 +26,6 @@ const Sidebar = ({ mobileOpen, onDrawerToggle, sections }) => {
   };
 
   useEffect(() => {
-    // Loop through sections to find the parent accordion for the current path
     sections.forEach((section, index) => {
       if (section.subSections) {
         const isSubSectionActive = section.subSections.some(
@@ -36,14 +35,26 @@ const Sidebar = ({ mobileOpen, onDrawerToggle, sections }) => {
           setExpanded(`panel${index}`);
         }
       } else if (section.path === location.pathname) {
-        setExpanded(false); // Collapse accordion if it's a main section with no subsections
+        setExpanded(false);
       }
     });
   }, [location.pathname, sections]);
 
   const renderSections = () => {
     return sections.map((section, index) => {
-      if (section.subSections) {
+      if (section.type === 'header') {
+        // Render header as a non-clickable, non-expandable item
+        return (
+          <Typography
+            key={index}
+            variant="h6"
+            sx={{ px: 2, py: 1, color: 'text.secondary' }}
+          >
+            {section.name}
+          </Typography>
+        );
+      } else if (section.subSections) {
+        // Render an accordion for sections with subSections
         return (
           <Accordion
             key={index}
@@ -70,18 +81,20 @@ const Sidebar = ({ mobileOpen, onDrawerToggle, sections }) => {
             </AccordionDetails>
           </Accordion>
         );
+      } else {
+        // Render a regular list item for standalone sections
+        return (
+          <ListItem key={index} disablePadding>
+            <ListItemButton
+              component={Link}
+              to={section.path}
+              selected={location.pathname === section.path}
+            >
+              <ListItemText primary={section.name} />
+            </ListItemButton>
+          </ListItem>
+        );
       }
-      return (
-        <ListItem key={index} disablePadding>
-          <ListItemButton
-            component={Link}
-            to={section.path}
-            selected={location.pathname === section.path}
-          >
-            <ListItemText primary={section.name} />
-          </ListItemButton>
-        </ListItem>
-      );
     });
   };
 
@@ -90,7 +103,7 @@ const Sidebar = ({ mobileOpen, onDrawerToggle, sections }) => {
       <Drawer
         variant="permanent"
         sx={{
-          display: { xs:'none', sm: 'none', md: 'none', lg: 'block' },
+          display: { xs: 'none', sm: 'none', md: 'none', lg: 'block' },
           width: drawerWidth,
           flexShrink: 0,
           [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },

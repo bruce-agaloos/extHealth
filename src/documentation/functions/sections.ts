@@ -5,7 +5,9 @@ import { AutoDetection, ContextMenu, KeywordsSupported } from './../pages/Health
 import { HowToUse, Modes, AllHistory } from './../pages/FactChecking';
 
 const sections = [
-    { name: 'Introduction', path: '/', component: Introduction }, // Pass the component reference
+    { name: 'Getting Started', type: 'header' },
+    { name: 'Introduction', path: '/', component: Introduction },
+    { name: 'Sections', type: 'header' },
     {
         name: 'Health Tips',
         subSections: [

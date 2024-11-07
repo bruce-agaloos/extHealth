@@ -4,23 +4,28 @@ import { Box, Button, Typography } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
 import sections from './../functions/sections';
 
+// Modified flattenSections function to exclude headers (those without a path)
 const flattenSections = () => {
   const flattened: { name: string; path: string; fullName: string }[] = [];
 
   sections.forEach(section => {
-    if (section.subSections) {
-      section.subSections.forEach(subSection => 
-        flattened.push({ 
-          name: subSection.name, 
-          path: subSection.path, 
-          fullName: `${section.name} - ${subSection.name}` 
-        })
-      );
-    } else {
+    if (section.path) {
+      // Include top-level sections that have a path
       flattened.push({ 
         name: section.name, 
         path: section.path, 
         fullName: section.name 
+      });
+    } else if (section.subSections) {
+      // Include subsections that have paths
+      section.subSections.forEach(subSection => {
+        if (subSection.path) {
+          flattened.push({ 
+            name: subSection.name, 
+            path: subSection.path, 
+            fullName: `${section.name} - ${subSection.name}` 
+          });
+        }
       });
     }
   });
