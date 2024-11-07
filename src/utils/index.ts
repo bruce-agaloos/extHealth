@@ -1,11 +1,9 @@
-import { startTimer } from "./timer";
-
 import {
     getCurrentTab,
     sendMessageToContentScript,
     initialScroll,
 } from "./general";
-import { setHealthTipState, getHealthTipState, setCategoryState, getCategoryState } from "./storage";
+import { setHealthTipState, getHealthTipState, setCategoryState, getCategoryState, setHealthTipsEnabled, getXAutoDetectState } from "./storage";
 import { getHealthTips } from "./api_health_tips";
 
 export {
@@ -14,9 +12,10 @@ export {
     getHealthTipState,
     setHealthTipState,
     getCurrentTab,
-    startTimer,
     getHealthTips,
     getCategoryState,
-    setCategoryState
+    setCategoryState,
+    getXAutoDetectState,
+    setHealthTipsEnabled
 };
 
