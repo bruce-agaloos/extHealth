@@ -74,12 +74,12 @@ export default function Pages() {
           </div>
           <div className="stepsFlex">
             <div>
-              <Link to={`/guide.html/${currentPage.nextLink}`} className="primary-button">Next Page</Link>
+              <Link to={`/${currentPage.nextLink}`} className="primary-button">Next Page</Link>
               <span>
                 {currentPage.id} of {maxPages}
               </span>
             </div>
-            <Link to={`/guide.html/${finalPage}`} className="skip-button-2">
+            <Link to={`/${finalPage}`} className="skip-button-2">
             Skip tutorial 
             <svg className="icon" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xmlSpace="preserve">
               <circle className="st0" cx="16" cy="16" r="13" />

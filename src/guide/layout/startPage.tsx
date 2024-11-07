@@ -18,8 +18,8 @@ export default function StartPage() {
         Installing our extension helps you stay well-informed.  Let eXtHealth guide you with trusted health information and fact-checking right from your browser on X.
         </p>
         <div className="groupLink">
-          <Link to="/guide.html/pages/1" className="primary-button">Get Started</Link>
-          <Link to="/guide.html/finalPage" className="skip-button">Skip Tutorial</Link>
+          <Link to="/pages/1" className="primary-button">Get Started</Link>
+          <Link to="/finalPage" className="skip-button">Skip Tutorial</Link>
         </div>
       </div>
       <img src="iconBig.png" alt="" />

@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import {
-  createBrowserRouter,
+  createHashRouter,
   RouterProvider,
 } from "react-router-dom";
 
@@ -11,9 +11,9 @@ import StartPage from "./layout/startPage";
 import Pages from "./layout/pages";
 import FinalPage from "./layout/finalPage";
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
-    path: "/guide.html",
+    path: "/",
     element: <Root />,
     errorElement: <ErrorPage />,
     children: [

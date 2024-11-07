@@ -11,7 +11,7 @@ export default function FinalPage() {
         <p>
           If you skip, make sure to watch our Video Demo for a quick overview of eXtHealth’s features and instructions on how to use them.
         </p>
-        <Link to={`/guide.html`} className="primary-button">Finish</Link>
+        <Link to={`/`} className="primary-button">Finish</Link>
       </div>
     </div>
   );
