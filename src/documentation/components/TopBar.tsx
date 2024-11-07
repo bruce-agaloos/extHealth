@@ -23,7 +23,7 @@ const TopBar: React.FC<TopBarProps> = ({onDrawerToggle }) => (
           aria-label="open drawer"
           edge="start"
           onClick={onDrawerToggle}
-          sx={{ display: { md: 'none' } }}
+          sx={{ display: { lg: 'none' } }}
         >
         <MenuIcon />
       </IconButton>

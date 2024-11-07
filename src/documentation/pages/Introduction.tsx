@@ -1,28 +1,19 @@
 // src/pages/Introduction.js
 import React from 'react';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 const Introduction = () => (
-  <div>
-    <section id = "introduction">
-      <h1>
+  <Box>
+    {/* Introduction Section */}
+    <Box id="introduction">
+      <Typography variant="h4" component="h1" gutterBottom>
         Introduction
-      </h1>
-    </section>
-    
-    <section id="getting-started">
-    <h1>
-        Getting Started
-      </h1>
-    </section>
-    
-    <section id="components">
-    <h1>
-        Components
-      </h1>
-    </section>
-
-  </div>
+      </Typography>
+      <Typography variant="body1" color="textSecondary">
+        This is the introduction section. Here, you can give an overview of your content.
+      </Typography>
+    </Box>
+  </Box>
 );
 
 export default Introduction;

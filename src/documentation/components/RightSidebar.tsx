@@ -69,6 +69,7 @@ const RightSidebar = () => {
       sx={{
         width: 250,
         flexShrink: 0,
+        display: { xs: 'none', sm: 'none', md: 'block' },
         '& .MuiDrawer-paper': {
           width: 250,
           height: '100%',

@@ -90,7 +90,7 @@ const Sidebar = ({ mobileOpen, onDrawerToggle, sections }) => {
       <Drawer
         variant="permanent"
         sx={{
-          display: { xs: 'none', sm: 'none', md: 'block' },
+          display: { xs:'none', sm: 'none', md: 'none', lg: 'block' },
           width: drawerWidth,
           flexShrink: 0,
           [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
@@ -109,7 +109,7 @@ const Sidebar = ({ mobileOpen, onDrawerToggle, sections }) => {
         open={mobileOpen}
         onClose={onDrawerToggle}
         sx={{
-          display: { sm: 'block', md: 'none' },
+          display: { md: 'block', lg: 'none' },
           [`& .MuiDrawer-paper`]: { width: drawerWidth },
         }}
         ModalProps={{
