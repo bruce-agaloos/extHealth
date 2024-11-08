@@ -50,9 +50,9 @@ const TopBar: React.FC<TopBarProps> = ({ onDrawerToggle }) => {
         <Box sx={{ display: 'flex', alignItems: 'center', mr: 2 }}>
           <Box
             component="img"
-            src="icon.png" // Replace with your logo image path
+            src="iconGreen.png" // Replace with your logo image path
             alt="Logo"
-            sx={{ height: 40, width: 40, mr: 1 }}
+            sx={{ height: 45, width: 30, mr: 1 }}
           />
           <Typography variant="h6" component="div" sx={{ color: 'black', fontWeight: 500 }}>
             eXtHealth

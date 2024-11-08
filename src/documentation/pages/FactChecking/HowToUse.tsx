@@ -66,7 +66,7 @@ const HowToUse = () => (
         <img
           src="factSubmit.gif"
           alt="Submit a text"
-          width="400"
+          width="200"
           height="auto"
         />
       </Box>
@@ -101,7 +101,7 @@ const HowToUse = () => (
         <img
           src="factCorrect.gif"
           alt="Correct a text"
-          width="400"
+          width="200"
           height="auto"
         />
       </Box>
