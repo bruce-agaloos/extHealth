@@ -2,7 +2,7 @@
 import React from 'react';
 import { Box, Button } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
-import sections from './../functions/sections';
+import sections, {basePath} from './../functions/sections';
 import ArrowCircleLeftOutlinedIcon from '@mui/icons-material/ArrowCircleLeftOutlined';
 import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
 
@@ -15,7 +15,7 @@ const flattenSections = () => {
       // Include top-level sections that have a path
       flattened.push({ 
         name: section.name, 
-        path: section.path, 
+        path: basePath + "/" + section.path, 
         fullName: section.name 
       });
     } else if (section.subSections) {
@@ -24,7 +24,7 @@ const flattenSections = () => {
         if (subSection.path) {
           flattened.push({ 
             name: subSection.name, 
-            path: subSection.path, 
+            path: basePath + "/" +subSection.path, 
             fullName: `${section.name} - ${subSection.name}` 
           });
         }

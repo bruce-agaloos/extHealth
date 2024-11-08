@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { basePath } from './../functions/sections';
 
 const drawerWidth = 240;
 
@@ -29,12 +30,12 @@ const Sidebar = ({ mobileOpen, onDrawerToggle, sections }) => {
     sections.forEach((section, index) => {
       if (section.subSections) {
         const isSubSectionActive = section.subSections.some(
-          (subSection) => subSection.path === location.pathname
+          (subSection) => basePath + "/" + subSection.path === location.pathname
         );
         if (isSubSectionActive) {
           setExpanded(`panel${index}`);
         }
-      } else if (section.path === location.pathname) {
+      } else if (basePath + "/" +section.path === location.pathname) {
         setExpanded(false);
       }
     });
@@ -42,7 +43,7 @@ const Sidebar = ({ mobileOpen, onDrawerToggle, sections }) => {
 
   const renderSections = () => {
     return sections.map((section, index) => {
-      const isActive = location.pathname === section.path;
+      const isActive = location.pathname === basePath + "/" + section.path;
       const headerStyle = {
         fontFamily: '"Lexend Deca", sans-serif',
         fontWeight: isActive ? 500 : 400,
@@ -88,12 +89,12 @@ const Sidebar = ({ mobileOpen, onDrawerToggle, sections }) => {
             <AccordionDetails>
               <List>
                 {section.subSections.map((subSection, subIndex) => {
-                  const isSubSectionActive = location.pathname === subSection.path;
+                  const isSubSectionActive = location.pathname === basePath + "/" + subSection.path;
                   return (
                     <ListItem key={subIndex} disablePadding>
                       <ListItemButton
                         component={Link}
-                        to={subSection.path}
+                        to={basePath + "/" +subSection.path}
                         selected={isSubSectionActive}
                         sx={{
                           fontFamily: '"Lexend Deca", sans-serif',
@@ -117,7 +118,7 @@ const Sidebar = ({ mobileOpen, onDrawerToggle, sections }) => {
           <ListItem key={index} disablePadding>
             <ListItemButton
               component={Link}
-              to={section.path}
+              to={basePath + "/" +section.path}
               selected={isActive}
               sx={{
                 fontFamily: '"Lexend Deca", sans-serif',

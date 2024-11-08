@@ -77,6 +77,7 @@ const FactCheckMode: React.FC = () => {
                 checked={selectedMode === 'google'}
                 onChange={handleModeChange}
             />
+            {/* <br /><br /> */}
             <a
                 className='searchLink'
                 href='search.html'

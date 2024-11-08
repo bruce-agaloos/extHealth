@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { dateEdited } from './../functions/dateEditedAndVersion';
+import {Link} from 'react-router-dom';
 
 const Footer = () => {
   // Find the object with the 'documentation' field
@@ -22,7 +23,7 @@ const Footer = () => {
       }}
     >
       <Typography variant="body2" sx={{ fontWeight: 400 }}>
-        Copyright © 2024: eXtHealth licensed under an MIT License
+        <Link to="/license">Copyright</Link> © 2024: eXtHealth licensed under an MIT License
       </Typography>
       <Typography variant="body2" sx={{ fontWeight: 400, mt: { xs: 1, sm: 0 } }}>
         Last Updated: {documentationDate}

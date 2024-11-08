@@ -8,12 +8,12 @@ const drawerWidth = 240;
 
 interface MainContentProps {
   children: ReactNode;
-  onDrawerToggle: () => void;
+  includePageNavigation?: boolean;
 }
 
 const MainContent: React.FC<MainContentProps> = ({
   children,
-  onDrawerToggle,
+  includePageNavigation = true,
 }) => (
   <Box
     component="main"
@@ -29,29 +29,31 @@ const MainContent: React.FC<MainContentProps> = ({
   >
     <Box
       sx={{
-        flex: '1 0 auto',
+        flex: "1 0 auto",
         padding: 2,
-        boxSizing: 'border-box',
+        boxSizing: "border-box",
         maxWidth: 800,
-        width: '100%', // Allows the Box to take the full width of its container
+        width: "100%", // Allows the Box to take the full width of its container
       }}
     >
       {children}
     </Box>
+    {includePageNavigation && (
+      <Box
+        sx={{
+          padding: 2,
+          boxSizing: "border-box",
+          maxWidth: 800,
+          width: "100%",
+        }}
+      >
+        <NavigatePage />
+      </Box>
+    )}
     <Box
       sx={{
-        padding: 2,
         boxSizing: "border-box",
-        maxWidth: 800,
-        width: '100%',
-      }}
-    >
-      <NavigatePage />
-    </Box>
-    <Box
-      sx={{
-        boxSizing: "border-box",
-        width: '100%',
+        width: "100%",
       }}
     >
       <Footer />

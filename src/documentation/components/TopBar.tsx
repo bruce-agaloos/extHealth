@@ -5,33 +5,45 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
-import {version} from "./../functions/dateEditedAndVersion"
+import { useState, useEffect } from 'react';
+import { version } from "./../functions/dateEditedAndVersion";
+import { Link, useLocation } from 'react-router-dom';
 
 interface TopBarProps {
   onDrawerToggle: () => void;
 }
 
 const TopBar: React.FC<TopBarProps> = ({ onDrawerToggle }) => {
-  // State to handle the selected tab
-  const [selectedTab, setSelectedTab] = useState<number>(0);
+  const location = useLocation();
+  const [selectedTab, setSelectedTab] = useState(location.pathname);
 
-  // Function to handle tab click
-  const handleTabClick = (index: number) => {
-    setSelectedTab(index);
-  };
+  useEffect(() => {
+    // Update selectedTab based on location.pathname
+    if (location.pathname.startsWith('/documentation')) {
+      setSelectedTab('/documentation');
+    } else {
+      setSelectedTab(location.pathname);
+    }
+  }, [location.pathname]);
+
+  const tabs = [
+    { name: 'Documentation', path: '/documentation' },
+    { name: 'Privacy Policy', path: '/privacy-policy' },
+    { name: 'Terms of Use', path: '/tos' },
+    { name: 'License', path: '/license' },
+  ];
 
   return (
     <AppBar
       position="fixed"
       sx={{
-        backgroundColor: 'white', // Set the background color to white
+        backgroundColor: 'white',
         zIndex: (theme) => ({
           lg: theme.zIndex.drawer + 1,
         }),
-        fontFamily: 'Lexend', // Set the font family to Lexend
-        boxShadow: 'none', // Remove shadow
-        borderBottom: '1px solid #00000080', // Add bottom border
+        fontFamily: 'Lexend',
+        boxShadow: 'none',
+        borderBottom: '1px solid #00000080',
       }}
     >
       <Toolbar>
@@ -41,7 +53,7 @@ const TopBar: React.FC<TopBarProps> = ({ onDrawerToggle }) => {
           aria-label="open drawer"
           edge="start"
           onClick={onDrawerToggle}
-          sx={{ display: { lg: 'none' }, mr: 1, color: 'black' }} // Set the color of the icon
+          sx={{ display: { lg: 'none' }, mr: 1, color: 'black' }}
         >
           <MenuIcon />
         </IconButton>
@@ -50,7 +62,7 @@ const TopBar: React.FC<TopBarProps> = ({ onDrawerToggle }) => {
         <Box sx={{ display: 'flex', alignItems: 'center', mr: 2 }}>
           <Box
             component="img"
-            src="iconGreen.png" // Replace with your logo image path
+            src="iconGreen.png"
             alt="Logo"
             sx={{ height: 45, width: 30, mr: 1 }}
           />
@@ -59,13 +71,13 @@ const TopBar: React.FC<TopBarProps> = ({ onDrawerToggle }) => {
           </Typography>
           <Box
             sx={{
-              backgroundColor: '#0000000D', // Set the background color
-              borderRadius: '12px', // Make it slightly circular
-              padding: '4px 8px', // Add some padding
-              marginLeft: '8px', // Space between logo and version number
+              backgroundColor: '#0000000D',
+              borderRadius: '12px',
+              padding: '4px 8px',
+              marginLeft: '8px',
             }}
           >
-            <Typography variant="body2" sx={{ color: '#00000080', fontWeight: 600 }}> {/* Set text color */}
+            <Typography variant="body2" sx={{ color: '#00000080', fontWeight: 600 }}>
               {version}
             </Typography>
           </Box>
@@ -74,24 +86,27 @@ const TopBar: React.FC<TopBarProps> = ({ onDrawerToggle }) => {
         {/* Spacer to push tabs to the right */}
         <Box sx={{ flexGrow: 1 }} />
 
-        {/* Tabs Placeholder (on the Right) */}
+        {/* Tabs (Links) */}
         <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center' }}>
-          {['Tab 1', 'Tab 2', 'Tab 3'].map((tab, index) => (
+          {tabs.map((tab, index) => (
             <Typography
               key={index}
+              component={Link}
+              to={tab.path}
               variant="button"
               sx={{
                 mx: 2,
-                color: selectedTab === index ? '#707FCB' : '#00000080', // Highlight selected tab
+                color: selectedTab === tab.path ? '#707FCB' : '#00000080',
                 cursor: 'pointer',
-                fontWeight: 600, // Set font weight for the tabs
+                fontWeight: 600,
+                textDecoration: 'none',
                 '&:hover': {
-                  color: '#707FCB', // Color when hovered
+                  color: '#707FCB',
                 },
               }}
-              onClick={() => handleTabClick(index)}
+              onClick={() => setSelectedTab(tab.path)}
             >
-              {tab}
+              {tab.name}
             </Typography>
           ))}
         </Box>
