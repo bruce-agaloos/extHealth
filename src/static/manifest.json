@@ -42,7 +42,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["iconCheckThisOut.png", "warning.png", "book.pdf"],
+      "resources": ["iconCheckThisOutGreen.png", "warning.png", "book.pdf"],
       "matches": ["https://*.twitter.com/*", "https://*.x.com/*"]
     }
   ]
