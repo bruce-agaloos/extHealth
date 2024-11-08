@@ -29,6 +29,7 @@ const MainContent: React.FC<MainContentProps> = ({
   >
     <Box
       sx={{
+        flex: '1 0 auto',
         padding: 2,
         boxSizing: 'border-box',
         maxWidth: 800,

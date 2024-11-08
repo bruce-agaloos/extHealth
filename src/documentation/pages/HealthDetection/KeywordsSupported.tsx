@@ -1,7 +1,7 @@
 // src/pages/Introduction.js
-import React from 'react';
-import { Typography, Box } from '@mui/material';
-import SearchableTable from "./tableKeywords"
+import React from "react";
+import { Typography, Box } from "@mui/material";
+import SearchableTable from "./tableKeywords";
 
 const KeywordsSupported = () => (
   <Box>
@@ -10,6 +10,13 @@ const KeywordsSupported = () => (
       <Typography variant="h4" component="h1" gutterBottom>
         Keywords Supported
       </Typography>
+      <Typography paragraph>
+        The following are keywords we used in tandem with Artificial
+        Intelligence in order to determine whether a given text is
+        health-related or not. It may seem that other keywords are duplicated
+        like "COVID19" and "COVID-19" this is to cover possible variation in the
+        text.
+      </Typography>
       <SearchableTable />
     </Box>
     {/* Pinning Extension Section */}
@@ -17,8 +24,25 @@ const KeywordsSupported = () => (
       <Typography variant="h4" component="h1" gutterBottom>
         Language Supported
       </Typography>
+      <Typography paragraph>
+        We are limited by the Natural Language Inference (NLI) or Zero-shot classification model we used and
+        the websites we have selected to fact check information for. The
+        following are the languages we support:
+      </Typography>
+      <ul>
+        <li>English</li>
+        <li>Tagalog</li>
+      </ul>
+      <Typography paragraph>
+        If you want to learn about the model we used, we use a variation of {" "}
+        <a href="https://huggingface.co/MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7">
+          mDeBERTa. 
+        </a>{" "}
+        This model is a multilingual model that can understand 100+
+        languages.
+      </Typography>
     </Box>
-</Box>
+  </Box>
 );
 
 export default KeywordsSupported;

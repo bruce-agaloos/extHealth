@@ -1,5 +1,6 @@
 // sections.js
 import Introduction from './../pages/Introduction';
+import BrowserCompatibility from './../pages/BrowserCompatibility';
 import { Looks, History, Settings } from './../pages/HealthTips';
 import { AutoDetection, ContextMenu, KeywordsSupported } from './../pages/HealthDetection';
 import { HowToUse, Modes, AllHistory } from './../pages/FactChecking';
@@ -7,6 +8,7 @@ import { HowToUse, Modes, AllHistory } from './../pages/FactChecking';
 const sections = [
     { name: 'Getting Started', type: 'header' },
     { name: 'Introduction', path: '/', component: Introduction },
+    { name: 'Browser Compatibility', path: '/browser-compatibility', component: BrowserCompatibility },
     { name: 'Sections', type: 'header' },
     {
         name: 'Health Tips',
