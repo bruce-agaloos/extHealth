@@ -104,7 +104,7 @@ const Layout = () => {
         <div id="grid" className="no-select">
             <header className="board">
                 <div className="TitleLogo">
-                    <img src="icon.png" alt="Logo" className="logo" onClick={handleTitleClick} />
+                    <img src="iconGreen.png" alt="Logo" className="logo" onClick={handleTitleClick} />
                     <h2 id="popupTitle" className="popupTitle" onClick={handleTitleClick}>
                         extHealth <span className="forc" onClick={handleTitleClick}>for Chrome</span>
                     </h2>
