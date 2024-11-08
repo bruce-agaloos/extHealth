@@ -20,9 +20,7 @@
     "sidePanel"
   ],
   "background": {
-    "service_worker": "background.js",
-    "scripts": ["backgroundscript.js"],
-    "persistent": true
+    "service_worker": "background.js"
   },
   "icons": {
     "16": "icon.png",
