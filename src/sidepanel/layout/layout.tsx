@@ -13,7 +13,7 @@ const Layout = () => {
         <header className="board">
           <div className="TitleLogo">
             <div>
-              <img src="icon.png" alt="Logo" className="logo" />
+              <img src="iconGreen.png" alt="Logo" className="logo" />
               <h2 id="popupTitle" className="popupTitle">
                 Fact Checking
               </h2>
