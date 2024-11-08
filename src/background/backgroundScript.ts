@@ -301,7 +301,7 @@ const startTimer = async (repeat: boolean = true): Promise<NodeJS.Timeout | null
           await getHealthTips();
           openPopup();
         } catch (error) {
-          console.error("Error:", error);
+          // console.error("Error:", error);
         }
 
         if (repeat && timerActive) {
