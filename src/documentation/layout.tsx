@@ -1,11 +1,12 @@
-import { createRoot } from "react-dom/client";
+// App.js
+import { createRoot } from 'react-dom/client';
 import React, { useState } from 'react';
 import { Navigate, HashRouter as Router, Route, Routes } from 'react-router-dom';
-import { CssBaseline, Box } from '@mui/material';
-import Sidebar from './components/Sidebar';
-import MainContent from './components/MainContent';
-import RightSidebar from './components/RightSidebar';
+import SidebarLayout from './layouts/SidebarLayout';
+import MainLayout from './layouts/MainLayout';
 import TopBar from './components/TopBar';
+import TosPage from './pages/TosPage';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import sections from './functions/sections';
 import { Helmet } from 'react-helmet';
 
@@ -26,32 +27,42 @@ function App() {
           rel="stylesheet"
         />
       </Helmet>
-      <Box sx={{ display: 'flex', pt: 8 }}>
-        <CssBaseline />
-        <TopBar onDrawerToggle={handleDrawerToggle} />
-        <Sidebar mobileOpen={mobileOpen} onDrawerToggle={handleDrawerToggle} sections={sections} />
-        <MainContent onDrawerToggle={handleDrawerToggle}>
-          <Routes>
-            {sections.map((section, index) => (
-              <Route key={index} path={section.path} element={section.component ? <section.component /> : null} /> // Use JSX here
-            ))}
-            {sections.map((section) =>
-              section.subSections ? (
-                section.subSections.map((subSection, subIndex) => (
-                  <Route key={`sub-${subIndex}`} path={subSection.path}  element={subSection.component ? <subSection.component /> : null}  /> // Use JSX here
-                ))
-              ) : null
-            )}
-            <Route path="/documentation.html" element={<Navigate to="/" />} />
-          </Routes>
-        </MainContent>
-        <RightSidebar />
-      </Box>
+
+      {/* Render TopBar once, outside of the layout-specific routing */}
+      <TopBar onDrawerToggle={handleDrawerToggle} />
+
+      <Routes>
+        {/* Documentation route with sidebars */}
+        <Route path="/documentation" element={<SidebarLayout mobileOpen={mobileOpen} handleDrawerToggle={handleDrawerToggle} />}>
+          <Route index element={<Navigate to="getting-started/introduction" />} /> {/* Redirect to Introduction */}
+          
+          {sections.map((section, index) => (
+            <Route key={index} path={section.path} element={section.component ? <section.component /> : null} />
+          ))}
+          {sections.map((section) =>
+            section.subSections ? (
+              section.subSections.map((subSection, subIndex) => (
+                <Route key={`sub-${subIndex}`} path={subSection.path} element={subSection.component ? <subSection.component /> : null} />
+              ))
+            ) : null
+          )}
+        </Route>
+
+        {/* TOS and Privacy Policy without sidebars */}
+        <Route element={<MainLayout />}>
+          <Route path="/tos" element={<TosPage />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+        </Route>
+
+        {/* Redirect legacy route */}
+        <Route path="/documentation.html" element={<Navigate to="/documentation" />} />
+        <Route path="/" element={<Navigate to="/documentation" />} />
+      </Routes>
     </Router>
   );
 }
 
-const container = document.createElement("div");
+const container = document.createElement('div');
 document.body.appendChild(container);
 const root = createRoot(container);
 root.render(<App />);
