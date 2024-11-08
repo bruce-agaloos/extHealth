@@ -7,6 +7,7 @@ import MainLayout from './layouts/MainLayout';
 import TopBar from './components/TopBar';
 import TosPage from './pages/TosPage';
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
+import LicensePage from './pages/License';
 import sections from './functions/sections';
 import { Helmet } from 'react-helmet';
 
@@ -52,6 +53,7 @@ function App() {
         <Route element={<MainLayout />}>
           <Route path="/tos" element={<TosPage />} />
           <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+          <Route path="/license" element={<LicensePage />} /> 
         </Route>
 
         {/* Redirect legacy route */}

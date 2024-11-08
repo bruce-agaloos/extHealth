@@ -2,7 +2,7 @@
 import React from "react";
 import { Typography, Container, Box } from "@mui/material";
 
-const PrivacyPolicy = () => {
+const License = () => {
   return (
     <Container maxWidth="md">
       <Box padding={3}>
@@ -39,4 +39,4 @@ const PrivacyPolicy = () => {
   );
 };
 
-export default PrivacyPolicy;
+export default License;

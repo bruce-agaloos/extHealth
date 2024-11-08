@@ -1,10 +1,8 @@
 import React from 'react';
-
+import PrivacyPolicy from "./../../termsAndPrivacy/components/Privacy";
 const PrivacyPolicyPage = () => {
     return (
-        <div>
-            pp page
-        </div>
+        <PrivacyPolicy />
     );
 };
 

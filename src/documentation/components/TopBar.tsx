@@ -5,7 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { version } from "./../functions/dateEditedAndVersion";
 import { Link, useLocation } from 'react-router-dom';
 
@@ -17,10 +17,20 @@ const TopBar: React.FC<TopBarProps> = ({ onDrawerToggle }) => {
   const location = useLocation();
   const [selectedTab, setSelectedTab] = useState(location.pathname);
 
+  useEffect(() => {
+    // Update selectedTab based on location.pathname
+    if (location.pathname.startsWith('/documentation')) {
+      setSelectedTab('/documentation');
+    } else {
+      setSelectedTab(location.pathname);
+    }
+  }, [location.pathname]);
+
   const tabs = [
     { name: 'Documentation', path: '/documentation' },
-    { name: 'TOS', path: '/tos' },
     { name: 'Privacy Policy', path: '/privacy-policy' },
+    { name: 'Terms of Use', path: '/tos' },
+    { name: 'License', path: '/license' },
   ];
 
   return (
@@ -28,7 +38,9 @@ const TopBar: React.FC<TopBarProps> = ({ onDrawerToggle }) => {
       position="fixed"
       sx={{
         backgroundColor: 'white',
-        zIndex: (theme) => theme.zIndex.drawer + 1,
+        zIndex: (theme) => ({
+          lg: theme.zIndex.drawer + 1,
+        }),
         fontFamily: 'Lexend',
         boxShadow: 'none',
         borderBottom: '1px solid #00000080',
