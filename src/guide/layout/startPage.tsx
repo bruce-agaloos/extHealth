@@ -22,7 +22,7 @@ export default function StartPage() {
           <Link to="/finalPage" className="skip-button">Skip Tutorial</Link>
         </div>
       </div>
-      <img src="iconBig.png" alt="" />
+      <img src="iconBigGreen.png" alt="" />
     </div>
   );
 }

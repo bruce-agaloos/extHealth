@@ -11,7 +11,7 @@ export default function Root() {
   return (
     <>
       <nav>
-        <img src="icon.png" alt="Icon" />
+        <img src="iconGreen.png" alt="Icon" />
         <span>eXtHealth</span>
       </nav>
       <div id="detail">

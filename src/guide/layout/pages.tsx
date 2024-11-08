@@ -12,42 +12,48 @@ export default function Pages() {
       title: "The eXtHealth 'Check This Out' button means that the tweet or post contains health-related information.",
       content: "The eXtHealth detects posts containing health-related information. When you're browsing X and come across a post with health content, you will see a 'Check This Out' button. Click this button to request a fact-check.",
       nextLink: "pages/2",
-      imgLink: "/page1.png",
+      prevLink: "pages/6",
+      imgLink: "/page1Green.png",
     },
     {
       id: 2,
       title: "extHealth Icon",
       content: "By clicking the eXtHealth icon in the extension bar, these features are enabled by default. However, here, you can choose to disable the Health Tips Reminder and/or X Auto Detect. From here, you can also open the Fact Check Sidebar.",
       nextLink: "pages/3",
-      imgLink: "/page2.png",
+      prevLink: "pages/1",
+      imgLink: "/page2Green.png",
     },
     {
       id: 3,
       title: "eXtHealth Health Reminders",
       content: "The eXtHealth Health Reminders appears like a modal posts while  browsing X.",
       nextLink: "pages/4",
-      imgLink: "/page3.png",
+      prevLink: "pages/2",
+      imgLink: "/page3Green.png",
     },
     {
       id: 4,
       title: "Side Panel: Fact-Checking Results",
       content: "The eXtHealth side panel will appear after clicking the 'Check This Out' button. This will provide users with information from trusted sources regarding the post to help verify its credibility and prevent misinformation.",
       nextLink: "pages/5",
-      imgLink: "/page4.png",
+      prevLink: "pages/3",
+      imgLink: "/page4Green.png",
     },
     {
       id: 5,
       title: "Health Settings",
       content: "Settings lets you customize the extension to your liking. Select the Interval tab to set reminder intervals, the Topics tab to choose health tip topics, and the Danger tab to clear local storage data.",
       nextLink: "pages/6",
-      imgLink: "/page5.gif",
+      prevLink: "pages/4",
+      imgLink: "/page5Green.gif",
     },
     {
       id: 6,
       title: "Quick Access Side Panel for Health Claims ",
       content: "When browsing, you can open the side panel and input health claim statements by simply highlighting the text, then selecting 'Check Health Information' from the context menu, or by clicking the eXtHealth logo in the extension bar.",
       nextLink: finalPage,
-      imgLink: "/page6.png",
+      prevLink: "pages/5",
+      imgLink: "/page6Green.png",
     },
   ];
 
@@ -74,7 +80,8 @@ export default function Pages() {
           </div>
           <div className="stepsFlex">
             <div>
-              <Link to={`/${currentPage.nextLink}`} className="primary-button">Next Page</Link>
+              <Link to={`/${currentPage.nextLink}`} className="primary-button">Next</Link>
+              <Link to={`/${currentPage.prevLink}`} className="skip-button">Back</Link>
               <span>
                 {currentPage.id} of {maxPages}
               </span>
