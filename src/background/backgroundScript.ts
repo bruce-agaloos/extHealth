@@ -450,20 +450,11 @@ chrome.windows.onRemoved.addListener((windowId) => {
   if (windowId === popupWindowId) {
     console.log("Popup window closed, resetting popupWindowId");
     popupWindowId = null;
-  } else {
-    // Check if there are no more windows open
-    chrome.windows.getAll({}, (windows) => {
-      if (windows.length === 0) {
-        console.log("All browser windows closed, closing popup window");
-        if (popupWindowId !== null) {
-          chrome.windows.remove(popupWindowId, () => {
-            console.log("Popup window closed as browser was closed.");
-            popupWindowId = null;
-          });
-        }
-      }
+  } else if (popupWindowId !== null) {
+    console.log("Closing popup window as a browser window was closed");
+    chrome.windows.remove(popupWindowId, () => {
+      console.log("Popup window closed.");
+      popupWindowId = null;
     });
   }
 });
-
-
