@@ -60,7 +60,7 @@ const createOverlayElement = (): HTMLDivElement => {
 const createBtnElement = (tweetBody): HTMLButtonElement => {
     const button = document.createElement("button");
     button.style.border = "3px solid #FFFFFF";
-    button.style.backgroundColor = "#F11729";
+    button.style.background = "linear-gradient(to bottom, #75FFCA, #7075CB)";
     button.style.borderRadius = "50px 50px 50px 0";
     button.style.boxShadow = "0px 4px 4px 0px #00000040";
     button.style.display = "flex";
@@ -74,16 +74,13 @@ const createBtnElement = (tweetBody): HTMLButtonElement => {
     button.style.top = "-30px";
     button.style.right = "-30px";
     button.style.transformOrigin = "left";
-    // button.st
-    // button.style.transform = "scale(0)";
-    // button.style.transition = "transform 0.3s ease-in-out";
     button.style.width = "3rem";
 
     button.style.pointerEvents = "auto";
 
     const img = document.createElement("img");
     // replace with the real image of our extension
-    img.src = chrome.runtime.getURL('iconCheckThisOut.png');
+    img.src = chrome.runtime.getURL('iconCheckThisOutGreen.png');
     img.alt = "";
     img.style.transition = "transform 0.3s ease-in-out";
     img.style.height = "100%";
@@ -95,7 +92,7 @@ const createBtnElement = (tweetBody): HTMLButtonElement => {
     span.className = "button-text";
     span.textContent = "Check This Out!";
     span.style.marginLeft = "5px";
-    span.style.color = "white";
+    span.style.color = "#FFFFFF";
     span.style.fontFamily = "Public Sans";
     span.style.fontWeight = "700";
     span.style.opacity = "0";
@@ -109,6 +106,7 @@ const createBtnElement = (tweetBody): HTMLButtonElement => {
         // button.style.animation = 'expandButtonXHealth 0.5s forwards';
         button.style.width = "11rem";
         span.style.opacity = "1";
+        button.style.background = "linear-gradient(to left, #75FFCA, #7075CB)";
         // button.style.transform = "scale(1)";
 
     });
@@ -117,6 +115,7 @@ const createBtnElement = (tweetBody): HTMLButtonElement => {
         // button.style.animation = 'shrinkButtonXHealth 0.5s forwards';
         button.style.width = "3rem";
         span.style.opacity = "0";
+        button.style.background = "linear-gradient(to bottom, #75FFCA, #7075CB)";
         // button.style.transform = "scale(0)";
     });
 

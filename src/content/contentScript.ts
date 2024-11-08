@@ -144,23 +144,6 @@ const searchKeywordAndCreateOverlay = async (tweetBody: string, tweet: HTMLDivEl
     let isOverlayCreated = false;
     if (!isOverlayCreated) {
 
-        // Define the JSON object
-        const claimData = [
-            {
-                claim: "Covid-19 is non-communicable disease",
-                entailment: 3,
-                disputed: 5,
-                neutral: 2
-
-            },
-            {
-                claim: "Polio is not deadly to all age bracket",
-                entailment: 3,
-                disputed: 5,
-                neutral: 2
-            }
-        ];
-
         const overlayElement = createOverlayElement();
         const overlayId = nanoid();
 
@@ -176,7 +159,7 @@ const searchKeywordAndCreateOverlay = async (tweetBody: string, tweet: HTMLDivEl
         viewBtn.style.position = "absolute";
         viewBtn.style.left = "0";
 
-         // Check if the claim is highly disputed
+        // Check if the claim is highly disputed
         // const isClaimDisputed = await checkHighlyDisputedClaim(tweetBody);
         // if (isClaimDisputed) {
         //     const img = viewBtn.querySelector('img');
@@ -212,7 +195,7 @@ const searchKeywordAndCreateOverlay = async (tweetBody: string, tweet: HTMLDivEl
             // Create a spinner, and append it to the button
             let spinner = document.createElement('span');
             spinner.className = "btn-spinner";
-            spinner.style.color = "#f5f5f5";
+            spinner.style.color = "#FFFFFF";
             spinner.style.position = "absolute";
             spinner.style.left = "0";
 
