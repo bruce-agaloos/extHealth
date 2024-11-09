@@ -23,6 +23,10 @@ const TermsOfServiceModal = () => {
     setOpen(false); // Close the modal
   };
 
+  const getPrivacyLink = () => {
+    return chrome.runtime.getURL("documentation.html")+'#/privacy-policy';
+  }
+
   return (
     <Modal open={open} onClose={() => {}}>
       <Box
@@ -49,7 +53,8 @@ const TermsOfServiceModal = () => {
           </Typography>
           <TermsOfService /> {/* Including the ToS content as a component */}
 
-          <Box display="flex" justifyContent="flex-end" mt={3}>
+          <Box display="flex" justifyContent="flex-end" alignItems="center" gap="10px" mt={3}>
+            <a style={{textDecoration: "underline"}} href={getPrivacyLink()} target='_blank' rel="noreferrer noopener">Privacy Policy</a>
             <Button
               variant="contained"
               color="primary"
