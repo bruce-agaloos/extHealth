@@ -15,23 +15,28 @@ const ContextMenu = () => (
         reading; though it may seem pointless it is used to fact check health
         related information.
       </Typography>
-      <ol>
-        <li>
-          <Typography>
-            Highlight the text you want to fact-check (this is done by long-pressing your left-mouse button and dragging it to the text).
-          </Typography>
-        </li>
-        <li>
-          <Typography>
-            Press right-click on your mouse if you are satisfied with the highlighted text.
-          </Typography>
-        </li>
-        <li>
-          <Typography>
-            Click the option of our extension named "Check Health Information".
-          </Typography>
-        </li>
-      </ol>
+      <Typography component="div">
+        <ol>
+          <li>
+            <Typography>
+              Highlight the text you want to fact-check (this is done by
+              long-pressing your left-mouse button and dragging it to the text).
+            </Typography>
+          </li>
+          <li>
+            <Typography>
+              Press right-click on your mouse if you are satisfied with the
+              highlighted text.
+            </Typography>
+          </li>
+          <li>
+            <Typography>
+              Click the option of our extension named "Check Health
+              Information".
+            </Typography>
+          </li>
+        </ol>
+      </Typography>
       <Box mt={2} textAlign="center">
         <img
           src="detectionPlainText.gif"
@@ -48,23 +53,24 @@ const ContextMenu = () => (
         Image
       </Typography>
       <Typography paragraph>
-        This also supports images, recognizing health-related visuals
-        allowing you to fact check this information. This feature enhances your
+        This also supports images, recognizing health-related visuals allowing
+        you to fact check this information. This feature enhances your
         experience by making health information accessible, even when it's part
         of an image.
       </Typography>
-      <ol>
-        <li>
-          <Typography>
-            Press right-click on an image.
-          </Typography>
-        </li>
-        <li>
-          <Typography>
-            Click the option of our extension named "Check Health Information".
-          </Typography>
-        </li>
-      </ol>
+      <Typography component="div">
+        <ol>
+          <li>
+            <Typography>Press right-click on an image.</Typography>
+          </li>
+          <li>
+            <Typography>
+              Click the option of our extension named "Check Health
+              Information".
+            </Typography>
+          </li>
+        </ol>
+      </Typography>
       <Box mt={2} textAlign="center">
         <img
           src="detectionImage.gif"

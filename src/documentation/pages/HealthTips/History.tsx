@@ -15,18 +15,19 @@ const History = () => (
         you maintain a record of useful health information. The animation below
         shows how to access your history.
       </Typography>
-      <ol>
-        <li>
-          <Typography>
-            Click our extension.
-          </Typography>
-        </li>
-        <li>
-          <Typography>
-            Click the history icon at the top-right(below the settings icon) of the extension.
-          </Typography>
-        </li>
-      </ol>
+      <Typography component="div">
+        <ol>
+          <li>
+            <Typography>Click our extension.</Typography>
+          </li>
+          <li>
+            <Typography>
+              Click the history icon at the top-right(below the settings icon)
+              of the extension.
+            </Typography>
+          </li>
+        </ol>
+      </Typography>
       <Box mt={2} textAlign="center">
         <img
           src="healthTipsHistory.gif"

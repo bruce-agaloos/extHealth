@@ -16,6 +16,7 @@ const HowToUse = () => (
         through context-menu or auto-detection submission. If not refer to this
         two pages below:
       </Typography>
+      <Typography component="div">
       <ul>
         <li>
           <Link to="/health-detections/auto-detection">
@@ -28,6 +29,7 @@ const HowToUse = () => (
           </Link>
         </li>
       </ul>
+      </Typography>
     </Box>
 
     {/* Pinning Extension Section */}
@@ -39,6 +41,7 @@ const HowToUse = () => (
         Have a specific piece of health-text you'd like to fact-check?
         You can submit it to the side-panel.
       </Typography>
+      <Typography component="div">
       <ol>
         <li>
           <Typography>
@@ -61,6 +64,7 @@ const HowToUse = () => (
           </Typography>
         </li>
       </ol>
+      </Typography>
       {/* GIF Placeholder */}
       <Box mt={2} textAlign="center">
         <img
@@ -79,6 +83,7 @@ const HowToUse = () => (
         Our system divides the text into sentences so that it can be easily fact-checked and read.
         If you think our system made a mistake in dividing the text, you can correct it.
       </Typography>
+      <Typography component="div">
       <ol>
         <li>
           <Typography>
@@ -96,6 +101,7 @@ const HowToUse = () => (
           </Typography>
         </li>
       </ol>
+      </Typography>
       {/* GIF Placeholder */}
       <Box mt={2} textAlign="center">
         <img

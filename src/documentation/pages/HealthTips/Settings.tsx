@@ -15,23 +15,23 @@ const Settings = () => (
         preference, so you can get updates when they’re most convenient. See the
         animation below for how to adjust the timer settings.
       </Typography>
-      <ol>
-        <li>
-          <Typography>
-            Click our extension.
-          </Typography>
-        </li>
-        <li>
-          <Typography>
-            Click the settings icon at the top-right of the extension
-          </Typography>
-        </li>
-        <li>
-          <Typography>
-            Adjust the timer settings to your preferred interval.
-          </Typography>
-        </li>
-      </ol>
+      <Typography component="div">
+        <ol>
+          <li>
+            <Typography>Click our extension.</Typography>
+          </li>
+          <li>
+            <Typography>
+              Click the settings icon at the top-right of the extension
+            </Typography>
+          </li>
+          <li>
+            <Typography>
+              Adjust the timer settings to your preferred interval.
+            </Typography>
+          </li>
+        </ol>
+      </Typography>
       <Box mt={2} textAlign="center">
         <img
           src="healthTipsTimer.gif"
@@ -53,28 +53,28 @@ const Settings = () => (
         filtering tips according to your interests. The animation below
         demonstrates how to choose your preferred topics.
       </Typography>
-      <ol>
-        <li>
-          <Typography>
-            Click our extension.
-          </Typography>
-        </li>
-        <li>
-          <Typography>
-            Click the settings icon at the top-right of the extension
-          </Typography>
-        </li>
-        <li>
-          <Typography>
-            Click the topics tab at the left side of the extension.
-          </Typography>
-        </li>
-        <li>
-          <Typography>
-            Toggle On/Off the topics you want/don't want to see.
-          </Typography>
-        </li>
-      </ol>
+      <Typography component="div">
+        <ol>
+          <li>
+            <Typography>Click our extension.</Typography>
+          </li>
+          <li>
+            <Typography>
+              Click the settings icon at the top-right of the extension
+            </Typography>
+          </li>
+          <li>
+            <Typography>
+              Click the topics tab at the left side of the extension.
+            </Typography>
+          </li>
+          <li>
+            <Typography>
+              Toggle On/Off the topics you want/don't want to see.
+            </Typography>
+          </li>
+        </ol>
+      </Typography>
       <Box mt={2} textAlign="center">
         <img
           src="healthTipsTopic.gif"

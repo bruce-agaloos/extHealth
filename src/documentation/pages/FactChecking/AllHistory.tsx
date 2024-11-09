@@ -16,6 +16,7 @@ const AllHistory = () => (
         all previously fact-checked automatically in our system; we do this
         since we are not saving any history that can relate to a person.
       </Typography>
+      <Typography component="div">
       <ol>
         <li>
           <Typography>
@@ -38,6 +39,7 @@ const AllHistory = () => (
           </Typography>
         </li>
       </ol>
+      </Typography>
       <Box mt={2} textAlign="center">
         <img
           src="factHistory.gif"

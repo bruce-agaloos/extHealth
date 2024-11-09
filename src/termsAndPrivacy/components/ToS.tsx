@@ -19,7 +19,7 @@ const TermsOfService = () => {
           <Typography paragraph>
             These terms of use constitute a legally binding agreement made
             between you, whether personally or on behalf of an entity (“you”)
-            and CS82 group (“we,” “us” or “our”), concerning your
+            and Exthealth (“we,” “us” or “our”), concerning your
             access to and use of the Exthealth extension as well as any other
             media form, media channel, mobile site or mobile application
             related, linked, or otherwise connected thereto (collectively, the
@@ -691,8 +691,7 @@ const TermsOfService = () => {
             contact us at:
           </Typography>
           <Typography paragraph fontWeight="bold">
-            Senior Thesis Project by CS82 of batch 2024-2025 of College of
-            Computing Studies of Don Honorio Ventura State University
+            Exthealth
             <br />
             Philippines
             <br />

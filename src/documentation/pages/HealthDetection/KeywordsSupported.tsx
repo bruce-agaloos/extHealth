@@ -29,10 +29,12 @@ const KeywordsSupported = () => (
         the websites we have selected to fact check information for. The
         following are the languages we support:
       </Typography>
+      <Typography component="div">
       <ul>
         <li>English</li>
         <li>Tagalog</li>
       </ul>
+      </Typography>
       <Typography paragraph>
         If you want to learn about the model we used, we use a variation of {" "}
         <a href="https://huggingface.co/MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7">

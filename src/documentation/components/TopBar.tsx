@@ -31,6 +31,7 @@ const TopBar: React.FC<TopBarProps> = ({ onDrawerToggle }) => {
     { name: 'Privacy Policy', path: '/privacy-policy' },
     { name: 'Terms of Use', path: '/tos' },
     { name: 'License', path: '/license' },
+    { name: 'About Us', path: '/about' },
   ];
 
   return (
@@ -100,6 +101,7 @@ const TopBar: React.FC<TopBarProps> = ({ onDrawerToggle }) => {
                 cursor: 'pointer',
                 fontWeight: 600,
                 textDecoration: 'none',
+                textTransform: 'none',
                 '&:hover': {
                   color: '#707FCB',
                 },

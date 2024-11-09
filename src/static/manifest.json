@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "eXtHealth",
   "version": "1.0.0",
-  "description": "This extension will help you to track your health",
+  "description": "This extension informs you about health topics",
   "action": {
     "default_popup": "popup.html"
   },

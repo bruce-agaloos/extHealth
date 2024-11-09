@@ -17,7 +17,7 @@ const Looks = () => (
       </Typography>
       <Box mt={2} textAlign="center">
         <img
-          src="healthTipsLooks.gif"
+          src="healthTipsLooks.png"
           alt="Looks of Health Tips"
           width="400"
           height="auto"
@@ -35,18 +35,18 @@ const Looks = () => (
         allows you to easily turn health tips on or off, providing flexibility
         depending on your needs.
       </Typography>
-      <ol>
-        <li>
-          <Typography>
-            Click our extension.
-          </Typography>
-        </li>
-        <li>
-          <Typography>
-            Toggle the health tips switch to turn them on or off.
-          </Typography>
-        </li>
-      </ol>
+      <Typography component="div">
+        <ol>
+          <li>
+            <Typography>Click our extension.</Typography>
+          </li>
+          <li>
+            <Typography>
+              Toggle the health tips switch to turn them on or off.
+            </Typography>
+          </li>
+        </ol>
+      </Typography>
       {/* GIF Placeholder */}
       <Box mt={2} textAlign="center">
         <img

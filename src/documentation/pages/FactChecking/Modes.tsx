@@ -37,6 +37,7 @@ const Modes = () => (
           </Typography>
         </li>
       </ul>
+      <Typography component="div">
       <ol>
         <li>
           <Typography>
@@ -59,6 +60,8 @@ const Modes = () => (
           </Typography>
         </li>
       </ol>
+      </Typography>
+      {/* GIF Placeholder */}
       <Box mt={2} textAlign="center">
         <img
           src="factChangingModes.gif"

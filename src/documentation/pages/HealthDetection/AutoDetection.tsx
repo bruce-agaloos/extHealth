@@ -15,18 +15,16 @@ const AutoDetection = () => (
         only when you need it, optimizing your experience. The animation below
         demonstrates how to enable or disable auto-detection.
       </Typography>
-      <ol>
-        <li>
-          <Typography>
-            Click our extension.
-          </Typography>
-        </li>
-        <li>
-          <Typography>
-            Toggle On/Off the X auto detect toggle.
-          </Typography>
-        </li>
-      </ol>
+      <Typography component="div">
+        <ol>
+          <li>
+            <Typography>Click our extension.</Typography>
+          </li>
+          <li>
+            <Typography>Toggle On/Off the X auto detect toggle.</Typography>
+          </li>
+        </ol>
+      </Typography>
       <Box mt={2} textAlign="center">
         <img
           src="detectionTurn.gif"
@@ -44,8 +42,8 @@ const AutoDetection = () => (
       </Typography>
       <Typography paragraph>
         Auto-detection works on specific supported websites to seamlessly
-        integrate with your browsing, through fact-checking. Currently, we support
-        only support Twitter.
+        integrate with your browsing, through fact-checking. Currently, we
+        support only support Twitter.
       </Typography>
       <Box mt={2} textAlign="center">
         <img
