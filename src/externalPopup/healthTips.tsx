@@ -41,7 +41,7 @@ const HealthTips: React.FC<HealthTipsProps> = ({ idx, health_tips }) => {
             {/* Header Icons */}
             <div className="header-icons">
                 <div className="logo-container">
-                    <img src="icon.png" alt="Logo" className="logo" />
+                    <img src="iconGreen.png" alt="Logo" className="logo" />
                     <span className="icon">Reminders</span>
                 </div>
             </div>

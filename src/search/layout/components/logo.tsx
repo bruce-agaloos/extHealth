@@ -4,7 +4,7 @@ import './../css/logo.css'; // Ensure you have the CSS file imported
 const Logo: React.FC = () => {
     return (
         <div className="logo-container">
-            <img src="icon.png" alt="Logo" className="logo-image" />
+            <img src="iconGreen.png" alt="Logo" className="logo-image" />
             <span className="logo-text">eXtHealth</span>
         </div>
     );
