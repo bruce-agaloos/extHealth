@@ -7,8 +7,10 @@ import MainContent from './../components/MainContent';
 import { Outlet } from 'react-router-dom';
 import sections from "./../functions/sections"
 
+const paddingTop = 10;
+
 const SidebarLayout = ({ mobileOpen, handleDrawerToggle }) => (
-  <Box sx={{ display: 'flex', pt: 8 }}>
+  <Box sx={{ display: 'flex', pt: paddingTop }}>
     <Sidebar mobileOpen={mobileOpen} onDrawerToggle={handleDrawerToggle} sections={sections}/>
     <MainContent>
       <Outlet /> {/* Renders child routes here */}

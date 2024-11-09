@@ -17,6 +17,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { basePath } from './../functions/sections';
 
 const drawerWidth = 240;
+const marginTop = 5;
 
 const Sidebar = ({ mobileOpen, onDrawerToggle, sections }) => {
   const location = useLocation();
@@ -143,7 +144,6 @@ const Sidebar = ({ mobileOpen, onDrawerToggle, sections }) => {
           display: { xs: 'none', sm: 'none', md: 'none', lg: 'block' },
           width: drawerWidth,
           flexShrink: 0,
-          borderRight: '1px solid #00000080', // Add right border
           [`& .MuiDrawer-paper`]: {
             width: drawerWidth,
             boxSizing: 'border-box',
@@ -153,7 +153,7 @@ const Sidebar = ({ mobileOpen, onDrawerToggle, sections }) => {
         open
       >
         <Toolbar />
-        <Box sx={{ overflow: 'auto' }}>
+        <Box sx={{ overflow: 'auto', mt:marginTop }}>
           {renderSections()}
         </Box>
       </Drawer>

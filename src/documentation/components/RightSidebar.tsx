@@ -3,6 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Box, List, ListItem, ListItemText, useTheme, Drawer, Toolbar, Typography } from '@mui/material';
 
+const drawerWidth = 240;
+const marginTop = 5;
+
 const RightSidebar = () => {
   const location = useLocation();
   const [sections, setSections] = useState([]);
@@ -79,11 +82,11 @@ const RightSidebar = () => {
       variant="permanent"
       anchor="right"
       sx={{
-        width: 250,
+        width: drawerWidth,
         flexShrink: 0,
         display: { xs: 'none', sm: 'none', md: 'none', lg: 'block' },
         '& .MuiDrawer-paper': {
-          width: 250,
+          width: drawerWidth,
           height: '100%',
           position: 'fixed',
           top: 0,
@@ -96,7 +99,7 @@ const RightSidebar = () => {
       }}
     >
       <Toolbar />
-      <Box sx={{ overflow: 'auto', color: '#00000080', padding: '16px' }}> {/* Text color and padding */}
+      <Box sx={{ overflow: 'auto', color: '#00000080', padding: '16px', mt:marginTop }}> {/* Text color and padding */}
         <Typography
           variant="h6"
           sx={{

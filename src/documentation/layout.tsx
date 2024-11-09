@@ -19,6 +19,8 @@ import AboutUsPage from "./pages/AboutUsPage";
 import sections from "./functions/sections";
 import { Helmet } from "react-helmet";
 
+import "./css/linksRoute.css";
+
 function App() {
   const [mobileOpen, setMobileOpen] = useState(false);
 

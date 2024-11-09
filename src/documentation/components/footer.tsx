@@ -23,7 +23,7 @@ const Footer = () => {
       }}
     >
       <Typography variant="body2" sx={{ fontWeight: 400 }}>
-        <Link to="/license">Copyright</Link> © 2024: eXtHealth licensed under an MIT License
+        <Link className='link-route' to="/license">Copyright</Link> © 2024: eXtHealth licensed under an MIT License
       </Typography>
       <Typography variant="body2" sx={{ fontWeight: 400, mt: { xs: 1, sm: 0 } }}>
         Last Updated: {documentationDate}

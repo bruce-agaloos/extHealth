@@ -13,6 +13,8 @@ interface TopBarProps {
   onDrawerToggle: () => void;
 }
 
+const padding = 1;
+
 const TopBar: React.FC<TopBarProps> = ({ onDrawerToggle }) => {
   const location = useLocation();
   const [selectedTab, setSelectedTab] = useState(location.pathname);
@@ -45,6 +47,7 @@ const TopBar: React.FC<TopBarProps> = ({ onDrawerToggle }) => {
         fontFamily: 'Lexend',
         boxShadow: 'none',
         borderBottom: '1px solid #00000080',
+        p: padding,
       }}
     >
       <Toolbar>
