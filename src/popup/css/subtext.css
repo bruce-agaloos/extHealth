@@ -46,14 +46,14 @@
   position: absolute;
   color: #5c5b5b;
   z-index: 1000;
-  top: 85%;
-  left: 70%;
+  top: 85.5%;
+  left: 40%;
   &:hover {
     text-decoration: underline;
   }
 }
 
-.howToUse {
+.documentation {
   display: flex;
   align-items: center;
   text-decoration: none;
@@ -62,8 +62,8 @@
   position: absolute;
   color: #5c5b5b;
   z-index: 1000;
-  top: 85%;
-  left: 70%;
+  top: 88%;
+  left: 67%;
   &:hover {
     text-decoration: underline;
   }
@@ -89,6 +89,14 @@
   width: 40px;
   height: 40px;
   object-fit: contain;
+}
+
+.code {
+  width: 22px;
+  height: 22px;
+  padding-right: 5px;
+  object-fit: contain;
+  fill: #5c5b5b;
 }
 
 .helpText {
@@ -139,4 +147,12 @@
 .content {
   padding: 10px 20px 20px 20px;
 
+}
+
+.cont{
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding-top: 20px;
+  padding-left: 40px;
 }

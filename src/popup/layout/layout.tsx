@@ -10,7 +10,7 @@ const Layout = () => {
     const [rotateClockwise, setRotateClockwise] = useState(false);
     const [rotateCounterclockwise, setRotateCounterclockwise] = useState(false);
     const [fadeOut, setFadeOut] = useState(false);
-    const [popupHeight] = useState(200);
+    const [popupHeight] = useState(250);
     const [healthTipsEnabled, setHealthTipsEnabled] = useState<boolean>(false);
 
     useEffect(() => {
@@ -188,12 +188,12 @@ const Layout = () => {
                                     >
                                         Fact Mode
                                     </div>
-                                    <div
+                                    {/* <div
                                         className={`subTileHeader ${activeContent === 'others' ? 'active' : ''}`}
                                         onClick={() => handleSidebarClick('others')}
                                     >
                                         Others
-                                    </div>
+                                    </div> */}
                                     <div
                                         className={`subTileHeader ${activeContent === 'danger' ? 'active' : ''}`}
                                         onClick={() => handleSidebarClick('danger')}
@@ -202,9 +202,16 @@ const Layout = () => {
                                     </div>
                                 </div>
                                 <div className={`mainContent ${fadeOut ? 'fade-out-right' : 'fade-in-right'}`}>
-                                    {(activeContent === 'interval' || activeContent === 'topics') && (
+                                    {(activeContent === 'interval') && (
                                         <div className="tileHeader">
                                             <div className="tileBorder">
+                                                Health Tips Reminder
+                                            </div>
+                                        </div>
+                                    )}
+                                    {(activeContent === 'topics') && (
+                                        <div className="tileHeader">
+                                            <div className="tileBorder" style={{ marginLeft: "11.5px" }}>
                                                 Health Tips Reminder
                                             </div>
                                         </div>
