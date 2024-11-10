@@ -1,7 +1,7 @@
 .mainContent {
   flex: 1;
   overflow-y: auto;
-  max-height: 200px;
+  max-height: 250px;
 }
 
 .mainContent::-webkit-scrollbar {
