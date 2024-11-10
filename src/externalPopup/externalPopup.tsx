@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { createRoot } from "react-dom/client";
 import HealthTips from './healthTips';
-// import "./css/healthTips.css";
 
 // placeholder for local storage(change)
 const HealthTipsSection: React.FC = () => {
@@ -28,7 +28,6 @@ const HealthTipsSection: React.FC = () => {
 
         chrome.storage.onChanged.addListener(handleStorageChange);
 
-        // Cleanup listener on component unmount
         return () => {
             chrome.storage.onChanged.removeListener(handleStorageChange);
         };
@@ -37,18 +36,7 @@ const HealthTipsSection: React.FC = () => {
     return (
         <div>
             {healthTipsData.length === 0 ? (
-                <div
-                    // style={{
-                    //     display: 'flex',
-                    //     justifyContent: 'center',
-                    //     alignItems: 'center',
-                    //     fontSize: '20px',
-                    //     color: 'gray',
-                    //     // marginTop: '30px',
-                    //     // marginBottom: '30px',
-                    //     textAlign: 'center',
-                    // }}
-                >
+                <div>
                     It seems you don't have any health tips for now, just keep waiting
                 </div>
             ) : (
@@ -57,11 +45,6 @@ const HealthTipsSection: React.FC = () => {
         </div>
     );
 };
-
-import { createRoot } from "react-dom/client";
-// import "./popup.css";
-
-// import Layout from "./layout/layout";
 
 const Popup = () => {
     return (

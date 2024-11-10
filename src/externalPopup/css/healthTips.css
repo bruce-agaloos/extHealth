@@ -8,6 +8,17 @@ body {
   font-family: "Roboto Slab";
 }
 
+.header-icons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.timer-container {
+    width: 50px; /* Adjust the size as needed */
+    height: 50px; /* Adjust the size as needed */
+}
+
 .content {
   padding: 20px;
   padding-left: 40px;
