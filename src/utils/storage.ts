@@ -186,6 +186,31 @@ function setInterval(value: number): Promise<void> {
   });
 }
 
+function getDuration(): Promise<number> {
+  return new Promise((resolve, reject) => {
+    chrome.storage.local.get(["duration"], (result) => {
+      if (chrome.runtime.lastError) {
+        reject(chrome.runtime.lastError);
+      } else {
+        resolve(result["duration"] || 0); // Default to 0 if the key does not exist
+      }
+    });
+  });
+}
+
+function setDuration(value: number): Promise<void> {
+  return new Promise((resolve, reject) => {
+    chrome.storage.local.set({ ['duration']: value }, () => {
+      if (chrome.runtime.lastError) {
+        reject(chrome.runtime.lastError);
+      } else {
+        resolve();
+      }
+    });
+  });
+}
+
+
 const getRemainingTime = (): Promise<number> => {
   return new Promise((resolve, reject) => {
     chrome.storage.local.get(["remainingTime"], (result) => {
@@ -235,6 +260,8 @@ const setDefaultInstalled = async (): Promise<void> => {
     setXAutoDetectState(true);
     setHealthTipState(true);
     const interval = 5;
+    const duration =1;
+    setDuration(duration);
     setInterval(interval);
     setRemainingTime(interval*60);
     const categories = [15, 16, 18, 19, 20, 21, 23, 24, 28, 29];
@@ -265,6 +292,8 @@ export {
   getFromStorage,
   setInStorage,
   getInterval,
+  setDuration,
+  getDuration,
   getRemainingTime,
   setRemainingTime,
   setInterval,
