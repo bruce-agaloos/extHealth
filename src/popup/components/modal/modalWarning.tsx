@@ -14,6 +14,7 @@ const ModalWarning: React.FC<ModalWarningProps> = ({ title, message, onConfirm, 
         style={{
             top: "0px",
             height: "50%",
+            marginTop: '20px'
         }}>
             <div className="danger-popupContent">
                 <button className="closeButton" onClick={onCancel}>×</button>
