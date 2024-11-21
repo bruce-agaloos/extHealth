@@ -30,6 +30,10 @@ const error = {
     title: "Daily Limit",
     message: "The server has reached its daily limit. Please try again tomorrow.",
   },
+  offlineMode: {
+    title: "Not supported",
+    message: "The function you are trying to perform is currently not supported in offline mode.",
+  },
 };
 
 function getErrorMessage(errorType: string): { title: string; message: string } {

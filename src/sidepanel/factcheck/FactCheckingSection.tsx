@@ -9,6 +9,7 @@ import {healthClaimDetection} from '../../utils/claim_detection';
 import {getFromStorage} from "../../utils/storage"
 import {checkForKeywords } from "./../../utils/xAutoDetect/dom";
 import getErrorMessage from '../../utils/errorMessage/errorMessage';
+import { getFactCheckMode } from '../../utils/pop_up_storage/storage';
 
 const FactCheckingSection: React.FC = () => {
   const [expanded, setExpanded] = useState<string | false>(false);
@@ -74,9 +75,22 @@ const FactCheckingSection: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, index: number) => {
     e.preventDefault();
+    const mode = await getFactCheckMode();
     const hypothesis = facts[index].hypothesis;
     const maxLength = 256;
     let error;
+    const isOffline = mode.factCheckMode === 'offline';
+    if (isOffline) {
+      error = getErrorMessage('offlineMode');
+      chrome.notifications.create({
+        type: 'basic',
+        iconUrl: 'error.png',
+        title: error.title,
+        message: error.message,
+        priority: 2
+      });
+      return;
+    }
     if (hypothesis.trim().length > maxLength || hypothesis.trim().length === 0) {
       error = getErrorMessage('characterLimit');
       chrome.notifications.create({
