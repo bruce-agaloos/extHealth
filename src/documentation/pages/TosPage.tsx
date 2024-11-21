@@ -1,9 +1,14 @@
 import React from 'react';
 import TermsOfService from "./../../termsAndPrivacy/components/ToS";
+import { Box } from '@mui/material';
+import NavigateBigPages from '../components/NavigateBigPages';
 
 const TosPage = () => {
     return (
-        <TermsOfService />
+        <Box>
+            <TermsOfService />
+            <NavigateBigPages/>
+        </Box>
     );
 };
 

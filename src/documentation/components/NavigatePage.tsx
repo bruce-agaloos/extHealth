@@ -1,8 +1,7 @@
-// src/components/NavigatePage.tsx
 import React from 'react';
 import { Box, Button } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
-import sections, {basePath} from './../functions/sections';
+import sections, { basePath } from './../functions/sections';
 import ArrowCircleLeftOutlinedIcon from '@mui/icons-material/ArrowCircleLeftOutlined';
 import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
 
@@ -24,7 +23,7 @@ const flattenSections = () => {
         if (subSection.path) {
           flattened.push({ 
             name: subSection.name, 
-            path: basePath + "/" +subSection.path, 
+            path: basePath + "/" + subSection.path, 
             fullName: `${section.name} - ${subSection.name}` 
           });
         }
@@ -42,7 +41,13 @@ const NavigatePage: React.FC = () => {
 
   const currentIndex = flattenedSections.findIndex(section => section.path === location.pathname);
   const prevSection = currentIndex > 0 ? flattenedSections[currentIndex - 1] : null;
-  const nextSection = currentIndex < flattenedSections.length - 1 ? flattenedSections[currentIndex + 1] : null;
+  const nextSection =
+    currentIndex < flattenedSections.length - 1
+      ? flattenedSections[currentIndex + 1]
+      : null;
+
+  // Determine if the current page is the last page
+  const isLastSection = currentIndex === flattenedSections.length - 1;
 
   return (
     <Box
@@ -71,10 +76,10 @@ const NavigatePage: React.FC = () => {
           {prevSection.fullName}
         </Button>
       )}
-      
+
       <Box sx={{ flexGrow: 1 }} /> {/* Empty space to push the next section to the right */}
 
-      {nextSection && (
+      {nextSection && !isLastSection && (
         <Button
           variant="text"
           sx={{
@@ -86,6 +91,23 @@ const NavigatePage: React.FC = () => {
           onClick={() => navigate(nextSection.path)}
         >
           {nextSection.fullName}
+          <ArrowCircleRightOutlinedIcon sx={{ marginLeft: '8px' }} />
+        </Button>
+      )}
+
+      {/* Show the "Privacy Policy" link if it's the last section */}
+      {isLastSection && (
+        <Button
+          variant="text"
+          sx={{
+            color: '#7075CB',
+            fontFamily: 'Lexend Deca, sans-serif',
+            fontWeight: 500,
+            mt: { xs: 1, sm: 0 }, // Add margin top for small screens
+          }}
+          onClick={() => navigate('/privacy-policy')}
+        >
+          Privacy Policy
           <ArrowCircleRightOutlinedIcon sx={{ marginLeft: '8px' }} />
         </Button>
       )}

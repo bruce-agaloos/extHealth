@@ -36,10 +36,6 @@ const PrivacyPolicy = () => {
             still have any questions or concerns, please contact us at
             2021314140@dhvsu.edu.ph.
           </Typography>
-          <Typography paragraph>
-            This privacy policy was powered by Termly’s Privacy Policy
-            Generator.
-          </Typography>
         </Box>
         <Box marginTop={3}>
           <Typography variant="h6" gutterBottom>
