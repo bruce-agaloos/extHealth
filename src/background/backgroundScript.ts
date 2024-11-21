@@ -260,6 +260,7 @@ async function factCheck(text) {
                 message: 'Error in Accessing Storage',
                 priority: 2
             });
+            return;
         }
     }
 
