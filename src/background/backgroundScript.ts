@@ -9,6 +9,7 @@ import {setFactCheckWholeLoad, setSingleFactCheckLoad, isFactCheckLoading} from 
 import {getExtHealthFacts, setExtHealthFacts, setFactCheckMode} from "../utils/pop_up_storage/storage"
 import {Fact} from "../utils/pop_up_storage/types"
 import {checkForKeywords } from '../utils/xAutoDetect/dom';
+import getErrorMessage from '../utils/errorMessage/errorMessage';
 
 
 
@@ -103,27 +104,30 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 chrome.contextMenus.onClicked.addListener(async (info, tab) => {
   if (info.menuItemId === "extHealth") {
       await chrome.sidePanel.open({ windowId: tab.windowId });
+      let error;
       if (info.selectionText) {
           const maxLength = 256;
           const text = info.selectionText;
 
           if (text.trim().length > maxLength || text.trim().length === 0) {
+              error = getErrorMessage('characterLimit');
               chrome.notifications.create({
                   type: 'basic',
                   iconUrl: 'error.png', // Path to your notification icon
-                  title: 'Character Limit Exceeded',
-                  message: `The text does not meet the character limit, it should be more than 0 and less than ${maxLength} characters.`,
+                  title: error.title,
+                  message: error.message,
               });
               return;
           }
 
           const isMatch = checkForKeywords(text);
           if (!isMatch) {
+              error = getErrorMessage('keywordNotSupported');
               chrome.notifications.create({
                   type: 'basic',
                   iconUrl: 'error.png',
-                  title: 'Keyword Error',
-                  message: 'The current selected text does not include any of the health keywords for this extension. Please select a text that includes health keywords to fact check.',
+                  title: error.title,
+                  message: error.message,
                   priority: 2
               });
               return;
@@ -135,17 +139,16 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
       } 
       else if (info.srcUrl) {
           const url = info.srcUrl;
-          // console.log("URL:", url);
 
           const text = await sendImageToServer(url);
-          // console.log("Extracted: ", text);
           const isMatch = checkForKeywords(text);
           if (!isMatch) {
+              error = getErrorMessage('keywordNotSupported');
               chrome.notifications.create({
                   type: 'basic',
                   iconUrl: 'error.png',
-                  title: 'Keyword Error',
-                  message: 'The current selected text does not include any of the health keywords for this extension. Please select a text that includes health keywords to fact check.',
+                  title: error.title,
+                  message: error.message,
                   priority: 2
               });
               return;
@@ -162,12 +165,14 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
 // fact checking function
 async function updateFactCheck(text) {
   let loading = await isFactCheckLoading();
+  let error;
   if (loading) {
+      error = getErrorMessage('loading');
       chrome.notifications.create({
           type: 'basic',
           iconUrl: 'warning.png',
-          title: 'Error',
-          message: 'Please wait for the current fact check to finish before starting a new one.',
+          title: error.title,
+          message: error.message,
           priority: 2
       });
       return;
@@ -191,12 +196,14 @@ async function updateFactCheck(text) {
 
 async function factCheck(text) {
   let loading = await isFactCheckLoading();
+  let error;
   if (loading) {
+      error = getErrorMessage('loading');
       chrome.notifications.create({
           type: 'basic',
           iconUrl: 'warning.png',
-          title: 'Error',
-          message: 'Please wait for the current fact check to finish before starting a new one.',
+          title: error.title,
+          message: error.message,
           priority: 2
       }); 
       return;

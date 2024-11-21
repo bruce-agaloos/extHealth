@@ -8,6 +8,7 @@ import TextAreaWithCounter from './TextAreaWithCounter';
 import {healthClaimDetection} from '../../utils/claim_detection';
 import {getFromStorage} from "../../utils/storage"
 import {checkForKeywords } from "./../../utils/xAutoDetect/dom";
+import getErrorMessage from '../../utils/errorMessage/errorMessage';
 
 const FactCheckingSection: React.FC = () => {
   const [expanded, setExpanded] = useState<string | false>(false);
@@ -75,12 +76,14 @@ const FactCheckingSection: React.FC = () => {
     e.preventDefault();
     const hypothesis = facts[index].hypothesis;
     const maxLength = 256;
+    let error;
     if (hypothesis.trim().length > maxLength || hypothesis.trim().length === 0) {
+      error = getErrorMessage('characterLimit');
       chrome.notifications.create({
         type: 'basic',
         iconUrl: 'error.png',
-        title: 'Character Limit Error',
-        message: `The current must be more than 0 or does not exceed the character limit of ${maxLength}.`,
+        title: error.title,
+        message: error.message,
         priority: 2
       });
       return;
@@ -88,11 +91,12 @@ const FactCheckingSection: React.FC = () => {
 
     const isMatch = checkForKeywords(hypothesis);
     if (!isMatch) {
+        error = getErrorMessage('keywordNotSupported');
         chrome.notifications.create({
             type: 'basic',
             iconUrl: 'error.png',
-            title: 'Health Claim Error',
-            message: 'The current query is not an health claim. Please make sure it is',
+            title: error.title,
+            message: error.message,
             priority: 2
         });
         return;
@@ -102,20 +106,22 @@ const FactCheckingSection: React.FC = () => {
     if (!isHealthClaim) {
       let error_value = await getFromStorage(['healthClaimResult']);
       if (error_value != "yes" || error_value != "no") {
+          error = getErrorMessage('dailyLimit');
           chrome.notifications.create({
               type: 'basic',
               iconUrl: 'error.png',
-              title: 'Daily Limit Reached',
-              message: 'I am sorry, but you have reached the daily limit or there is an error on the server. Please try again later.',
+              title: error.title,
+              message: error.message,
               priority: 2
           });
           return;
       }
+      error = getErrorMessage('healthNotDetected');
       chrome.notifications.create({
         type: 'basic',
         iconUrl: 'error.png',
-        title: 'Health Claim Error',
-        message: 'The current query is not an health claim. Please make sure it is',
+        title: error.title,
+        message: error.message,
         priority: 2
       });
       return;
@@ -144,14 +150,16 @@ const FactCheckingSection: React.FC = () => {
   const addNewFacts = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       const fact = newFact;
+      let error;
 
       const maxLength = 256;
       if (fact.trim().length > maxLength || fact.trim().length === 0) {
+        error = getErrorMessage('characterLimit');
         chrome.notifications.create({
           type: 'basic',
           iconUrl: 'error.png',
-          title: 'Character Limit Error',
-          message: `The current must be more than 0 or does not exceed the character limit of ${maxLength}.`,
+          title: error.title,
+          message: error.message,
           priority: 2
         });
         return;
@@ -159,11 +167,12 @@ const FactCheckingSection: React.FC = () => {
 
       const isMatch = checkForKeywords(fact);
       if (!isMatch) {
+          error = getErrorMessage('keywordNotSupported');
           chrome.notifications.create({
               type: 'basic',
               iconUrl: 'error.png',
-              title: 'Health Claim Error',
-              message: 'The current query is not an health claim. Please make sure it is',
+              title: error.title,
+              message: error.message,
               priority: 2
           });
           return;
