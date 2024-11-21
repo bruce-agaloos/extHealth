@@ -10,8 +10,6 @@ const TermsOfServiceModal = () => {
     const checkTOS = async () => {
       // Check if the ToS has been accepted on component mount
       const result = await getTOS();
-      setOpen(true);
-      console.log(result);
       if (!result?.tosAccepted) {
         setOpen(true);
       }

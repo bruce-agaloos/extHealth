@@ -1,13 +1,13 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import Typography from '@mui/material/Typography';
-import { useState, useEffect } from 'react';
+import * as React from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import Typography from "@mui/material/Typography";
+import { useState, useEffect } from "react";
 import { version } from "./../functions/dateEditedAndVersion";
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from "react-router-dom";
 
 interface TopBarProps {
   onDrawerToggle: () => void;
@@ -21,67 +21,76 @@ const TopBar: React.FC<TopBarProps> = ({ onDrawerToggle }) => {
 
   useEffect(() => {
     // Update selectedTab based on location.pathname
-    if (location.pathname.startsWith('/documentation')) {
-      setSelectedTab('/documentation');
+    if (location.pathname.startsWith("/documentation")) {
+      setSelectedTab("/documentation");
     } else {
       setSelectedTab(location.pathname);
     }
   }, [location.pathname]);
 
   const tabs = [
-    { name: 'Documentation', path: '/documentation' },
-    { name: 'Privacy Policy', path: '/privacy-policy' },
-    { name: 'Terms of Use', path: '/tos' },
-    { name: 'License', path: '/license' },
-    { name: 'About Us', path: '/about' },
+    { name: "Documentation", path: "/documentation" },
+    { name: "Privacy Policy", path: "/privacy-policy" },
+    { name: "Terms of Use", path: "/tos" },
+    { name: "License", path: "/license" },
+    { name: "About Us", path: "/about" },
   ];
 
   return (
     <AppBar
       position="fixed"
       sx={{
-        backgroundColor: 'white',
+        backgroundColor: "white",
         zIndex: (theme) => ({
           lg: theme.zIndex.drawer + 1,
         }),
-        fontFamily: 'Lexend',
-        boxShadow: 'none',
-        borderBottom: '1px solid #00000080',
+        fontFamily: "Lexend",
+        boxShadow: "none",
+        borderBottom: "1px solid #00000080",
         p: padding,
       }}
     >
       <Toolbar>
         {/* Menu Icon on the Left */}
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          edge="start"
-          onClick={onDrawerToggle}
-          sx={{ display: { lg: 'none' }, mr: 1, color: 'black' }}
-        >
-          <MenuIcon />
-        </IconButton>
+        {location.pathname.startsWith("/documentation") && (
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={onDrawerToggle}
+            sx={{ display: { lg: "none" }, mr: 1, color: "black" }}
+          >
+            <MenuIcon />
+          </IconButton>
+        )}
 
         {/* Logo with Version Number */}
-        <Box sx={{ display: 'flex', alignItems: 'center', mr: 2 }}>
+        <Box sx={{ display: "flex", alignItems: "center", mr: 2 }}>
           <Box
             component="img"
             src="iconGreen.png"
             alt="Logo"
             sx={{ height: 45, width: 30, mr: 1 }}
           />
-          <Typography variant="h6" component="div" sx={{ color: 'black', fontWeight: 500 }}>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ color: "black", fontWeight: 500 }}
+          >
             eXtHealth
           </Typography>
           <Box
             sx={{
-              backgroundColor: '#0000000D',
-              borderRadius: '12px',
-              padding: '4px 8px',
-              marginLeft: '8px',
+              backgroundColor: "#0000000D",
+              borderRadius: "12px",
+              padding: "4px 8px",
+              marginLeft: "8px",
             }}
           >
-            <Typography variant="body2" sx={{ color: '#00000080', fontWeight: 600 }}>
+            <Typography
+              variant="body2"
+              sx={{ color: "#00000080", fontWeight: 600 }}
+            >
               {version}
             </Typography>
           </Box>
@@ -91,7 +100,7 @@ const TopBar: React.FC<TopBarProps> = ({ onDrawerToggle }) => {
         <Box sx={{ flexGrow: 1 }} />
 
         {/* Tabs (Links) */}
-        <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center' }}>
+        <Box sx={{ display: { xs: "none", md: "flex" }, alignItems: "center" }}>
           {tabs.map((tab, index) => (
             <Typography
               key={index}
@@ -100,13 +109,13 @@ const TopBar: React.FC<TopBarProps> = ({ onDrawerToggle }) => {
               variant="button"
               sx={{
                 mx: 2,
-                color: selectedTab === tab.path ? '#707FCB' : '#00000080',
-                cursor: 'pointer',
+                color: selectedTab === tab.path ? "#707FCB" : "#00000080",
+                cursor: "pointer",
                 fontWeight: 600,
-                textDecoration: 'none',
-                textTransform: 'none',
-                '&:hover': {
-                  color: '#707FCB',
+                textDecoration: "none",
+                textTransform: "none",
+                "&:hover": {
+                  color: "#707FCB",
                 },
               }}
               onClick={() => setSelectedTab(tab.path)}
