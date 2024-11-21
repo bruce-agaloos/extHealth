@@ -5,6 +5,7 @@ const pox = [
     "buffalopox",
     "buffalo pox virus",
     "buffalopox virus",
+    "Shingles",
     
     "chicken pox",
     "chickenpox",

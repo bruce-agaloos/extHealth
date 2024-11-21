@@ -3,7 +3,7 @@ import covid from "./keyword_module/covid";
 import generalHealthKeywords from "./general_health_keywords";
 import polio from "./keyword_module/polio";
 import mental_health from "./mental_health_keyword";
-
+import extraWords from "./keyword_module/extraWords";
 
 
 const allKeywords = [
@@ -11,9 +11,8 @@ const allKeywords = [
 ...covid,
 ...polio,
 ...mental_health,
-...generalHealthKeywords
-
-
+...generalHealthKeywords,
+...extraWords
 ];
 
 export default allKeywords;

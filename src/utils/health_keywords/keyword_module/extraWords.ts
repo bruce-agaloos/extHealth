@@ -1,4 +1,4 @@
-const termsArray: string[] = [
+const extraWords: string[] = [
 "AD",
 "AIDS",
 "AIDS Related Infections",
@@ -684,3 +684,5 @@ const termsArray: string[] = [
 "pustules",
 "whiteheads"
 ];
+
+export default extraWords;
