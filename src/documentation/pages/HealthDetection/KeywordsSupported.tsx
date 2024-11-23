@@ -27,8 +27,7 @@ const KeywordsSupported = () => (
         >
           "ODS"
         </span>{" "}
-        indicator means that the keyword is supported for both Google mode and
-        Online Database Mode.
+        indicator means that CERTAIN DISEASE is also supported in the Online Database Mode. If you use a keyword not supported by the Online Database Mode, it will output into a irrelevant or empty result.
       </Typography>
       <SearchableTable />
     </Box>

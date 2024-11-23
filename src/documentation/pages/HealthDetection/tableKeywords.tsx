@@ -1,26 +1,36 @@
 import React, { useState } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Paper } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Paper, FormControlLabel, Checkbox } from '@mui/material';
 import allKeywordsRaw from './../../../utils/health_keywords';
-import extraWordsRaw from './../../../utils/health_keywords/keyword_module/extraWords';
+import topicsSupported from './../../../utils/health_keywords/keyword_module/topicsOfOnlineDatabase';
 
 const SearchableTable: React.FC = () => {
-  // Preprocess: Convert all keywords to lowercase
-  const allKeywords = allKeywordsRaw.map(keyword => keyword.toLowerCase());
-  const extraWords = extraWordsRaw.map(keyword => keyword.toLowerCase());
+  // Preprocess: Convert all keywords to lowercase and remove duplicates
+  const allKeywords = Array.from(new Set(allKeywordsRaw.map(keyword => keyword.toLowerCase())));
+  const extraWords = Array.from(new Set(topicsSupported.map(keyword => keyword.toLowerCase())));
 
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [showOnlyODS, setShowOnlyODS] = useState<boolean>(false);
   const [filteredData, setFilteredData] = useState<Array<string>>(allKeywords);
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     const query = event.target.value.toLowerCase();
     setSearchQuery(query);
 
+    // Filter data based on search query and ODS filter
     const filtered = allKeywords.filter(item => item.includes(query));
     setFilteredData(filtered);
   };
 
+  const handleODSFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setShowOnlyODS(event.target.checked);
+  };
+
+  // Apply the ODS filter if it's active
+  const displayedData = filteredData.filter(item => (showOnlyODS ? extraWords.includes(item) : true));
+
   return (
     <div>
+      {/* Search Field */}
       <TextField
         label="Search"
         variant="outlined"
@@ -30,6 +40,14 @@ const SearchableTable: React.FC = () => {
         style={{ marginBottom: '20px' }}
       />
 
+      {/* ODS Filter Checkbox */}
+      <FormControlLabel
+        control={<Checkbox checked={showOnlyODS} onChange={handleODSFilterChange} />}
+        label="Show only ODS keywords"
+        style={{ marginBottom: '20px' }}
+      />
+
+      {/* Table */}
       <TableContainer component={Paper} sx={{ maxHeight: '400px', overflowY: 'auto' }}>
         <Table aria-label="searchable table">
           <TableHead>
@@ -39,7 +57,7 @@ const SearchableTable: React.FC = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredData.map((row, index) => (
+            {displayedData.map((row, index) => (
               <TableRow key={index}>
                 {/* Render the term */}
                 <TableCell>{row.trim()}</TableCell>
