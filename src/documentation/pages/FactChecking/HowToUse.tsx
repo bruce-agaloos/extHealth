@@ -41,6 +41,9 @@ const HowToUse = () => (
         Have a specific piece of health-text you'd like to fact-check?
         You can submit it to the side-panel.
       </Typography>
+      <Typography paragraph>
+        Note: This feature is supported for more than 100 languages but was only tested on Tagalog and English. It will also only shows result in English.
+      </Typography>
       <Typography component="div">
       <ol>
         <li>
