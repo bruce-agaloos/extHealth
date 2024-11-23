@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Paper } from '@mui/material';
-import allKeywords from './../../../utils/health_keywords';
+import allKeywordsRaw from './../../../utils/health_keywords';
+import extraWordsRaw from './../../../utils/health_keywords/keyword_module/extraWords';
 
 const SearchableTable: React.FC = () => {
+  // Preprocess: Convert all keywords to lowercase
+  const allKeywords = allKeywordsRaw.map(keyword => keyword.toLowerCase());
+  const extraWords = extraWordsRaw.map(keyword => keyword.toLowerCase());
+
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [filteredData, setFilteredData] = useState<Array<string>>(allKeywords);
 
@@ -10,7 +15,7 @@ const SearchableTable: React.FC = () => {
     const query = event.target.value.toLowerCase();
     setSearchQuery(query);
 
-    const filtered = allKeywords.filter(item => item.toLowerCase().includes(query));
+    const filtered = allKeywords.filter(item => item.includes(query));
     setFilteredData(filtered);
   };
 
@@ -30,13 +35,21 @@ const SearchableTable: React.FC = () => {
           <TableHead>
             <TableRow sx={{ backgroundColor: '#1976d2', color: '#fff' }}>
               <TableCell sx={{ fontWeight: 'bold', color: '#fff' }}>Term</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', color: '#fff', textAlign: 'center' }}>Indicator</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {filteredData.map((row, index) => (
               <TableRow key={index}>
-                {/* Trim each row item when rendering */}
+                {/* Render the term */}
                 <TableCell>{row.trim()}</TableCell>
+
+                {/* Render "ODS" in a separate cell if the term is in extraWords */}
+                <TableCell sx={{ textAlign: 'center' }}>
+                  {extraWords.includes(row) && (
+                    <span style={{ color: 'green', fontWeight: 'bold' }}>ODS</span>
+                  )}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

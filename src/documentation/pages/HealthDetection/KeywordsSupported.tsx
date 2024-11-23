@@ -17,6 +17,19 @@ const KeywordsSupported = () => (
         like "COVID19" and "COVID-19" this is to cover possible variation in the
         text.
       </Typography>
+      <Typography paragraph>
+        Note: The{" "}
+        <span
+          style={{
+            color: "green",
+            fontWeight: "bold",
+          }}
+        >
+          "ODS"
+        </span>{" "}
+        indicator means that the keyword is supported for both Google mode and
+        Online Database Mode.
+      </Typography>
       <SearchableTable />
     </Box>
     {/* Pinning Extension Section */}
@@ -25,23 +38,22 @@ const KeywordsSupported = () => (
         Language Supported
       </Typography>
       <Typography paragraph>
-        We are limited by the Natural Language Inference (NLI) or Zero-shot classification model we used and
-        the websites we have selected to fact check information for. The
-        following are the languages we support:
+        We are limited by the Natural Language Inference (NLI) or Zero-shot
+        classification model we used and the websites we have selected to fact
+        check information for. The following are the languages we support:
       </Typography>
       <Typography component="div">
-      <ul>
-        <li>English</li>
-        <li>Tagalog</li>
-      </ul>
+        <ul>
+          <li>English</li>
+          <li>Tagalog</li>
+        </ul>
       </Typography>
       <Typography paragraph>
-        If you want to learn about the model we used, we use a variation of {" "}
+        If you want to learn about the model we used, we use a variation of{" "}
         <a href="https://huggingface.co/MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7">
-          mDeBERTa. 
+          mDeBERTa.
         </a>{" "}
-        This model is a multilingual model that can understand 100+
-        languages.
+        This model is a multilingual model that can understand 100+ languages.
       </Typography>
     </Box>
   </Box>
