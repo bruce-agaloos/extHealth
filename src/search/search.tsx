@@ -27,7 +27,7 @@ const Search: React.FC = () => {
     const updateInitialMessage = (mode: string) => {
         setInitialMessage("Try searching");
         if (mode === 'offline') {
-            setInitialMessage("This feature is not available in offline mode");
+            setInitialMessage("This feature on offline shows your history of queries");
         }
     };
     useEffect(() => {
@@ -68,7 +68,6 @@ const Search: React.FC = () => {
             const data: SearchResult  = { result: facts.map(fact => ({ ...fact, query: '', query_vector: [] })) };
             setSearchResults(data);
             console.log(searchResults);
-            setInitialMessage("This feature is not available in offline mode");
             setLoading(false);
             return;
         }
