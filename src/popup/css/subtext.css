@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 .popupSummary {
   font-size: 1rem;
   color: #333;
@@ -114,6 +115,8 @@
   border-radius: 8px; 
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   background-color: #fff;
+  font-family: "Roboto";
+  font-size: 0.7rem;
 }
 
 .title {
