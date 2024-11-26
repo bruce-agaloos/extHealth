@@ -6,7 +6,6 @@
         textarea {
             font-family: Roboto Slab;
             font-weight: 500;
-            font-size: 1.5rem;
             background-color: transparent;
             border-radius: 5px;
             width: 100%;
@@ -14,6 +13,7 @@
             box-sizing: border-box;
             resize: none; /* Prevent manual resizing */
             overflow: hidden;
+            font-family: "Roboto";
           }
     }
     *::before{

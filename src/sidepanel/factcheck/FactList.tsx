@@ -110,7 +110,12 @@ const FactList: React.FC<FactListProps> = ({
   };
 
   return (
-    <div>
+    <div
+    style= {Array.isArray(facts) && facts.length > 0 ? {} : {
+      display: 'flex',
+      flexDirection: 'column-reverse',
+    }}
+    >
       {Array.isArray(facts) && facts.length > 0 ? (
         facts.map((fact, index) => (
           <div key={index}>
@@ -149,10 +154,10 @@ const FactList: React.FC<FactListProps> = ({
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          fontSize: '20px',
           color: 'gray',
           marginTop: '30px',
-          marginBottom: '30px'
+          marginBottom: '30px',
+          fontFamily: "Roboto Flex",
         }}>
           Want to try fact checking something?
         </div>

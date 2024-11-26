@@ -19,7 +19,7 @@ const Layout = () => {
               </h2>
             </div>
             <span onClick={() => chrome.tabs.create({ url: chrome.runtime.getURL('guide.html') })}>
-              <FontAwesomeIcon icon={faCircleQuestion} /> <span>How to use?</span>
+              <span style={{fontFamily: "Times New Roman"}}>How to use {" "}</span> <FontAwesomeIcon icon={faCircleQuestion} /> 
             </span>
           </div>
         </header>
