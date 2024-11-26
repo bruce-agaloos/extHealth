@@ -90,6 +90,7 @@ const Evidence: React.FC<EvidenceProps> = ({ idx, premise }) => {
           position: "absolute",
           right: "10px",
           top: "10px",
+          fontSize: "0.6rem",
         }}
         title={`How confident the AI is in this premise`}
       >
@@ -113,7 +114,7 @@ const Evidence: React.FC<EvidenceProps> = ({ idx, premise }) => {
         {premise.date ? `Published Date: ${premise.date}` : ""}
       </p>
       {mode != "google" && (
-        <div className={`relationship ${premise.relationship}`}>
+        <div className={`relationship ${premise.relationship}`} style={{fontSize: "0.6rem"}}>
           {premise.relationship} - {premise.confidence_level}%
         </div>
       )}
