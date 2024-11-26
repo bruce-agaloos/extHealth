@@ -1,5 +1,18 @@
 import React from "react";
 import { Typography, Container, Box } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+const theme = createTheme({
+  components: {
+    MuiTypography: {
+      styleOverrides: {
+        h6: {
+          fontWeight: "bold",
+        },
+      },
+    },
+  },
+});
 
 const getPrivacyLink = () => {
   return chrome.runtime.getURL("documentation.html") + "#/privacy-policy";
@@ -7,7 +20,7 @@ const getPrivacyLink = () => {
 
 const TosContent = () => {
   return (
-    <div>
+    <ThemeProvider theme={theme}>
       <Box marginTop={3}>
         <Typography variant="h6" gutterBottom>
           Acceptance of Terms
@@ -121,7 +134,7 @@ const TosContent = () => {
           Email: 2021314140@dhvsu.edu.ph
         </Typography>
       </Box>
-    </div>
+    </ThemeProvider>
   );
 };
 

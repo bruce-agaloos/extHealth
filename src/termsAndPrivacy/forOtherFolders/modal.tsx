@@ -9,6 +9,7 @@ const TermsOfServiceModal = () => {
   useEffect(() => {
     const checkTOS = async () => {
       // Check if the ToS has been accepted on component mount
+      setOpen(true);
       const result = await getTOS();
       if (!result?.tosAccepted) {
         setOpen(true);
@@ -26,8 +27,15 @@ const TermsOfServiceModal = () => {
     <Modal
       open={open}
       onClose={() => {}}
+      slotProps={{
+        backdrop: {
+          style: {
+            background: "none", // Removes the default dark overlay
+          },
+        },
+      }}
       sx={{
-        backdropFilter: "blur(5px)",
+        backdropFilter: "blur(1px)",
         background: "linear-gradient(180deg, #7075CB, #FFFFFF)",
       }}
     >
@@ -43,7 +51,8 @@ const TermsOfServiceModal = () => {
           bgcolor: "background.paper",
           boxShadow: 24,
           p: 4,
-          // borderRadius: "20px",
+          outline: "none",
+          borderRadius: { xs: "0px", sm: "0px", md: "0px", lg: "16px" },
         }}
       >
         <Container>
@@ -53,7 +62,7 @@ const TermsOfServiceModal = () => {
             gutterBottom
             sx={{
               fontFamily: "Lexend Giga",
-              fontWeight: "semibold",
+              fontWeight: "bold",
               textAlign: "center", // Center horizontally
             }}
           >
@@ -91,7 +100,7 @@ const TermsOfServiceModal = () => {
               sx={{
                 backgroundColor: "#525698",
                 color: "white",
-                borderRadius: "10px", // Slight rounding for button
+                borderRadius: "50px", // Slight rounding for button
                 fontWeight: "bold", // Makes text bold
                 fontSize: "1.2rem", // Larger font size
                 padding: "12px 24px", // Increased padding
