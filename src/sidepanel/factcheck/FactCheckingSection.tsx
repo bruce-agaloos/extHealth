@@ -220,7 +220,7 @@ const FactCheckingSection: React.FC = () => {
         
                 const loaderElement = document.querySelector('.loader');
                 const buttonElement = document.querySelector('.add_fact_button');
-        
+                setNewFact('');
                 if (loaderElement) {
                     if (isFactCheckLoading || isSingleFactCheckLoading) {
                         loaderElement.classList.add('loading');
