@@ -1,7 +1,7 @@
 import { API_ENDPOINT } from './endpoint';
 import { setFactCheckWholeLoad, setSingleFactCheckLoad } from './pop_up_storage/storage';
 import { getFactCheckMode } from './pop_up_storage/storage';
-import { addFactCheckHistory, searchHistory } from './pop_up_storage/history';
+import {indexFactCheckHistory, searchFactCheckHistory} from './pop_up_storage/dbHistory';
 import {testingDataFacts} from './pop_up_storage/storage';
 /**
  * Sends the tweet content to the detoX API for hate speech detection.
@@ -15,17 +15,18 @@ const factCheckWithGenerateQueries = async (content: string) => {
 
         // If mode is offline, return early
         if (factCheckMode === 'offline') {
-            return { result: await searchHistory(content) };
+            return { result: await searchFactCheckHistory(content) };
         }
 
         // Encode the content to ensure it's safe to include in a URL
         await setFactCheckWholeLoad(true);
+
         const encodedContent = encodeURIComponent(content);
         const extraEndpoint = "/factCheck";
         const response = await fetch(`${API_ENDPOINT}${extraEndpoint}?content=${encodedContent}&mode=${factCheckMode}`);
         const data = await response.json();
         if (Array.isArray(data.result)) {
-            await addFactCheckHistory(content, { result: data.result });
+            await indexFactCheckHistory({ bigquery: content, mode: factCheckMode, result: data.result });
         }
         await setFactCheckWholeLoad(false);
         return data;

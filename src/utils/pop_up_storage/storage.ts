@@ -43,7 +43,7 @@ function getExtHealthFacts(): Promise<HealthFactsStorage> {
   return getFromStorage('extHealthFacts') as Promise<HealthFactsStorage>;
 }
 
-function testingDataFacts(mode: string): Promise<{ result: { hypothesis: string; premises: { premise: string; relationship: string; url: string; title: string; date: string; }[]; }[]; }> {
+function testingDataFacts(mode: string): Promise<{ result: Fact[]; }> {
   let sampleUrl = "www.who.int";
   if (mode !== 'google') {
     sampleUrl = "#page=54";
@@ -55,7 +55,7 @@ function testingDataFacts(mode: string): Promise<{ result: { hypothesis: string;
         premises: [
           {
             premise: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio.',
-            relationship: 'contradiction',
+            relationship: 'contradiction' as 'contradiction',
             url: sampleUrl,
             title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio.',
             date: "No published data available",
@@ -63,7 +63,7 @@ function testingDataFacts(mode: string): Promise<{ result: { hypothesis: string;
           },
           {
             premise: '2',
-            relationship: 'entailment',
+            relationship: 'entailment' as 'entailment',
             url: sampleUrl,
             title: 'Some other title',
             date: "",
@@ -71,7 +71,7 @@ function testingDataFacts(mode: string): Promise<{ result: { hypothesis: string;
           },
           {
             premise: '3',
-            relationship: 'neutral',
+            relationship: 'neutral' as 'neutral',
             url: 'https://example.com',
             title: 'Some 123 title',
             date: "",
@@ -79,7 +79,7 @@ function testingDataFacts(mode: string): Promise<{ result: { hypothesis: string;
           },
           {
             premise: '4',
-            relationship: 'neutral',
+            relationship: 'neutral' as 'neutral',
             url: 'https://example.com',
             title: 'Some 333 title',
             date: "",
@@ -92,7 +92,7 @@ function testingDataFacts(mode: string): Promise<{ result: { hypothesis: string;
         premises: [
           {
             premise: '1',
-            relationship: 'contradiction',
+            relationship: 'contradiction' as 'contradiction',
             url: 'https://example.com',
             title: 'Some title',
             date: "3/4/2021",
@@ -100,7 +100,7 @@ function testingDataFacts(mode: string): Promise<{ result: { hypothesis: string;
           },
           {
             premise: '2',
-            relationship: 'entailment',
+            relationship: 'entailment' as 'entailment',
             url: 'https://example.com',
             title: 'Some title',
             date: "3/4/2121",
@@ -108,7 +108,7 @@ function testingDataFacts(mode: string): Promise<{ result: { hypothesis: string;
           },
           {
             premise: '3',
-            relationship: 'neutral',
+            relationship: 'neutral' as 'neutral',
             url: 'https://example.com',
             title: 'Some title',
             date: "33/3/333",
@@ -121,7 +121,7 @@ function testingDataFacts(mode: string): Promise<{ result: { hypothesis: string;
         premises: [
           {
             premise: '1',
-            relationship: 'contradiction',
+            relationship: 'contradiction' as 'contradiction',
             url: sampleUrl,
             title: 'Some title',
             date: "",
@@ -129,7 +129,7 @@ function testingDataFacts(mode: string): Promise<{ result: { hypothesis: string;
           },
           {
             premise: '2',
-            relationship: 'entailment',
+            relationship: 'entailment' as 'entailment',
             url: 'https://example.com',
             title: 'Some title',
             date: "",
@@ -137,7 +137,7 @@ function testingDataFacts(mode: string): Promise<{ result: { hypothesis: string;
           },
           {
             premise: '3',
-            relationship: 'neutral',
+            relationship: 'neutral' as 'neutral',
             url: 'https://example.com',
             title: 'Some title',
             date: "",

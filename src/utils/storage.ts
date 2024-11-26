@@ -270,7 +270,6 @@ const setDefaultInstalled = async (): Promise<void> => {
     });
     setExtHealthFacts([]);
     setFactCheckMode('google');
-    resetFactCheckHistory();
   } catch (error) {
     console.error('Error setting default installed state:', error);
   }

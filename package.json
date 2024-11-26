@@ -34,6 +34,8 @@
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@mui/icons-material": "^5.16.1",
     "@mui/material": "^5.16.1",
+    "idb": "^8.0.0",
+    "lunr": "^2.3.9",
     "nanoid": "^5.0.7",
     "normalize.css": "^8.0.1",
     "react-circular-progressbar": "^2.1.0",

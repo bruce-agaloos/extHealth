@@ -14,6 +14,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { API_ENDPOINT } from './../utils/endpoint';
 import {getFactCheckMode} from './../utils/pop_up_storage/storage';
+import {lunrSearchFacts} from './../utils/pop_up_storage/dbHistory';
 
 const Search: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState<string>("");
@@ -62,6 +63,11 @@ const Search: React.FC = () => {
         const modeObject = await getFactCheckMode();
         const mode = modeObject.factCheckMode; 
         if (mode === 'offline') {
+            // change
+            const facts = await lunrSearchFacts(searchQuery);
+            const data: SearchResult  = { result: facts.map(fact => ({ ...fact, query: '', query_vector: [] })) };
+            setSearchResults(data);
+            console.log(searchResults);
             setInitialMessage("This feature is not available in offline mode");
             setLoading(false);
             return;
