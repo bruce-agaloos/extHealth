@@ -10,6 +10,7 @@ interface EvidenceProps {
     url: string;
     title: string;
     date: string;
+    confidence_level: number;
   };
 }
 
@@ -76,6 +77,17 @@ const Evidence: React.FC<EvidenceProps> = ({idx, premise }) => {
   return (
     <div key={idx} className="evidence">
       <img src={getIcon(premise.url)} alt="icon of image" />
+      <span style={{
+        color: "white",
+        backgroundColor: "green",
+        borderRadius: "5px",
+        padding: "5px",
+        position: "absolute",
+        right: "10px",
+        bottom: "10px",
+      }}>
+        {premise.confidence_level}
+      </span>
       <div>
         <a href={getUrlLink(premise.url)} target="_blank" rel="noopener noreferrer">
           {getBasedUrl(premise.url)}

@@ -2,6 +2,7 @@ import { API_ENDPOINT } from './endpoint';
 import { setFactCheckWholeLoad, setSingleFactCheckLoad } from './pop_up_storage/storage';
 import { getFactCheckMode } from './pop_up_storage/storage';
 import { addFactCheckHistory, searchHistory } from './pop_up_storage/history';
+import {testingDataFacts} from './pop_up_storage/storage';
 /**
  * Sends the tweet content to the detoX API for hate speech detection.
  * @param content - The text content of the tweet to be sent for hate speech detection.

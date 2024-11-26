@@ -9,6 +9,7 @@ interface Premise {
     url: string; // URL related to the premise
     title: string; // Title of the premise
     date:string;
+    confidence_level: number;
 }
   
   // Define the structure of a fact, which contains a hypothesis and an array of premises

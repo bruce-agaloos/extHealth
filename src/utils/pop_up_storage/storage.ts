@@ -54,32 +54,36 @@ function testingDataFacts(mode: string): Promise<{ result: { hypothesis: string;
         hypothesis: 'sample',
         premises: [
           {
-            premise: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio.',
+            premise: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio.',
             relationship: 'contradiction',
             url: sampleUrl,
             title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio.',
-            date: ""
+            date: "No published data available",
+            confidence_level: 0.9
           },
           {
             premise: '2',
             relationship: 'entailment',
             url: sampleUrl,
             title: 'Some other title',
-            date: ""
+            date: "",
+            confidence_level: 0.2
           },
           {
             premise: '3',
             relationship: 'neutral',
             url: 'https://example.com',
             title: 'Some 123 title',
-            date: ""
+            date: "",
+            confidence_level: 0.4
           },
           {
             premise: '4',
             relationship: 'neutral',
             url: 'https://example.com',
             title: 'Some 333 title',
-            date: ""
+            date: "",
+            confidence_level: 0.1
           },
         ],
       },
@@ -91,21 +95,24 @@ function testingDataFacts(mode: string): Promise<{ result: { hypothesis: string;
             relationship: 'contradiction',
             url: 'https://example.com',
             title: 'Some title',
-            date: "3/4/2021"
+            date: "3/4/2021",
+            confidence_level: 0.9
           },
           {
             premise: '2',
             relationship: 'entailment',
             url: 'https://example.com',
             title: 'Some title',
-            date: "3/4/2121"
+            date: "3/4/2121",
+            confidence_level: 0.9
           },
           {
             premise: '3',
             relationship: 'neutral',
             url: 'https://example.com',
             title: 'Some title',
-            date: "33/3/333"
+            date: "33/3/333",
+            confidence_level: 0.9
           },
         ],
       },
@@ -117,21 +124,24 @@ function testingDataFacts(mode: string): Promise<{ result: { hypothesis: string;
             relationship: 'contradiction',
             url: sampleUrl,
             title: 'Some title',
-            date: ""
+            date: "",
+            confidence_level: 0.9
           },
           {
             premise: '2',
             relationship: 'entailment',
             url: 'https://example.com',
             title: 'Some title',
-            date: ""
+            date: "",
+            confidence_level: 0.9
           },
           {
             premise: '3',
             relationship: 'neutral',
             url: 'https://example.com',
             title: 'Some title',
-            date: ""
+            date: "",
+            confidence_level: 0.9
           },
         ],
       },

@@ -5,6 +5,7 @@ export interface Premise {
     url: string;
     title: string;
     date: string;
+    confidence_level: number;
 }
 
 export interface ResultItem {
