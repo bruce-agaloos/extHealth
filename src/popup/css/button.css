@@ -48,6 +48,8 @@
   padding: 8px 20px;
 }
 
+
+
 .redRoundedButton:hover {
   background-color: #ff3333; /* Darker red on hover */
   box-shadow: inset 0px 0px 1px 1px #d9534f; /* Slight shadow */
@@ -65,5 +67,12 @@
 
 .noButton:hover {
   text-decoration: underline;
+}
+
+.redButtonVersion2{
+  background-color: #A30202;
+}
+.redButtonVersion2:hover{
+  background-color: #8a0101;
 }
 

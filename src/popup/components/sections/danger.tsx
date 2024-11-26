@@ -44,7 +44,7 @@ const Danger: React.FC<{}> = () => {
                 <p id="popupSummary" className="popupSummary indent">
                     Local Storage
                 </p>
-                <button className="redRoundedButton" onClick={handleButtonClick}>
+                <button className="redRoundedButton redButtonVersion2" onClick={handleButtonClick}>
                     <span className="buttonText">Clear</span>
                 </button>
 
