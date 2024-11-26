@@ -25,7 +25,7 @@ const Item: React.FC<ItemProps> = ({ data, onClick }) => {
     return (
         <div className="item-container" onClick={() => onClick(data)}>
             <div className="item-button">
-                {data.query}
+                {data.query && data.query.trim() ? data.query : data.hypothesis}
             </div>
             <Label value={labelValue} />
             <p className="item-details">

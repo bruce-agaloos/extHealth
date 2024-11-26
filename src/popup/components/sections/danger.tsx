@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { setDefaultInstalled } from "../../../utils/storage";
+import {resetIndex} from "./../../../utils/pop_up_storage/dbHistory"
 
 const Danger: React.FC<{}> = () => {
     const [isPopupVisible, setIsPopupVisible] = useState(false);
@@ -20,6 +21,7 @@ const Danger: React.FC<{}> = () => {
             } else {
                 setDefaultInstalled();
                 setIsPopupVisible(false);
+                resetIndex();
                 return setIsCleared(true);
             }
         });

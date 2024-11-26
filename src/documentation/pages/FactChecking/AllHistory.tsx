@@ -11,10 +11,8 @@ const AllHistory = () => (
       </Typography>
       <Typography paragraph>
         Easily revisit past fact checks with our History feature. This allows
-        you to access a record of previously verified information. Its important
-        to note that this is not specific to "your" history, its the history of
-        all previously fact-checked automatically in our system; we do this
-        since we are not saving any history that can relate to a person.
+        you to access a record of previously verified information. This feature can be filtered by mode.
+        Note: Offline mode shows your local history. While google and online mode shows ALL the history of the app.
       </Typography>
       <Typography component="div">
       <ol>

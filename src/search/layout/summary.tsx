@@ -66,7 +66,7 @@ const Summary: React.FC<SummaryProps> = ({ data }) => {
     return (
         <div className="summary-container">
             <h1>{data.hypothesis}</h1>
-            <h2>Query: {data.query}</h2>
+            <h2>Query: {data.query && data.query.trim() ? data.query : data.hypothesis}</h2>
             <Label value={labelValue} />
             {allPremisesEmpty ? (
                 <NoResults message="Sorry there were no results for this past query" />
