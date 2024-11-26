@@ -68,6 +68,9 @@
         .relationship.contradiction{
             background-color: #F8686A;
         }
+        .relationship::first-letter {
+            text-transform: capitalize; /* Capitalize the first letter */
+        }
     }
     .Supported-accordion{
         .evidence{

@@ -80,6 +80,7 @@ const Evidence: React.FC<EvidenceProps> = ({ idx, premise }) => {
   return (
     <div key={idx} className="evidence">
       <img src={getIcon(premise.url)} alt="icon of image" />
+      {mode == "google" && (
       <span
         style={{
           color: "white",
@@ -88,12 +89,13 @@ const Evidence: React.FC<EvidenceProps> = ({ idx, premise }) => {
           padding: "5px",
           position: "absolute",
           right: "10px",
-          bottom: "10px",
+          top: "10px",
         }}
         title={`How confident the AI is in this premise`}
       >
         {premise.confidence_level}%
       </span>
+      )}
       <div>
         <a
           href={getUrlLink(premise.url)}
@@ -112,7 +114,7 @@ const Evidence: React.FC<EvidenceProps> = ({ idx, premise }) => {
       </p>
       {mode != "google" && (
         <div className={`relationship ${premise.relationship}`}>
-          {premise.relationship}
+          {premise.relationship} - {premise.confidence_level}%
         </div>
       )}
     </div>
