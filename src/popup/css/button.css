@@ -1,8 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:wght@500&display=swap');
 .buttonContainer {
   justify-content: center;
   align-items: center;
   margin-top: 10px;
   display: flex;
+}
+
+.buttonContainer .buttonText{
+  font-family: "Roboto Flex";
+  font-weight: 800;
 }
 
 .roundedButton {

@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Flex:wght@500&display=swap");
 .subTileHeader {
     display: flex;
     justify-content: flex-start;
@@ -9,6 +11,7 @@
     font-size: 15px;
     font-weight: bold;
     padding-bottom: 10px;
+    font-family: "Roboto Flex";
   }
   
   .sidebar-items {
