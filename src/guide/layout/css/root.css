@@ -25,7 +25,7 @@
 
 nav{
   font-weight: 500;
-  margin-top: min(20vh, 100px);
+  margin-top: min(7vh, 100px);
   margin-left: 10vw;
   margin-bottom: 1.5rem;
   > img{

@@ -9,7 +9,7 @@ const TermsOfServiceModal = () => {
   useEffect(() => {
     const checkTOS = async () => {
       // Check if the ToS has been accepted on component mount
-      setOpen(true);
+      // setOpen(true);
       const result = await getTOS();
       if (!result?.tosAccepted) {
         setOpen(true);

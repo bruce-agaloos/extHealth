@@ -4,12 +4,12 @@
   grid-column: 1 / 4;
   grid-row: 2 / 3;
 
-  font-family: "Roboto Slab", sans-serif;
-  color: white;
+  font-family: 'Times New Roman', Times, serif;
+  color: #515151;
   > div {
     border: none;
     padding: 1rem;
-    background-color: #52b83f;
+    background-color: rgba(112, 117, 203, 0.2);
     position: relative;
     width: 100%;
     img{
