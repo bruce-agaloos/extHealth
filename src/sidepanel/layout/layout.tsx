@@ -27,7 +27,7 @@ const Layout = () => {
           <div>
             <p>
               <img src="info_white.png" alt="" height={'15px'} width={'15px'} />
-              The <strong>model</strong> used to determine the "supporting," "disputed," and "neutral" is not <strong>100%</strong> accurate. Please do not take the results as an attack to the sources of the evidence.
+              <strong>Disclaimer:</strong> This system’s results are not 100% accurate and are for informational purposes only. Always consult a medical professional for advice or treatment. The system also does not discredit evidence sources.
             </p>
           </div>
         </section>
