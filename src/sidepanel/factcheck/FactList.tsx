@@ -4,6 +4,7 @@ import CustomAccordion from './CustomAccordion';
 import Evidence from './Evidence';
 import { Fact, FactCheckMode } from './../../utils/pop_up_storage/types';
 import { getFactCheckMode } from './../../utils/pop_up_storage/storage';
+import LoadingModal from './LoadingModal';
 
 interface FactListProps {
   facts: Fact[];
@@ -116,6 +117,7 @@ const FactList: React.FC<FactListProps> = ({
       flexDirection: 'column-reverse',
     }}
     >
+      <LoadingModal/>
       {Array.isArray(facts) && facts.length > 0 ? (
         facts.map((fact, index) => (
           <div key={index}>
