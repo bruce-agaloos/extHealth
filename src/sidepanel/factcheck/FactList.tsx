@@ -5,6 +5,7 @@ import Evidence from './Evidence';
 import { Fact, FactCheckMode } from './../../utils/pop_up_storage/types';
 import { getFactCheckMode } from './../../utils/pop_up_storage/storage';
 import LoadingModal from './LoadingModal';
+import ThresholdComponent from './FactOrFake';
 
 interface FactListProps {
   facts: Fact[];
@@ -121,6 +122,7 @@ const FactList: React.FC<FactListProps> = ({
       {Array.isArray(facts) && facts.length > 0 ? (
         facts.map((fact, index) => (
           <div key={index}>
+            <ThresholdComponent premiseHypothesisPair={fact} />
             <form action="" id={`form-${index}`} onSubmit={(e) => handleSubmit(e, index)}>
               <TextAreaWithCounter 
                 value={fact.hypothesis} 
