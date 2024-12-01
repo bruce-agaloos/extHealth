@@ -14,11 +14,11 @@ const ThresholdComponent: React.FC<ThresholdComponentProps> = ({
 }) => {
   // Function to determine the overall label
   const determineLabel = (premiseHypothesisPair: Fact): string => {
-    const ACCEPTABLE_THRESHOLD = 80; // Define the confidence threshold
+    const ACCEPTABLE_THRESHOLD = 75; // Define the confidence threshold
     const labels = {
-      entailment: "fact",
-      neutral: "needs review",
-      contradiction: "fake",
+      entailment: "fact.png",
+      neutral: "needsReview.png",
+      contradiction: "fake.png",
     };
 
     // Filter premises that meet the acceptable confidence level
@@ -61,8 +61,7 @@ const ThresholdComponent: React.FC<ThresholdComponentProps> = ({
   // Render the component
   return (
     <div style={style} className={className}>
-      <h3>Classification Result</h3>
-      <p>Label: {determineLabel(premiseHypothesisPair)}</p>
+      <img src={determineLabel(premiseHypothesisPair)} alt={determineLabel(premiseHypothesisPair)} height={35}/>
     </div>
   );
 };

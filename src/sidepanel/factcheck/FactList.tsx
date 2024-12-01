@@ -1,19 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import TextAreaWithCounter from './TextAreaWithCounter';
-import CustomAccordion from './CustomAccordion';
-import Evidence from './Evidence';
-import { Fact, FactCheckMode } from './../../utils/pop_up_storage/types';
-import { getFactCheckMode } from './../../utils/pop_up_storage/storage';
-import LoadingModal from './LoadingModal';
-import ThresholdComponent from './FactOrFake';
+import React, { useEffect, useState } from "react";
+import TextAreaWithCounter from "./TextAreaWithCounter";
+import CustomAccordion from "./CustomAccordion";
+import Evidence from "./Evidence";
+import { Fact, FactCheckMode } from "./../../utils/pop_up_storage/types";
+import { getFactCheckMode } from "./../../utils/pop_up_storage/storage";
+import LoadingModal from "./LoadingModal";
+import ThresholdComponent from "./FactOrFake";
 
 interface FactListProps {
   facts: Fact[];
   focusedIndex: number;
   expanded: string | false;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>, index: number) => void;
-  handleInputChange: (e: React.ChangeEvent<HTMLTextAreaElement>, index: number) => void;
-  handleAccordionChange: (key: string, index: number, state: string) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => void;
+  handleInputChange: (
+    e: React.ChangeEvent<HTMLTextAreaElement>,
+    index: number
+  ) => void;
+  handleAccordionChange: (
+    key: string,
+    index: number,
+    state: string
+  ) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => void;
 }
 
 const FactList: React.FC<FactListProps> = ({
@@ -22,32 +29,37 @@ const FactList: React.FC<FactListProps> = ({
   expanded,
   handleSubmit,
   handleInputChange,
-  handleAccordionChange
+  handleAccordionChange,
 }) => {
-  const [mode, setMode] = useState<string>('');
-  const accordionStates = ['entailment', 'contradiction', 'neutral'];
+  const [mode, setMode] = useState<string>("");
+  const accordionStates = ["entailment", "contradiction", "neutral"];
 
   const stateMappings = {
     entailment: "Supported",
     contradiction: "Disputed",
-    neutral: "Neutral"
+    neutral: "Neutral",
   };
 
   // mode change listener
   useEffect(() => {
     // Fetch the initial mode from storage
-    getFactCheckMode().then((result) => {
-      const data = result as FactCheckMode; // Type assertion
-      if (data.factCheckMode) {
-        setMode(data.factCheckMode);
-      }
-    }).catch((error) => {
-      console.error('Error retrieving factCheckMode from storage:', error);
-    });
+    getFactCheckMode()
+      .then((result) => {
+        const data = result as FactCheckMode; // Type assertion
+        if (data.factCheckMode) {
+          setMode(data.factCheckMode);
+        }
+      })
+      .catch((error) => {
+        console.error("Error retrieving factCheckMode from storage:", error);
+      });
 
     // Set up an event listener for changes in the storage
-    const handleStorageChange = (changes: { [key: string]: chrome.storage.StorageChange }, areaName: string) => {
-      if (areaName === 'local' && changes.factCheckMode) {
+    const handleStorageChange = (
+      changes: { [key: string]: chrome.storage.StorageChange },
+      areaName: string
+    ) => {
+      if (areaName === "local" && changes.factCheckMode) {
         const newMode = changes.factCheckMode.newValue as string;
         setMode(newMode);
       }
@@ -62,49 +74,81 @@ const FactList: React.FC<FactListProps> = ({
   }, []);
 
   const renderAccordions = (fact: Fact, index: number) => {
-    if (mode === 'google') {
+    if (mode === "google") {
       return accordionStates.map((state) => {
-        const relatedPremises = fact.premises.filter(premise => premise.relationship.toLowerCase() === state.toLowerCase());
+        const relatedPremises = fact.premises.filter(
+          (premise) =>
+            premise.relationship.toLowerCase() === state.toLowerCase()
+        );
         const count = relatedPremises.length;
 
-        return count > 0 && (
-          <CustomAccordion
-            key={`${index}-${state}`}
-            title={`${stateMappings[state]}`} 
-            count={`${count}`}
-            expanded={expanded === `${index}-${state}`}
-            onChange={handleAccordionChange(`${index}-${state}`, index, state)}
-            mode={mode} 
-          >
-            {relatedPremises.map((premise, idx) => (
-              <Evidence key={`${index}-${state}-${idx}`} idx={idx} premise={premise} />
-            ))}
-          </CustomAccordion>
+        return (
+          count > 0 && (
+            <CustomAccordion
+              key={`${index}-${state}`}
+              title={`${stateMappings[state]}`}
+              count={`${count}`}
+              expanded={expanded === `${index}-${state}`}
+              onChange={handleAccordionChange(
+                `${index}-${state}`,
+                index,
+                state
+              )}
+              mode={mode}
+            >
+              {relatedPremises.map((premise, idx) => (
+                <Evidence
+                  key={`${index}-${state}-${idx}`}
+                  idx={idx}
+                  premise={premise}
+                />
+              ))}
+            </CustomAccordion>
+          )
         );
       });
-    }     else {
+    } else {
       // For offline or onlineDatabase mode
       const stateCounts = fact.premises.reduce((acc, premise) => {
         const state = premise.relationship.toLowerCase();
         acc[state] = (acc[state] || 0) + 1;
         return acc;
       }, {} as { [key: string]: number });
-    
-      const maxState = Object.keys(stateCounts).reduce((a, b) => stateCounts[a] > stateCounts[b] ? a : (stateCounts[a] === stateCounts[b] ? 'neutral' : b), 'neutral');
-    
-      const totalCount = Object.values(stateCounts).reduce((sum, count) => sum + count, 0);
-    
+
+      const maxState = Object.keys(stateCounts).reduce(
+        (a, b) =>
+          stateCounts[a] > stateCounts[b]
+            ? a
+            : stateCounts[a] === stateCounts[b]
+            ? "neutral"
+            : b,
+        "neutral"
+      );
+
+      const totalCount = Object.values(stateCounts).reduce(
+        (sum, count) => sum + count,
+        0
+      );
+
       return (
         <CustomAccordion
           key={`${index}-${maxState}`}
-          title={`${stateMappings[maxState]}`} 
+          title={`${stateMappings[maxState]}`}
           count={`${totalCount}`}
           expanded={expanded === `${index}-${maxState}`}
-          onChange={handleAccordionChange(`${index}-${maxState}`, index, maxState)}
-          mode={mode} 
+          onChange={handleAccordionChange(
+            `${index}-${maxState}`,
+            index,
+            maxState
+          )}
+          mode={mode}
         >
           {fact.premises.map((premise, idx) => (
-            <Evidence key={`${index}-${maxState}-${idx}`} idx={idx} premise={premise} />
+            <Evidence
+              key={`${index}-${maxState}-${idx}`}
+              idx={idx}
+              premise={premise}
+            />
           ))}
         </CustomAccordion>
       );
@@ -113,40 +157,67 @@ const FactList: React.FC<FactListProps> = ({
 
   return (
     <div
-    style= {Array.isArray(facts) && facts.length > 0 ? {} : {
-      display: 'flex',
-      flexDirection: 'column-reverse',
-    }}
+      style={
+        Array.isArray(facts) && facts.length > 0
+          ? {}
+          : {
+              display: "flex",
+              flexDirection: "column-reverse",
+            }
+      }
     >
-      <LoadingModal/>
+      <LoadingModal />
       {Array.isArray(facts) && facts.length > 0 ? (
         facts.map((fact, index) => (
           <div key={index}>
-            <ThresholdComponent premiseHypothesisPair={fact} />
-            <form action="" id={`form-${index}`} onSubmit={(e) => handleSubmit(e, index)}>
-              <TextAreaWithCounter 
-                value={fact.hypothesis} 
+            <form
+              action=""
+              id={`form-${index}`}
+              onSubmit={(e) => handleSubmit(e, index)}
+              style={{ position: "relative" }}
+            >
+              <ThresholdComponent
+                premiseHypothesisPair={fact}
+                style={{
+                  position: "absolute",
+                  zIndex: 1,
+                  top: "30%", // Center vertically
+                  right: "5px",
+                  transform: "translateY(-30%)", // Adjust for exact centering
+                  backgroundColor: "inherit", // Transparent background
+                }}
+              />
+              <TextAreaWithCounter
+                value={fact.hypothesis}
                 onChange={(e) => handleInputChange(e, index)}
-                className={focusedIndex === index ? 'textarea-focused' : 'textarea-unfocused'}
+                className={
+                  focusedIndex === index
+                    ? "textarea-focused"
+                    : "textarea-unfocused"
+                }
                 onKeyDown={(e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-                  if (e.key === 'Enter') {
+                  if (e.key === "Enter") {
                     e.preventDefault();
                     (e.target as HTMLTextAreaElement).form?.requestSubmit();
                   }
                 }}
               />
             </form>
-            {fact.premises.filter(premise => accordionStates.includes(premise.relationship.toLowerCase())).length === 0 ? (
-              <div style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                fontSize: '20px',
-                color: 'gray',
-                marginBottom: '30px'
-              }}>
+            {fact.premises.filter((premise) =>
+              accordionStates.includes(premise.relationship.toLowerCase())
+            ).length === 0 ? (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  fontSize: "20px",
+                  color: "gray",
+                  marginBottom: "30px",
+                }}
+              >
                 <span>Sorry, no results found for this query</span>
-                <img src="sad-emoji.gif" alt=":(" height="30px" width="30px"/>
+                <img src="sad-emoji.gif" alt=":(" height="30px" width="30px" />
               </div>
             ) : (
               renderAccordions(fact, index)
@@ -154,15 +225,17 @@ const FactList: React.FC<FactListProps> = ({
           </div>
         ))
       ) : (
-        <div style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          color: 'gray',
-          marginTop: '30px',
-          marginBottom: '30px',
-          fontFamily: "Roboto Flex",
-        }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            color: "gray",
+            marginTop: "30px",
+            marginBottom: "30px",
+            fontFamily: "Roboto Flex",
+          }}
+        >
           Want to try fact checking something?
         </div>
       )}

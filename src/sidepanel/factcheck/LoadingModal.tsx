@@ -51,15 +51,16 @@ const LoadingModal: React.FC = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        zIndex: 1, // Adjust if necessary
+        zIndex: 2, // Adjust if necessary
       }}
       id="loading-modal"
     >
       <Box display="flex" flexDirection="column" alignItems="center">
-        <CircularProgress color="inherit" />
-        <Box mt={2} color="white">
-          Loading...
-        </Box>
+        <span className="loader loading" style={{
+          // resets the styles
+          position: "static",
+          fontSize: "26px",
+        }}></span>
       </Box>
     </Box>
   );
