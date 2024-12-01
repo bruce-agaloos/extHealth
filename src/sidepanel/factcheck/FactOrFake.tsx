@@ -16,9 +16,9 @@ const ThresholdComponent: React.FC<ThresholdComponentProps> = ({
   const determineLabel = (premiseHypothesisPair: Fact): string => {
     const ACCEPTABLE_THRESHOLD = 75; // Define the confidence threshold
     const labels = {
-      entailment: "fact.png",
-      neutral: "needsReview.png",
-      contradiction: "fake.png",
+      entailment: "FACT",
+      neutral: "N.R.",
+      contradiction: "FAKE",
     };
 
     // Filter premises that meet the acceptable confidence level
@@ -58,10 +58,41 @@ const ThresholdComponent: React.FC<ThresholdComponentProps> = ({
     return labels[predominantRelationship];
   };
 
+  const getStyle = (label: string): React.CSSProperties => {
+    switch (label.toUpperCase()) {
+      case "FACT":
+        return {
+          color: "#04935B",
+        };
+      case "FAKE":
+        return {
+          color: "#D61D17",
+        };
+      case "N.R.":
+        return {
+          color: "#F2AD08",
+        };
+      default:
+        return {
+          color: "inherit",
+        };
+    }}
+
   // Render the component
   return (
     <div style={style} className={className}>
-      <img src={determineLabel(premiseHypothesisPair)} alt={determineLabel(premiseHypothesisPair)} height={35}/>
+      <span
+        style={{
+          fontSize: "12px",
+          fontWeight: "bold",
+          backgroundColor: "transparent",
+          padding: "2px 4px",
+          borderRadius: "4px",
+          ...getStyle(determineLabel(premiseHypothesisPair)),
+        }}
+      >
+        {determineLabel(premiseHypothesisPair)}
+      </span>
     </div>
   );
 };

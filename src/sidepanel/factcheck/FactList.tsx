@@ -182,9 +182,9 @@ const FactList: React.FC<FactListProps> = ({
                   position: "absolute",
                   zIndex: 1,
                   top: "30%", // Center vertically
-                  right: "5px",
+                  right: "10px",
                   transform: "translateY(-30%)", // Adjust for exact centering
-                  backgroundColor: "inherit", // Transparent background
+                  backgroundColor: "transparent", // Transparent background
                 }}
               />
               <TextAreaWithCounter
