@@ -40,8 +40,7 @@ const ThresholdComponent: React.FC<ThresholdComponentProps> = ({
     // Determine the relationship with the greatest count
     const maxCount = Math.max(
       relationshipCounts["entailment"] || 0,
-      relationshipCounts["contradiction"] || 0,
-      relationshipCounts["neutral"] || 0
+      relationshipCounts["contradiction"] || 0
     );
 
     const predominantRelationships = Object.entries(relationshipCounts)
