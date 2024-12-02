@@ -16,8 +16,12 @@ const ThresholdComponent: React.FC<ThresholdComponentProps> = ({
   const LABEL = determineLabel(premiseHypothesisPair);
 
   const getIcon = (label: string): JSX.Element | null => {
-    switch (label.toLowerCase()) {
-      case "fact":
+    if (!label) {
+      console.log("Label is undefined or null");
+      return null;
+    }
+    switch (label.toUpperCase()) {
+      case "FACT":
         return (
           <svg
             width="25"
@@ -39,7 +43,7 @@ const ThresholdComponent: React.FC<ThresholdComponentProps> = ({
             <path d="M6 13L11.8107 17.9222" stroke="white" stroke-width="3" />
           </svg>
         );
-      case "fake":
+      case "FAKE":
         return (
           <svg
             width="25"
@@ -68,7 +72,7 @@ const ThresholdComponent: React.FC<ThresholdComponentProps> = ({
             />
           </svg>
         );
-      case "review":
+      case "REVIEW":
         return (
           <svg
             width="25"
