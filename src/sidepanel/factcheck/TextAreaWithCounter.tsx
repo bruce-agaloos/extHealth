@@ -43,6 +43,16 @@ const TextAreaWithCounter: React.FC<TextAreaWithCounterProps> = ({
     if (onBlur) onBlur(event);
   };
 
+  const getBgColor = (classToConsider: string, isInvert: boolean) => {
+    const direction = isInvert ? "to top" : "to bottom"; // Change gradient direction
+    if (classToConsider === "textarea-unfocused") {
+      return `linear-gradient(${direction}, #FBFCFF 50%, white 50%)`;
+    } else if (classToConsider === "textarea-focused") {
+      return `linear-gradient(${direction}, #FBFCFF 50%, #D7ECFF 50%)`;
+    }
+  };
+  
+
   const textareaClassName = `textarea ${className || ''} ${value.length > maxLength ? 'textarea-exceed' : ''}`.trim();
   return (
     <div className="textarea-container" style={{position: "relative"}}>
@@ -54,6 +64,7 @@ const TextAreaWithCounter: React.FC<TextAreaWithCounterProps> = ({
         left: '20px',
         zIndex: 1,
         padding: '0 5px',
+        background: getBgColor(className || '', false),
       }}>
         {label}
       </div>
@@ -74,7 +85,7 @@ const TextAreaWithCounter: React.FC<TextAreaWithCounterProps> = ({
       />
       {isFocused && (
         <div 
-        style={{ color: value.length > maxLength ? 'red' : '' }}
+        style={{ color: value.length > maxLength ? 'red' : '', background: getBgColor(className || '', true) }}
         className="counter">
           {value.length} / {maxLength}
         </div>

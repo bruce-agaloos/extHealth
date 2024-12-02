@@ -1,6 +1,6 @@
 import React from "react";
 import { Fact } from "./../../utils/pop_up_storage/types";
-import {determineLabel} from "./functions/FactFakeReview";
+import { determineLabel } from "./functions/FactFakeReview";
 
 interface ThresholdComponentProps {
   style?: React.CSSProperties; // For inline styles
@@ -25,6 +25,7 @@ const ThresholdComponent: React.FC<ThresholdComponentProps> = ({
             viewBox="0 0 25 25"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
+            style={{ backgroundColor: "transparent" }}
           >
             <circle cx="12.5" cy="12.5" r="12.5" fill="#3BA0FD" />
             <line
@@ -46,6 +47,7 @@ const ThresholdComponent: React.FC<ThresholdComponentProps> = ({
             viewBox="0 0 25 25"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
+            style={{ backgroundColor: "transparent" }}
           >
             <circle cx="12.5" cy="12.5" r="12.5" fill="#F8686A" />
             <line
@@ -74,6 +76,7 @@ const ThresholdComponent: React.FC<ThresholdComponentProps> = ({
             viewBox="0 0 25 27"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
+            style={{ backgroundColor: "transparent" }}
           >
             <path
               d="M23.5 21.5C18.3373 21.5944 15.9638 22.5035 12.5 25.5C9.19108 22.5858 6.77705 21.5857 1 21.5V7.50002C5.75452 7.39477 8.34798 7.74613 12.5 11C16.3947 8.47061 18.811 7.67395 23.5 7.50002V21.5Z"
