@@ -6,6 +6,7 @@ import { Fact, FactCheckMode } from "./../../utils/pop_up_storage/types";
 import { getFactCheckMode } from "./../../utils/pop_up_storage/storage";
 import LoadingModal from "./LoadingModal";
 import ThresholdComponent from "./FactOrFake";
+import {determineLabel} from "./functions/FactFakeReview";
 
 interface FactListProps {
   facts: Fact[];
@@ -195,6 +196,7 @@ const FactList: React.FC<FactListProps> = ({
                     ? "textarea-focused"
                     : "textarea-unfocused"
                 }
+                label = {determineLabel(fact)}
                 onKeyDown={(e: React.KeyboardEvent<HTMLTextAreaElement>) => {
                   if (e.key === "Enter") {
                     e.preventDefault();

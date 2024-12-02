@@ -18,12 +18,10 @@ textarea:focus {
 
 .textarea-focused {
     background-color: #D7ECFF !important;
-    border-color: #66B5FD !important;
 }
 
 .textarea-unfocused {
     background-color: white !important;
-    border-color: #CECECE !important;
 }
 
 .textarea-exceed {

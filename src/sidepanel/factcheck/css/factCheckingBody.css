@@ -53,7 +53,7 @@
             width: 100%;
             margin-right: 10px;
             > .counter{
-                bottom: -5px; /* Adjust as needed */
+                bottom: -6px; /* Adjust as needed */
                 left: 10px;
             }
         }
