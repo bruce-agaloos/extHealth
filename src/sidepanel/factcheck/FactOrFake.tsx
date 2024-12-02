@@ -38,9 +38,9 @@ const ThresholdComponent: React.FC<ThresholdComponentProps> = ({
               x2="19.9393"
               y2="7.93934"
               stroke="white"
-              stroke-width="3"
+              strokeWidth="3"
             />
-            <path d="M6 13L11.8107 17.9222" stroke="white" stroke-width="3" />
+            <path d="M6 13L11.8107 17.9222" stroke="white" strokeWidth="3" />
           </svg>
         );
       case "FAKE":
@@ -60,7 +60,7 @@ const ThresholdComponent: React.FC<ThresholdComponentProps> = ({
               x2="16.947"
               y2="17.5428"
               stroke="white"
-              stroke-width="2"
+              strokeWidth="2"
             />
             <line
               y1="-1"
@@ -68,7 +68,7 @@ const ThresholdComponent: React.FC<ThresholdComponentProps> = ({
               y2="-1"
               transform="matrix(-0.739675 0.672964 -0.672962 -0.739678 16.7307 7.15878)"
               stroke="white"
-              stroke-width="2"
+              strokeWidth="2"
             />
           </svg>
         );
@@ -85,7 +85,7 @@ const ThresholdComponent: React.FC<ThresholdComponentProps> = ({
             <path
               d="M23.5 21.5C18.3373 21.5944 15.9638 22.5035 12.5 25.5C9.19108 22.5858 6.77705 21.5857 1 21.5V7.50002C5.75452 7.39477 8.34798 7.74613 12.5 11C16.3947 8.47061 18.811 7.67395 23.5 7.50002V21.5Z"
               stroke="#AC6DB5"
-              stroke-width="2"
+              strokeWidth="2"
             />
             <circle cx="12.5" cy="4" r="4" fill="#AC6DB5" />
             <circle cx="12.5" cy="4" r="2" fill="white" />
@@ -95,7 +95,7 @@ const ThresholdComponent: React.FC<ThresholdComponentProps> = ({
               x2="12.5"
               y2="25"
               stroke="#AC6DB5"
-              stroke-width="2"
+              strokeWidth="2"
             />
           </svg>
         );
