@@ -55,7 +55,7 @@ const TextAreaWithCounter: React.FC<TextAreaWithCounterProps> = ({
 
   const textareaClassName = `textarea ${className || ''} ${value.length > maxLength ? 'textarea-exceed' : ''}`.trim();
   return (
-    <div className="textarea-container" style={{position: "relative"}}>
+    <div className="textarea-container" style={{position: "relative", paddingBottom: "0px"}}>
       <div style={{
         color: getColor(label || ''),
         fontSize: '0.8rem',
