@@ -77,6 +77,16 @@ const Evidence: React.FC<EvidenceProps> = ({ idx, premise }) => {
     return new URL(url).hostname;
   };
 
+  const convertRelationship = (relationship: string) => {
+    if (relationship === "entailment") {
+      return "Support";
+    } else if (relationship === "contradiction") {
+      return "Refutes";
+    } else {
+      return "Neutral";
+    }
+  };
+
   return (
     <div key={idx} className="evidence">
       <img src={getIcon(premise.url)} alt="icon of image" />
@@ -89,7 +99,6 @@ const Evidence: React.FC<EvidenceProps> = ({ idx, premise }) => {
           padding: "5px",
           position: "absolute",
           right: "10px",
-          top: "10px",
           fontSize: "0.6rem",
         }}
         title={`How confident the AI is in this premise`}
@@ -114,8 +123,8 @@ const Evidence: React.FC<EvidenceProps> = ({ idx, premise }) => {
         {premise.date ? `Published Date: ${premise.date}` : ""}
       </p>
       {mode != "google" && (
-        <div className={`relationship ${premise.relationship}`} style={{fontSize: "0.6rem"}}>
-          {premise.relationship} - {premise.confidence_level}%
+        <div className={`relationship ${premise.relationship}`} style={{fontSize: "0.6rem", marginTop: "0px"}}>
+          {convertRelationship(premise.relationship)} - {premise.confidence_level}%
         </div>
       )}
     </div>

@@ -48,7 +48,7 @@ const getColor = (label: string): string => {
   const colors = {
     Fact: "#3BA0FD",
     Fake: "#F8686A",
-    Review: "#FFD700",
+    Review: "#AC6DB5",
   };
 
   return colors[label];
