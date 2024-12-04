@@ -23,7 +23,7 @@ const Modes = () => (
         </li>
         <li>
           <Typography>
-            <strong>Online Database Mode:</strong> In this mode, the user can
+            <strong>Book based mode:</strong> In this mode, the user can
             fact-check the claim by searching to the book we have encoded
             entitled Natural Remedies Encyclopedia by Vance Ferrell and Harold
             Cherne, M.D.

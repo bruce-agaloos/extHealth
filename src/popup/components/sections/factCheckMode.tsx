@@ -66,7 +66,7 @@ const FactCheckMode: React.FC = () => {
                 onChange={handleModeChange}
             />
             <FactRadio
-                label="Online Database Mode"
+                label="Book Based Mode"
                 value="onlineDatabase"
                 checked={selectedMode === 'onlineDatabase'}
                 onChange={handleModeChange}

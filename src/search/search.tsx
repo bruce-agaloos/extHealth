@@ -123,7 +123,7 @@ const Search: React.FC = () => {
                             <strong>Mode: </strong>
                         </span>
                         {mode === 'offline' && "Offline Mode"}
-                        {mode === 'onlineDatabase' && "Online Database Mode"}
+                        {mode === 'onlineDatabase' && "Book Based Mode"}
                         {mode === 'google' && "Google Mode"}
                     </div>
                 )}
