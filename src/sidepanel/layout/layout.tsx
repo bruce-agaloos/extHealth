@@ -37,7 +37,7 @@ const Layout = () => {
               width="15px"
             />
             <strong>Note:</strong> Evaluations (fact, fake, review) are based on
-            evidence exceeding the 75% confidence threshold.
+            the number of evidence exceeding the 75% confidence threshold.
             <br />
             <img
               src="info_white.png"
