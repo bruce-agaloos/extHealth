@@ -7,7 +7,7 @@ import { getFactCheckMode } from "./../../utils/pop_up_storage/storage";
 import LoadingModal from "./LoadingModal";
 import ThresholdComponent from "./FactOrFake";
 import {determineLabel} from "./functions/FactFakeReview";
-
+import InterpretationComponent from "./Interpretation";
 interface FactListProps {
   facts: Fact[];
   focusedIndex: number;
@@ -182,7 +182,7 @@ const FactList: React.FC<FactListProps> = ({
                 style={{
                   position: "absolute",
                   zIndex: 1,
-                  top: "30%", // Center vertically
+                  top: "22%", // Center vertically
                   right: "10px",
                   transform: "translateY(-30%)", // Adjust for exact centering
                   backgroundColor: "transparent", // Transparent background
@@ -204,6 +204,7 @@ const FactList: React.FC<FactListProps> = ({
                   }
                 }}
               />
+            <InterpretationComponent label={determineLabel(fact)}/>
             </form>
             {fact.premises.filter((premise) =>
               accordionStates.includes(premise.relationship.toLowerCase())
