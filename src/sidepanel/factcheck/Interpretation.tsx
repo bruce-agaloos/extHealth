@@ -11,6 +11,7 @@ const InterpretationComponent: React.FC<InterpretationComponentProps> = ({
   const getInterpretation = (label: string): JSX.Element => {
     if (!label) {
       console.log("Label is undefined or null");
+      return null;
     }
     const FONT_SIZE = "10px";
     const COLOR = getColor(label);
