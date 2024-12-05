@@ -52,7 +52,7 @@ const Evidence: React.FC<EvidenceProps> = ({ idx, premise }) => {
   const getIcon = (url: string) => {
     let icon = "https://www.google.com/s2/favicons?sz=32&domain_url=" + url;
     if (!isValidURL(url)) {
-      icon = chrome.runtime.getURL("icon.png");
+      icon = chrome.runtime.getURL("iconGreen.png");
     }
     return icon;
   };
