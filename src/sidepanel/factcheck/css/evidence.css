@@ -26,10 +26,15 @@
             left: -41px;
             background-color: white;
         }
-        a{
+        a {
             font-size: 1rem;
             text-decoration: none;
-            color: var(--url-color);   
+            color: var(--url-color);
+            display: inline-block; /* Ensure width is respected */
+            white-space: nowrap; /* Prevent text wrapping */
+            overflow: hidden; /* Hide overflowing text */
+            text-overflow: ellipsis; /* Add ellipsis for overflow */
+            width: 35vw; /* Set a fixed width for the link */
         }
         a:hover{
             text-decoration: underline;
