@@ -85,7 +85,7 @@ const TextAreaWithCounter: React.FC<TextAreaWithCounterProps> = ({
       />
       {isFocused && (
         <div 
-        style={{ color: value.length > maxLength ? 'red' : '', background: getBgColor(className || '', true) }}
+        style={{ color: value.length > maxLength ? 'red' : '', background: getBgColor(className || '', true), width: "fit-content" }}
         className="counter">
           {value.length} / {maxLength}
         </div>
