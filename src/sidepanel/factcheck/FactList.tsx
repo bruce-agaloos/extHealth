@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import TextAreaWithCounter from "./TextAreaWithCounter";
 import CustomAccordion from "./CustomAccordion";
 import Evidence from "./Evidence";
-import { Fact, FactCheckMode } from "./../../utils/pop_up_storage/types";
+import { Fact, FactCheckMode, Premise } from "./../../utils/pop_up_storage/types";
 import { getFactCheckMode } from "./../../utils/pop_up_storage/storage";
 import LoadingModal from "./LoadingModal";
 import ThresholdComponent from "./FactOrFake";
 import {determineLabel} from "./functions/FactFakeReview";
 import InterpretationComponent from "./Interpretation";
+
 interface FactListProps {
   facts: Fact[];
   focusedIndex: number;
@@ -76,46 +77,92 @@ const FactList: React.FC<FactListProps> = ({
 
   const renderAccordions = (fact: Fact, index: number) => {
     if (mode === "google") {
-      return accordionStates.map((state) => {
-        const relatedPremises = fact.premises.filter(
-          (premise) =>
-            premise.relationship.toLowerCase() === state.toLowerCase()
-        );
-        const count = relatedPremises.length;
-
-        return (
-          count > 0 && (
-            <CustomAccordion
-              key={`${index}-${state}`}
-              title={`${stateMappings[state]}`}
-              count={`${count}`}
-              expanded={expanded === `${index}-${state}`}
-              onChange={handleAccordionChange(
-                `${index}-${state}`,
-                index,
-                state
-              )}
-              mode={mode}
-            >
-              {relatedPremises.map((premise, idx) => (
-                <Evidence
-                  key={`${index}-${state}-${idx}`}
-                  idx={idx}
-                  premise={premise}
-                />
-              ))}
-            </CustomAccordion>
-          )
-        );
-      });
+      // Step 1: Group premises by relationship
+      const groupedPremises = fact.premises.reduce((acc, premise) => {
+        const relationship = premise.relationship.toLowerCase();
+        if (!acc[relationship]) acc[relationship] = [];
+        acc[relationship].push(premise);
+        return acc;
+      }, {} as Record<string, Premise[]>);
+  
+      // Step 2: Sort each group by confidence_level in descending order
+      Object.values(groupedPremises).forEach((premises) =>
+        premises.sort((a, b) => b.confidence_level - a.confidence_level)
+      );
+  
+      // Step 3: Define the custom order of relationships
+      const customOrder = ["entailment", "contradiction", "neutral"];
+  
+      // Step 4: Sort groupedPremises by the custom order
+      const sortedGroups = Object.entries(groupedPremises).sort(
+        ([relationshipA], [relationshipB]) =>
+          customOrder.indexOf(relationshipA) - customOrder.indexOf(relationshipB)
+      );
+  
+      // Step 5: Render accordions for each group
+      return sortedGroups.map(([relationship, premises]) => (
+        premises.length > 0 && (
+          <CustomAccordion
+            key={`${index}-${relationship}`}
+            title={`${stateMappings[relationship]}`}
+            count={`${premises.length}`}
+            expanded={expanded === `${index}-${relationship}`}
+            onChange={handleAccordionChange(
+              `${index}-${relationship}`,
+              index,
+              relationship
+            )}
+            mode={mode}
+          >
+            {premises.map((premise, idx) => (
+              <Evidence
+                key={`${index}-${relationship}-${idx}`}
+                idx={idx}
+                premise={premise}
+              />
+            ))}
+          </CustomAccordion>
+        )
+      ));
     } else {
-      // For offline or onlineDatabase mode
-      const stateCounts = fact.premises.reduce((acc, premise) => {
+      // Step 1: Categorize premises
+      const highConfidenceEntailment = fact.premises.filter(
+        (premise) =>
+          premise.relationship.toLowerCase() === "entailment" &&
+          premise.confidence_level >= 0.75
+      );
+  
+      const highConfidenceContradiction = fact.premises.filter(
+        (premise) =>
+          premise.relationship.toLowerCase() === "contradiction" &&
+          premise.confidence_level >= 0.75
+      );
+  
+      const remainingPremises = fact.premises.filter(
+        (premise) =>
+          !(
+            (premise.relationship.toLowerCase() === "entailment" &&
+              premise.confidence_level >= 0.75) ||
+            (premise.relationship.toLowerCase() === "contradiction" &&
+              premise.confidence_level >= 0.75)
+          )
+      );
+  
+      // Step 2: Combine and sort the categories
+      const sortedPremises = [
+        ...highConfidenceEntailment,
+        ...highConfidenceContradiction,
+        ...remainingPremises.sort((a, b) => b.confidence_level - a.confidence_level),
+      ];
+  
+      // Step 3: Count the number of premises for each state
+      const stateCounts = sortedPremises.reduce((acc, premise) => {
         const state = premise.relationship.toLowerCase();
         acc[state] = (acc[state] || 0) + 1;
         return acc;
       }, {} as { [key: string]: number });
-
+  
+      // Step 4: Determine the most frequent state
       const maxState = Object.keys(stateCounts).reduce(
         (a, b) =>
           stateCounts[a] > stateCounts[b]
@@ -125,17 +172,13 @@ const FactList: React.FC<FactListProps> = ({
             : b,
         "neutral"
       );
-
-      const totalCount = Object.values(stateCounts).reduce(
-        (sum, count) => sum + count,
-        0
-      );
-
+  
+      // Step 5: Render sorted premises in a single accordion
       return (
         <CustomAccordion
           key={`${index}-${maxState}`}
           title={`${stateMappings[maxState]}`}
-          count={`${totalCount}`}
+          count={`${fact.premises.length}`}
           expanded={expanded === `${index}-${maxState}`}
           onChange={handleAccordionChange(
             `${index}-${maxState}`,
@@ -144,7 +187,7 @@ const FactList: React.FC<FactListProps> = ({
           )}
           mode={mode}
         >
-          {fact.premises.map((premise, idx) => (
+          {sortedPremises.map((premise, idx) => (
             <Evidence
               key={`${index}-${maxState}-${idx}`}
               idx={idx}
@@ -155,6 +198,8 @@ const FactList: React.FC<FactListProps> = ({
       );
     }
   };
+  
+  
 
   return (
     <div

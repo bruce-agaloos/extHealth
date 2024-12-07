@@ -92,9 +92,9 @@ const Evidence: React.FC<EvidenceProps> = ({ idx, premise }) => {
       <img src={getIcon(premise.url)} alt="icon of image" />
       {mode == "google" && (
       <span
+      className={`relationship ${premise.relationship}`}
         style={{
           color: "white",
-          backgroundColor: "green",
           borderRadius: "5px",
           padding: "5px",
           position: "absolute",
