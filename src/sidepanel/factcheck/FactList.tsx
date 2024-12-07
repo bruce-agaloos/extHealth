@@ -125,26 +125,27 @@ const FactList: React.FC<FactListProps> = ({
         )
       ));
     } else {
+      const CONSIDER_THRESHOLD = 75;
       // Step 1: Categorize premises
       const highConfidenceEntailment = fact.premises.filter(
         (premise) =>
           premise.relationship.toLowerCase() === "entailment" &&
-          premise.confidence_level >= 0.75
+          premise.confidence_level >= CONSIDER_THRESHOLD
       );
   
       const highConfidenceContradiction = fact.premises.filter(
         (premise) =>
           premise.relationship.toLowerCase() === "contradiction" &&
-          premise.confidence_level >= 0.75
+          premise.confidence_level >= CONSIDER_THRESHOLD
       );
   
       const remainingPremises = fact.premises.filter(
         (premise) =>
           !(
             (premise.relationship.toLowerCase() === "entailment" &&
-              premise.confidence_level >= 0.75) ||
+              premise.confidence_level >= CONSIDER_THRESHOLD) ||
             (premise.relationship.toLowerCase() === "contradiction" &&
-              premise.confidence_level >= 0.75)
+              premise.confidence_level >= CONSIDER_THRESHOLD)
           )
       );
   
