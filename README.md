@@ -20,17 +20,17 @@ production: `npm run build`
 2. Enable `Developer mode` from the top right corner of the browser window.
 3. Click on `Load unpacked`.
 4. Select the generated `dist` folder.
-5. Ensure that the eXtHelath API is up and running.
-
+5. Ensure that the [Fact-Check API ](https://github.com/AriesJ12/fact-check-api) is up and running.
+6. You can now start using the eXtHealth Browser Extension on X.
 
 <h2>Authors</h2>  
 
 <ul>
-  <li>AARON BRUCE L. AGALOOS</li>
-  <li>PHOEBE OTREAS L. BERNARDO</li>
-  <li>DANA MAXINE I. CAPILI</li>
-  <li>SHANIA NICOLE L. CASTRO</li>
-  <li>DREXLER C. FERNANDEZ</li>
-  <li>ROSGEN D. HIZER</li>
-  <li>ARIES JOSEPH V. TAGLE</li>
+  <li>Aaron Bruce L. Agaloos</li>
+  <li>Phoebe Otreas L. Bernardo</li>
+  <li>Dana Maxine I. Capili</li>
+  <li>Shania Nicole L. Castro</li>
+  <li>Drexler C. Fernadez</li>
+  <li>Rosgen D. Hizer</li>
+  <li>Aries Joseph V. Tagle</li>
 </ul>
